@@ -32,6 +32,12 @@ Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is 
 ```bash
 pip install -r requirements.txt
 python scripts/validate.py        # check the data
-python scripts/pull_hf.py         # (optional) auto-fill from Hugging Face
+python scripts/pull_hf.py         # (optional) auto-fill fields from Hugging Face
 python scripts/render_readme.py   # rebuild this table
 ```
+
+## Staying current (automatic discovery)
+
+`scripts/discover.py` scans the Hugging Face Hub for new open-weight LLMs (newest text-generation models above a size threshold, under an accepted-license allowlist), skips quantizations/adapters/merges, dedups against this file, and writes new rows to `candidates.yaml` with fields pre-filled. It never edits `models.yaml` directly.
+
+The `discover-models` GitHub Action runs it weekly and opens a **pull request** with the new candidates — review the PR, fill the `TODO` fields (active params, benchmark, commercial-use), move approved rows into `models.yaml`, and merge.

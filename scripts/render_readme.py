@@ -83,9 +83,18 @@ def main():
         "```bash\n"
         "pip install -r requirements.txt\n"
         "python scripts/validate.py        # check the data\n"
-        "python scripts/pull_hf.py         # (optional) auto-fill from Hugging Face\n"
+        "python scripts/pull_hf.py         # (optional) auto-fill fields from Hugging Face\n"
         "python scripts/render_readme.py   # rebuild this table\n"
-        "```\n"
+        "```\n\n"
+        "## Staying current (automatic discovery)\n\n"
+        "`scripts/discover.py` scans the Hugging Face Hub for new open-weight LLMs "
+        "(newest text-generation models above a size threshold, under an accepted-license "
+        "allowlist), skips quantizations/adapters/merges, dedups against this file, and "
+        "writes new rows to `candidates.yaml` with fields pre-filled. It never edits "
+        "`models.yaml` directly.\n\n"
+        "The `discover-models` GitHub Action runs it weekly and opens a **pull request** "
+        "with the new candidates — review the PR, fill the `TODO` fields (active params, "
+        "benchmark, commercial-use), move approved rows into `models.yaml`, and merge.\n"
     )
     README.write_text(body)
     print(f"Rendered README.md with {n} models.")

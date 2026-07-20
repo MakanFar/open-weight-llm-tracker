@@ -31,6 +31,19 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
 - **MoE params:** put total in `params_total_b` and routed/active in `params_active_b`.
   For dense models the two are equal.
 
+## Reviewing auto-discovered candidates
+
+`scripts/discover.py` (run weekly by the `discover-models` Action) stages new models
+in `candidates.yaml`, never in `models.yaml`. When a discovery PR shows up:
+
+1. Open `candidates.yaml` and check each entry is a real base model worth tracking
+   (not a fine-tune/merge the name filter missed).
+2. Fix the `TODO` fields: `params_active_b` + `architecture` for MoE models, the
+   `context_window` if it came through as `0`, the `benchmark` score + source, and
+   confirm `commercial_use` by reading the actual license.
+3. Move approved entries into `models.yaml`, delete them from `candidates.yaml`.
+4. Run `python scripts/render_readme.py`, commit, merge.
+
 ## Where the data comes from
 
 - **Params / context / license tag:** the Hugging Face repo (`hf_repo`) — `pull_hf.py`
