@@ -1,0 +1,314 @@
+# Open-weight & open-source LLM tracker — SOURCE OF TRUTH
+# Edit this file, then run:  python scripts/render_readme.py
+# Validate with:            python scripts/validate.py
+#
+# NOTE ON BENCHMARKS: scores below are seeded from vendor reports / public
+# leaderboards and marked with their source. Before treating this as
+# authoritative, re-verify each `benchmark.score` against ONE leaderboard run
+# under the same harness (HF Open LLM Leaderboard is the usual choice) so the
+# column is truly comparable. Values marked source "vendor" are self-reported.
+
+models:
+  - name: Llama 3.1 405B Instruct
+    hf_repo: meta-llama/Llama-3.1-405B-Instruct
+    developer: Meta
+    release_date: 2024-07-23
+    params_total_b: 405
+    params_active_b: 405
+    architecture: dense
+    context_window: 128000
+    modality: text
+    license: llama-3.1-community
+    commercial_use: conditional
+    license_notes: "Free commercial use below 700M MAU; attribution + naming terms apply."
+    benchmark:
+      name: MMLU
+      score: 88.6
+      source: vendor
+    weights_url: https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct
+    notes: "Dense flagship; strong general reasoning."
+
+  - name: Llama 3.3 70B Instruct
+    hf_repo: meta-llama/Llama-3.3-70B-Instruct
+    developer: Meta
+    release_date: 2024-12-06
+    params_total_b: 70
+    params_active_b: 70
+    architecture: dense
+    context_window: 128000
+    modality: text
+    license: llama-3.3-community
+    commercial_use: conditional
+    license_notes: "700M-MAU gate; near-405B quality at 70B size."
+    benchmark:
+      name: MMLU
+      score: 86.0
+      source: vendor
+    weights_url: https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct
+    notes: ""
+
+  - name: Llama 4 Scout
+    hf_repo: meta-llama/Llama-4-Scout-17B-16E-Instruct
+    developer: Meta
+    release_date: 2025-04-05
+    params_total_b: 109
+    params_active_b: 17
+    architecture: moe
+    context_window: 10000000
+    modality: multimodal
+    license: llama-4-community
+    commercial_use: conditional
+    license_notes: "700M-MAU gate. Native multimodal; very long context."
+    benchmark:
+      name: MMLU
+      score: 79.6
+      source: https://techsy.io/en/blog/best-open-source-llms-2026
+    weights_url: https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct
+    notes: "Headline 10M-token context window."
+
+  - name: Llama 4 Maverick
+    hf_repo: meta-llama/Llama-4-Maverick-17B-128E-Instruct
+    developer: Meta
+    release_date: 2025-04-05
+    params_total_b: 400
+    params_active_b: 17
+    architecture: moe
+    context_window: 1000000
+    modality: multimodal
+    license: llama-4-community
+    commercial_use: conditional
+    license_notes: "700M-MAU gate."
+    benchmark:
+      name: MMLU
+      score: 85.5
+      source: https://computingforgeeks.com/open-source-llm-comparison/
+    weights_url: https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct
+    notes: "128-expert MoE."
+
+  - name: Qwen2.5 72B Instruct
+    hf_repo: Qwen/Qwen2.5-72B-Instruct
+    developer: Alibaba
+    release_date: 2024-09-19
+    params_total_b: 72.7
+    params_active_b: 72.7
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: qwen
+    commercial_use: conditional
+    license_notes: "Qwen license (72B tier is not Apache-2.0; most smaller Qwen2.5 sizes are)."
+    benchmark:
+      name: MMLU
+      score: 86.1
+      source: vendor
+    weights_url: https://huggingface.co/Qwen/Qwen2.5-72B-Instruct
+    notes: ""
+
+  - name: Qwen3 235B-A22B
+    hf_repo: Qwen/Qwen3-235B-A22B
+    developer: Alibaba
+    release_date: 2025-04-28
+    params_total_b: 235
+    params_active_b: 22
+    architecture: moe
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Fully permissive."
+    benchmark:
+      name: MMLU
+      score: 87.0
+      source: vendor
+    weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B
+    notes: "Hybrid thinking/non-thinking modes."
+
+  - name: DeepSeek-V3
+    hf_repo: deepseek-ai/DeepSeek-V3
+    developer: DeepSeek
+    release_date: 2024-12-26
+    params_total_b: 671
+    params_active_b: 37
+    architecture: moe
+    context_window: 128000
+    modality: text
+    license: deepseek
+    commercial_use: true
+    license_notes: "DeepSeek Model License; commercial use permitted."
+    benchmark:
+      name: MMLU
+      score: 88.5
+      source: vendor
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3
+    notes: "Large MoE; strong price/performance."
+
+  - name: DeepSeek-R1
+    hf_repo: deepseek-ai/DeepSeek-R1
+    developer: DeepSeek
+    release_date: 2025-01-20
+    params_total_b: 671
+    params_active_b: 37
+    architecture: moe
+    context_window: 128000
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: "Weights released under MIT; distillation allowed."
+    benchmark:
+      name: MMLU
+      score: 90.8
+      source: vendor
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1
+    notes: "Reasoning model; MATH-500 ~97."
+
+  - name: Mistral Small 3
+    hf_repo: mistralai/Mistral-Small-24B-Instruct-2501
+    developer: Mistral AI
+    release_date: 2025-01-30
+    params_total_b: 24
+    params_active_b: 24
+    architecture: dense
+    context_window: 32768
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Fully permissive."
+    benchmark:
+      name: MMLU
+      score: 81.0
+      source: vendor
+    weights_url: https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501
+    notes: ""
+
+  - name: Mixtral 8x22B Instruct
+    hf_repo: mistralai/Mixtral-8x22B-Instruct-v0.1
+    developer: Mistral AI
+    release_date: 2024-04-17
+    params_total_b: 141
+    params_active_b: 39
+    architecture: moe
+    context_window: 65536
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Fully permissive."
+    benchmark:
+      name: MMLU
+      score: 77.8
+      source: vendor
+    weights_url: https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1
+    notes: "Sparse MoE."
+
+  - name: Gemma 2 27B
+    hf_repo: google/gemma-2-27b-it
+    developer: Google
+    release_date: 2024-06-27
+    params_total_b: 27
+    params_active_b: 27
+    architecture: dense
+    context_window: 8192
+    modality: text
+    license: gemma
+    commercial_use: conditional
+    license_notes: "Gemma Terms of Use; permissive but with use restrictions."
+    benchmark:
+      name: MMLU
+      score: 75.2
+      source: vendor
+    weights_url: https://huggingface.co/google/gemma-2-27b-it
+    notes: ""
+
+  - name: Gemma 3 27B
+    hf_repo: google/gemma-3-27b-it
+    developer: Google
+    release_date: 2025-03-12
+    params_total_b: 27
+    params_active_b: 27
+    architecture: dense
+    context_window: 128000
+    modality: vision-language
+    license: gemma
+    commercial_use: conditional
+    license_notes: "Gemma Terms of Use. Adds vision + long context over Gemma 2."
+    benchmark:
+      name: MMLU
+      score: 78.6
+      source: https://computingforgeeks.com/open-source-llm-comparison/
+    weights_url: https://huggingface.co/google/gemma-3-27b-it
+    notes: ""
+
+  - name: Phi-4
+    hf_repo: microsoft/phi-4
+    developer: Microsoft
+    release_date: 2024-12-12
+    params_total_b: 14
+    params_active_b: 14
+    architecture: dense
+    context_window: 16384
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: "Fully permissive."
+    benchmark:
+      name: MMLU
+      score: 84.8
+      source: vendor
+    weights_url: https://huggingface.co/microsoft/phi-4
+    notes: "Small model, strong reasoning for size."
+
+  - name: Command R+ (08-2024)
+    hf_repo: CohereForAI/c4ai-command-r-plus-08-2024
+    developer: Cohere
+    release_date: 2024-08-30
+    params_total_b: 104
+    params_active_b: 104
+    architecture: dense
+    context_window: 128000
+    modality: text
+    license: cc-by-nc-4.0
+    commercial_use: false
+    license_notes: "Non-commercial only — good example of an open-weight but NON-commercial license."
+    benchmark:
+      name: MMLU
+      score: 75.7
+      source: vendor
+    weights_url: https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024
+    notes: "Strong RAG/tool-use; weights are research-only."
+
+  - name: Qwen2.5 7B Instruct
+    hf_repo: Qwen/Qwen2.5-7B-Instruct
+    developer: Alibaba
+    release_date: 2024-09-19
+    params_total_b: 7.6
+    params_active_b: 7.6
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Fully permissive."
+    benchmark:
+      name: MMLU
+      score: 74.2
+      source: vendor
+    weights_url: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
+    notes: "Popular small-model workhorse."
+
+  - name: Llama 3.1 8B Instruct
+    hf_repo: meta-llama/Llama-3.1-8B-Instruct
+    developer: Meta
+    release_date: 2024-07-23
+    params_total_b: 8
+    params_active_b: 8
+    architecture: dense
+    context_window: 128000
+    modality: text
+    license: llama-3.1-community
+    commercial_use: conditional
+    license_notes: "700M-MAU gate."
+    benchmark:
+      name: MMLU
+      score: 68.4
+      source: vendor
+    weights_url: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
+    notes: "Common edge/local baseline."

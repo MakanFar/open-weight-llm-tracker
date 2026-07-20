@@ -1,0 +1,21 @@
+name: validate
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Validate models.yaml
+        run: python scripts/validate.py
+      - name: Ensure README is up to date
+        run: |
+          python scripts/render_readme.py
+          git diff --exit-code README.md \
+            || (echo "README.md is stale — run scripts/render_readme.py and commit." && exit 1)

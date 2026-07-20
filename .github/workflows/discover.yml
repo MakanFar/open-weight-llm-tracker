@@ -1,0 +1,42 @@
+name: discover-models
+# Weekly scan of Hugging Face for new open-weight LLMs. Runs on GitHub's
+# runners (which CAN reach huggingface.co) and opens a PR with new candidates
+# for you to review — the PR IS the human-in-the-loop approval step.
+on:
+  schedule:
+    - cron: "0 13 * * 1"   # Mondays 13:00 UTC
+  workflow_dispatch: {}     # allow manual runs from the Actions tab
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  discover:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install -r requirements.txt
+      - name: Discover new models
+        env:
+          # Optional: add an HF token as a repo secret for higher rate limits.
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+        run: python scripts/discover.py --limit 300 --min-params 3
+      - name: Open PR if there are new candidates
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: refresh discovered model candidates"
+          branch: auto/model-candidates
+          title: "New open-weight model candidates for review"
+          body: |
+            Automated discovery from the Hugging Face Hub.
+
+            Review `candidates.yaml`, fix the `TODO` fields (active params for MoE,
+            architecture, context window, benchmark score + source, commercial_use),
+            then move approved rows into `models.yaml`, run
+            `python scripts/render_readme.py`, and merge.
+          add-paths: candidates.yaml
+          delete-branch: true
