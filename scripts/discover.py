@@ -15,7 +15,8 @@ Usage:
   pip install -r requirements.txt
   python scripts/discover.py                 # write candidates.yaml
   python scripts/discover.py --limit 300 --min-params 3
-  HUGGINGFACE_TOKEN=hf_xxx python scripts/discover.py   # higher rate limits
+  python scripts/discover.py --no-orgs-only              # include user accounts too
+  HUGGINGFACE_TOKEN=hf_xxx python scripts/discover.py    # higher rate limits
 
 NOTES / deliberate choices (the "don'ts"):
   - We do NOT exclude gated models — Llama & Gemma are gated; excluding them
@@ -25,12 +26,20 @@ NOTES / deliberate choices (the "don'ts"):
   - We do NOT trust card eval results as the benchmark column — left blank.
   - We drop quantizations/adapters/merges (GGUF, AWQ, GPTQ, LoRA, ...) by name.
   - license tag is uploader-supplied; commercial_use is a *guess* to be checked.
+  - --orgs-only (default) keeps models from ORGANIZATION accounts only, dropping
+    individual-user uploads. There is no list_models flag for this, so we probe
+    /api/organizations/{author}/overview (200 = org, 404 = user) and cache it.
+    Note: "org" != "reputable lab" — anyone can make a free org. ORG_ALLOWLIST
+    below is always trusted; AUTHOR_BLOCKLIST is always dropped.
 """
 import argparse
 import inspect
+import json
 import os
 import re
 import sys
+import urllib.error
+import urllib.request
 from datetime import date, datetime
 from pathlib import Path
 
@@ -55,6 +64,21 @@ ACCEPTED_LICENSES = {
     "cc-by-4.0", "cc-by-nc-4.0", "other",
 }
 
+# Organization namespaces we always trust (skip the org-probe for these).
+ORG_ALLOWLIST = {
+    "meta-llama", "Qwen", "deepseek-ai", "mistralai", "google", "microsoft",
+    "CohereForAI", "CohereLabs", "ai21labs", "allenai", "nvidia", "01-ai",
+    "tiiuae", "databricks", "HuggingFaceTB", "ibm-granite", "internlm",
+    "THUDM", "zai-org", "moonshotai", "openai", "xai-org", "stabilityai", "MiniMaxAI",
+    "XiaomiMiMo","poolside", "thinkingmachines","baidu"
+}
+
+# Author namespaces we always drop, even if they're organizations
+# (e.g. quant/merge shops). Add offenders here as you spot them in PRs.
+AUTHOR_BLOCKLIST = {
+    "TheBloke", "bartowski", "mradermacher", "unsloth", "MaziyarPanahi",
+}
+
 # Substrings in a repo id that mark a derivative we don't want to track.
 EXCLUDE_PATTERNS = re.compile(
     r"(gguf|awq|gptq|-int4|-int8|-fp8|-bnb|-mlx|-onnx|lora|adapter|"
@@ -76,6 +100,47 @@ COMMERCIAL_GUESS = {
 CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
 EXPAND = ["safetensors", "cardData", "config", "downloads",
           "createdAt", "lastModified", "gated", "tags", "library_name"]
+
+
+_ORG_CACHE = {}
+
+
+def get_org_overview(name, token=None):
+    """Return the HF org overview payload, or None if `name` isn't an org.
+
+    Caches definitive answers only. Transient failures (rate limits, network)
+    return None without caching, so a later call can retry.
+    """
+    if name in _ORG_CACHE:
+        return _ORG_CACHE[name]
+
+    url = f"https://huggingface.co/api/organizations/{name}/overview"
+    headers = {"User-Agent": "owlt-discover/1.0"}
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+
+    try:
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req, timeout=15) as r:
+            data = json.loads(r.read().decode("utf-8"))
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            _ORG_CACHE[name] = None   # definitive: it's a user
+        return None                   # 403/429/5xx -> don't poison the cache
+    except Exception:
+        return None
+
+    _ORG_CACHE[name] = data
+    return data
+
+
+def is_organization(name, token=None, min_followers=1000):
+    if name in ORG_ALLOWLIST:
+        return True
+    data = get_org_overview(name, token)
+    if data is None:
+        return False
+    return data.get("numFollowers", 0) >= min_followers
 
 
 def existing_repos():
@@ -159,6 +224,10 @@ def main():
                     help="max models to scan from the newest end")
     ap.add_argument("--min-params", type=float, default=3.0,
                     help="minimum total params in billions")
+    ap.add_argument("--orgs-only", action=argparse.BooleanOptionalAction,
+                    default=True,
+                    help="keep only models from organization accounts "
+                         "(default on; use --no-orgs-only to include users)")
     args = ap.parse_args()
 
     token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
@@ -175,16 +244,24 @@ def main():
         stream = api.list_models(pipeline_tag="text-generation",
                                  sort="created_at", limit=args.limit)
 
-    candidates, scanned, skipped = [], 0, {"known": 0, "derivative": 0,
-                                           "small": 0, "license": 0, "no_params": 0}
+    candidates, scanned = [], 0
+    skipped = {"known": 0, "derivative": 0, "small": 0, "license": 0,
+               "no_params": 0, "blocked": 0, "not_org": 0}
     for info in stream:
         scanned += 1
         repo = info.id
+        author = repo.split("/")[0]
         if repo.lower() in known:
             skipped["known"] += 1
             continue
         if EXCLUDE_PATTERNS.search(repo):
             skipped["derivative"] += 1
+            continue
+        if author in AUTHOR_BLOCKLIST:
+            skipped["blocked"] += 1
+            continue
+        if args.orgs_only and not is_organization(author, token):
+            skipped["not_org"] += 1
             continue
 
         params = params_b_of(info)
@@ -200,7 +277,6 @@ def main():
             skipped["license"] += 1
             continue
 
-        author = repo.split("/")[0]
         candidates.append({
             "name": repo.split("/")[-1],
             "hf_repo": repo,
