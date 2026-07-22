@@ -88,3 +88,43 @@ def test_load_arena_returns_only_resolved_rows(tmp_path):
 
     assert [r["resolved_repo"] for r in rows] == ["zai-org/GLM-5.2"]
     assert new_orgs == ["Tencent", "Xiaomi"]
+
+
+def test_load_arena_top_level_list_is_not_fatal(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text("- foo\n- bar\n")
+    rows, new_orgs = discover.load_arena(f)
+    assert rows == []
+    assert new_orgs == []
+
+
+def test_load_arena_top_level_scalar_is_not_fatal(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text("just a plain string\n")
+    rows, new_orgs = discover.load_arena(f)
+    assert rows == []
+    assert new_orgs == []
+
+
+def test_load_arena_arena_agent_not_a_list_is_not_fatal(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text("arena_agent: not_a_list\n")
+    rows, new_orgs = discover.load_arena(f)
+    assert rows == []
+    assert new_orgs == []
+
+
+def test_load_arena_skips_non_mapping_rows(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text(
+        "arena_agent:\n"
+        "- rank: 10\n"
+        "  model: GLM 5.2\n"
+        "  resolved_repo: zai-org/GLM-5.2\n"
+        "  open_weight: true\n"
+        "- just a string row\n"
+        "- 42\n"
+    )
+    rows, new_orgs = discover.load_arena(f)
+    assert [r["resolved_repo"] for r in rows] == ["zai-org/GLM-5.2"]
+    assert new_orgs == []

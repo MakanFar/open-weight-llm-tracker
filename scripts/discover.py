@@ -138,8 +138,12 @@ def sweep_orgs(api, orgs, min_params, known):
 def load_arena(path=ARENA):
     """Read arena_agent_rankings.yaml. Returns (resolved_rows, new_orgs).
 
-    Arena is never load-bearing: a missing, empty, or malformed file yields
-    ([], []) so the org sweep still produces candidates.
+    Arena is never load-bearing: a missing, unreadable, unparsable, or
+    wrong-shaped file yields ([], []) so the org sweep still produces
+    candidates. "Wrong-shaped" covers syntactically valid YAML that isn't
+    the mapping/list structure we expect (a top-level list or scalar,
+    arena_agent/new_orgs not being lists, rows that aren't mappings) — those
+    parse fine but would otherwise crash the .get() calls below.
     """
     path = Path(path)
     if not path.exists():
@@ -149,10 +153,30 @@ def load_arena(path=ARENA):
     except yaml.YAMLError as exc:
         print(f"  ! arena file unreadable ({exc}); continuing without it")
         return [], []
+    except OSError as exc:
+        print(f"  ! arena file unreadable ({exc}); continuing without it")
+        return [], []
 
-    rows = [r for r in (doc.get("arena_agent") or [])
-            if r.get("resolved_repo")]
-    return rows, list(doc.get("new_orgs") or [])
+    if not isinstance(doc, dict):
+        print(f"  ! arena file malformed (expected a mapping, got "
+              f"{type(doc).__name__}); continuing without it")
+        return [], []
+
+    raw_rows = doc.get("arena_agent")
+    if raw_rows is not None and not isinstance(raw_rows, list):
+        print(f"  ! arena file malformed (arena_agent is not a list, got "
+              f"{type(raw_rows).__name__}); continuing without it")
+        raw_rows = []
+    rows = [r for r in (raw_rows or [])
+            if isinstance(r, dict) and r.get("resolved_repo")]
+
+    raw_new_orgs = doc.get("new_orgs")
+    if raw_new_orgs is not None and not isinstance(raw_new_orgs, list):
+        print(f"  ! arena file malformed (new_orgs is not a list, got "
+              f"{type(raw_new_orgs).__name__}); continuing without it")
+        raw_new_orgs = []
+
+    return rows, list(raw_new_orgs or [])
 
 
 def arena_candidates(api, rows, min_params, known):
