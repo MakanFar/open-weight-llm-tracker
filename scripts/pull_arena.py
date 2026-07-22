@@ -170,6 +170,20 @@ def slug(text):
     return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
+# Minimum length ratio (shorter slug / longer slug) for a prefix relation to
+# count as "medium". A bare prefix test is far too weak: "Qwen3" is a prefix of
+# "Qwen37Max", "grok" of "grok45", "gpt" of "gpt56sol" — so every proprietary
+# flagship matched some unrelated community repo whose name happened to start
+# with the vendor's brand, and minted open_weight: true for it.
+#
+# A ratio is the right shape rather than a flat character minimum: it asks
+# "how much of the longer name did the shorter one actually account for?",
+# which stays correct for both short names (Yi-34B) and long ones. 0.7 keeps
+# genuine variant matches ("DeepSeek V4 Pro" vs "DeepSeek-V4", 10/13 = 0.77)
+# while rejecting brand-prefix noise ("Grok 4.5" vs "grok", 4/6 = 0.67).
+_MIN_PREFIX_RATIO = 0.7
+
+
 def score_match(query, repo_id):
     """Rate how well an arena name matches an HF repo id: high/medium/low."""
     tail = repo_id.split("/")[-1]
@@ -182,11 +196,28 @@ def score_match(query, repo_id):
     if q == r:
         return "high"
     if q.startswith(r) or r.startswith(q):
-        return "medium"
+        # A prefix relation only means something if the two names are of
+        # comparable length — see _MIN_PREFIX_RATIO above.
+        if min(len(q), len(r)) / max(len(q), len(r)) >= _MIN_PREFIX_RATIO:
+            return "medium"
     return "low"
 
 
 # Canonical org name -> HF author namespace, used to scope the repo search.
+#
+# An org with NO entry here searches all of Hugging Face unscoped, which is the
+# worst case for precision: the top hits for "grok" or "gpt" are community
+# re-uploads and look-alikes, not the vendor's own repos. So the mostly-closed
+# vendors belong here too, which is why a map of HF namespaces contains names
+# you would not expect to find open weights under:
+#   - OpenAI and xAI do publish *some* open weights (gpt-oss, grok-1), so they
+#     scope to their real namespaces and their proprietary models simply fail
+#     to match anything inside them.
+#   - Anthropic publishes no weights at all and holds no HF namespace. It maps
+#     to None, an explicit "never search" — without it, every Claude row would
+#     trigger an unscoped search across all of HF.
+# None therefore means "known vendor, no HF namespace"; a missing key means
+# "org we do not track yet" and is what feeds the new-orgs report in main().
 HF_AUTHOR_HINTS = {
     "Google": "google", "Meta": "meta-llama", "Alibaba": "Qwen",
     "DeepSeek": "deepseek-ai", "Moonshot AI": "moonshotai",
@@ -195,6 +226,8 @@ HF_AUTHOR_HINTS = {
     "01.AI": "01-ai", "TII": "tiiuae", "IBM": "ibm-granite", "Ai2": "allenai",
     "Baidu": "baidu", "Xiaomi": "XiaomiMiMo",
     "Thinking Machines": "thinkingmachines",
+    "OpenAI": "openai", "xAI": "xai-org",
+    "Anthropic": None,
 }
 
 
@@ -206,13 +239,19 @@ def resolve_row(row, search_fn):
     KEYWORD_MAP are never used to make that call.
     """
     query = normalize_model_name(row["model"])
-    author = HF_AUTHOR_HINTS.get(row.get("org"))
+    org = row.get("org")
 
-    try:
-        repo_ids = search_fn(query, author) or []
-    except Exception as exc:      # rate limit, network, API change
-        print(f"  ! search failed for {query!r}: {exc}")
+    if org in HF_AUTHOR_HINTS and HF_AUTHOR_HINTS[org] is None:
+        # Vendor is known to publish no weights on HF (see HF_AUTHOR_HINTS).
+        # Searching anyway would scan all of HF and surface look-alikes.
         repo_ids = []
+    else:
+        author = HF_AUTHOR_HINTS.get(org)
+        try:
+            repo_ids = search_fn(query, author) or []
+        except Exception as exc:      # rate limit, network, API change
+            print(f"  ! search failed for {query!r}: {exc}")
+            repo_ids = []
 
     best, best_conf = None, "low"
     _ORDER = {"high": 3, "medium": 2, "low": 1}

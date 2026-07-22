@@ -59,3 +59,19 @@ def test_score_match_medium_on_prefix():
 
 def test_score_match_low_on_mismatch():
     assert pull_arena.score_match("GLM 5.2", "meta-llama/Llama-3.1-8B") == "low"
+
+
+@pytest.mark.parametrize("query,repo_id", [
+    ("Qwen3.7 Max", "Qwen/Qwen3"),      # proprietary; "Qwen3" is only a brand prefix
+    ("Grok 4.5", "someone/grok"),
+    ("GPT 5.6 Sol", "foo/gpt"),
+    ("Claude Fable 5", "bar/claude"),
+])
+def test_score_match_rejects_brand_prefix_only(query, repo_id):
+    """A prefix relation between very different-length names is not a match.
+
+    Every one of these scored "medium" under the old prefix-only rule, and
+    "medium" is above the open-weight threshold in resolve_row — so each of
+    these proprietary models was minted open_weight: true.
+    """
+    assert pull_arena.score_match(query, repo_id) == "low"
