@@ -196,7 +196,9 @@ def arena_candidates(api, rows, min_params, known):
             print(f"  - {repo} skipped ({reason})")
             continue
         out.append(hf_meta.candidate_from_repo(
-            info, discovered_via=["arena"], arena_rank=row.get("rank")))
+            info, discovered_via=["arena"], arena_rank=row.get("rank"),
+            needs_hf_repo=row.get("needs_hf_repo"),
+            resolution_confidence=row.get("resolution_confidence")))
     return out
 
 
@@ -215,8 +217,11 @@ def merge_candidates(org_rows, arena_rows):
         merged = by_repo[key]
         merged["discovered_via"] = sorted(
             set(merged["discovered_via"]) | set(c["discovered_via"]))
-        if c.get("arena_rank") is not None:
-            merged["arena_rank"] = c["arena_rank"]
+        # Carry the arena-only fields over onto whichever row we kept as the
+        # base (org-sweep rows come first and have none of them).
+        for field in ("arena_rank", "needs_hf_repo", "resolution_confidence"):
+            if c.get(field) is not None:
+                merged[field] = c[field]
 
     # ranked first by rank ascending; unranked after, newest first
     return sorted(by_repo.values(),

@@ -93,6 +93,8 @@ def test_candidate_from_repo_shape():
     assert c["commercial_use"] is True
     assert c["discovered_via"] == ["org-sweep"]
     assert "arena_rank" not in c
+    assert "needs_hf_repo" not in c
+    assert "resolution_confidence" not in c
 
 
 def test_candidate_from_repo_carries_arena_rank():
@@ -100,3 +102,26 @@ def test_candidate_from_repo_carries_arena_rank():
     c = hf_meta.candidate_from_repo(info, discovered_via=["arena"], arena_rank=10)
     assert c["arena_rank"] == 10
     assert c["discovered_via"] == ["arena"]
+
+
+def test_candidate_from_repo_carries_verification_flag():
+    """An inexact arena match must reach the review queue flagged as such."""
+    info = FakeInfo("deepseek-ai/DeepSeek-V4", total=680_000_000_000,
+                    license="mit")
+    c = hf_meta.candidate_from_repo(
+        info, discovered_via=["arena"], arena_rank=24,
+        needs_hf_repo=True, resolution_confidence="medium")
+
+    assert c["needs_hf_repo"] is True
+    assert c["resolution_confidence"] == "medium"
+
+
+def test_candidate_from_repo_keeps_exact_match_unflagged():
+    """needs_hf_repo=False is recorded, not dropped — it means 'exact match'."""
+    info = FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(
+        info, discovered_via=["arena"], arena_rank=10,
+        needs_hf_repo=False, resolution_confidence="high")
+
+    assert c["needs_hf_repo"] is False
+    assert c["resolution_confidence"] == "high"

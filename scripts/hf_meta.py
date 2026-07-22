@@ -109,10 +109,17 @@ def should_track(info, min_params):
     return True, None
 
 
-def candidate_from_repo(info, discovered_via, arena_rank=None):
+def candidate_from_repo(info, discovered_via, arena_rank=None,
+                        needs_hf_repo=None, resolution_confidence=None):
     """Build a candidates.yaml row from an HF ModelInfo.
 
     Caller is responsible for having run should_track() first.
+
+    arena_rank / needs_hf_repo / resolution_confidence are arena-only. Each is
+    omitted from the row entirely when None, so org-sweep candidates carry no
+    empty arena fields. needs_hf_repo=True marks a repo matched by an inexact
+    name match — the reviewer must confirm it is really this model before
+    promotion — and resolution_confidence records why it was flagged.
     """
     repo = info.id
     author = repo.split("/")[0]
@@ -141,4 +148,8 @@ def candidate_from_repo(info, discovered_via, arena_rank=None):
     }
     if arena_rank is not None:
         candidate["arena_rank"] = arena_rank
+    if needs_hf_repo is not None:
+        candidate["needs_hf_repo"] = needs_hf_repo
+    if resolution_confidence is not None:
+        candidate["resolution_confidence"] = resolution_confidence
     return candidate

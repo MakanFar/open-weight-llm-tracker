@@ -40,7 +40,7 @@ Each list entry is one model. Fields:
 
 `candidates.yaml` is written by `scripts/discover.py` and holds *unreviewed*
 models. Rows use the `models.yaml` fields above plus the discovery-only fields
-below. **Strip these three fields when promoting a row into `models.yaml`** —
+below. **Strip all of these fields when promoting a row into `models.yaml`** —
 `validate.py` checks `models.yaml` only, so they would otherwise leak through.
 
 | Field | Type | Notes |
@@ -48,6 +48,8 @@ below. **Strip these three fields when promoting a row into `models.yaml`** —
 | `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
 | `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
+| `needs_hf_repo` | bool | Arena-only. `true` means the leaderboard name matched the repo inexactly — **confirm this repo really is that model before promoting**. `false` means an exact match. |
+| `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
 
 Candidates are ordered arena-ranked first (ascending), then unranked by release
 date descending — so the models people actually use lead the review queue.

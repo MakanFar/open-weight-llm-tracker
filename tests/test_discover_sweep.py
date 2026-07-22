@@ -81,6 +81,47 @@ def test_one_failing_org_does_not_abort_sweep():
     assert skips["org_error"] == 1
 
 
+class FakeRepoApi:
+    """Serves model_info(repo) from a canned {repo_id: FakeInfo} map."""
+
+    def __init__(self, by_repo):
+        self.by_repo = by_repo
+
+    def model_info(self, repo, **kwargs):
+        return self.by_repo[repo]
+
+
+def test_arena_candidates_propagate_verification_flag():
+    """SCHEMA.md promises needs_hf_repo reaches candidates.yaml.
+
+    Without it, a possibly-wrong "medium" match is indistinguishable from an
+    exact one in the review queue.
+    """
+    api = FakeRepoApi({"deepseek-ai/DeepSeek-V4": FakeInfo(
+        "deepseek-ai/DeepSeek-V4", total=680_000_000_000, license="mit")})
+    rows = [{"rank": 24, "resolved_repo": "deepseek-ai/DeepSeek-V4",
+             "needs_hf_repo": True, "resolution_confidence": "medium"}]
+
+    out = discover.arena_candidates(api, rows, 3.0, set())
+
+    assert len(out) == 1
+    assert out[0]["arena_rank"] == 24
+    assert out[0]["needs_hf_repo"] is True
+    assert out[0]["resolution_confidence"] == "medium"
+
+
+def test_arena_candidates_mark_exact_matches_unflagged():
+    api = FakeRepoApi({"zai-org/GLM-5.2": FakeInfo(
+        "zai-org/GLM-5.2", total=753_300_000_000, license="mit")})
+    rows = [{"rank": 10, "resolved_repo": "zai-org/GLM-5.2",
+             "needs_hf_repo": False, "resolution_confidence": "high"}]
+
+    out = discover.arena_candidates(api, rows, 3.0, set())
+
+    assert out[0]["needs_hf_repo"] is False
+    assert out[0]["resolution_confidence"] == "high"
+
+
 def test_dead_code_is_gone():
     """The follower-probe machinery existed only for the unbounded query."""
     for name in ("get_org_overview", "is_organization", "build_query",

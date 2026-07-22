@@ -56,6 +56,23 @@ def test_unranked_models_sort_by_recency():
     assert [c["name"] for c in merged] == ["Newer", "Older"]
 
 
+def test_merge_carries_verification_flag_onto_org_sweep_row():
+    """A model found by both sources keeps the arena verification flag.
+
+    The org-sweep row is the merge base and has no arena fields, so the flag
+    is only present if merge_candidates copies it across.
+    """
+    org_rows = [cand("deepseek-ai/DeepSeek-V4", ["org-sweep"])]
+    arena_rows = [dict(cand("deepseek-ai/DeepSeek-V4", ["arena"], rank=24),
+                       needs_hf_repo=True, resolution_confidence="medium")]
+
+    merged = discover.merge_candidates(org_rows, arena_rows)
+
+    assert len(merged) == 1
+    assert merged[0]["needs_hf_repo"] is True
+    assert merged[0]["resolution_confidence"] == "medium"
+
+
 def test_load_arena_missing_file_is_not_fatal(tmp_path):
     rows, new_orgs = discover.load_arena(tmp_path / "nope.yaml")
     assert rows == []
