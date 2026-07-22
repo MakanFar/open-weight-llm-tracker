@@ -1,17 +1,20 @@
 #!/usr/bin/env python3
 """
 Scrape the Arena Intelligence "Agent Arena" leaderboard (https://arena.ai)
-and produce a clean, ranked list of models.
+and resolve each ranked model to a Hugging Face weights repo.
 
-WHY WE SCRAPE THE *FULL* BOARD (not ?license=open-source):
-    arena.ai's own open-source label is unreliable — e.g. open-weight models
-    like Kimi have been tagged as not-open-source. So we pull EVERY row.
-    Open-weight status is decided by whether a public weights repo actually
-    resolves on Hugging Face; KEYWORD_MAP serves only as a search hint for that
-    lookup. We don't infer open-weight from org/product line, as that produced
-    false positives (e.g. "Meta Muse Spark 1.1 · Proprietary" matched keyword
-    "meta"). Arena's own license label is captured too, only so you can see
-    the discrepancy — it is never used to filter.
+WHAT THIS IS FOR:
+    arena ranks the models people actually use. models.yaml is populated from
+    Hugging Face. This script is the join between them: it turns a leaderboard
+    display name into an HF repo id, so discover.py can prioritize its review
+    queue by real-world usage rather than by upload recency.
+
+HOW OPEN-WEIGHT IS DECIDED:
+    A model is open-weight if and only if a public weights repo resolves for
+    it on Hugging Face. We do NOT trust arena's license label, and we do NOT
+    infer from the org (an earlier version did, and flagged proprietary models
+    like "Meta Muse Spark · Proprietary" as open because the name said "Meta").
+    KEYWORD_MAP survives only as a search hint.
 
 HOW IT PARSES (resilient by design):
     The leaderboard is a server-rendered <table>, so requests + BeautifulSoup
@@ -22,19 +25,21 @@ HOW IT PARSES (resilient by design):
       - score = first cell matching  NN.NN% ± N.NN%
     Every raw cell is kept under `raw` so nothing is silently lost.
 
-Output: arena_agent_rankings.yaml  (all rows; each flagged open_weight or not)
+Output: arena_agent_rankings.yaml
 
 Usage:
   pip install -r requirements.txt
-  python scripts/pull_arena.py                    # all models
-  python scripts/pull_arena.py --open-weight-only # only known open-weight orgs
-  python scripts/pull_arena.py --url https://arena.ai/leaderboard/agent
+  python scripts/pull_arena.py                     # scrape + resolve
+  python scripts/pull_arena.py --no-resolve        # parse only, no HF calls
+  python scripts/pull_arena.py --open-weight-only  # only resolved models
+  python scripts/pull_arena.py --html page.html    # offline, from a saved page
 
 Note: arena.ai is unreachable from some sandboxes; run on your machine / CI.
 There is no official API — this is scraping, so check arena.ai's ToS before
 republishing their numbers.
 """
 import argparse
+import os
 import re
 import sys
 from pathlib import Path
@@ -181,6 +186,72 @@ def score_match(query, repo_id):
     return "low"
 
 
+# Canonical org name -> HF author namespace, used to scope the repo search.
+HF_AUTHOR_HINTS = {
+    "Google": "google", "Meta": "meta-llama", "Alibaba": "Qwen",
+    "DeepSeek": "deepseek-ai", "Moonshot AI": "moonshotai",
+    "Zhipu AI": "zai-org", "MiniMax": "MiniMaxAI", "NVIDIA": "nvidia",
+    "Microsoft": "microsoft", "Cohere": "CohereLabs", "Mistral AI": "mistralai",
+    "01.AI": "01-ai", "TII": "tiiuae", "IBM": "ibm-granite", "Ai2": "allenai",
+    "Baidu": "baidu", "Xiaomi": "XiaomiMiMo",
+    "Thinking Machines": "thinkingmachines",
+}
+
+
+def resolve_row(row, search_fn):
+    """Resolve an arena row to an HF repo. Mutates and returns the row.
+
+    Open-weight status is decided HERE, and only here: a model is open-weight
+    if and only if public weights were found. arena's own license label and
+    KEYWORD_MAP are never used to make that call.
+    """
+    query = normalize_model_name(row["model"])
+    author = HF_AUTHOR_HINTS.get(row.get("org"))
+
+    try:
+        repo_ids = search_fn(query, author) or []
+    except Exception as exc:      # rate limit, network, API change
+        print(f"  ! search failed for {query!r}: {exc}")
+        repo_ids = []
+
+    best, best_conf = None, "low"
+    _ORDER = {"high": 3, "medium": 2, "low": 1}
+    for repo_id in repo_ids:
+        conf = score_match(query, repo_id)
+        if best is None or _ORDER[conf] > _ORDER[best_conf]:
+            best, best_conf = repo_id, conf
+        if best_conf == "high":
+            break
+
+    if best is None or best_conf == "low":
+        row["resolved_repo"] = None
+        row["resolution_confidence"] = best_conf if best is not None else None
+        row["open_weight"] = False
+        row["needs_hf_repo"] = True
+    else:
+        row["resolved_repo"] = best
+        row["resolution_confidence"] = best_conf
+        row["open_weight"] = True
+        row["needs_hf_repo"] = best_conf != "high"
+    return row
+
+
+def resolve_all(rows, search_fn):
+    for row in rows:
+        resolve_row(row, search_fn)
+    return rows
+
+
+def hf_search_fn(api):
+    """Adapt HfApi into the search_fn contract: (query, author) -> [repo_id]."""
+    def _search(query, author):
+        kwargs = {"search": query, "limit": 10}
+        if author:
+            kwargs["author"] = author
+        return [m.id for m in api.list_models(**kwargs)]
+    return _search
+
+
 def parse_leaderboard(html):
     """Return list of row dicts. Header-driven where possible, heuristic always."""
     soup = BeautifulSoup(html, "html.parser")
@@ -294,9 +365,11 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--url", default=DEFAULT_URL)
     ap.add_argument("--open-weight-only", action="store_true",
-                    help="write only rows whose org is a known open-weight line")
+                    help="write only rows that resolved to a weights repo")
     ap.add_argument("--html", help="parse a local HTML file instead of fetching "
-                                    "(useful for testing/offline)")
+                                   "(useful for testing/offline)")
+    ap.add_argument("--no-resolve", action="store_true",
+                    help="skip HF resolution (parse only)")
     args = ap.parse_args()
 
     if args.html:
@@ -315,26 +388,33 @@ def main():
 
     validate_rows(rows)
 
-    ow = [r for r in rows if r["open_weight"]]
-    print(f"\nParsed {len(rows)} models; {len(ow)} are known open-weight.")
-    print("Open-weight, by rank:")
+    if not args.no_resolve:
+        from huggingface_hub import HfApi
+        token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
+        print(f"\nResolving {len(rows)} models against Hugging Face...")
+        resolve_all(rows, hf_search_fn(HfApi(token=token)))
+
+    ow = [r for r in rows if r.get("open_weight")]
+    print(f"\nParsed {len(rows)} models; {len(ow)} resolved to a weights repo.")
     for r in ow:
         s = f"{r['net_improvement_pct']}%" if r["net_improvement_pct"] is not None else "?"
-        print(f"  #{r['rank']:>2}  {r['model']}  ({r['org']}, {s})")
+        flag = "  [VERIFY]" if r.get("needs_hf_repo") else ""
+        print(f"  #{r['rank']:>2}  {r['model'][:45]:<45} -> {r['resolved_repo']} ({s}){flag}")
 
-    unknown = [r for r in rows if r["org"] is None]
-    if unknown:
-        print(f"\n{len(unknown)} model(s) had an unrecognized org — add keywords "
-              f"to KEYWORD_MAP if any are open-weight:")
-        for r in unknown[:15]:
-            print(f"  - {r['model']}")
+    new_orgs = sorted({r["org"] for r in ow
+                       if r.get("org") and r["org"] not in HF_AUTHOR_HINTS})
+    if new_orgs:
+        print(f"\nOrgs seen on the leaderboard with no HF namespace mapping "
+              f"(add to HF_AUTHOR_HINTS / ORG_ALLOWLIST): {', '.join(new_orgs)}")
 
     out_rows = ow if args.open_weight_only else rows
     header = ("# AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py\n"
-              "# open_weight is derived from the model's org/product line, NOT from\n"
-              "# arena's own license label (which is unreliable). Verify before use.\n")
-    OUT.write_text(header + yaml.safe_dump({"arena_agent": out_rows},
-                                          sort_keys=False, allow_unicode=True, width=100))
+              "# open_weight means: a public weights repo was FOUND on Hugging Face.\n"
+              "# It is not arena's license label and not an org guess.\n"
+              "# needs_hf_repo=true means the match was inexact — verify by hand.\n")
+    OUT.write_text(header + yaml.safe_dump(
+        {"arena_agent": out_rows, "new_orgs": new_orgs},
+        sort_keys=False, allow_unicode=True, width=100))
     print(f"\nWrote {len(out_rows)} rows to {OUT.name}")
 
 
