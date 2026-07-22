@@ -1,0 +1,5 @@
+# AUTO-GENERATED candidate models from scripts/discover.py
+# Review each entry, fix the TODO fields (active params, architecture,
+# context, benchmark, commercial_use), then move approved rows into
+# models.yaml and delete them here.
+models: []
