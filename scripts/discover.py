@@ -25,9 +25,9 @@ WHERE NEW ORGS COME FROM:
 
 Usage:
   pip install -r requirements.txt
-  python scripts/discover.py                  # org sweep (+ arena if present)
+  python scripts/discover.py                  # org sweep
   python scripts/discover.py --min-params 3
-  python scripts/discover.py --no-arena       # skip the arena merge
+  python scripts/discover.py --no-arena       # reserved; arena merge not wired yet, currently a no-op
   HUGGINGFACE_TOKEN=hf_xxx python scripts/discover.py   # higher rate limits
 
 NOTES / deliberate choices (the "don'ts"):
@@ -56,7 +56,7 @@ import hf_meta
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 CANDIDATES = ROOT / "candidates.yaml"
-ARENA = ROOT / "arena_agent_rankings.yaml"
+ARENA = ROOT / "arena_agent_rankings.yaml"  # intentionally unused until the arena merge lands (next task)
 
 # The orgs we sweep. This list IS the query — adding an org here is how the
 # tracker gains coverage. pull_arena.py reports leaderboard orgs missing here.
@@ -94,13 +94,17 @@ def sweep_orgs(api, orgs, min_params, known):
 
     for org in orgs:
         try:
-            models = api.list_models(
+            # list_models() is a generator — it does not make the HTTP
+            # request until iterated. Force it here with list(...) so the
+            # request (and any rate-limit/5xx exception) happens inside the
+            # try, not in the unguarded loop below.
+            models = list(api.list_models(
                 author=org,
                 pipeline_tag="text-generation",
                 sort="created_at",
                 limit=50,
                 expand=hf_meta.EXPAND,
-            )
+            ))
         except Exception as exc:
             print(f"  ! {org}: {exc}")
             skips["org_error"] += 1

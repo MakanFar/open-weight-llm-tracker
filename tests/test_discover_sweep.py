@@ -16,11 +16,16 @@ class FakeApi:
         self.calls = []
 
     def list_models(self, **kwargs):
+        # Real HfApi.list_models is a generator function: calling it runs
+        # no code, and the HTTP request (here, the simulated raise) only
+        # fires once the caller starts iterating. Mirror that laziness so
+        # tests fail if discover.py stops forcing the generator inside its
+        # try/except.
         author = kwargs.get("author")
         self.calls.append(author)
         if author in self.errors:
             raise RuntimeError("HF 429")
-        return list(self.by_author.get(author, []))
+        yield from self.by_author.get(author, [])
 
 
 def test_sweep_queries_each_org_once():
