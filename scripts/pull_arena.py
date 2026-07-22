@@ -275,6 +275,28 @@ def resolve_row(row, search_fn):
     return row
 
 
+def unmapped_orgs(rows):
+    """Orgs seen on the leaderboard that this repo has no HF namespace for.
+
+    Computed over EVERY parsed row, not just the ones that resolved. That
+    distinction is the whole point: an org with no HF_AUTHOR_HINTS entry
+    searches HF unscoped and is therefore *less* likely to resolve, so keying
+    this off resolved rows reported the orgs we already handle well and stayed
+    silent about exactly the ones a human needs to add.
+
+    A key mapped to None (vendor known to publish no weights — see
+    HF_AUTHOR_HINTS) is deliberate coverage, not a gap, so it is not reported.
+
+    We test membership against HF_AUTHOR_HINTS alone and do not import
+    ORG_ALLOWLIST from discover.py: discover.py imports huggingface_hub at
+    module scope, so importing it here would make `--no-resolve` (the offline
+    parse-only path) require the HF client. The two lists are instead kept in
+    step by a test that asserts every namespace here is swept there.
+    """
+    return sorted({r["org"] for r in rows
+                   if r.get("org") and r["org"] not in HF_AUTHOR_HINTS})
+
+
 def resolve_all(rows, search_fn):
     for row in rows:
         resolve_row(row, search_fn)
@@ -440,11 +462,13 @@ def main():
         flag = "  [VERIFY]" if r.get("needs_hf_repo") else ""
         print(f"  #{r['rank']:>2}  {r['model'][:45]:<45} -> {r['resolved_repo']} ({s}){flag}")
 
-    new_orgs = sorted({r["org"] for r in ow
-                       if r.get("org") and r["org"] not in HF_AUTHOR_HINTS})
+    new_orgs = unmapped_orgs(rows)
     if new_orgs:
-        print(f"\nOrgs seen on the leaderboard with no HF namespace mapping "
-              f"(add to HF_AUTHOR_HINTS / ORG_ALLOWLIST): {', '.join(new_orgs)}")
+        print(f"\nOrgs seen on the leaderboard with no HF namespace mapping: "
+              f"{', '.join(new_orgs)}")
+        print("Add each to HF_AUTHOR_HINTS here (so its models resolve against "
+              "the right namespace) and its HF org to ORG_ALLOWLIST in "
+              "scripts/discover.py (so the sweep covers it).")
 
     out_rows = ow if args.open_weight_only else rows
     header = ("# AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py\n"

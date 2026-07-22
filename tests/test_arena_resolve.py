@@ -3,7 +3,53 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
+import discover
 import pull_arena
+
+
+# --- new-org feedback loop ---------------------------------------------------
+
+def test_unmapped_orgs_reports_unresolved_rows():
+    """The orgs worth reporting are the ones that did NOT resolve.
+
+    An org with no HF_AUTHOR_HINTS entry searches HF unscoped and so is less
+    likely to resolve. Keying this off resolved rows (as an earlier version
+    did) reported orgs we already handle and stayed silent about the gaps.
+    """
+    rows = [
+        {"org": "Tencent", "open_weight": False},   # untracked, did not resolve
+        {"org": "Zhipu AI", "open_weight": True},   # already mapped
+    ]
+    assert pull_arena.unmapped_orgs(rows) == ["Tencent"]
+
+
+def test_unmapped_orgs_ignores_vendors_deliberately_mapped_to_none():
+    """Anthropic is known and deliberately has no namespace — not a gap."""
+    assert pull_arena.unmapped_orgs([{"org": "Anthropic"}]) == []
+
+
+def test_unmapped_orgs_ignores_rows_with_no_org():
+    assert pull_arena.unmapped_orgs([{"org": None}, {}]) == []
+
+
+def test_unmapped_orgs_dedups_and_sorts():
+    rows = [{"org": "Zebra"}, {"org": "Apple"}, {"org": "Zebra"}]
+    assert pull_arena.unmapped_orgs(rows) == ["Apple", "Zebra"]
+
+
+def test_author_hints_stay_in_step_with_org_allowlist():
+    """Keeps the two modules consistent without coupling them.
+
+    pull_arena.py deliberately does not import discover.py (that would drag
+    huggingface_hub into the offline --no-resolve path), so this test is what
+    holds the two lists together: every namespace we resolve against must also
+    be one the org sweep covers, or arena finds models discovery never sees.
+    """
+    missing = sorted(ns for ns in pull_arena.HF_AUTHOR_HINTS.values()
+                     if ns is not None and ns not in discover.ORG_ALLOWLIST)
+    assert not missing, (
+        f"HF_AUTHOR_HINTS namespaces missing from discover.ORG_ALLOWLIST: "
+        f"{missing}")
 
 
 def fake_search(index):

@@ -19,9 +19,17 @@ WHY AN ORG SWEEP, NOT A GLOBAL SCAN:
 
 WHERE NEW ORGS COME FROM:
     An allowlist only finds what it already knows. scripts/pull_arena.py
-    surfaces orgs seen on the arena leaderboard that we have no mapping for
-    (Tencent, Xiaomi, Thinking Machines as of 2026-07-21) and they are
-    reported here for a human to add.
+    scans every leaderboard row for orgs it has no HF namespace mapping for
+    and writes them to the `new_orgs` key of arena_agent_rankings.yaml; this
+    script reprints them so a human can widen coverage by adding the org to
+    ORG_ALLOWLIST below (and its namespace to HF_AUTHOR_HINTS in pull_arena).
+
+    For the current list, read `new_orgs` in arena_agent_rankings.yaml — it is
+    regenerated on every arena run. It is deliberately not restated here: an
+    org named in this docstring is by definition one someone has since added
+    to ORG_ALLOWLIST, at which point the example is false. The previous
+    version named three orgs, two of which were already allowlisted and so
+    could never appear in new_orgs at all.
 
 ARENA MERGE:
     Recency alone does not tell you which models matter. scripts/pull_arena.py
