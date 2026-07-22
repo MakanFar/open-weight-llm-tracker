@@ -34,15 +34,20 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
 ## Reviewing auto-discovered candidates
 
 `scripts/discover.py` (run weekly by the `discover-models` Action) stages new models
-in `candidates.yaml`, never in `models.yaml`. When a discovery PR shows up:
+in `candidates.yaml`, never in `models.yaml`. Entries come from an org sweep, from the
+arena leaderboard, or both — `discovered_via` says which. When a discovery PR shows up:
 
 1. Open `candidates.yaml` and check each entry is a real base model worth tracking
    (not a fine-tune/merge the name filter missed).
-2. Fix the `TODO` fields: `params_active_b` + `architecture` for MoE models, the
+2. If a row has **`needs_hf_repo: true`**, the leaderboard name matched that repo
+   inexactly. Confirm the repo really is that model before promoting it — this is the
+   one field you cannot take on trust.
+3. Fix the `TODO` fields: `params_active_b` + `architecture` for MoE models, the
    `context_window` if it came through as `0`, the `benchmark` score + source, and
    confirm `commercial_use` by reading the actual license.
-3. Move approved entries into `models.yaml`, delete them from `candidates.yaml`.
-4. Run `python scripts/render_readme.py`, commit, merge.
+4. Move approved entries into `models.yaml`, delete them from `candidates.yaml`.
+   Strip the discovery-only fields listed in [SCHEMA.md](SCHEMA.md) as you go.
+5. Run `python scripts/render_readme.py`, commit, merge.
 
 ## Where the data comes from
 

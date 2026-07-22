@@ -1,7 +1,12 @@
 #!/usr/bin/env python3
 """
-Render models.yaml into the README.md table. Never hand-edit the table —
-edit the YAML and re-run this.
+Render README.md from models.yaml.
+
+NOTE: this rewrites the WHOLE file, not just the region between the
+MODELS_TABLE markers — the surrounding prose is the `body` string in main()
+below. Hand-edits to README.md anywhere are silently reverted on the next
+run (and the validate workflow fails on the resulting diff), so prose
+changes belong here.
 
   python scripts/render_readme.py
 """
@@ -87,11 +92,24 @@ def main():
         "python scripts/render_readme.py   # rebuild this table\n"
         "```\n\n"
         "## Staying current (automatic discovery)\n\n"
-        "`scripts/discover.py` scans the Hugging Face Hub for new open-weight LLMs "
-        "(newest text-generation models above a size threshold, under an accepted-license "
-        "allowlist), skips quantizations/adapters/merges, dedups against this file, and "
-        "writes new rows to `candidates.yaml` with fields pre-filled. It never edits "
-        "`models.yaml` directly.\n\n"
+        "Two scripts feed the review queue in [`candidates.yaml`](candidates.yaml). "
+        "Neither ever edits `models.yaml` directly.\n\n"
+        "[`scripts/discover.py`](scripts/discover.py) sweeps an allowlist of "
+        "organizations — one Hugging Face query per org — rather than scanning all of "
+        "HF by recency. Sorting the whole Hub by upload date returns finetunes and "
+        "quantizations, essentially never a frontier release. **Adding an org to "
+        "`ORG_ALLOWLIST` in `scripts/discover.py` is how the tracker gains coverage.** "
+        "It skips quantizations/adapters/merges, dedups against `models.yaml`, and "
+        "writes new rows with fields pre-filled.\n\n"
+        "[`scripts/pull_arena.py`](scripts/pull_arena.py) scrapes the "
+        "[arena.ai](https://arena.ai/leaderboard/agent) leaderboard and resolves each "
+        "ranked model to a Hugging Face repo. Arena rank then orders the review queue, "
+        "so the models people actually use are reviewed first.\n\n"
+        "**Open-weight status comes from whether weights actually resolve on Hugging "
+        "Face** — not from a vendor's name and not from a leaderboard's license label. "
+        "A model is open-weight if and only if a public weights repo was found for it. "
+        "See [SCHEMA.md](SCHEMA.md) for the discovery-only fields, including "
+        "`needs_hf_repo`, which flags an inexact name match for a human to confirm.\n\n"
         "The `discover-models` GitHub Action runs it weekly and opens a **pull request** "
         "with the new candidates — review the PR, fill the `TODO` fields (active params, "
         "benchmark, commercial-use), move approved rows into `models.yaml`, and merge.\n"
