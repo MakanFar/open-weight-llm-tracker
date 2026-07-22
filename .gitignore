@@ -8,3 +8,7 @@ __pycache__/
 
 # SDD scratch
 .superpowers/
+
+# claude
+.claude/
+
