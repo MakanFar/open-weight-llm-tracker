@@ -5,10 +5,13 @@ and produce a clean, ranked list of models.
 
 WHY WE SCRAPE THE *FULL* BOARD (not ?license=open-source):
     arena.ai's own open-source label is unreliable — e.g. open-weight models
-    like Kimi have been tagged as not-open-source. So we pull EVERY row and
-    decide open-weight status ourselves from the model's org / product line
-    (see KEYWORD_MAP). arena's own license label is captured too, only so you
-    can see the discrepancy — it is never used to filter.
+    like Kimi have been tagged as not-open-source. So we pull EVERY row.
+    Open-weight status is decided by whether a public weights repo actually
+    resolves on Hugging Face; KEYWORD_MAP serves only as a search hint for that
+    lookup. We don't infer open-weight from org/product line, as that produced
+    false positives (e.g. "Meta Muse Spark 1.1 · Proprietary" matched keyword
+    "meta"). Arena's own license label is captured too, only so you can see
+    the discrepancy — it is never used to filter.
 
 HOW IT PARSES (resilient by design):
     The leaderboard is a server-rendered <table>, so requests + BeautifulSoup
