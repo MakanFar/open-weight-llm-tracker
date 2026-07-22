@@ -40,9 +40,10 @@ jobs:
             Automated discovery from the Hugging Face Hub.
 
             Review `candidates.yaml`, fix the `TODO` fields (active params for MoE,
-            architecture, context window, benchmark score + source, commercial_use),
-            then move approved rows into `models.yaml`, run
-            `python scripts/render_readme.py`, and merge.
+            architecture, context window, benchmark score + source, commercial_use).
+            For rows with `needs_hf_repo: true`, verify that the `hf_repo` really is
+            the model the leaderboard named. Then move approved rows into `models.yaml`,
+            run `python scripts/render_readme.py`, and merge.
           add-paths: |
             candidates.yaml
             arena_agent_rankings.yaml

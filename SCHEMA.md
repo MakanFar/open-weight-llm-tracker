@@ -48,7 +48,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 | `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
 | `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
-| `needs_hf_repo` | bool | Arena-only. `true` means the leaderboard name matched the repo inexactly — **confirm this repo really is that model before promoting**. `false` means an exact match. |
+| `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
 
 Candidates are ordered arena-ranked first (ascending), then unranked by release

@@ -176,11 +176,13 @@ def slug(text):
 # flagship matched some unrelated community repo whose name happened to start
 # with the vendor's brand, and minted open_weight: true for it.
 #
-# A ratio is the right shape rather than a flat character minimum: it asks
-# "how much of the longer name did the shorter one actually account for?",
-# which stays correct for both short names (Yi-34B) and long ones. 0.7 keeps
-# genuine variant matches ("DeepSeek V4 Pro" vs "DeepSeek-V4", 10/13 = 0.77)
-# while rejecting brand-prefix noise ("Grok 4.5" vs "grok", 4/6 = 0.67).
+# A ratio buys precision by rejecting short-name collisions ("Grok 4.5" vs "grok",
+# 4/6 = 0.67, rejected), but trades recall: repos whose names extend the family
+# name with a size/date/variant suffix (e.g. "Llama 4 Maverick" vs
+# "meta-llama/Llama-4-Maverick-17B-128E-Instruct", 12/36 = 0.33) also score
+# "low" and are reported as unresolved rather than mis-resolved. Token-level
+# matching (keeping "Llama" and "4" and "Maverick" distinct) would address this
+# and is deliberately deferred pending a clearer requirement shape.
 _MIN_PREFIX_RATIO = 0.7
 
 
