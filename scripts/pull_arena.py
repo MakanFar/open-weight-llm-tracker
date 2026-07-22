@@ -105,12 +105,11 @@ INT_RE = re.compile(r"^\s*#?\s*(\d{1,3})\s*$")
 
 ROW_SCHEMA = {
     "type": "object",
-    "required": ["rank", "model", "org", "open_weight"],
+    "required": ["rank", "model", "org"],
     "properties": {
         "rank": {"type": "integer", "minimum": 1},
         "model": {"type": "string", "minLength": 1},
         "org": {"type": ["string", "null"]},
-        "open_weight": {"type": "boolean"},
         "net_improvement_pct": {"type": ["number", "null"]},
         "net_improvement_ci": {"type": ["number", "null"]},
     },
@@ -230,7 +229,7 @@ def parse_leaderboard(html):
         # mostly-alphabetic cell that isn't a pure number/percentage
         model = None
         for c in cells:
-            if derive_org(c)[2] is not None:
+            if derive_org(c)[1] is not None:
                 model = c
                 break
         if model is None:
@@ -245,7 +244,7 @@ def parse_leaderboard(html):
                 if pct is not None:
                     break
 
-        org, ow, matched = derive_org(model)
+        org, matched = derive_org(model)
 
         # capture arena's own license label if any cell says so (informational)
         arena_label = next((c for c in cells
@@ -256,7 +255,6 @@ def parse_leaderboard(html):
             "rank": rank,
             "model": model,
             "org": org,
-            "open_weight": ow,
             "matched_keyword": matched,
             "net_improvement_pct": pct,
             "net_improvement_ci": ci,
