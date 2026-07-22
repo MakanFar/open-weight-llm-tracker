@@ -1,11 +1,11 @@
 # AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py
-# open_weight is derived from the model's org/product line, NOT from
-# arena's own license label (which is unreliable). Verify before use.
+# open_weight means: a public weights repo was FOUND on Hugging Face.
+# It is not arena's license label and not an org guess.
+# needs_hf_repo=true means the match was inexact — verify by hand.
 arena_agent:
 - rank: 1
   model: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 12.72
   net_improvement_ci: 2.0
@@ -30,10 +30,13 @@ arena_agent:
     Bash Recovery: 12.97 % ±1.30%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 23,549
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 2
   model: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
   org: OpenAI
-  open_weight: false
   matched_keyword: gpt
   net_improvement_pct: 10.12
   net_improvement_ci: 1.69
@@ -58,10 +61,13 @@ arena_agent:
     Bash Recovery: 8.74 % ±1.30%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 15,991
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 3
   model: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 9.75
   net_improvement_ci: 1.39
@@ -86,10 +92,13 @@ arena_agent:
     Bash Recovery: 10.43 % ±1.07%
     Tool Hallucination: 0.22 % ±1.11%
     Sessions: 34,147
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 4
   model: Kimi K3 Moonshot · Proprietary
   org: Moonshot AI
-  open_weight: true
   matched_keyword: kimi
   net_improvement_pct: 9.71
   net_improvement_ci: 1.52
@@ -114,10 +123,13 @@ arena_agent:
     Bash Recovery: 6.33 % ±1.27%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 11,490
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 5
   model: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 8.66
   net_improvement_ci: 1.89
@@ -142,10 +154,13 @@ arena_agent:
     Bash Recovery: 10.81 % ±0.90%
     Tool Hallucination: 1.25 % ±0.18%
     Sessions: 24,359
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 6
   model: GPT 5.5 (xHigh) OpenAI · Proprietary
   org: OpenAI
-  open_weight: false
   matched_keyword: gpt
   net_improvement_pct: 8.41
   net_improvement_ci: 0.87
@@ -170,10 +185,13 @@ arena_agent:
     Bash Recovery: 14.77 % ±0.80%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 40,667
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 7
   model: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 7.94
   net_improvement_ci: 1.24
@@ -198,10 +216,13 @@ arena_agent:
     Bash Recovery: 12.57 % ±1.13%
     Tool Hallucination: 1.28 % ±0.19%
     Sessions: 35,151
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 8
   model: Anthropic Claude Opus 4.7 Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 7.67
   net_improvement_ci: 1.25
@@ -226,10 +247,13 @@ arena_agent:
     Bash Recovery: 10.62 % ±1.53%
     Tool Hallucination: 1.33 % ±0.17%
     Sessions: 35,672
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 9
   model: GPT 5.5 (High) OpenAI · Proprietary
   org: OpenAI
-  open_weight: false
   matched_keyword: gpt
   net_improvement_pct: 7.61
   net_improvement_ci: 0.81
@@ -254,10 +278,13 @@ arena_agent:
     Bash Recovery: 11.90 % ±1.07%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 65,859
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 10
   model: GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
   org: Zhipu AI
-  open_weight: true
   matched_keyword: glm
   net_improvement_pct: 6.5
   net_improvement_ci: 1.0
@@ -282,10 +309,13 @@ arena_agent:
     Bash Recovery: 4.78 % ±1.15%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 38,221
+  resolved_repo: zai-org/GLM-5.2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 11
   model: Anthropic Claude Opus 4.6 Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 6.42
   net_improvement_ci: 1.24
@@ -310,10 +340,13 @@ arena_agent:
     Bash Recovery: 11.14 % ±1.35%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 34,862
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 12
   model: GPT 5.5 OpenAI · Proprietary
   org: OpenAI
-  open_weight: false
   matched_keyword: gpt
   net_improvement_pct: 5.65
   net_improvement_ci: 0.76
@@ -338,10 +371,13 @@ arena_agent:
     Bash Recovery: 11.22 % ±0.90%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 66,796
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 13
   model: GPT 5.4 (High) OpenAI · Proprietary
   org: OpenAI
-  open_weight: false
   matched_keyword: gpt
   net_improvement_pct: 5.64
   net_improvement_ci: 0.77
@@ -366,10 +402,13 @@ arena_agent:
     Bash Recovery: 9.72 % ±0.90%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 66,142
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 14
   model: Grok 4.5 SpaceXAI · Proprietary
   org: xAI
-  open_weight: false
   matched_keyword: grok
   net_improvement_pct: 5.56
   net_improvement_ci: 1.33
@@ -394,10 +433,13 @@ arena_agent:
     Bash Recovery: 10.56 % ±1.14%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 21,424
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 15
   model: Anthropic Claude Opus 4.8 Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 3.56
   net_improvement_ci: 1.65
@@ -422,10 +464,13 @@ arena_agent:
     Bash Recovery: 9.82 % ±1.40%
     Tool Hallucination: 18.98 % ±4.59%
     Sessions: 32,216
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 16
   model: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
   org: Anthropic
-  open_weight: false
   matched_keyword: claude
   net_improvement_pct: 2.84
   net_improvement_ci: 1.15
@@ -450,10 +495,13 @@ arena_agent:
     Bash Recovery: 11.45 % ±1.47%
     Tool Hallucination: 1.35 % ±0.17%
     Sessions: 35,646
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 17
   model: GLM 5.1 Z.ai · MIT · SiliconFlow
   org: Zhipu AI
-  open_weight: true
   matched_keyword: glm
   net_improvement_pct: 1.43
   net_improvement_ci: 0.78
@@ -478,11 +526,14 @@ arena_agent:
     Bash Recovery: 3.79 % ±0.89%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 57,532
+  resolved_repo: zai-org/GLM-5.1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 18
   model: Meta Muse Spark 1.1 Meta · Proprietary
   org: Meta
-  open_weight: true
-  matched_keyword: meta
+  matched_keyword: muse
   net_improvement_pct: 0.67
   net_improvement_ci: 0.89
   arena_license_label: Meta Muse Spark 1.1 Meta · Proprietary
@@ -506,10 +557,13 @@ arena_agent:
     Bash Recovery: 6.40 % ±1.64%
     Tool Hallucination: 1.36 % ±0.17%
     Sessions: 28,128
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 19
   model: Qwen3.7 Max Alibaba · Proprietary
   org: Alibaba
-  open_weight: true
   matched_keyword: qwen
   net_improvement_pct: 0.09
   net_improvement_ci: 1.07
@@ -534,10 +588,13 @@ arena_agent:
     Bash Recovery: 7.20 % ±1.42%
     Tool Hallucination: 0.83 % ±0.29%
     Sessions: 15,992
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 20
   model: Gemini 3.1 Pro Preview Google · Proprietary
   org: Google
-  open_weight: false
   matched_keyword: gemini
   net_improvement_pct: 0.47
   net_improvement_ci: 0.68
@@ -562,10 +619,13 @@ arena_agent:
     Bash Recovery: 8.29 % ±1.11%
     Tool Hallucination: 1.32 % ±0.18%
     Sessions: 67,658
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 21
   model: Qwen3.7 Plus Alibaba · Proprietary
   org: Alibaba
-  open_weight: true
   matched_keyword: qwen
   net_improvement_pct: 0.76
   net_improvement_ci: 1.25
@@ -590,10 +650,13 @@ arena_agent:
     Bash Recovery: 5.58 % ±1.85%
     Tool Hallucination: 0.30 % ±0.51%
     Sessions: 12,816
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 22
   model: Kimi K2.7 Code Moonshot · Modified MIT
   org: Moonshot AI
-  open_weight: true
   matched_keyword: kimi
   net_improvement_pct: 1.02
   net_improvement_ci: 1.69
@@ -618,10 +681,13 @@ arena_agent:
     Bash Recovery: 2.86 % ±2.78%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 10,082
+  resolved_repo: moonshotai/Kimi-K2.7-Code
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 23
   model: Gemini 3.5 Flash (High) Google · Proprietary
   org: Google
-  open_weight: false
   matched_keyword: gemini
   net_improvement_pct: 1.03
   net_improvement_ci: 0.8
@@ -646,10 +712,13 @@ arena_agent:
     Bash Recovery: 1.92 % ±1.55%
     Tool Hallucination: 1.48 % ±0.39%
     Sessions: 45,992
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 24
   model: DeepSeek V4 Pro DeepSeek · MIT
   org: DeepSeek
-  open_weight: true
   matched_keyword: deepseek
   net_improvement_pct: 1.19
   net_improvement_ci: 1.06
@@ -674,11 +743,14 @@ arena_agent:
     Bash Recovery: 5.76 % ±1.02%
     Tool Hallucination: 0.87 % ±0.26%
     Sessions: 16,514
+  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 25
   model: Tencent Hy3 Tencent · Apache 2.0
-  org: null
-  open_weight: false
-  matched_keyword: null
+  org: Tencent
+  matched_keyword: hy3
   net_improvement_pct: 2.23
   net_improvement_ci: 2.87
   arena_license_label: null
@@ -702,10 +774,13 @@ arena_agent:
     Bash Recovery: 2.56 % ±3.98%
     Tool Hallucination: 0.89 % ±0.82%
     Sessions: 3,530
+  resolved_repo: DevQuasar/tencent.Hy3-GGUF
+  resolution_confidence: medium
+  open_weight: true
+  needs_hf_repo: true
 - rank: 26
   model: Kimi K2.6 Moonshot · Modified MIT
   org: Moonshot AI
-  open_weight: true
   matched_keyword: kimi
   net_improvement_pct: 2.57
   net_improvement_ci: 1.75
@@ -730,10 +805,13 @@ arena_agent:
     Bash Recovery: 6.17 % ±3.87%
     Tool Hallucination: 1.39 % ±0.17%
     Sessions: 10,139
+  resolved_repo: moonshotai/Kimi-K2.6
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 27
   model: Minimax M3 MiniMax · MiniMax Community License
   org: MiniMax
-  open_weight: true
   matched_keyword: minimax
   net_improvement_pct: 3.1
   net_improvement_ci: 1.05
@@ -758,11 +836,14 @@ arena_agent:
     Bash Recovery: 6.15 % ±0.95%
     Tool Hallucination: 0.93 % ±0.38%
     Sessions: 16,030
+  resolved_repo: MiniMaxAI/MiniMax-M3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 28
   model: Mimo V2.5 Pro Xiaomi · MIT
-  org: null
-  open_weight: false
-  matched_keyword: null
+  org: Xiaomi
+  matched_keyword: mimo
   net_improvement_pct: 3.39
   net_improvement_ci: 1.11
   arena_license_label: null
@@ -786,10 +867,13 @@ arena_agent:
     Bash Recovery: 1.69 % ±1.91%
     Tool Hallucination: 0.49 % ±0.34%
     Sessions: 16,479
+  resolved_repo: XiaomiMiMo/MiMo-V2.5-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 29
   model: DeepSeek V4 Flash DeepSeek · MIT
   org: DeepSeek
-  open_weight: true
   matched_keyword: deepseek
   net_improvement_pct: 3.49
   net_improvement_ci: 1.06
@@ -814,11 +898,14 @@ arena_agent:
     Bash Recovery: 3.46 % ±1.15%
     Tool Hallucination: 0.46 % ±0.40%
     Sessions: 16,015
+  resolved_repo: deepseek-ai/DeepSeek-V4-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 30
   model: Thinking Machines Inkling Thinky · Apache 2.0
-  org: null
-  open_weight: false
-  matched_keyword: null
+  org: Thinking Machines
+  matched_keyword: inkling
   net_improvement_pct: 6.41
   net_improvement_ci: 1.31
   arena_license_label: null
@@ -842,10 +929,13 @@ arena_agent:
     Bash Recovery: 6.12 % ±1.58%
     Tool Hallucination: 0.40 % ±0.49%
     Sessions: 10,678
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
 - rank: 31
   model: Gemini 3.5 Flash (Medium) Google · Proprietary
   org: Google
-  open_weight: false
   matched_keyword: gemini
   net_improvement_pct: 6.8
   net_improvement_ci: 1.69
@@ -870,10 +960,13 @@ arena_agent:
     Bash Recovery: 3.28 % ±3.38%
     Tool Hallucination: 0.91 % ±0.52%
     Sessions: 8,641
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 32
   model: Grok Build 0.1 SpaceXAI · Proprietary
   org: xAI
-  open_weight: false
   matched_keyword: grok
   net_improvement_pct: 8.01
   net_improvement_ci: 0.81
@@ -898,10 +991,13 @@ arena_agent:
     Bash Recovery: 12.02 % ±1.80%
     Tool Hallucination: 0.78 % ±0.17%
     Sessions: 59,109
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 33
   model: Grok 4.3 (High) SpaceXAI · Proprietary
   org: xAI
-  open_weight: false
   matched_keyword: grok
   net_improvement_pct: 8.25
   net_improvement_ci: 0.81
@@ -926,10 +1022,13 @@ arena_agent:
     Bash Recovery: 11.37 % ±2.42%
     Tool Hallucination: 1.08 % ±0.18%
     Sessions: 47,866
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 34
   model: Gemini 3 Flash Google · Proprietary
   org: Google
-  open_weight: false
   matched_keyword: gemini
   net_improvement_pct: 8.65
   net_improvement_ci: 0.76
@@ -954,10 +1053,13 @@ arena_agent:
     Bash Recovery: 16.88 % ±2.00%
     Tool Hallucination: 0.03 % ±1.18%
     Sessions: 68,372
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 - rank: 35
   model: Minimax M2.7 MiniMax · Modified MIT
   org: MiniMax
-  open_weight: true
   matched_keyword: minimax
   net_improvement_pct: 12.47
   net_improvement_ci: 1.34
@@ -982,10 +1084,13 @@ arena_agent:
     Bash Recovery: 13.35 % ±3.31%
     Tool Hallucination: 1.23 % ±0.20%
     Sessions: 16,212
+  resolved_repo: MiniMaxAI/MiniMax-M2.7
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 36
   model: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
   org: NVIDIA
-  open_weight: true
   matched_keyword: nemotron
   net_improvement_pct: 13.5
   net_improvement_ci: 2.38
@@ -1010,10 +1115,13 @@ arena_agent:
     Bash Recovery: 18.77 % ±5.33%
     Tool Hallucination: 0.09 % ±0.67%
     Sessions: 10,263
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
 - rank: 37
   model: Gemma 4 31B Google · Apache 2.0
   org: Google
-  open_weight: true
   matched_keyword: gemma
   net_improvement_pct: 14.51
   net_improvement_ci: 1.6
@@ -1038,10 +1146,13 @@ arena_agent:
     Bash Recovery: 33.53 % ±5.14%
     Tool Hallucination: 25.33 % ±5.11%
     Sessions: 54,817
+  resolved_repo: google/gemma-4-31B-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 38
   model: Grok 4.3 SpaceXAI · Proprietary
   org: xAI
-  open_weight: false
   matched_keyword: grok
   net_improvement_pct: 15.04
   net_improvement_ci: 1.03
@@ -1066,3 +1177,9 @@ arena_agent:
     Bash Recovery: 41.51 % ±4.26%
     Tool Hallucination: 1.21 % ±0.18%
     Sessions: 67,800
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+new_orgs:
+- Tencent
