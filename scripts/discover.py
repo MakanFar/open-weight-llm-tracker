@@ -23,11 +23,21 @@ WHERE NEW ORGS COME FROM:
     (Tencent, Xiaomi, Thinking Machines as of 2026-07-21) and they are
     reported here for a human to add.
 
+ARENA MERGE:
+    Recency alone does not tell you which models matter. scripts/pull_arena.py
+    resolves leaderboard entries to HF repos and writes
+    arena_agent_rankings.yaml; this script merges those resolved repos into
+    the same candidate queue as the org sweep and sorts the queue so ranked
+    models lead (best rank first), with unranked (org-sweep-only) candidates
+    following, newest first. Arena is never load-bearing: a missing, empty,
+    or malformed arena_agent_rankings.yaml just means the queue falls back to
+    the org sweep alone.
+
 Usage:
   pip install -r requirements.txt
-  python scripts/discover.py                  # org sweep
+  python scripts/discover.py                  # org sweep + arena merge
   python scripts/discover.py --min-params 3
-  python scripts/discover.py --no-arena       # reserved; arena merge not wired yet, currently a no-op
+  python scripts/discover.py --no-arena       # org sweep only, skip the arena merge
   HUGGINGFACE_TOKEN=hf_xxx python scripts/discover.py   # higher rate limits
 
 NOTES / deliberate choices (the "don'ts"):
@@ -56,7 +66,7 @@ import hf_meta
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 CANDIDATES = ROOT / "candidates.yaml"
-ARENA = ROOT / "arena_agent_rankings.yaml"  # intentionally unused until the arena merge lands (next task)
+ARENA = ROOT / "arena_agent_rankings.yaml"
 
 # The orgs we sweep. This list IS the query — adding an org here is how the
 # tracker gains coverage. pull_arena.py reports leaderboard orgs missing here.
@@ -125,6 +135,72 @@ def sweep_orgs(api, orgs, min_params, known):
     return candidates, skips
 
 
+def load_arena(path=ARENA):
+    """Read arena_agent_rankings.yaml. Returns (resolved_rows, new_orgs).
+
+    Arena is never load-bearing: a missing, empty, or malformed file yields
+    ([], []) so the org sweep still produces candidates.
+    """
+    path = Path(path)
+    if not path.exists():
+        return [], []
+    try:
+        doc = yaml.safe_load(path.read_text()) or {}
+    except yaml.YAMLError as exc:
+        print(f"  ! arena file unreadable ({exc}); continuing without it")
+        return [], []
+
+    rows = [r for r in (doc.get("arena_agent") or [])
+            if r.get("resolved_repo")]
+    return rows, list(doc.get("new_orgs") or [])
+
+
+def arena_candidates(api, rows, min_params, known):
+    """Build candidates from arena-resolved repos via the shared hf_meta path."""
+    out = []
+    for row in rows:
+        repo = row["resolved_repo"]
+        if repo.lower() in known:
+            continue
+        try:
+            info = api.model_info(repo, expand=hf_meta.EXPAND)
+        except Exception as exc:
+            print(f"  ! {repo}: {exc}")
+            continue
+        keep, reason = hf_meta.should_track(info, min_params)
+        if not keep:
+            print(f"  - {repo} skipped ({reason})")
+            continue
+        out.append(hf_meta.candidate_from_repo(
+            info, discovered_via=["arena"], arena_rank=row.get("rank")))
+    return out
+
+
+def merge_candidates(org_rows, arena_rows):
+    """Dedup on lowercased hf_repo, then sort by arena rank, then recency.
+
+    A model found by both sources keeps both tags and the arena rank, so the
+    review queue leads with models people actually use.
+    """
+    by_repo = {}
+    for c in list(org_rows) + list(arena_rows):
+        key = c["hf_repo"].lower()
+        if key not in by_repo:
+            by_repo[key] = dict(c)
+            continue
+        merged = by_repo[key]
+        merged["discovered_via"] = sorted(
+            set(merged["discovered_via"]) | set(c["discovered_via"]))
+        if c.get("arena_rank") is not None:
+            merged["arena_rank"] = c["arena_rank"]
+
+    # ranked first by rank ascending; unranked after, newest first
+    return sorted(by_repo.values(),
+                  key=lambda c: (c.get("arena_rank") is None,
+                                 c.get("arena_rank") or 0,
+                                 -c["release_date"].toordinal()))
+
+
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--min-params", type=float, default=3.0,
@@ -138,10 +214,24 @@ def main():
     known = existing_repos()
 
     print(f"Sweeping {len(ORG_ALLOWLIST)} orgs (min {args.min_params}B params)")
-    candidates, skips = sweep_orgs(api, ORG_ALLOWLIST, args.min_params, known)
-    print(f"  org sweep found {len(candidates)} candidate(s); skipped: {skips}")
+    org_rows, skips = sweep_orgs(api, ORG_ALLOWLIST, args.min_params, known)
+    print(f"  org sweep found {len(org_rows)} candidate(s); skipped: {skips}")
 
-    candidates.sort(key=lambda c: c["release_date"], reverse=True)
+    arena_rows, new_orgs = ([], [])
+    if not args.no_arena:
+        resolved, new_orgs = load_arena()
+        if resolved:
+            print(f"  arena contributed {len(resolved)} resolved repo(s)")
+            arena_rows = arena_candidates(api, resolved, args.min_params, known)
+        else:
+            print("  no arena data (run scripts/pull_arena.py first)")
+
+    candidates = merge_candidates(org_rows, arena_rows)
+
+    if new_orgs:
+        print(f"\nNEW ORGS seen on the leaderboard but not in ORG_ALLOWLIST: "
+              f"{', '.join(new_orgs)}")
+        print("Add them to ORG_ALLOWLIST in this file to widen coverage.")
 
     header = (
         "# AUTO-GENERATED candidate models from scripts/discover.py\n"
