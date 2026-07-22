@@ -53,36 +53,49 @@ ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "arena_agent_rankings.yaml"
 DEFAULT_URL = "https://arena.ai/leaderboard/agent"
 
-# keyword found in a model's display name -> (canonical org, is that product
-# line open-weight?). We key on the product line, not just the org, because a
-# single org ships both (Google: Gemma open / Gemini closed; Microsoft: Phi
-# open / closed copilots). Extend freely.
+# keyword found in a model's display name -> canonical org. This is ONLY a
+# search hint for HF lookup. It deliberately makes NO claim about whether the
+# model is open-weight — that is decided by whether a weights repo resolves.
 KEYWORD_MAP = {
-    "claude": ("Anthropic", False), "anthropic": ("Anthropic", False),
-    "gpt": ("OpenAI", False), "openai": ("OpenAI", False),
-    "o1": ("OpenAI", False), "o3": ("OpenAI", False), "o4": ("OpenAI", False),
-    "gemini": ("Google", False),
-    "gemma": ("Google", True),
-    "llama": ("Meta", True), "meta": ("Meta", True),
-    "qwen": ("Alibaba", True), "qwq": ("Alibaba", True),
-    "deepseek": ("DeepSeek", True),
-    "kimi": ("Moonshot AI", True), "moonshot": ("Moonshot AI", True),
-    "mistral": ("Mistral AI", True), "mixtral": ("Mistral AI", True),
-    "magistral": ("Mistral AI", True), "devstral": ("Mistral AI", True),
-    "codestral": ("Mistral AI", True),
-    "grok": ("xAI", False),
-    "phi": ("Microsoft", True),
-    "command": ("Cohere", True), "cohere": ("Cohere", True),
-    "aya": ("Cohere", True),
-    "glm": ("Zhipu AI", True), "zhipu": ("Zhipu AI", True),
-    "yi": ("01.AI", True),
-    "nemotron": ("NVIDIA", True),
-    "falcon": ("TII", True),
-    "granite": ("IBM", True),
-    "olmo": ("Ai2", True), "allenai": ("Ai2", True),
-    "minimax": ("MiniMax", True),
-    "ernie": ("Baidu", True),
+    "claude": "Anthropic", "anthropic": "Anthropic",
+    "gpt": "OpenAI", "openai": "OpenAI",
+    "o1": "OpenAI", "o3": "OpenAI", "o4": "OpenAI",
+    "gemini": "Google", "gemma": "Google",
+    "llama": "Meta", "muse": "Meta", "meta": "Meta",
+    "qwen": "Alibaba", "qwq": "Alibaba",
+    "deepseek": "DeepSeek",
+    "kimi": "Moonshot AI", "moonshot": "Moonshot AI",
+    "mistral": "Mistral AI", "mixtral": "Mistral AI",
+    "magistral": "Mistral AI", "devstral": "Mistral AI",
+    "codestral": "Mistral AI",
+    "grok": "xAI",
+    "phi": "Microsoft",
+    "command": "Cohere", "cohere": "Cohere", "aya": "Cohere",
+    "glm": "Zhipu AI", "zhipu": "Zhipu AI",
+    "yi": "01.AI",
+    "nemotron": "NVIDIA",
+    "falcon": "TII",
+    "granite": "IBM",
+    "olmo": "Ai2", "allenai": "Ai2",
+    "minimax": "MiniMax",
+    "ernie": "Baidu",
+    "hunyuan": "Tencent", "hy3": "Tencent",
+    "mimo": "Xiaomi",
+    "inkling": "Thinking Machines",
 }
+
+# Org display names as they appear appended to leaderboard labels, e.g.
+# "GLM 5.2 (Max) Z.ai · MIT". Stripped during normalization.
+ORG_DISPLAY_ALIASES = {
+    "anthropic", "openai", "google", "meta", "alibaba", "deepseek",
+    "moonshot", "z.ai", "zai", "minimax", "nvidia", "xai", "microsoft",
+    "cohere", "mistral", "tencent", "xiaomi", "thinky", "ibm", "baidu",
+    "ai2", "01.ai", "tii", "zhipu",
+}
+
+# Repo-name suffixes that mark an instruction-tuned variant of the same model.
+# Stripped before comparing an arena name to a repo name.
+_VARIANT_SUFFIXES = ("instruct", "it", "chat", "base")
 
 SCORE_RE = re.compile(r"(-?\d+(?:\.\d+)?)\s*%\s*(?:±|\+/-|\+-|\+\-)?\s*(\d+(?:\.\d+)?)?\s*%?")
 INT_RE = re.compile(r"^\s*#?\s*(\d{1,3})\s*$")
@@ -102,12 +115,15 @@ ROW_SCHEMA = {
 
 
 def derive_org(name):
-    """Return (org, open_weight, matched_keyword) from a model display name."""
+    """Return (org, matched_keyword) from a model display name.
+
+    Makes no open-weight claim — that is decided by repo resolution.
+    """
     low = name.lower()
-    for kw, (org, ow) in KEYWORD_MAP.items():
+    for kw, org in KEYWORD_MAP.items():
         if re.search(rf"\b{re.escape(kw)}", low):
-            return org, ow, kw
-    return None, False, None   # unknown org -> treat as not-open-weight
+            return org, kw
+    return None, None
 
 
 def parse_score(text):
@@ -120,7 +136,47 @@ def parse_score(text):
 
 
 def looks_like_model(text):
-    return derive_org(text)[2] is not None or bool(re.search(r"[A-Za-z]{3,}", text))
+    return derive_org(text)[1] is not None or bool(re.search(r"[A-Za-z]{3,}", text))
+
+
+def normalize_model_name(display):
+    """Strip leaderboard chrome from a display label.
+
+    "GLM 5.2 (Max) Z.ai · MIT · SiliconFlow" -> "GLM 5.2"
+
+    Three steps: drop everything from the first "·" separator, drop
+    parenthetical effort tags like "(High)"/"(Max)", then drop a single
+    trailing org display name.
+    """
+    name = display.split("·")[0]
+    name = re.sub(r"\([^)]*\)", " ", name)
+    name = re.sub(r"\s+", " ", name).strip()
+
+    tokens = name.split(" ")
+    if len(tokens) > 1 and tokens[-1].lower() in ORG_DISPLAY_ALIASES:
+        tokens = tokens[:-1]
+    return " ".join(tokens).strip()
+
+
+def slug(text):
+    """Lowercase and strip every non-alphanumeric character."""
+    return re.sub(r"[^a-z0-9]", "", text.lower())
+
+
+def score_match(query, repo_id):
+    """Rate how well an arena name matches an HF repo id: high/medium/low."""
+    tail = repo_id.split("/")[-1]
+    for suffix in _VARIANT_SUFFIXES:
+        tail = re.sub(rf"[-_]{suffix}$", "", tail, flags=re.IGNORECASE)
+
+    q, r = slug(query), slug(tail)
+    if not q or not r:
+        return "low"
+    if q == r:
+        return "high"
+    if q.startswith(r) or r.startswith(q):
+        return "medium"
+    return "low"
 
 
 def parse_leaderboard(html):
