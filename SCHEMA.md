@@ -60,3 +60,20 @@ date descending — so the models people actually use lead the review queue.
 weights repo resolved on Hugging Face. It is **not** arena's license label and
 **not** an org guess. `needs_hf_repo: true` marks an inexact name match that a
 human should verify before promotion.
+
+## `leaderboard_scores.yaml` (generated, joined at render)
+
+Written by `scripts/pull_leaderboard.py`. Maps `hf_repo` → an MMLU score from the
+HF Open LLM Leaderboard:
+
+```yaml
+scores:
+  meta-llama/Llama-3.1-405B-Instruct:
+    mmlu: 88.6
+    source: "https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard"
+```
+
+`render_readme.py` reads this file and uses the leaderboard score for the MMLU
+column when a repo is present, otherwise it falls back to that row's manual
+`benchmark.score` in `models.yaml`. The file is committed so the render stays
+offline; a missing/empty/malformed file just means every row uses its manual score.
