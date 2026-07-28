@@ -88,7 +88,7 @@ def fetch_rows(get_json=hf_meta._http_get_json):
         items = (page or {}).get("rows") or []
         if not items:
             break
-        rows.extend(it.get("row", it) for it in items)
+        rows.extend(it.get("row", it) for it in items if isinstance(it, dict))
         if len(items) < 100:
             break
         offset += 100

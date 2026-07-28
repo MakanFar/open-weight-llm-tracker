@@ -27,3 +27,11 @@ def test_build_scores_maps_repos_case_insensitively():
 def test_build_scores_skips_rows_without_mmlu():
     rows = [{"fullname": "org/m", "MMLU-PRO": 40.0}]
     assert pl.build_scores(["org/m"], rows) == {}
+
+
+def test_fetch_rows_skips_non_dict_items():
+    page = {"rows": [{"row": {"fullname": "org/m", "MMLU": 70.0}}, "garbage", None]}
+    got = pl.fetch_rows(get_json=lambda url: page)
+    assert {"fullname": "org/m", "MMLU": 70.0} in got
+    # no exception, bad items skipped
+    assert all(isinstance(r, dict) for r in got)
