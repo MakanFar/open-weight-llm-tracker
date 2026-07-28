@@ -100,7 +100,7 @@ def existing_repos():
     return repos
 
 
-def sweep_orgs(api, orgs, min_params, known):
+def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json):
     """One list_models call per org. Returns (candidates, skip_counts).
 
     A failure on one org is logged and skipped — it never aborts the sweep.
@@ -136,8 +136,9 @@ def sweep_orgs(api, orgs, min_params, known):
             if not keep:
                 skips[reason] += 1
                 continue
-            candidates.append(
-                hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"]))
+            ctx = hf_meta.resolve_context(info, get_json)
+            candidates.append(hf_meta.candidate_from_repo(
+                info, discovered_via=["org-sweep"], context_window=ctx))
             seen.add(info.id.lower())
 
     return candidates, skips
@@ -187,7 +188,7 @@ def load_arena(path=ARENA):
     return rows, list(raw_new_orgs or [])
 
 
-def arena_candidates(api, rows, min_params, known):
+def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_json):
     """Build candidates from arena-resolved repos via the shared hf_meta path."""
     out = []
     for row in rows:
@@ -203,10 +204,12 @@ def arena_candidates(api, rows, min_params, known):
         if not keep:
             print(f"  - {repo} skipped ({reason})")
             continue
+        ctx = hf_meta.resolve_context(info, get_json)
         out.append(hf_meta.candidate_from_repo(
             info, discovered_via=["arena"], arena_rank=row.get("rank"),
             needs_hf_repo=row.get("needs_hf_repo"),
-            resolution_confidence=row.get("resolution_confidence")))
+            resolution_confidence=row.get("resolution_confidence"),
+            context_window=ctx))
     return out
 
 

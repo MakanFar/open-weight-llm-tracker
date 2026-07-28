@@ -148,3 +148,25 @@ def test_fetch_context_window_swallows_fetch_errors():
     def boom(url):
         raise RuntimeError("gated repo")
     assert hf_meta.fetch_context_window("org/model", get_json=boom) is None
+
+
+def test_resolve_context_prefers_api_expand():
+    info = FakeInfo("org/m", ctx=4096)
+    assert hf_meta.resolve_context(info, get_json=lambda url: {"n_positions": 999}) == 4096
+
+
+def test_resolve_context_falls_back_to_config_json():
+    info = FakeInfo("org/m")  # API expand empty
+    ctx = hf_meta.resolve_context(info, get_json=lambda url: {"max_position_embeddings": 32768})
+    assert ctx == 32768
+
+
+def test_resolve_context_zero_when_nothing_resolves():
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_context(info, get_json=lambda url: {}) == 0
+
+
+def test_candidate_uses_explicit_context_window():
+    info = FakeInfo("org/m")
+    row = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"], context_window=65536)
+    assert row["context_window"] == 65536

@@ -109,6 +109,14 @@ def fetch_context_window(repo, get_json=_http_get_json):
     return _ctx_from_config(cfg)
 
 
+def resolve_context(info, get_json=_http_get_json):
+    """API expand first, then config.json, then 0."""
+    ctx = context_of(info)
+    if isinstance(ctx, int) and ctx > 0:
+        return ctx
+    return fetch_context_window(info.id, get_json) or 0
+
+
 def params_b_of(info):
     st = getattr(info, "safetensors", None)
     if st is None:
@@ -145,7 +153,8 @@ def should_track(info, min_params):
 
 
 def candidate_from_repo(info, discovered_via, arena_rank=None,
-                        needs_hf_repo=None, resolution_confidence=None):
+                        needs_hf_repo=None, resolution_confidence=None,
+                        context_window=None):
     """Build a candidates.yaml row from an HF ModelInfo.
 
     Caller is responsible for having run should_track() first.
@@ -169,7 +178,8 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "params_total_b": params,
         "params_active_b": params,   # TODO: set active params for MoE by hand
         "architecture": "dense",     # TODO: mark 'moe' if applicable
-        "context_window": context_of(info) or 0,   # 0 => fill during review
+        "context_window": context_window if context_window is not None
+        else (context_of(info) or 0),   # 0 => fill during review
         "modality": "text",
         "license": lic,
         "commercial_use": COMMERCIAL_GUESS.get(lic, "conditional"),
