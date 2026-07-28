@@ -125,3 +125,26 @@ def test_candidate_from_repo_keeps_exact_match_unflagged():
 
     assert c["needs_hf_repo"] is False
     assert c["resolution_confidence"] == "high"
+
+
+def test_fetch_context_window_reads_top_level_key():
+    cfg = {"max_position_embeddings": 131072}
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
+    assert ctx == 131072
+
+
+def test_fetch_context_window_reads_nested_text_config():
+    cfg = {"text_config": {"max_sequence_length": 8192}}
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
+    assert ctx == 8192
+
+
+def test_fetch_context_window_returns_none_when_absent():
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: {"foo": 1})
+    assert ctx is None
+
+
+def test_fetch_context_window_swallows_fetch_errors():
+    def boom(url):
+        raise RuntimeError("gated repo")
+    assert hf_meta.fetch_context_window("org/model", get_json=boom) is None
