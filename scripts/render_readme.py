@@ -18,6 +18,8 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 README = ROOT / "README.md"
+LEADERBOARD = ROOT / "leaderboard_scores.yaml"
+ARENA = ROOT / "arena_agent_rankings.yaml"
 
 START = "<!-- MODELS_TABLE_START -->"
 END = "<!-- MODELS_TABLE_END -->"
@@ -41,7 +43,49 @@ def commercial_badge(v):
     return {True: "Yes", False: "No", "conditional": "Conditional"}.get(v, str(v))
 
 
-def build_table(models):
+def load_leaderboard(path=LEADERBOARD):
+    """{lower_repo: mmlu_float}. {} on missing/malformed."""
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {}
+    scores = doc.get("scores") if isinstance(doc, dict) else None
+    out = {}
+    if isinstance(scores, dict):
+        for repo, entry in scores.items():
+            if isinstance(entry, dict) and isinstance(entry.get("mmlu"), (int, float)):
+                out[str(repo).lower()] = float(entry["mmlu"])
+    return out
+
+
+def load_arena_ranks(path=ARENA):
+    """{lower_repo: rank_int}. {} on missing/malformed."""
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {}
+    rows = doc.get("arena_agent") if isinstance(doc, dict) else None
+    out = {}
+    if isinstance(rows, list):
+        for r in rows:
+            if isinstance(r, dict) and r.get("resolved_repo") and isinstance(r.get("rank"), int):
+                out[str(r["resolved_repo"]).lower()] = r["rank"]
+    return out
+
+
+def mmlu_cell(model, lb):
+    repo = (model.get("hf_repo") or "").lower()
+    if repo in lb:
+        return str(lb[repo])
+    score = (model.get("benchmark") or {}).get("score")
+    return f"{score}*" if isinstance(score, (int, float)) else "?"
+
+
+def arena_cell(model, ranks):
+    return str(ranks.get((model.get("hf_repo") or "").lower(), "—"))
+
+
+def build_table(models, lb, ranks):
     # newest first, then by size
     models = sorted(
         models,
@@ -49,19 +93,18 @@ def build_table(models):
         reverse=True,
     )
     head = ("| Model | Developer | Released | Params | Context | Modality | "
-            "Benchmark | License | Commercial |")
-    sep = "|---|---|---|---|---|---|---|---|---|"
+            "Arena | MMLU | License | Commercial |")
+    sep = "|---|---|---|---|---|---|---|---|---|---|"
     rows = [head, sep]
     for m in models:
-        b = m.get("benchmark", {})
         name = m["name"]
         if m.get("weights_url"):
             name = f"[{name}]({m['weights_url']})"
-        bench = f"{b.get('name','?')} {b.get('score','?')}"
         rows.append(
             f"| {name} | {m['developer']} | {m['release_date']} | "
             f"{human_params(m['params_total_b'], m['params_active_b'], m['architecture'])} | "
-            f"{human_ctx(m['context_window'])} | {m['modality']} | {bench} | "
+            f"{human_ctx(m['context_window'])} | {m['modality']} | "
+            f"{arena_cell(m, ranks)} | {mmlu_cell(m, lb)} | "
             f"`{m['license']}` | {commercial_badge(m['commercial_use'])} |"
         )
     return "\n".join(rows)
@@ -69,7 +112,9 @@ def build_table(models):
 
 def main():
     doc = yaml.safe_load(DATA.read_text())
-    table = build_table(doc["models"])
+    lb = load_leaderboard()
+    ranks = load_arena_ranks()
+    table = build_table(doc["models"], lb, ranks)
     n = len(doc["models"])
 
     body = (
@@ -80,9 +125,10 @@ def main():
         "Data lives in [`models.yaml`](models.yaml) (the source of truth). This table "
         "is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
         "[CONTRIBUTING.md](CONTRIBUTING.md) to add a model.\n\n"
-        "> **Benchmark caveat:** the benchmark column mixes vendor-reported and "
-        "third-party numbers (see each row's `benchmark.source` in the YAML). Anchor to a "
-        "single leaderboard before relying on it for comparisons.\n\n"
+        "> **Columns:** **MMLU** is from the HF Open LLM Leaderboard where "
+        "available; values marked `*` fall back to a vendor/manual figure and are "
+        "not harness-comparable. **Arena** is the Agent Arena rank (`—` = not "
+        "currently ranked). See each row's `benchmark.source` in the YAML.\n\n"
         f"{START}\n{table}\n{END}\n\n"
         "## Regenerate\n\n"
         "```bash\n"

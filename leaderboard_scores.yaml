@@ -1,0 +1,5 @@
+# AUTO-FETCHED by scripts/pull_leaderboard.py — do not hand-edit.
+# MMLU from the HF Open LLM Leaderboard, keyed by hf_repo.
+# render_readme.py falls back to models.yaml benchmark.score when a
+# repo is absent here.
+scores: {}
