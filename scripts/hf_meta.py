@@ -6,7 +6,9 @@ Both discovery sources (the org sweep in discover.py and arena-resolved repos
 in pull_arena.py) build candidate rows through this module, so a candidate has
 exactly one construction path and one set of filter rules.
 """
+import json
 import re
+import urllib.request
 from datetime import date, datetime
 
 # License tags we accept (HF's vocabulary, NOT clean SPDX). Named open-weight
@@ -74,6 +76,47 @@ def context_of(info):
     return None
 
 
+_CONFIG_URL = "https://huggingface.co/{repo}/resolve/main/config.json"
+
+
+def _http_get_json(url):
+    req = urllib.request.Request(url, headers={"User-Agent": "owlt-puller/1.0"})
+    with urllib.request.urlopen(req, timeout=30) as r:
+        return json.load(r)
+
+
+def _ctx_from_config(cfg):
+    if not isinstance(cfg, dict):
+        return None
+    for k in CTX_KEYS:
+        if isinstance(cfg.get(k), int):
+            return cfg[k]
+    for sub in ("text_config", "llm_config"):
+        inner = cfg.get(sub) or {}
+        if isinstance(inner, dict):
+            for k in CTX_KEYS:
+                if isinstance(inner.get(k), int):
+                    return inner[k]
+    return None
+
+
+def fetch_context_window(repo, get_json=_http_get_json):
+    """Best-effort context length from the repo's config.json. None on any failure."""
+    try:
+        cfg = get_json(_CONFIG_URL.format(repo=repo))
+    except Exception:
+        return None
+    return _ctx_from_config(cfg)
+
+
+def resolve_context(info, get_json=_http_get_json):
+    """API expand first, then config.json, then 0."""
+    ctx = context_of(info)
+    if isinstance(ctx, int) and ctx > 0:
+        return ctx
+    return fetch_context_window(info.id, get_json) or 0
+
+
 def params_b_of(info):
     st = getattr(info, "safetensors", None)
     if st is None:
@@ -110,7 +153,8 @@ def should_track(info, min_params):
 
 
 def candidate_from_repo(info, discovered_via, arena_rank=None,
-                        needs_hf_repo=None, resolution_confidence=None):
+                        needs_hf_repo=None, resolution_confidence=None,
+                        context_window=None):
     """Build a candidates.yaml row from an HF ModelInfo.
 
     Caller is responsible for having run should_track() first.
@@ -134,7 +178,8 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "params_total_b": params,
         "params_active_b": params,   # TODO: set active params for MoE by hand
         "architecture": "dense",     # TODO: mark 'moe' if applicable
-        "context_window": context_of(info) or 0,   # 0 => fill during review
+        "context_window": context_window if context_window is not None
+        else (context_of(info) or 0),   # 0 => fill during review
         "modality": "text",
         "license": lic,
         "commercial_use": COMMERCIAL_GUESS.get(lic, "conditional"),

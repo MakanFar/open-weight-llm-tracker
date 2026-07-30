@@ -125,3 +125,48 @@ def test_candidate_from_repo_keeps_exact_match_unflagged():
 
     assert c["needs_hf_repo"] is False
     assert c["resolution_confidence"] == "high"
+
+
+def test_fetch_context_window_reads_top_level_key():
+    cfg = {"max_position_embeddings": 131072}
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
+    assert ctx == 131072
+
+
+def test_fetch_context_window_reads_nested_text_config():
+    cfg = {"text_config": {"max_sequence_length": 8192}}
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
+    assert ctx == 8192
+
+
+def test_fetch_context_window_returns_none_when_absent():
+    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: {"foo": 1})
+    assert ctx is None
+
+
+def test_fetch_context_window_swallows_fetch_errors():
+    def boom(url):
+        raise RuntimeError("gated repo")
+    assert hf_meta.fetch_context_window("org/model", get_json=boom) is None
+
+
+def test_resolve_context_prefers_api_expand():
+    info = FakeInfo("org/m", ctx=4096)
+    assert hf_meta.resolve_context(info, get_json=lambda url: {"n_positions": 999}) == 4096
+
+
+def test_resolve_context_falls_back_to_config_json():
+    info = FakeInfo("org/m")  # API expand empty
+    ctx = hf_meta.resolve_context(info, get_json=lambda url: {"max_position_embeddings": 32768})
+    assert ctx == 32768
+
+
+def test_resolve_context_zero_when_nothing_resolves():
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_context(info, get_json=lambda url: {}) == 0
+
+
+def test_candidate_uses_explicit_context_window():
+    info = FakeInfo("org/m")
+    row = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"], context_window=65536)
+    assert row["context_window"] == 65536

@@ -30,7 +30,8 @@ class FakeApi:
 
 def test_sweep_queries_each_org_once():
     api = FakeApi({"zai-org": [], "moonshotai": []})
-    discover.sweep_orgs(api, ["zai-org", "moonshotai"], 3.0, set())
+    discover.sweep_orgs(api, ["zai-org", "moonshotai"], 3.0, set(),
+                        get_json=lambda url: {})
     assert sorted(api.calls) == ["moonshotai", "zai-org"]
 
 
@@ -38,7 +39,8 @@ def test_sweep_collects_real_models():
     api = FakeApi({"zai-org": [
         FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
     ]})
-    candidates, skips = discover.sweep_orgs(api, ["zai-org"], 3.0, set())
+    candidates, skips = discover.sweep_orgs(api, ["zai-org"], 3.0, set(),
+                                            get_json=lambda url: {})
 
     assert len(candidates) == 1
     assert candidates[0]["hf_repo"] == "zai-org/GLM-5.2"
@@ -50,7 +52,8 @@ def test_sweep_drops_quantizations():
         FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
         FakeInfo("zai-org/GLM-5.2-FP8", total=753_400_000_000, license="mit"),
     ]})
-    candidates, skips = discover.sweep_orgs(api, ["zai-org"], 3.0, set())
+    candidates, skips = discover.sweep_orgs(api, ["zai-org"], 3.0, set(),
+                                            get_json=lambda url: {})
 
     assert [c["hf_repo"] for c in candidates] == ["zai-org/GLM-5.2"]
     assert skips["derivative"] == 1
@@ -61,7 +64,7 @@ def test_sweep_skips_already_known_repos():
         FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
     ]})
     candidates, skips = discover.sweep_orgs(
-        api, ["zai-org"], 3.0, {"zai-org/glm-5.2"})
+        api, ["zai-org"], 3.0, {"zai-org/glm-5.2"}, get_json=lambda url: {})
 
     assert candidates == []
     assert skips["known"] == 1
@@ -75,10 +78,20 @@ def test_one_failing_org_does_not_abort_sweep():
         errors=["zai-org"],
     )
     candidates, skips = discover.sweep_orgs(
-        api, ["zai-org", "moonshotai"], 3.0, set())
+        api, ["zai-org", "moonshotai"], 3.0, set(), get_json=lambda url: {})
 
     assert len(candidates) == 1
     assert skips["org_error"] == 1
+
+
+def test_context_window_filled_from_config_json():
+    api = FakeApi({"Qwen": [
+        FakeInfo("Qwen/Qwen9-30B", total=30_000_000_000, license="apache-2.0"),
+    ]})
+    cands, _ = discover.sweep_orgs(
+        api, ["Qwen"], 3.0, set(),
+        get_json=lambda url: {"max_position_embeddings": 40960})
+    assert cands[0]["context_window"] == 40960
 
 
 class FakeRepoApi:
@@ -102,7 +115,7 @@ def test_arena_candidates_propagate_verification_flag():
     rows = [{"rank": 24, "resolved_repo": "deepseek-ai/DeepSeek-V4",
              "needs_hf_repo": True, "resolution_confidence": "medium"}]
 
-    out = discover.arena_candidates(api, rows, 3.0, set())
+    out = discover.arena_candidates(api, rows, 3.0, set(), get_json=lambda url: {})
 
     assert len(out) == 1
     assert out[0]["arena_rank"] == 24
@@ -116,7 +129,7 @@ def test_arena_candidates_mark_exact_matches_unflagged():
     rows = [{"rank": 10, "resolved_repo": "zai-org/GLM-5.2",
              "needs_hf_repo": False, "resolution_confidence": "high"}]
 
-    out = discover.arena_candidates(api, rows, 3.0, set())
+    out = discover.arena_candidates(api, rows, 3.0, set(), get_json=lambda url: {})
 
     assert out[0]["needs_hf_repo"] is False
     assert out[0]["resolution_confidence"] == "high"
