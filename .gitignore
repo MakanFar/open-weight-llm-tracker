@@ -5,3 +5,10 @@
 .venv/
 __pycache__/
 *.pyc
+
+# SDD scratch
+.superpowers/
+
+# claude
+.claude/
+

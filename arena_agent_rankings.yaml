@@ -1,0 +1,1185 @@
+# AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py
+# open_weight means: a public weights repo was FOUND on Hugging Face.
+# It is not arena's license label and not an org guess.
+# needs_hf_repo=true means the match was inexact — verify by hand.
+arena_agent:
+- rank: 1
+  model: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 12.72
+  net_improvement_ci: 2.0
+  arena_license_label: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
+  raw:
+  - 1 1 4
+  - Anthropic Claude Fable 5 (High) Anthropic · Proprietary
+  - 12.72 % ±2.00%
+  - 10.67 % ±3.84%
+  - 23.94 % ±7.42%
+  - 14.62 % ±3.80%
+  - 12.97 % ±1.30%
+  - 1.39 % ±0.17%
+  - 23,549
+  by_header:
+    Rank: 1 1 4
+    Model: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
+    Net Improvement: 12.72 % ±2.00%
+    Confirmed Success: 10.67 % ±3.84%
+    Praise vs Complaint: 23.94 % ±7.42%
+    Steerability: 14.62 % ±3.80%
+    Bash Recovery: 12.97 % ±1.30%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 23,549
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 2
+  model: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: 10.12
+  net_improvement_ci: 1.69
+  arena_license_label: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
+  raw:
+  - 2 1 8
+  - GPT 5.6 Sol (xHigh) OpenAI · Proprietary
+  - 10.12 % ±1.69%
+  - 7.25 % ±3.29%
+  - 23.53 % ±6.57%
+  - 9.71 % ±2.78%
+  - 8.74 % ±1.30%
+  - 1.39 % ±0.17%
+  - 15,991
+  by_header:
+    Rank: 2 1 8
+    Model: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
+    Net Improvement: 10.12 % ±1.69%
+    Confirmed Success: 7.25 % ±3.29%
+    Praise vs Complaint: 23.53 % ±6.57%
+    Steerability: 9.71 % ±2.78%
+    Bash Recovery: 8.74 % ±1.30%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 15,991
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 3
+  model: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 9.75
+  net_improvement_ci: 1.39
+  arena_license_label: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
+  raw:
+  - 3 1 9
+  - Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
+  - 9.75 % ±1.39%
+  - 8.90 % ±2.62%
+  - 19.42 % ±5.05%
+  - 9.78 % ±2.58%
+  - 10.43 % ±1.07%
+  - 0.22 % ±1.11%
+  - 34,147
+  by_header:
+    Rank: 3 1 9
+    Model: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
+    Net Improvement: 9.75 % ±1.39%
+    Confirmed Success: 8.90 % ±2.62%
+    Praise vs Complaint: 19.42 % ±5.05%
+    Steerability: 9.78 % ±2.58%
+    Bash Recovery: 10.43 % ±1.07%
+    Tool Hallucination: 0.22 % ±1.11%
+    Sessions: 34,147
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 4
+  model: Kimi K3 Moonshot · Proprietary
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: 9.71
+  net_improvement_ci: 1.52
+  arena_license_label: Kimi K3 Moonshot · Proprietary
+  raw:
+  - 4 1 9
+  - Kimi K3 Moonshot · Proprietary
+  - 9.71 % ±1.52%
+  - 14.00 % ±2.92%
+  - 20.30 % ±5.45%
+  - 6.52 % ±3.14%
+  - 6.33 % ±1.27%
+  - 1.39 % ±0.17%
+  - 11,490
+  by_header:
+    Rank: 4 1 9
+    Model: Kimi K3 Moonshot · Proprietary
+    Net Improvement: 9.71 % ±1.52%
+    Confirmed Success: 14.00 % ±2.92%
+    Praise vs Complaint: 20.30 % ±5.45%
+    Steerability: 6.52 % ±3.14%
+    Bash Recovery: 6.33 % ±1.27%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 11,490
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 5
+  model: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 8.66
+  net_improvement_ci: 1.89
+  arena_license_label: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
+  raw:
+  - 5 2 12
+  - Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
+  - 8.66 % ±1.89%
+  - 8.14 % ±3.67%
+  - 16.88 % ±7.14%
+  - 6.20 % ±3.66%
+  - 10.81 % ±0.90%
+  - 1.25 % ±0.18%
+  - 24,359
+  by_header:
+    Rank: 5 2 12
+    Model: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
+    Net Improvement: 8.66 % ±1.89%
+    Confirmed Success: 8.14 % ±3.67%
+    Praise vs Complaint: 16.88 % ±7.14%
+    Steerability: 6.20 % ±3.66%
+    Bash Recovery: 10.81 % ±0.90%
+    Tool Hallucination: 1.25 % ±0.18%
+    Sessions: 24,359
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 6
+  model: GPT 5.5 (xHigh) OpenAI · Proprietary
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: 8.41
+  net_improvement_ci: 0.87
+  arena_license_label: GPT 5.5 (xHigh) OpenAI · Proprietary
+  raw:
+  - 6 2 10
+  - GPT 5.5 (xHigh) OpenAI · Proprietary
+  - 8.41 % ±0.87%
+  - 6.65 % ±1.78%
+  - 11.08 % ±3.13%
+  - 8.18 % ±1.65%
+  - 14.77 % ±0.80%
+  - 1.39 % ±0.17%
+  - 40,667
+  by_header:
+    Rank: 6 2 10
+    Model: GPT 5.5 (xHigh) OpenAI · Proprietary
+    Net Improvement: 8.41 % ±0.87%
+    Confirmed Success: 6.65 % ±1.78%
+    Praise vs Complaint: 11.08 % ±3.13%
+    Steerability: 8.18 % ±1.65%
+    Bash Recovery: 14.77 % ±0.80%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 40,667
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 7
+  model: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 7.94
+  net_improvement_ci: 1.24
+  arena_license_label: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
+  raw:
+  - 7 2 12
+  - Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
+  - 7.94 % ±1.24%
+  - 5.67 % ±2.55%
+  - 11.55 % ±4.36%
+  - 8.62 % ±2.36%
+  - 12.57 % ±1.13%
+  - 1.28 % ±0.19%
+  - 35,151
+  by_header:
+    Rank: 7 2 12
+    Model: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
+    Net Improvement: 7.94 % ±1.24%
+    Confirmed Success: 5.67 % ±2.55%
+    Praise vs Complaint: 11.55 % ±4.36%
+    Steerability: 8.62 % ±2.36%
+    Bash Recovery: 12.57 % ±1.13%
+    Tool Hallucination: 1.28 % ±0.19%
+    Sessions: 35,151
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 8
+  model: Anthropic Claude Opus 4.7 Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 7.67
+  net_improvement_ci: 1.25
+  arena_license_label: Anthropic Claude Opus 4.7 Anthropic · Proprietary
+  raw:
+  - 8 2 12
+  - Anthropic Claude Opus 4.7 Anthropic · Proprietary
+  - 7.67 % ±1.25%
+  - 4.97 % ±2.57%
+  - 12.48 % ±4.38%
+  - 8.95 % ±2.32%
+  - 10.62 % ±1.53%
+  - 1.33 % ±0.17%
+  - 35,672
+  by_header:
+    Rank: 8 2 12
+    Model: Anthropic Claude Opus 4.7 Anthropic · Proprietary
+    Net Improvement: 7.67 % ±1.25%
+    Confirmed Success: 4.97 % ±2.57%
+    Praise vs Complaint: 12.48 % ±4.38%
+    Steerability: 8.95 % ±2.32%
+    Bash Recovery: 10.62 % ±1.53%
+    Tool Hallucination: 1.33 % ±0.17%
+    Sessions: 35,672
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 9
+  model: GPT 5.5 (High) OpenAI · Proprietary
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: 7.61
+  net_improvement_ci: 0.81
+  arena_license_label: GPT 5.5 (High) OpenAI · Proprietary
+  raw:
+  - 9 3 12
+  - GPT 5.5 (High) OpenAI · Proprietary
+  - 7.61 % ±0.81%
+  - 6.20 % ±1.59%
+  - 9.80 % ±2.89%
+  - 8.77 % ±1.44%
+  - 11.90 % ±1.07%
+  - 1.39 % ±0.17%
+  - 65,859
+  by_header:
+    Rank: 9 3 12
+    Model: GPT 5.5 (High) OpenAI · Proprietary
+    Net Improvement: 7.61 % ±0.81%
+    Confirmed Success: 6.20 % ±1.59%
+    Praise vs Complaint: 9.80 % ±2.89%
+    Steerability: 8.77 % ±1.44%
+    Bash Recovery: 11.90 % ±1.07%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 65,859
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 10
+  model: GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: 6.5
+  net_improvement_ci: 1.0
+  arena_license_label: null
+  raw:
+  - 10 6 14
+  - GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
+  - 6.50 % ±1.00%
+  - 8.65 % ±1.97%
+  - 12.94 % ±3.63%
+  - 4.71 % ±1.79%
+  - 4.78 % ±1.15%
+  - 1.39 % ±0.17%
+  - 38,221
+  by_header:
+    Rank: 10 6 14
+    Model: GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
+    Net Improvement: 6.50 % ±1.00%
+    Confirmed Success: 8.65 % ±1.97%
+    Praise vs Complaint: 12.94 % ±3.63%
+    Steerability: 4.71 % ±1.79%
+    Bash Recovery: 4.78 % ±1.15%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 38,221
+  resolved_repo: zai-org/GLM-5.2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 11
+  model: Anthropic Claude Opus 4.6 Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 6.42
+  net_improvement_ci: 1.24
+  arena_license_label: Anthropic Claude Opus 4.6 Anthropic · Proprietary
+  raw:
+  - 11 5 15
+  - Anthropic Claude Opus 4.6 Anthropic · Proprietary
+  - 6.42 % ±1.24%
+  - 3.12 % ±2.63%
+  - 9.94 % ±4.21%
+  - 6.53 % ±2.28%
+  - 11.14 % ±1.35%
+  - 1.39 % ±0.17%
+  - 34,862
+  by_header:
+    Rank: 11 5 15
+    Model: Anthropic Claude Opus 4.6 Anthropic · Proprietary
+    Net Improvement: 6.42 % ±1.24%
+    Confirmed Success: 3.12 % ±2.63%
+    Praise vs Complaint: 9.94 % ±4.21%
+    Steerability: 6.53 % ±2.28%
+    Bash Recovery: 11.14 % ±1.35%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 34,862
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 12
+  model: GPT 5.5 OpenAI · Proprietary
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: 5.65
+  net_improvement_ci: 0.76
+  arena_license_label: GPT 5.5 OpenAI · Proprietary
+  raw:
+  - 12 10 15
+  - GPT 5.5 OpenAI · Proprietary
+  - 5.65 % ±0.76%
+  - 3.92 % ±1.58%
+  - 5.67 % ±2.65%
+  - 6.08 % ±1.39%
+  - 11.22 % ±0.90%
+  - 1.39 % ±0.17%
+  - 66,796
+  by_header:
+    Rank: 12 10 15
+    Model: GPT 5.5 OpenAI · Proprietary
+    Net Improvement: 5.65 % ±0.76%
+    Confirmed Success: 3.92 % ±1.58%
+    Praise vs Complaint: 5.67 % ±2.65%
+    Steerability: 6.08 % ±1.39%
+    Bash Recovery: 11.22 % ±0.90%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 66,796
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 13
+  model: GPT 5.4 (High) OpenAI · Proprietary
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: 5.64
+  net_improvement_ci: 0.77
+  arena_license_label: GPT 5.4 (High) OpenAI · Proprietary
+  raw:
+  - 13 10 15
+  - GPT 5.4 (High) OpenAI · Proprietary
+  - 5.64 % ±0.77%
+  - 6.23 % ±1.59%
+  - 3.13 % ±2.70%
+  - 7.75 % ±1.46%
+  - 9.72 % ±0.90%
+  - 1.39 % ±0.17%
+  - 66,142
+  by_header:
+    Rank: 13 10 15
+    Model: GPT 5.4 (High) OpenAI · Proprietary
+    Net Improvement: 5.64 % ±0.77%
+    Confirmed Success: 6.23 % ±1.59%
+    Praise vs Complaint: 3.13 % ±2.70%
+    Steerability: 7.75 % ±1.46%
+    Bash Recovery: 9.72 % ±0.90%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 66,142
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 14
+  model: Grok 4.5 SpaceXAI · Proprietary
+  org: xAI
+  matched_keyword: grok
+  net_improvement_pct: 5.56
+  net_improvement_ci: 1.33
+  arena_license_label: Grok 4.5 SpaceXAI · Proprietary
+  raw:
+  - 14 6 15
+  - Grok 4.5 SpaceXAI · Proprietary
+  - 5.56 % ±1.33%
+  - 3.86 % ±2.88%
+  - 8.17 % ±4.91%
+  - 3.80 % ±2.34%
+  - 10.56 % ±1.14%
+  - 1.39 % ±0.17%
+  - 21,424
+  by_header:
+    Rank: 14 6 15
+    Model: Grok 4.5 SpaceXAI · Proprietary
+    Net Improvement: 5.56 % ±1.33%
+    Confirmed Success: 3.86 % ±2.88%
+    Praise vs Complaint: 8.17 % ±4.91%
+    Steerability: 3.80 % ±2.34%
+    Bash Recovery: 10.56 % ±1.14%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 21,424
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 15
+  model: Anthropic Claude Opus 4.8 Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 3.56
+  net_improvement_ci: 1.65
+  arena_license_label: Anthropic Claude Opus 4.8 Anthropic · Proprietary
+  raw:
+  - 15 11 17
+  - Anthropic Claude Opus 4.8 Anthropic · Proprietary
+  - 3.56 % ±1.65%
+  - 7.10 % ±2.73%
+  - 11.63 % ±4.80%
+  - 8.25 % ±2.62%
+  - 9.82 % ±1.40%
+  - 18.98 % ±4.59%
+  - 32,216
+  by_header:
+    Rank: 15 11 17
+    Model: Anthropic Claude Opus 4.8 Anthropic · Proprietary
+    Net Improvement: 3.56 % ±1.65%
+    Confirmed Success: 7.10 % ±2.73%
+    Praise vs Complaint: 11.63 % ±4.80%
+    Steerability: 8.25 % ±2.62%
+    Bash Recovery: 9.82 % ±1.40%
+    Tool Hallucination: 18.98 % ±4.59%
+    Sessions: 32,216
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 16
+  model: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
+  org: Anthropic
+  matched_keyword: claude
+  net_improvement_pct: 2.84
+  net_improvement_ci: 1.15
+  arena_license_label: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
+  raw:
+  - 16 15 17
+  - Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
+  - 2.84 % ±1.15%
+  - 0.62 % ±2.62%
+  - 0.65 % ±3.77%
+  - 1.35 % ±2.18%
+  - 11.45 % ±1.47%
+  - 1.35 % ±0.17%
+  - 35,646
+  by_header:
+    Rank: 16 15 17
+    Model: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
+    Net Improvement: 2.84 % ±1.15%
+    Confirmed Success: 0.62 % ±2.62%
+    Praise vs Complaint: 0.65 % ±3.77%
+    Steerability: 1.35 % ±2.18%
+    Bash Recovery: 11.45 % ±1.47%
+    Tool Hallucination: 1.35 % ±0.17%
+    Sessions: 35,646
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 17
+  model: GLM 5.1 Z.ai · MIT · SiliconFlow
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: 1.43
+  net_improvement_ci: 0.78
+  arena_license_label: null
+  raw:
+  - 17 15 20
+  - GLM 5.1 Z.ai · MIT · SiliconFlow
+  - 1.43 % ±0.78%
+  - 1.12 % ±1.74%
+  - 0.99 % ±2.69%
+  - 0.15 % ±1.53%
+  - 3.79 % ±0.89%
+  - 1.39 % ±0.17%
+  - 57,532
+  by_header:
+    Rank: 17 15 20
+    Model: GLM 5.1 Z.ai · MIT · SiliconFlow
+    Net Improvement: 1.43 % ±0.78%
+    Confirmed Success: 1.12 % ±1.74%
+    Praise vs Complaint: 0.99 % ±2.69%
+    Steerability: 0.15 % ±1.53%
+    Bash Recovery: 3.79 % ±0.89%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 57,532
+  resolved_repo: zai-org/GLM-5.1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 18
+  model: Meta Muse Spark 1.1 Meta · Proprietary
+  org: Meta
+  matched_keyword: muse
+  net_improvement_pct: 0.67
+  net_improvement_ci: 0.89
+  arena_license_label: Meta Muse Spark 1.1 Meta · Proprietary
+  raw:
+  - 18 17 24
+  - Meta Muse Spark 1.1 Meta · Proprietary
+  - 0.67 % ±0.89%
+  - 4.39 % ±2.03%
+  - 4.30 % ±2.73%
+  - 4.50 % ±1.70%
+  - 6.40 % ±1.64%
+  - 1.36 % ±0.17%
+  - 28,128
+  by_header:
+    Rank: 18 17 24
+    Model: Meta Muse Spark 1.1 Meta · Proprietary
+    Net Improvement: 0.67 % ±0.89%
+    Confirmed Success: 4.39 % ±2.03%
+    Praise vs Complaint: 4.30 % ±2.73%
+    Steerability: 4.50 % ±1.70%
+    Bash Recovery: 6.40 % ±1.64%
+    Tool Hallucination: 1.36 % ±0.17%
+    Sessions: 28,128
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 19
+  model: Qwen3.7 Max Alibaba · Proprietary
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: 0.09
+  net_improvement_ci: 1.07
+  arena_license_label: Qwen3.7 Max Alibaba · Proprietary
+  raw:
+  - 19 17 26
+  - Qwen3.7 Max Alibaba · Proprietary
+  - 0.09 % ±1.07%
+  - 1.84 % ±2.60%
+  - 5.73 % ±3.50%
+  - 0.02 % ±2.01%
+  - 7.20 % ±1.42%
+  - 0.83 % ±0.29%
+  - 15,992
+  by_header:
+    Rank: 19 17 26
+    Model: Qwen3.7 Max Alibaba · Proprietary
+    Net Improvement: 0.09 % ±1.07%
+    Confirmed Success: 1.84 % ±2.60%
+    Praise vs Complaint: 5.73 % ±3.50%
+    Steerability: 0.02 % ±2.01%
+    Bash Recovery: 7.20 % ±1.42%
+    Tool Hallucination: 0.83 % ±0.29%
+    Sessions: 15,992
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 20
+  model: Gemini 3.1 Pro Preview Google · Proprietary
+  org: Google
+  matched_keyword: gemini
+  net_improvement_pct: 0.47
+  net_improvement_ci: 0.68
+  arena_license_label: Gemini 3.1 Pro Preview Google · Proprietary
+  raw:
+  - 20 18 26
+  - Gemini 3.1 Pro Preview Google · Proprietary
+  - 0.47 % ±0.68%
+  - 2.05 % ±1.49%
+  - 0.56 % ±2.22%
+  - 1.99 % ±1.22%
+  - 8.29 % ±1.11%
+  - 1.32 % ±0.18%
+  - 67,658
+  by_header:
+    Rank: 20 18 26
+    Model: Gemini 3.1 Pro Preview Google · Proprietary
+    Net Improvement: 0.47 % ±0.68%
+    Confirmed Success: 2.05 % ±1.49%
+    Praise vs Complaint: 0.56 % ±2.22%
+    Steerability: 1.99 % ±1.22%
+    Bash Recovery: 8.29 % ±1.11%
+    Tool Hallucination: 1.32 % ±0.18%
+    Sessions: 67,658
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 21
+  model: Qwen3.7 Plus Alibaba · Proprietary
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: 0.76
+  net_improvement_ci: 1.25
+  arena_license_label: Qwen3.7 Plus Alibaba · Proprietary
+  raw:
+  - 21 18 26
+  - Qwen3.7 Plus Alibaba · Proprietary
+  - 0.76 % ±1.25%
+  - 1.74 % ±3.08%
+  - 6.50 % ±3.88%
+  - 1.41 % ±2.55%
+  - 5.58 % ±1.85%
+  - 0.30 % ±0.51%
+  - 12,816
+  by_header:
+    Rank: 21 18 26
+    Model: Qwen3.7 Plus Alibaba · Proprietary
+    Net Improvement: 0.76 % ±1.25%
+    Confirmed Success: 1.74 % ±3.08%
+    Praise vs Complaint: 6.50 % ±3.88%
+    Steerability: 1.41 % ±2.55%
+    Bash Recovery: 5.58 % ±1.85%
+    Tool Hallucination: 0.30 % ±0.51%
+    Sessions: 12,816
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 22
+  model: Kimi K2.7 Code Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: 1.02
+  net_improvement_ci: 1.69
+  arena_license_label: null
+  raw:
+  - 22 17 29
+  - Kimi K2.7 Code Moonshot · Modified MIT
+  - 1.02 % ±1.69%
+  - 3.79 % ±3.49%
+  - 0.95 % ±6.00%
+  - 8.37 % ±3.29%
+  - 2.86 % ±2.78%
+  - 1.39 % ±0.17%
+  - 10,082
+  by_header:
+    Rank: 22 17 29
+    Model: Kimi K2.7 Code Moonshot · Modified MIT
+    Net Improvement: 1.02 % ±1.69%
+    Confirmed Success: 3.79 % ±3.49%
+    Praise vs Complaint: 0.95 % ±6.00%
+    Steerability: 8.37 % ±3.29%
+    Bash Recovery: 2.86 % ±2.78%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 10,082
+  resolved_repo: moonshotai/Kimi-K2.7-Code
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 23
+  model: Gemini 3.5 Flash (High) Google · Proprietary
+  org: Google
+  matched_keyword: gemini
+  net_improvement_pct: 1.03
+  net_improvement_ci: 0.8
+  arena_license_label: Gemini 3.5 Flash (High) Google · Proprietary
+  raw:
+  - 23 19 26
+  - Gemini 3.5 Flash (High) Google · Proprietary
+  - 1.03 % ±0.80%
+  - 2.89 % ±1.77%
+  - 3.95 % ±2.48%
+  - 0.68 % ±1.46%
+  - 1.92 % ±1.55%
+  - 1.48 % ±0.39%
+  - 45,992
+  by_header:
+    Rank: 23 19 26
+    Model: Gemini 3.5 Flash (High) Google · Proprietary
+    Net Improvement: 1.03 % ±0.80%
+    Confirmed Success: 2.89 % ±1.77%
+    Praise vs Complaint: 3.95 % ±2.48%
+    Steerability: 0.68 % ±1.46%
+    Bash Recovery: 1.92 % ±1.55%
+    Tool Hallucination: 1.48 % ±0.39%
+    Sessions: 45,992
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 24
+  model: DeepSeek V4 Pro DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: 1.19
+  net_improvement_ci: 1.06
+  arena_license_label: null
+  raw:
+  - 24 18 27
+  - DeepSeek V4 Pro DeepSeek · MIT
+  - 1.19 % ±1.06%
+  - 4.80 % ±2.70%
+  - 5.65 % ±3.42%
+  - 2.11 % ±2.05%
+  - 5.76 % ±1.02%
+  - 0.87 % ±0.26%
+  - 16,514
+  by_header:
+    Rank: 24 18 27
+    Model: DeepSeek V4 Pro DeepSeek · MIT
+    Net Improvement: 1.19 % ±1.06%
+    Confirmed Success: 4.80 % ±2.70%
+    Praise vs Complaint: 5.65 % ±3.42%
+    Steerability: 2.11 % ±2.05%
+    Bash Recovery: 5.76 % ±1.02%
+    Tool Hallucination: 0.87 % ±0.26%
+    Sessions: 16,514
+  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 25
+  model: Tencent Hy3 Tencent · Apache 2.0
+  org: Tencent
+  matched_keyword: hy3
+  net_improvement_pct: 2.23
+  net_improvement_ci: 2.87
+  arena_license_label: null
+  raw:
+  - 25 18 29
+  - Tencent Hy3 Tencent · Apache 2.0
+  - 2.23 % ±2.87%
+  - 4.65 % ±6.11%
+  - 2.87 % ±9.99%
+  - 7.10 % ±5.95%
+  - 2.56 % ±3.98%
+  - 0.89 % ±0.82%
+  - 3,530
+  by_header:
+    Rank: 25 18 29
+    Model: Tencent Hy3 Tencent · Apache 2.0
+    Net Improvement: 2.23 % ±2.87%
+    Confirmed Success: 4.65 % ±6.11%
+    Praise vs Complaint: 2.87 % ±9.99%
+    Steerability: 7.10 % ±5.95%
+    Bash Recovery: 2.56 % ±3.98%
+    Tool Hallucination: 0.89 % ±0.82%
+    Sessions: 3,530
+  resolved_repo: DevQuasar/tencent.Hy3-GGUF
+  resolution_confidence: medium
+  open_weight: true
+  needs_hf_repo: true
+- rank: 26
+  model: Kimi K2.6 Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: 2.57
+  net_improvement_ci: 1.75
+  arena_license_label: null
+  raw:
+  - 26 19 29
+  - Kimi K2.6 Moonshot · Modified MIT
+  - 2.57 % ±1.75%
+  - 1.67 % ±3.51%
+  - 3.04 % ±5.45%
+  - 6.72 % ±3.26%
+  - 6.17 % ±3.87%
+  - 1.39 % ±0.17%
+  - 10,139
+  by_header:
+    Rank: 26 19 29
+    Model: Kimi K2.6 Moonshot · Modified MIT
+    Net Improvement: 2.57 % ±1.75%
+    Confirmed Success: 1.67 % ±3.51%
+    Praise vs Complaint: 3.04 % ±5.45%
+    Steerability: 6.72 % ±3.26%
+    Bash Recovery: 6.17 % ±3.87%
+    Tool Hallucination: 1.39 % ±0.17%
+    Sessions: 10,139
+  resolved_repo: moonshotai/Kimi-K2.6
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 27
+  model: Minimax M3 MiniMax · MiniMax Community License
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: 3.1
+  net_improvement_ci: 1.05
+  arena_license_label: null
+  raw:
+  - 27 23 29
+  - Minimax M3 MiniMax · MiniMax Community License
+  - 3.10 % ±1.05%
+  - 7.49 % ±2.73%
+  - 9.67 % ±3.33%
+  - 5.43 % ±2.14%
+  - 6.15 % ±0.95%
+  - 0.93 % ±0.38%
+  - 16,030
+  by_header:
+    Rank: 27 23 29
+    Model: Minimax M3 MiniMax · MiniMax Community License
+    Net Improvement: 3.10 % ±1.05%
+    Confirmed Success: 7.49 % ±2.73%
+    Praise vs Complaint: 9.67 % ±3.33%
+    Steerability: 5.43 % ±2.14%
+    Bash Recovery: 6.15 % ±0.95%
+    Tool Hallucination: 0.93 % ±0.38%
+    Sessions: 16,030
+  resolved_repo: MiniMaxAI/MiniMax-M3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 28
+  model: Mimo V2.5 Pro Xiaomi · MIT
+  org: Xiaomi
+  matched_keyword: mimo
+  net_improvement_pct: 3.39
+  net_improvement_ci: 1.11
+  arena_license_label: null
+  raw:
+  - 28 24 29
+  - Mimo V2.5 Pro Xiaomi · MIT
+  - 3.39 % ±1.11%
+  - 5.88 % ±2.73%
+  - 10.33 % ±3.35%
+  - 2.94 % ±2.14%
+  - 1.69 % ±1.91%
+  - 0.49 % ±0.34%
+  - 16,479
+  by_header:
+    Rank: 28 24 29
+    Model: Mimo V2.5 Pro Xiaomi · MIT
+    Net Improvement: 3.39 % ±1.11%
+    Confirmed Success: 5.88 % ±2.73%
+    Praise vs Complaint: 10.33 % ±3.35%
+    Steerability: 2.94 % ±2.14%
+    Bash Recovery: 1.69 % ±1.91%
+    Tool Hallucination: 0.49 % ±0.34%
+    Sessions: 16,479
+  resolved_repo: XiaomiMiMo/MiMo-V2.5-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 29
+  model: DeepSeek V4 Flash DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: 3.49
+  net_improvement_ci: 1.06
+  arena_license_label: null
+  raw:
+  - 29 24 29
+  - DeepSeek V4 Flash DeepSeek · MIT
+  - 3.49 % ±1.06%
+  - 6.55 % ±2.78%
+  - 9.75 % ±3.31%
+  - 4.16 % ±2.06%
+  - 3.46 % ±1.15%
+  - 0.46 % ±0.40%
+  - 16,015
+  by_header:
+    Rank: 29 24 29
+    Model: DeepSeek V4 Flash DeepSeek · MIT
+    Net Improvement: 3.49 % ±1.06%
+    Confirmed Success: 6.55 % ±2.78%
+    Praise vs Complaint: 9.75 % ±3.31%
+    Steerability: 4.16 % ±2.06%
+    Bash Recovery: 3.46 % ±1.15%
+    Tool Hallucination: 0.46 % ±0.40%
+    Sessions: 16,015
+  resolved_repo: deepseek-ai/DeepSeek-V4-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 30
+  model: Thinking Machines Inkling Thinky · Apache 2.0
+  org: Thinking Machines
+  matched_keyword: inkling
+  net_improvement_pct: 6.41
+  net_improvement_ci: 1.31
+  arena_license_label: null
+  raw:
+  - 30 30 33
+  - Thinking Machines Inkling Thinky · Apache 2.0
+  - 6.41 % ±1.31%
+  - 7.19 % ±3.50%
+  - 19.01 % ±3.70%
+  - 11.60 % ±3.00%
+  - 6.12 % ±1.58%
+  - 0.40 % ±0.49%
+  - 10,678
+  by_header:
+    Rank: 30 30 33
+    Model: Thinking Machines Inkling Thinky · Apache 2.0
+    Net Improvement: 6.41 % ±1.31%
+    Confirmed Success: 7.19 % ±3.50%
+    Praise vs Complaint: 19.01 % ±3.70%
+    Steerability: 11.60 % ±3.00%
+    Bash Recovery: 6.12 % ±1.58%
+    Tool Hallucination: 0.40 % ±0.49%
+    Sessions: 10,678
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 31
+  model: Gemini 3.5 Flash (Medium) Google · Proprietary
+  org: Google
+  matched_keyword: gemini
+  net_improvement_pct: 6.8
+  net_improvement_ci: 1.69
+  arena_license_label: Gemini 3.5 Flash (Medium) Google · Proprietary
+  raw:
+  - 31 30 34
+  - Gemini 3.5 Flash (Medium) Google · Proprietary
+  - 6.80 % ±1.69%
+  - 13.18 % ±4.10%
+  - 8.24 % ±4.98%
+  - 10.20 % ±3.24%
+  - 3.28 % ±3.38%
+  - 0.91 % ±0.52%
+  - 8,641
+  by_header:
+    Rank: 31 30 34
+    Model: Gemini 3.5 Flash (Medium) Google · Proprietary
+    Net Improvement: 6.80 % ±1.69%
+    Confirmed Success: 13.18 % ±4.10%
+    Praise vs Complaint: 8.24 % ±4.98%
+    Steerability: 10.20 % ±3.24%
+    Bash Recovery: 3.28 % ±3.38%
+    Tool Hallucination: 0.91 % ±0.52%
+    Sessions: 8,641
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 32
+  model: Grok Build 0.1 SpaceXAI · Proprietary
+  org: xAI
+  matched_keyword: grok
+  net_improvement_pct: 8.01
+  net_improvement_ci: 0.81
+  arena_license_label: Grok Build 0.1 SpaceXAI · Proprietary
+  raw:
+  - 32 30 34
+  - Grok Build 0.1 SpaceXAI · Proprietary
+  - 8.01 % ±0.81%
+  - 4.60 % ±1.76%
+  - 11.93 % ±2.39%
+  - 12.26 % ±1.58%
+  - 12.02 % ±1.80%
+  - 0.78 % ±0.17%
+  - 59,109
+  by_header:
+    Rank: 32 30 34
+    Model: Grok Build 0.1 SpaceXAI · Proprietary
+    Net Improvement: 8.01 % ±0.81%
+    Confirmed Success: 4.60 % ±1.76%
+    Praise vs Complaint: 11.93 % ±2.39%
+    Steerability: 12.26 % ±1.58%
+    Bash Recovery: 12.02 % ±1.80%
+    Tool Hallucination: 0.78 % ±0.17%
+    Sessions: 59,109
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 33
+  model: Grok 4.3 (High) SpaceXAI · Proprietary
+  org: xAI
+  matched_keyword: grok
+  net_improvement_pct: 8.25
+  net_improvement_ci: 0.81
+  arena_license_label: Grok 4.3 (High) SpaceXAI · Proprietary
+  raw:
+  - 33 30 34
+  - Grok 4.3 (High) SpaceXAI · Proprietary
+  - 8.25 % ±0.81%
+  - 8.72 % ±1.72%
+  - 14.91 % ±2.00%
+  - 7.31 % ±1.31%
+  - 11.37 % ±2.42%
+  - 1.08 % ±0.18%
+  - 47,866
+  by_header:
+    Rank: 33 30 34
+    Model: Grok 4.3 (High) SpaceXAI · Proprietary
+    Net Improvement: 8.25 % ±0.81%
+    Confirmed Success: 8.72 % ±1.72%
+    Praise vs Complaint: 14.91 % ±2.00%
+    Steerability: 7.31 % ±1.31%
+    Bash Recovery: 11.37 % ±2.42%
+    Tool Hallucination: 1.08 % ±0.18%
+    Sessions: 47,866
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 34
+  model: Gemini 3 Flash Google · Proprietary
+  org: Google
+  matched_keyword: gemini
+  net_improvement_pct: 8.65
+  net_improvement_ci: 0.76
+  arena_license_label: Gemini 3 Flash Google · Proprietary
+  raw:
+  - 34 31 34
+  - Gemini 3 Flash Google · Proprietary
+  - 8.65 % ±0.76%
+  - 8.74 % ±1.58%
+  - 12.32 % ±1.90%
+  - 5.33 % ±1.22%
+  - 16.88 % ±2.00%
+  - 0.03 % ±1.18%
+  - 68,372
+  by_header:
+    Rank: 34 31 34
+    Model: Gemini 3 Flash Google · Proprietary
+    Net Improvement: 8.65 % ±0.76%
+    Confirmed Success: 8.74 % ±1.58%
+    Praise vs Complaint: 12.32 % ±1.90%
+    Steerability: 5.33 % ±1.22%
+    Bash Recovery: 16.88 % ±2.00%
+    Tool Hallucination: 0.03 % ±1.18%
+    Sessions: 68,372
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 35
+  model: Minimax M2.7 MiniMax · Modified MIT
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: 12.47
+  net_improvement_ci: 1.34
+  arena_license_label: null
+  raw:
+  - 35 35 37
+  - Minimax M2.7 MiniMax · Modified MIT
+  - 12.47 % ±1.34%
+  - 17.13 % ±3.13%
+  - 15.66 % ±3.70%
+  - 17.46 % ±2.45%
+  - 13.35 % ±3.31%
+  - 1.23 % ±0.20%
+  - 16,212
+  by_header:
+    Rank: 35 35 37
+    Model: Minimax M2.7 MiniMax · Modified MIT
+    Net Improvement: 12.47 % ±1.34%
+    Confirmed Success: 17.13 % ±3.13%
+    Praise vs Complaint: 15.66 % ±3.70%
+    Steerability: 17.46 % ±2.45%
+    Bash Recovery: 13.35 % ±3.31%
+    Tool Hallucination: 1.23 % ±0.20%
+    Sessions: 16,212
+  resolved_repo: MiniMaxAI/MiniMax-M2.7
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 36
+  model: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: 13.5
+  net_improvement_ci: 2.38
+  arena_license_label: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
+  raw:
+  - 36 35 38
+  - Nemotron 3 Ultra Nvidia · OpenMDW-1.1
+  - 13.50 % ±2.38%
+  - 15.08 % ±5.11%
+  - 12.20 % ±7.28%
+  - 21.37 % ±4.80%
+  - 18.77 % ±5.33%
+  - 0.09 % ±0.67%
+  - 10,263
+  by_header:
+    Rank: 36 35 38
+    Model: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
+    Net Improvement: 13.50 % ±2.38%
+    Confirmed Success: 15.08 % ±5.11%
+    Praise vs Complaint: 12.20 % ±7.28%
+    Steerability: 21.37 % ±4.80%
+    Bash Recovery: 18.77 % ±5.33%
+    Tool Hallucination: 0.09 % ±0.67%
+    Sessions: 10,263
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 37
+  model: Gemma 4 31B Google · Apache 2.0
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: 14.51
+  net_improvement_ci: 1.6
+  arena_license_label: null
+  raw:
+  - 37 35 38
+  - Gemma 4 31B Google · Apache 2.0
+  - 14.51 % ±1.60%
+  - 2.31 % ±1.74%
+  - 4.49 % ±2.62%
+  - 6.87 % ±1.53%
+  - 33.53 % ±5.14%
+  - 25.33 % ±5.11%
+  - 54,817
+  by_header:
+    Rank: 37 35 38
+    Model: Gemma 4 31B Google · Apache 2.0
+    Net Improvement: 14.51 % ±1.60%
+    Confirmed Success: 2.31 % ±1.74%
+    Praise vs Complaint: 4.49 % ±2.62%
+    Steerability: 6.87 % ±1.53%
+    Bash Recovery: 33.53 % ±5.14%
+    Tool Hallucination: 25.33 % ±5.11%
+    Sessions: 54,817
+  resolved_repo: google/gemma-4-31B-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 38
+  model: Grok 4.3 SpaceXAI · Proprietary
+  org: xAI
+  matched_keyword: grok
+  net_improvement_pct: 15.04
+  net_improvement_ci: 1.03
+  arena_license_label: Grok 4.3 SpaceXAI · Proprietary
+  raw:
+  - 38 36 38
+  - Grok 4.3 SpaceXAI · Proprietary
+  - 15.04 % ±1.03%
+  - 10.92 % ±1.61%
+  - 16.20 % ±1.85%
+  - 7.79 % ±1.23%
+  - 41.51 % ±4.26%
+  - 1.21 % ±0.18%
+  - 67,800
+  by_header:
+    Rank: 38 36 38
+    Model: Grok 4.3 SpaceXAI · Proprietary
+    Net Improvement: 15.04 % ±1.03%
+    Confirmed Success: 10.92 % ±1.61%
+    Praise vs Complaint: 16.20 % ±1.85%
+    Steerability: 7.79 % ±1.23%
+    Bash Recovery: 41.51 % ±4.26%
+    Tool Hallucination: 1.21 % ±0.18%
+    Sessions: 67,800
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+new_orgs:
+- Tencent

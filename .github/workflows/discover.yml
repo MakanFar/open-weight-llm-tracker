@@ -20,11 +20,16 @@ jobs:
         with:
           python-version: "3.11"
       - run: pip install -r requirements.txt
+      - name: Pull arena leaderboard
+        continue-on-error: true    # arena must never block discovery
+        env:
+          HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
+        run: python scripts/pull_arena.py
       - name: Discover new models
         env:
           # Optional: add an HF token as a repo secret for higher rate limits.
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
-        run: python scripts/discover.py --limit 300 --min-params 3
+        run: python scripts/discover.py --min-params 3
       - name: Open PR if there are new candidates
         uses: peter-evans/create-pull-request@v6
         with:
@@ -35,8 +40,11 @@ jobs:
             Automated discovery from the Hugging Face Hub.
 
             Review `candidates.yaml`, fix the `TODO` fields (active params for MoE,
-            architecture, context window, benchmark score + source, commercial_use),
-            then move approved rows into `models.yaml`, run
-            `python scripts/render_readme.py`, and merge.
-          add-paths: candidates.yaml
+            architecture, context window, benchmark score + source, commercial_use).
+            For rows with `needs_hf_repo: true`, verify that the `hf_repo` really is
+            the model the leaderboard named. Then move approved rows into `models.yaml`,
+            run `python scripts/render_readme.py`, and merge.
+          add-paths: |
+            candidates.yaml
+            arena_agent_rankings.yaml
           delete-branch: true

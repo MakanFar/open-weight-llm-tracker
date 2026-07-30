@@ -35,3 +35,28 @@ Each list entry is one model. Fields:
   over lab-self-reported figures. Whatever you use, record it in `benchmark.source`.
 - **Set `commercial_use` by reading the license**, not by trusting the word "open".
 - **One row per model.** A family flagship, or list sizes separately — don't do both.
+
+## `candidates.yaml` (staging only)
+
+`candidates.yaml` is written by `scripts/discover.py` and holds *unreviewed*
+models. Rows use the `models.yaml` fields above plus the discovery-only fields
+below. **Strip all of these fields when promoting a row into `models.yaml`** —
+`validate.py` checks `models.yaml` only, so they would otherwise leak through.
+
+| Field | Type | Notes |
+|-------|------|-------|
+| `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
+| `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
+| `downloads` | integer | HF download count at discovery time; a rough popularity signal |
+| `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
+| `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
+
+Candidates are ordered arena-ranked first (ascending), then unranked by release
+date descending — so the models people actually use lead the review queue.
+
+### Open-weight status
+
+`arena_agent_rankings.yaml` sets `open_weight: true` if and only if a public
+weights repo resolved on Hugging Face. It is **not** arena's license label and
+**not** an org guess. `needs_hf_repo: true` marks an inexact name match that a
+human should verify before promotion.
