@@ -105,6 +105,23 @@ ORG_DISPLAY_ALIASES = {
 # Stripped before comparing an arena name to a repo name.
 _VARIANT_SUFFIXES = ("instruct", "it", "chat", "base")
 
+# Vendor names that appear at the START of an arena display label. Sorted
+# longest-first at use so a multi-word vendor beats its first word.
+_LEADING_ORG_PHRASES = (
+    "thinking machines", "meta", "anthropic", "google", "openai", "nvidia",
+    "microsoft", "alibaba", "tencent", "xiaomi", "baidu", "mistral", "cohere",
+)
+
+# Repo-slug decorations that carry no identity: parameter counts (550B),
+# active-param counts (A55B), and weight precisions. A repo differing from
+# the arena name only by these is the same model, so they are stripped before
+# comparison — "NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16" -> "Nemotron-3-Ultra".
+_SIZE_TOKEN = re.compile(r"^[aA]?\d+(?:\.\d+)?[bBmM]$")
+_PRECISION_TOKENS = {
+    "bf16", "fp16", "fp32", "fp8", "int4", "int8", "nvfp4", "mxfp8",
+    "w4a16", "w8a8", "4bit", "8bit", "gguf", "awq", "gptq",
+}
+
 SCORE_RE = re.compile(r"(-?\d+(?:\.\d+)?)\s*%\s*(?:±|\+/-|\+-|\+\-)?\s*(\d+(?:\.\d+)?)?\s*%?")
 INT_RE = re.compile(r"^\s*#?\s*(\d{1,3})\s*$")
 
@@ -165,6 +182,23 @@ def normalize_model_name(display):
     return " ".join(tokens).strip()
 
 
+def without_leading_vendor(name):
+    """Drop a leading vendor phrase: 'Thinking Machines Inkling' -> 'Inkling'.
+
+    Only score_match uses this. normalize_model_name keeps the vendor because
+    that string is the human-readable label printed in reports; it is the
+    matcher that has to tolerate a repo slug carrying just the model name.
+    Longest phrase first, so "thinking machines" beats "thinking".
+    """
+    tokens = name.split(" ")
+    for phrase in sorted(_LEADING_ORG_PHRASES, key=len, reverse=True):
+        parts = phrase.split(" ")
+        if len(tokens) > len(parts) and \
+                [t.lower() for t in tokens[:len(parts)]] == parts:
+            return " ".join(tokens[len(parts):]).strip()
+    return name
+
+
 def slug(text):
     """Lowercase and strip every non-alphanumeric character."""
     return re.sub(r"[^a-z0-9]", "", text.lower())
@@ -186,13 +220,53 @@ def slug(text):
 _MIN_PREFIX_RATIO = 0.7
 
 
-def score_match(query, repo_id):
-    """Rate how well an arena name matches an HF repo id: high/medium/low."""
-    tail = repo_id.split("/")[-1]
-    for suffix in _VARIANT_SUFFIXES:
-        tail = re.sub(rf"[-_]{suffix}$", "", tail, flags=re.IGNORECASE)
+def strip_repo_decorations(repo_id):
+    """Reduce a repo id to its identifying name.
 
-    q, r = slug(query), slug(tail)
+    Drops the author, a duplicated vendor prefix ("nvidia/NVIDIA-Nemotron-…"),
+    then trailing size/precision/variant tokens. Only decorations go: a token
+    like "Nano" or "Ultra" distinguishes two real models and is kept, so
+    Nemotron-3-Ultra and Nemotron-3-Nano do not collapse together.
+    """
+    author, _, tail = repo_id.rpartition("/")
+    parts = [p for p in re.split(r"[-_.]", tail) if p]
+
+    if author and parts and parts[0].lower() == author.split("/")[-1].lower():
+        parts = parts[1:]
+
+    return "-".join(_strip_decorations(parts))
+
+
+def _strip_decorations(parts):
+    """Drop trailing size/precision/variant tokens from a token list."""
+    while parts:
+        last = parts[-1].lower()
+        if last in _PRECISION_TOKENS or last in _VARIANT_SUFFIXES \
+                or _SIZE_TOKEN.match(parts[-1]):
+            parts.pop()
+            continue
+        break
+    return parts
+
+
+def score_match(query, repo_id):
+    """Rate how well an arena name matches an HF repo id: high/medium/low.
+
+    Decorations are stripped from BOTH sides. Stripping only the repo breaks
+    the symmetric case: "Gemma 4 31B" vs "google/gemma-4-31b-it" would compare
+    "gemma431b" against "gemma4" and score low.
+    """
+    r = slug(strip_repo_decorations(repo_id))
+    for candidate in (query, without_leading_vendor(query)):
+        q = slug("-".join(_strip_decorations(
+            [p for p in re.split(r"[-_.\s]", candidate) if p])))
+        conf = _rate(q, r)
+        if conf != "low":
+            return conf
+    return "low"
+
+
+def _rate(q, r):
     if not q or not r:
         return "low"
     if q == r:
@@ -243,17 +317,30 @@ def resolve_row(row, search_fn):
     query = normalize_model_name(row["model"])
     org = row.get("org")
 
+    searched, repo_ids = True, []
     if org in HF_AUTHOR_HINTS and HF_AUTHOR_HINTS[org] is None:
         # Vendor is known to publish no weights on HF (see HF_AUTHOR_HINTS).
         # Searching anyway would scan all of HF and surface look-alikes.
-        repo_ids = []
+        pass
     else:
         author = HF_AUTHOR_HINTS.get(org)
         try:
             repo_ids = search_fn(query, author) or []
         except Exception as exc:      # rate limit, network, API change
             print(f"  ! search failed for {query!r}: {exc}")
-            repo_ids = []
+            searched = False
+
+    if not searched:
+        # A failed lookup is NOT evidence of a closed model. Writing
+        # open_weight: False here is how a 429 demoted Kimi K3 — which has
+        # public, ungated weights — to proprietary in committed data. Leave it
+        # unknown and let carry_forward_resolutions() restore what we knew.
+        row["resolved_repo"] = None
+        row["resolution_confidence"] = None
+        row["open_weight"] = None
+        row["needs_hf_repo"] = True
+        row["search_failed"] = True
+        return row
 
     best, best_conf = None, "low"
     _ORDER = {"high": 3, "medium": 2, "low": 1}
@@ -299,9 +386,48 @@ def unmapped_orgs(rows):
                    if r.get("org") and r["org"] not in HF_AUTHOR_HINTS})
 
 
-def resolve_all(rows, search_fn):
+_RESOLUTION_FIELDS = ("resolved_repo", "resolution_confidence",
+                      "open_weight", "needs_hf_repo")
+
+
+def carry_forward_resolutions(rows, previous):
+    """Restore the last known resolution for rows whose search failed.
+
+    Keyed on the normalized model name, not rank — ranks move between runs.
+    Only rows flagged search_failed are touched, so a fresh result always
+    wins over history; a failed row with no history simply stays unknown.
+    """
+    by_name = {}
+    for old in previous or []:
+        if isinstance(old, dict) and old.get("model") and old.get("resolved_repo"):
+            by_name.setdefault(slug(normalize_model_name(old["model"])), old)
+
+    for row in rows:
+        if not row.get("search_failed"):
+            continue
+        old = by_name.get(slug(normalize_model_name(row.get("model", ""))))
+        if not old:
+            continue
+        for field in _RESOLUTION_FIELDS:
+            row[field] = old.get(field)
+        row["carried_forward"] = True
+    return rows
+
+
+def load_previous(path=OUT):
+    """Rows from the committed arena file, for carry-forward. [] on any problem."""
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return []
+    rows = doc.get("arena_agent") if isinstance(doc, dict) else None
+    return [r for r in rows if isinstance(r, dict)] if isinstance(rows, list) else []
+
+
+def resolve_all(rows, search_fn, previous=None):
     for row in rows:
         resolve_row(row, search_fn)
+    carry_forward_resolutions(rows, previous)
     return rows
 
 
@@ -455,7 +581,12 @@ def main():
         from huggingface_hub import HfApi
         token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
         print(f"\nResolving {len(rows)} models against Hugging Face...")
-        resolve_all(rows, hf_search_fn(HfApi(token=token)))
+        resolve_all(rows, hf_search_fn(HfApi(token=token)), load_previous())
+        failed = [r for r in rows if r.get("search_failed")]
+        carried = [r for r in failed if r.get("carried_forward")]
+        if failed:
+            print(f"  {len(failed)} search(es) failed; {len(carried)} restored "
+                  f"from the committed file, {len(failed)-len(carried)} left unknown")
 
     ow = [r for r in rows if r.get("open_weight")]
     print(f"\nParsed {len(rows)} models; {len(ow)} resolved to a weights repo.")

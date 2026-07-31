@@ -10,6 +10,7 @@ changes belong here.
 
   python scripts/render_readme.py
 """
+import re
 from datetime import date
 from pathlib import Path
 
@@ -66,19 +67,61 @@ def load_leaderboard(path=LEADERBOARD):
     return out
 
 
+_ORG_TAIL_WORDS = {
+    "anthropic", "openai", "google", "meta", "alibaba", "deepseek", "moonshot",
+    "z.ai", "zai", "minimax", "nvidia", "xai", "microsoft", "cohere", "mistral",
+    "tencent", "xiaomi", "thinky", "ibm", "baidu", "ai2", "01.ai", "tii", "zhipu",
+}
+
+
+def _slug(text):
+    """Lowercase, strip non-alphanumerics. Mirrors pull_arena.slug.
+
+    Duplicated rather than imported: pull_arena pulls in requests/bs4 at module
+    scope, and this renderer must stay offline and dependency-light.
+    """
+    return re.sub(r"[^a-z0-9]", "", str(text).lower())
+
+
+def _arena_display_name(display):
+    """Strip leaderboard chrome: 'Kimi K3 Moonshot · Proprietary' -> 'Kimi K3'."""
+    name = str(display).split("·")[0]
+    name = re.sub(r"\([^)]*\)", " ", name)
+    tokens = re.sub(r"\s+", " ", name).strip().split(" ")
+    if len(tokens) > 1 and tokens[-1].lower() in _ORG_TAIL_WORDS:
+        tokens = tokens[:-1]
+    return " ".join(tokens)
+
+
 def load_arena_ranks(path=ARENA):
-    """{lower_repo: rank_int}. {} on missing/malformed."""
+    """{"repos": {lower_repo: rank}, "names": {name_slug: rank}}.
+
+    Two indexes, because a rank and a weights repo are separate facts. HF
+    resolution fails transiently — one rate-limited search writes
+    resolved_repo: null — and a rank already scraped should not vanish from the
+    table because of it. Open-weight status still comes only from resolution;
+    this index decides where a number is printed, nothing more.
+    """
+    empty = {"repos": {}, "names": {}}
     try:
         doc = yaml.safe_load(Path(path).read_text()) or {}
     except (OSError, yaml.YAMLError):
-        return {}
+        return empty
     rows = doc.get("arena_agent") if isinstance(doc, dict) else None
-    out = {}
-    if isinstance(rows, list):
-        for r in rows:
-            if isinstance(r, dict) and r.get("resolved_repo") and isinstance(r.get("rank"), int):
-                out[str(r["resolved_repo"]).lower()] = r["rank"]
-    return out
+    if not isinstance(rows, list):
+        return empty
+
+    repos, names = {}, {}
+    for r in rows:
+        if not isinstance(r, dict) or not isinstance(r.get("rank"), int):
+            continue
+        if r.get("resolved_repo"):
+            repos[str(r["resolved_repo"]).lower()] = r["rank"]
+        if r.get("model"):
+            key = _slug(_arena_display_name(r["model"]))
+            if key:
+                names.setdefault(key, r["rank"])
+    return {"repos": repos, "names": names}
 
 
 def _leaderboard_score(model, lb, metric):
@@ -109,7 +152,11 @@ def mmlu_pro_cell(model, lb):
 
 
 def arena_cell(model, ranks):
-    return str(ranks.get((model.get("hf_repo") or "").lower(), "—"))
+    """Rank by resolved repo, else by model name, else '—'."""
+    rank = ranks["repos"].get((model.get("hf_repo") or "").lower())
+    if rank is None:
+        rank = ranks["names"].get(_slug(model.get("name") or ""))
+    return str(rank) if rank is not None else "—"
 
 
 def build_table(models, lb, ranks):

@@ -5,6 +5,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 import discover
 import pull_arena
+import pull_arena as pa
 
 
 # --- new-org feedback loop ---------------------------------------------------
@@ -226,5 +227,107 @@ def test_search_failure_is_not_fatal():
     out = pull_arena.resolve_row(row, boom)
 
     assert out["resolved_repo"] is None
-    assert out["open_weight"] is False
+    # NOT False: a failed lookup is not evidence of a closed model. See
+    # test_search_failure_does_not_claim_the_model_is_closed.
+    assert out["open_weight"] is None
+    assert out["search_failed"] is True
     assert out["needs_hf_repo"] is True
+
+
+# --- search failure must not be read as "not open weight" -------------------
+
+class _Boom:
+    """A search_fn that always fails, as a rate limit or outage would."""
+
+    def __call__(self, query, author):
+        raise RuntimeError("HTTP Error 429: Too Many Requests")
+
+
+def test_search_failure_does_not_claim_the_model_is_closed():
+    """A 429 demoted Kimi K3 from open-weight to proprietary in committed data."""
+    row = {"model": "Kimi K3 Moonshot", "org": "Moonshot AI"}
+    pa.resolve_row(row, _Boom())
+
+    assert row["open_weight"] is None, "unknown, not False"
+    assert row["search_failed"] is True
+    assert row["resolved_repo"] is None
+
+
+def test_a_genuine_no_match_is_still_closed():
+    """No search failure + nothing found really does mean not open-weight."""
+    row = {"model": "Claude Opus 5 Anthropic", "org": "Anthropic"}
+    pa.resolve_row(row, lambda q, a: [])
+
+    assert row["open_weight"] is False
+    assert row.get("search_failed") is not True
+
+
+def test_carry_forward_restores_a_previous_resolution():
+    previous = [{"model": "Kimi K3 Moonshot", "resolved_repo": "moonshotai/Kimi-K3",
+                 "resolution_confidence": "high", "open_weight": True,
+                 "needs_hf_repo": False}]
+    rows = [{"model": "Kimi K3 Moonshot", "resolved_repo": None,
+             "resolution_confidence": None, "open_weight": None,
+             "needs_hf_repo": True, "search_failed": True}]
+
+    pa.carry_forward_resolutions(rows, previous)
+
+    assert rows[0]["resolved_repo"] == "moonshotai/Kimi-K3"
+    assert rows[0]["open_weight"] is True
+
+
+def test_carry_forward_does_not_touch_rows_that_resolved():
+    previous = [{"model": "GLM 5.2 Z.ai", "resolved_repo": "zai-org/GLM-5.1",
+                 "resolution_confidence": "high", "open_weight": True,
+                 "needs_hf_repo": False}]
+    rows = [{"model": "GLM 5.2 Z.ai", "resolved_repo": "zai-org/GLM-5.2",
+             "resolution_confidence": "high", "open_weight": True,
+             "needs_hf_repo": False}]
+
+    pa.carry_forward_resolutions(rows, previous)
+
+    assert rows[0]["resolved_repo"] == "zai-org/GLM-5.2", "fresh result wins"
+
+
+def test_carry_forward_leaves_a_failed_row_alone_with_no_history():
+    rows = [{"model": "Brand New Model", "resolved_repo": None,
+             "open_weight": None, "search_failed": True}]
+    pa.carry_forward_resolutions(rows, [])
+    assert rows[0]["resolved_repo"] is None
+
+
+# --- matching gaps ----------------------------------------------------------
+
+def test_leading_vendor_name_does_not_block_a_match():
+    """'Thinking Machines Inkling' must match thinkingmachines/Inkling.
+
+    The display name keeps the vendor — it is what reports print — so the
+    tolerance lives in score_match, not normalize_model_name.
+    """
+    query = pa.normalize_model_name("Thinking Machines Inkling Thinky · Apache 2.0")
+    assert query == "Thinking Machines Inkling", "display label keeps the vendor"
+    assert pa.score_match(query, "thinkingmachines/Inkling") == "high"
+
+
+def test_stripping_the_vendor_does_not_match_a_different_vendors_repo():
+    assert pa.score_match("Thinking Machines Inkling",
+                          "someoneelse/Inkling-Clone") == "low"
+
+
+def test_size_and_precision_suffixes_do_not_block_a_match():
+    """nvidia publishes 'NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16'."""
+    assert pa.score_match(
+        "Nemotron 3 Ultra",
+        "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16") == "high"
+
+
+def test_inkling_resolves_after_the_vendor_strip():
+    assert pa.score_match("Inkling", "thinkingmachines/Inkling") == "high"
+
+
+def test_suffix_stripping_does_not_invent_matches():
+    """Stripping must not collapse two genuinely different models together."""
+    assert pa.score_match(
+        "Nemotron 3 Ultra",
+        "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16") == "low"
+    assert pa.score_match("Grok 4.5", "xai-org/grok-1") == "low"

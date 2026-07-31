@@ -111,7 +111,7 @@ ORG_ALLOWLIST = [
     "CohereForAI", "CohereLabs", "ai21labs", "allenai", "nvidia", "01-ai",
     "tiiuae", "databricks", "HuggingFaceTB", "ibm-granite", "internlm",
     "THUDM", "zai-org", "moonshotai", "openai", "xai-org", "stabilityai",
-    "MiniMaxAI", "XiaomiMiMo", "poolside", "thinkingmachines", "baidu",
+    "MiniMaxAI", "XiaomiMiMo", "poolside", "thinkingmachines", "baidu", "Tencent"
 ]
 
 

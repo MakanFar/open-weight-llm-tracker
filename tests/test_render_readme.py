@@ -50,18 +50,13 @@ def test_mmlu_pro_cell_never_falls_back_to_the_manual_figure():
 
 
 def test_table_has_distinct_mmlu_and_mmlu_pro_columns():
-    table = rr.build_table([_model()], _lb("MMLU-PRO", 41.2), {})
+    table = rr.build_table([_model()], _lb("MMLU-PRO", 41.2),
+                           {"repos": {}, "names": {}})
     head = table.splitlines()[0]
     assert "| MMLU |" in head
     assert "| MMLU-Pro |" in head
     body = table.splitlines()[2]
     assert "41.2" in body and "70.0*" in body
-
-
-def test_arena_cell_shows_rank_or_dash():
-    m = _model(hf_repo="org/m")
-    assert rr.arena_cell(m, {"org/m": 5}) == "5"
-    assert rr.arena_cell(m, {}) == "—"
 
 
 def test_load_leaderboard_tolerates_missing_file(tmp_path):
@@ -82,7 +77,30 @@ def test_load_leaderboard_skips_entries_missing_a_metric(tmp_path):
     assert rr.load_leaderboard(f) == {}
 
 
-def test_load_arena_ranks_parses_resolved_rows(tmp_path):
+def test_arena_cell_matches_by_resolved_repo():
+    m = _model(hf_repo="zai-org/GLM-5.2", name="GLM 5.2")
+    ranks = {"repos": {"zai-org/glm-5.2": 12}, "names": {}}
+    assert rr.arena_cell(m, ranks) == "12"
+
+
+def test_arena_cell_falls_back_to_name_when_the_repo_never_resolved():
+    """A rank we already hold must not be hidden by a failed HF lookup."""
+    m = _model(hf_repo="moonshotai/Kimi-K3", name="Kimi K3")
+    ranks = {"repos": {}, "names": {"kimik3": 5}}
+    assert rr.arena_cell(m, ranks) == "5"
+
+
+def test_arena_cell_dash_when_the_model_is_not_ranked():
+    m = _model(hf_repo="org/m", name="M")
+    assert rr.arena_cell(m, {"repos": {}, "names": {}}) == "—"
+
+
+def test_load_arena_ranks_indexes_resolved_and_unresolved_rows(tmp_path):
     f = tmp_path / "arena.yaml"
-    f.write_text("arena_agent:\n- resolved_repo: Org/M\n  rank: 3\n- resolved_repo: null\n  rank: 4\n")
-    assert rr.load_arena_ranks(f) == {"org/m": 3}
+    f.write_text(
+        "arena_agent:\n"
+        "- resolved_repo: Org/M\n  rank: 3\n  model: M Thing\n"
+        "- resolved_repo: null\n  rank: 5\n  model: Kimi K3 Moonshot\n")
+    ranks = rr.load_arena_ranks(f)
+    assert ranks["repos"] == {"org/m": 3}
+    assert ranks["names"]["kimik3"] == 5
