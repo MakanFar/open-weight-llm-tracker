@@ -1,4 +1,5 @@
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -82,6 +83,54 @@ def test_one_failing_org_does_not_abort_sweep():
 
     assert len(candidates) == 1
     assert skips["org_error"] == 1
+
+
+def test_sweep_drops_models_older_than_the_window():
+    """`limit=50` per org is not a recency filter.
+
+    An org that publishes rarely has 50-newest reaching years back, so the
+    sweep must reject by age or it stages the whole back-catalogue.
+    """
+    api = FakeApi({"allenai": [
+        FakeInfo("allenai/OLMo-2-13B", total=13_000_000_000,
+                 license="apache-2.0", created_at="2023-07-11T00:00:00+00:00"),
+        FakeInfo("allenai/OLMo-4-32B", total=32_000_000_000,
+                 license="apache-2.0", created_at="2026-07-15T00:00:00+00:00"),
+    ]})
+
+    candidates, skips = discover.sweep_orgs(
+        api, ["allenai"], 3.0, set(), get_json=lambda url: {},
+        max_age_days=180, today=date(2026, 7, 30))
+
+    assert [c["hf_repo"] for c in candidates] == ["allenai/OLMo-4-32B"]
+    assert skips["stale"] == 1
+
+
+def test_sweep_keeps_models_with_no_creation_date():
+    """An unknown created_at cannot prove staleness — keep it for review."""
+    api = FakeApi({"zai-org": [
+        FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
+    ]})
+
+    candidates, skips = discover.sweep_orgs(
+        api, ["zai-org"], 3.0, set(), get_json=lambda url: {},
+        max_age_days=180, today=date(2026, 7, 30))
+
+    assert [c["hf_repo"] for c in candidates] == ["zai-org/GLM-5.2"]
+    assert skips["stale"] == 0
+
+
+def test_sweep_age_window_can_be_disabled():
+    api = FakeApi({"allenai": [
+        FakeInfo("allenai/OLMo-2-13B", total=13_000_000_000,
+                 license="apache-2.0", created_at="2023-07-11T00:00:00+00:00"),
+    ]})
+
+    candidates, _ = discover.sweep_orgs(
+        api, ["allenai"], 3.0, set(), get_json=lambda url: {},
+        max_age_days=0, today=date(2026, 7, 30))
+
+    assert [c["hf_repo"] for c in candidates] == ["allenai/OLMo-2-13B"]
 
 
 def test_context_window_filled_from_config_json():

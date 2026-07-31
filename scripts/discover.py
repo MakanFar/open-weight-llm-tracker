@@ -17,6 +17,24 @@ WHY AN ORG SWEEP, NOT A GLOBAL SCAN:
     Consequence: the org-follower probe that policed the unbounded query is
     gone. The allowlist IS the query.
 
+WHY AN AGE WINDOW ON TOP OF THAT:
+    limit=50 caps how many repos an org returns, not how old they are. Orgs
+    that publish rarely have their 50 newest reaching back years, so the first
+    sweeps staged 362 candidates dated 2023-07-11 to 2026-07-15 — the entire
+    back-catalogue of 23 orgs, not new releases. --max-age-days bounds the
+    sweep by created_at; repos with no created_at are kept, since an unknown
+    date cannot prove staleness. The window applies to the org sweep only:
+    arena rows are gated by leaderboard rank, which is its own relevance
+    signal and has nothing to do with age.
+
+THE QUEUE IS CUMULATIVE:
+    candidates.yaml is rewritten wholesale every run, so anything refresh()
+    does not return is deleted. Staged rows are therefore carried forward,
+    minus any a human has promoted into models.yaml. They must NOT count as
+    "already known" the way tracked models do: doing that made the sweep skip
+    them, emit no replacement row, and let the rewrite empty the queue — so
+    merging a candidates PR made the next run propose deleting all of it.
+
 WHERE NEW ORGS COME FROM:
     An allowlist only finds what it already knows. scripts/pull_arena.py
     scans every leaderboard row for orgs it has no HF namespace mapping for
@@ -45,6 +63,8 @@ Usage:
   pip install -r requirements.txt
   python scripts/discover.py                  # org sweep + arena merge
   python scripts/discover.py --min-params 3
+  python scripts/discover.py --max-age-days 90   # tighter recency window
+  python scripts/discover.py --max-age-days 0    # no age limit (back-catalogue)
   python scripts/discover.py --no-arena       # org sweep only, skip the arena merge
   HUGGINGFACE_TOKEN=hf_xxx python scripts/discover.py   # higher rate limits
 
@@ -53,12 +73,16 @@ NOTES / deliberate choices (the "don'ts"):
     would drop the flagships. We keep them and flag for review.
   - safetensors.total is TOTAL params. For MoE we cannot infer active params
     from the API, so params_active_b is left equal to total and flagged TODO.
+    architecture IS derived — config.json declares an expert count — but that
+    count does not yield active params, so detecting MoE only sharpens the
+    TODO, it does not close it.
   - We do NOT trust card eval results as the benchmark column — left blank.
   - license tag is uploader-supplied; commercial_use is a *guess* to be checked.
 """
 import argparse
 import os
 import sys
+from datetime import date, timedelta
 from pathlib import Path
 
 import yaml
@@ -76,6 +100,10 @@ DATA = ROOT / "models.yaml"
 CANDIDATES = ROOT / "candidates.yaml"
 ARENA = ROOT / "arena_agent_rankings.yaml"
 
+# How far back the org sweep reaches. Kept generous relative to the weekly
+# schedule so a run that fails or is skipped does not create a coverage hole.
+DEFAULT_MAX_AGE_DAYS = 180
+
 # The orgs we sweep. This list IS the query — adding an org here is how the
 # tracker gains coverage. pull_arena.py reports leaderboard orgs missing here.
 ORG_ALLOWLIST = [
@@ -87,28 +115,61 @@ ORG_ALLOWLIST = [
 ]
 
 
-def existing_repos():
-    """Every hf_repo already tracked or already staged, lowercased."""
-    repos = set()
-    for path in (DATA, CANDIDATES):
-        if not path.exists():
-            continue
-        doc = yaml.safe_load(path.read_text()) or {}
-        for m in doc.get("models", []) or []:
-            if m.get("hf_repo"):
-                repos.add(m["hf_repo"].lower())
-    return repos
+def _rows_of(path):
+    """The `models:` list of a YAML file, skipping anything malformed."""
+    path = Path(path)
+    if not path.exists():
+        return []
+    doc = yaml.safe_load(path.read_text()) or {}
+    if not isinstance(doc, dict):
+        return []
+    rows = doc.get("models")
+    if not isinstance(rows, list):
+        return []
+    return [r for r in rows if isinstance(r, dict) and r.get("hf_repo")]
 
 
-def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json):
+def tracked_repos(path=DATA):
+    """Lowercased hf_repos already promoted into models.yaml.
+
+    Deliberately does NOT read candidates.yaml. Staged rows are pending
+    review, not settled decisions: counting them as "known" made the sweep
+    skip them, produced no replacement row, and let the wholesale rewrite in
+    write_candidates() empty the queue on the very next run.
+    """
+    return {r["hf_repo"].lower() for r in _rows_of(path)}
+
+
+def load_staged(path=CANDIDATES):
+    """Candidate rows still sitting in the review queue."""
+    return _rows_of(path)
+
+
+def surviving_staged(staged, tracked):
+    """Staged rows minus the ones a human has since promoted to models.yaml."""
+    return [r for r in staged if r["hf_repo"].lower() not in tracked]
+
+
+def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
+               max_age_days=None, today=None):
     """One list_models call per org. Returns (candidates, skip_counts).
 
     A failure on one org is logged and skipped — it never aborts the sweep.
+
+    max_age_days bounds how far back the sweep reaches. `limit=50` is a size
+    cap, not a recency filter: an org that publishes rarely has its 50 newest
+    repos stretching back years, so without an age window the sweep stages the
+    entire back-catalogue of every allowlisted org instead of what is new. A
+    repo with no created_at is kept — an unknown date cannot prove staleness.
+    Pass 0 or None to disable the window.
     """
     candidates = []
     skips = {"known": 0, "derivative": 0, "small": 0, "license": 0,
-             "no_params": 0, "org_error": 0}
+             "no_params": 0, "org_error": 0, "stale": 0}
     seen = set(known)
+    cutoff = None
+    if max_age_days:
+        cutoff = (today or date.today()) - timedelta(days=max_age_days)
 
     for org in orgs:
         try:
@@ -132,13 +193,19 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json):
             if info.id.lower() in seen:
                 skips["known"] += 1
                 continue
+            if cutoff is not None:
+                created = hf_meta.to_date(getattr(info, "created_at", None))
+                if created is not None and created < cutoff:
+                    skips["stale"] += 1
+                    continue
             keep, reason = hf_meta.should_track(info, min_params)
             if not keep:
                 skips[reason] += 1
                 continue
-            ctx = hf_meta.resolve_context(info, get_json)
+            ctx, arch = hf_meta.resolve_facts(info, get_json)
             candidates.append(hf_meta.candidate_from_repo(
-                info, discovered_via=["org-sweep"], context_window=ctx))
+                info, discovered_via=["org-sweep"], context_window=ctx,
+                architecture=arch))
             seen.add(info.id.lower())
 
     return candidates, skips
@@ -204,12 +271,12 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
         if not keep:
             print(f"  - {repo} skipped ({reason})")
             continue
-        ctx = hf_meta.resolve_context(info, get_json)
+        ctx, arch = hf_meta.resolve_facts(info, get_json)
         out.append(hf_meta.candidate_from_repo(
             info, discovered_via=["arena"], arena_rank=row.get("rank"),
             needs_hf_repo=row.get("needs_hf_repo"),
             resolution_confidence=row.get("resolution_confidence"),
-            context_window=ctx))
+            context_window=ctx, architecture=arch))
     return out
 
 
@@ -238,50 +305,94 @@ def merge_candidates(org_rows, arena_rows):
     return sorted(by_repo.values(),
                   key=lambda c: (c.get("arena_rank") is None,
                                  c.get("arena_rank") or 0,
-                                 -c["release_date"].toordinal()))
+                                 -_release_ordinal(c)))
+
+
+def _release_ordinal(candidate):
+    """Sort key for release_date, tolerant of hand-edited candidates.yaml.
+
+    Rows we generate always carry a real date, but humans edit this file, so
+    a missing or non-date value sorts last instead of aborting the run.
+    """
+    value = candidate.get("release_date")
+    return value.toordinal() if isinstance(value, date) else 0
+
+
+HEADER = (
+    "# AUTO-GENERATED candidate models from scripts/discover.py\n"
+    "# Review each entry, fix the TODO fields (active params, architecture,\n"
+    "# context, benchmark, commercial_use), then move approved rows into\n"
+    "# models.yaml and delete them here.\n"
+)
+
+
+def write_candidates(path, candidates):
+    Path(path).write_text(HEADER + yaml.safe_dump({"models": candidates},
+                                                  sort_keys=False,
+                                                  allow_unicode=True, width=100))
+
+
+def refresh(api, min_params, *, orgs=None, data_path=DATA,
+            candidates_path=CANDIDATES, arena_path=ARENA, use_arena=True,
+            get_json=hf_meta._http_get_json,
+            max_age_days=DEFAULT_MAX_AGE_DAYS, today=None):
+    """Build the next review queue. Returns (candidates, skips, new_orgs).
+
+    The queue is cumulative: rows already staged are carried forward (minus
+    any promoted into models.yaml) and newly discovered rows are added to
+    them, because write_candidates() replaces the file wholesale and anything
+    not returned here is lost.
+    """
+    orgs = ORG_ALLOWLIST if orgs is None else orgs
+    tracked = tracked_repos(data_path)
+    staged = surviving_staged(load_staged(candidates_path), tracked)
+    known = tracked | {r["hf_repo"].lower() for r in staged}
+
+    print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
+          f"max age {max_age_days or 'unlimited'} days)")
+    org_rows, skips = sweep_orgs(api, orgs, min_params, known,
+                                 get_json=get_json,
+                                 max_age_days=max_age_days, today=today)
+    print(f"  carried {len(staged)} staged candidate(s) forward")
+    print(f"  org sweep found {len(org_rows)} new candidate(s); skipped: {skips}")
+
+    arena_rows, new_orgs = [], []
+    if use_arena:
+        resolved, new_orgs = load_arena(arena_path)
+        if resolved:
+            print(f"  arena contributed {len(resolved)} resolved repo(s)")
+            arena_rows = arena_candidates(api, resolved, min_params, known,
+                                          get_json=get_json)
+        else:
+            print("  no arena data (run scripts/pull_arena.py first)")
+
+    return merge_candidates(staged + org_rows, arena_rows), skips, new_orgs
 
 
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--min-params", type=float, default=3.0,
                     help="minimum total params in billions")
+    ap.add_argument("--max-age-days", type=int, default=DEFAULT_MAX_AGE_DAYS,
+                    help="ignore org-sweep repos created longer ago than this "
+                         "(0 = no age limit)")
     ap.add_argument("--no-arena", action="store_true",
                     help="skip merging arena_agent_rankings.yaml")
     args = ap.parse_args()
 
     token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
     api = HfApi(token=token)
-    known = existing_repos()
 
-    print(f"Sweeping {len(ORG_ALLOWLIST)} orgs (min {args.min_params}B params)")
-    org_rows, skips = sweep_orgs(api, ORG_ALLOWLIST, args.min_params, known)
-    print(f"  org sweep found {len(org_rows)} candidate(s); skipped: {skips}")
-
-    arena_rows, new_orgs = ([], [])
-    if not args.no_arena:
-        resolved, new_orgs = load_arena()
-        if resolved:
-            print(f"  arena contributed {len(resolved)} resolved repo(s)")
-            arena_rows = arena_candidates(api, resolved, args.min_params, known)
-        else:
-            print("  no arena data (run scripts/pull_arena.py first)")
-
-    candidates = merge_candidates(org_rows, arena_rows)
+    candidates, _, new_orgs = refresh(api, args.min_params,
+                                      use_arena=not args.no_arena,
+                                      max_age_days=args.max_age_days)
 
     if new_orgs:
         print(f"\nNEW ORGS seen on the leaderboard but not in ORG_ALLOWLIST: "
               f"{', '.join(new_orgs)}")
         print("Add them to ORG_ALLOWLIST in this file to widen coverage.")
 
-    header = (
-        "# AUTO-GENERATED candidate models from scripts/discover.py\n"
-        "# Review each entry, fix the TODO fields (active params, architecture,\n"
-        "# context, benchmark, commercial_use), then move approved rows into\n"
-        "# models.yaml and delete them here.\n"
-    )
-    CANDIDATES.write_text(header + yaml.safe_dump({"models": candidates},
-                                                  sort_keys=False,
-                                                  allow_unicode=True, width=100))
+    write_candidates(CANDIDATES, candidates)
     print(f"\nWrote {len(candidates)} candidate(s) to {CANDIDATES.name}")
     # exit 0 always; the Action decides whether the diff is non-empty
 

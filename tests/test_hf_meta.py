@@ -127,43 +127,118 @@ def test_candidate_from_repo_keeps_exact_match_unflagged():
     assert c["resolution_confidence"] == "high"
 
 
-def test_fetch_context_window_reads_top_level_key():
+def test_fetch_config_returns_the_body():
     cfg = {"max_position_embeddings": 131072}
-    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
-    assert ctx == 131072
+    assert hf_meta.fetch_config("org/model", get_json=lambda url: cfg) == cfg
 
 
-def test_fetch_context_window_reads_nested_text_config():
-    cfg = {"text_config": {"max_sequence_length": 8192}}
-    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: cfg)
-    assert ctx == 8192
-
-
-def test_fetch_context_window_returns_none_when_absent():
-    ctx = hf_meta.fetch_context_window("org/model", get_json=lambda url: {"foo": 1})
-    assert ctx is None
-
-
-def test_fetch_context_window_swallows_fetch_errors():
+def test_fetch_config_swallows_fetch_errors():
     def boom(url):
         raise RuntimeError("gated repo")
-    assert hf_meta.fetch_context_window("org/model", get_json=boom) is None
+    assert hf_meta.fetch_config("org/model", get_json=boom) is None
 
 
-def test_resolve_context_prefers_api_expand():
-    info = FakeInfo("org/m", ctx=4096)
-    assert hf_meta.resolve_context(info, get_json=lambda url: {"n_positions": 999}) == 4096
+def test_fetch_config_rejects_a_non_mapping_body():
+    assert hf_meta.fetch_config("org/model", get_json=lambda url: ["nope"]) is None
 
 
-def test_resolve_context_falls_back_to_config_json():
-    info = FakeInfo("org/m")  # API expand empty
-    ctx = hf_meta.resolve_context(info, get_json=lambda url: {"max_position_embeddings": 32768})
-    assert ctx == 32768
-
-
-def test_resolve_context_zero_when_nothing_resolves():
+def test_resolve_facts_reads_nested_context_from_config_json():
     info = FakeInfo("org/m")
-    assert hf_meta.resolve_context(info, get_json=lambda url: {}) == 0
+    cfg = {"text_config": {"max_sequence_length": 8192}}
+    assert hf_meta.resolve_facts(info, get_json=lambda url: cfg) == (8192, "dense")
+
+
+def test_resolve_facts_zero_when_config_has_no_context_key():
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_facts(info, get_json=lambda url: {"foo": 1}) \
+        == (0, "dense")
+
+
+@pytest.mark.parametrize("cfg", [
+    {"n_routed_experts": 256},
+    {"num_local_experts": 8},
+    {"num_experts": 128},
+    {"moe_num_experts": 64},
+])
+def test_architecture_from_config_flags_an_expert_count(cfg):
+    assert hf_meta.architecture_from_config(cfg) == "moe"
+
+
+def test_architecture_from_config_reads_nested_text_config():
+    """Multimodal wrappers (…ForConditionalGeneration) nest the LM config."""
+    assert hf_meta.architecture_from_config(
+        {"text_config": {"n_routed_experts": 128}}) == "moe"
+
+
+def test_architecture_from_config_ignores_a_single_expert():
+    """One expert is not a mixture."""
+    assert hf_meta.architecture_from_config({"num_experts": 1}) == "dense"
+
+
+@pytest.mark.parametrize("cfg", [{}, None, {"num_attention_heads": 32}, "junk"])
+def test_architecture_from_config_defaults_to_dense(cfg):
+    assert hf_meta.architecture_from_config(cfg) == "dense"
+
+
+def test_resolve_facts_prefers_api_expand():
+    info = FakeInfo("org/m", ctx=4096)
+    info.config = {"max_position_embeddings": 4096, "n_routed_experts": 16}
+    assert hf_meta.resolve_facts(info, get_json=lambda url: {"n_positions": 999}) \
+        == (4096, "moe")
+
+
+def test_resolve_facts_falls_back_to_config_json():
+    info = FakeInfo("org/m")  # API expand empty
+    assert hf_meta.resolve_facts(
+        info, get_json=lambda url: {"max_position_embeddings": 32768}) \
+        == (32768, "dense")
+
+
+def test_resolve_facts_detects_moe_from_config_json():
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_facts(
+        info, get_json=lambda url: {"max_position_embeddings": 163840,
+                                    "n_routed_experts": 384}) \
+        == (163840, "moe")
+
+
+def test_resolve_facts_zero_and_dense_when_nothing_resolves():
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_facts(info, get_json=lambda url: {}) == (0, "dense")
+
+
+def test_resolve_facts_fetches_config_json_at_most_once():
+    """Context and architecture come from the same body — not two requests."""
+    calls = []
+
+    def counting_get(url):
+        calls.append(url)
+        return {"max_position_embeddings": 8192, "num_local_experts": 8}
+
+    info = FakeInfo("org/m")
+    assert hf_meta.resolve_facts(info, get_json=counting_get) == (8192, "moe")
+    assert len(calls) == 1
+
+
+def test_resolve_facts_survives_a_failed_config_fetch():
+    def boom(url):
+        raise RuntimeError("gated repo")
+
+    info = FakeInfo("org/m", ctx=2048)
+    assert hf_meta.resolve_facts(info, get_json=boom) == (2048, "dense")
+
+
+def test_candidate_from_repo_uses_explicit_architecture():
+    info = FakeInfo("org/m", total=100_000_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"],
+                                    architecture="moe")
+    assert c["architecture"] == "moe"
+
+
+def test_candidate_from_repo_defaults_architecture_to_dense():
+    info = FakeInfo("org/m", total=7_000_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"])
+    assert c["architecture"] == "dense"
 
 
 def test_candidate_uses_explicit_context_window():

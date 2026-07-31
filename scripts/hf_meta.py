@@ -44,6 +44,14 @@ EXCLUDE_PATTERNS = re.compile(
 )
 
 CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
+
+# Expert-count keys that mark a mixture-of-experts model. Vendors disagree on
+# the name, so we accept all the ones in circulation. A count of 1 is not a
+# mixture. Active params still cannot be derived from these — routing is not
+# a simple ratio — so params_active_b stays a TODO even for a detected MoE.
+MOE_KEYS = ("num_local_experts", "n_routed_experts", "num_experts",
+            "moe_num_experts")
+NESTED_CONFIG_KEYS = ("text_config", "llm_config")
 EXPAND = ["safetensors", "cardData", "config", "downloads",
           "createdAt", "lastModified", "gated", "tags", "library_name"]
 
@@ -62,18 +70,8 @@ def license_of(info):
 
 
 def context_of(info):
-    cfg = getattr(info, "config", None) or {}
-    if isinstance(cfg, dict):
-        for k in CTX_KEYS:
-            if isinstance(cfg.get(k), int):
-                return cfg[k]
-        # some configs nest under "text_config" / "llm_config"
-        for sub in ("text_config", "llm_config"):
-            inner = cfg.get(sub) or {}
-            for k in CTX_KEYS:
-                if isinstance(inner.get(k), int):
-                    return inner[k]
-    return None
+    """Context length from the API expand's config field, if it carries one."""
+    return _ctx_from_config(getattr(info, "config", None) or {})
 
 
 _CONFIG_URL = "https://huggingface.co/{repo}/resolve/main/config.json"
@@ -100,21 +98,52 @@ def _ctx_from_config(cfg):
     return None
 
 
-def fetch_context_window(repo, get_json=_http_get_json):
-    """Best-effort context length from the repo's config.json. None on any failure."""
+def fetch_config(repo, get_json=_http_get_json):
+    """The repo's config.json as a dict. None on any failure (gated, 404, timeout)."""
     try:
         cfg = get_json(_CONFIG_URL.format(repo=repo))
     except Exception:
         return None
-    return _ctx_from_config(cfg)
+    return cfg if isinstance(cfg, dict) else None
 
 
-def resolve_context(info, get_json=_http_get_json):
-    """API expand first, then config.json, then 0."""
-    ctx = context_of(info)
-    if isinstance(ctx, int) and ctx > 0:
-        return ctx
-    return fetch_context_window(info.id, get_json) or 0
+def architecture_from_config(cfg):
+    """'moe' when the config declares more than one expert, else 'dense'.
+
+    'dense' is also what an unusable or silent config yields — the schema
+    enum has no "unknown", and dense was the blanket default before this
+    existed, so a miss is no worse than the old behaviour.
+    """
+    if not isinstance(cfg, dict):
+        return "dense"
+    for scope in (cfg, *(cfg.get(k) for k in NESTED_CONFIG_KEYS)):
+        if not isinstance(scope, dict):
+            continue
+        for key in MOE_KEYS:
+            n = scope.get(key)
+            if isinstance(n, int) and not isinstance(n, bool) and n > 1:
+                return "moe"
+    return "dense"
+
+
+def resolve_facts(info, get_json=_http_get_json):
+    """(context_window, architecture), fetching config.json at most once.
+
+    The API expand answers both fields for some repos; when it does not, one
+    config.json body serves both rather than one request per field.
+    """
+    api_cfg = getattr(info, "config", None) or {}
+    ctx = _ctx_from_config(api_cfg)
+    arch = architecture_from_config(api_cfg)
+    if ctx and arch == "moe":
+        return ctx, arch
+
+    cfg = fetch_config(info.id, get_json)
+    if cfg is not None:
+        ctx = ctx or _ctx_from_config(cfg)
+        if arch != "moe":
+            arch = architecture_from_config(cfg)
+    return ctx or 0, arch
 
 
 def params_b_of(info):
@@ -154,7 +183,7 @@ def should_track(info, min_params):
 
 def candidate_from_repo(info, discovered_via, arena_rank=None,
                         needs_hf_repo=None, resolution_confidence=None,
-                        context_window=None):
+                        context_window=None, architecture="dense"):
     """Build a candidates.yaml row from an HF ModelInfo.
 
     Caller is responsible for having run should_track() first.
@@ -177,7 +206,7 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "release_date": to_date(getattr(info, "created_at", None)) or date.today(),
         "params_total_b": params,
         "params_active_b": params,   # TODO: set active params for MoE by hand
-        "architecture": "dense",     # TODO: mark 'moe' if applicable
+        "architecture": architecture,
         "context_window": context_window if context_window is not None
         else (context_of(info) or 0),   # 0 => fill during review
         "modality": "text",

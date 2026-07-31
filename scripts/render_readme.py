@@ -44,7 +44,11 @@ def commercial_badge(v):
 
 
 def load_leaderboard(path=LEADERBOARD):
-    """{lower_repo: mmlu_float}. {} on missing/malformed."""
+    """{lower_repo: {"metric": str, "score": float}}. {} on missing/malformed.
+
+    Both keys are required: a score whose metric is unknown cannot be placed,
+    because MMLU and MMLU-PRO go in different columns.
+    """
     try:
         doc = yaml.safe_load(Path(path).read_text()) or {}
     except (OSError, yaml.YAMLError):
@@ -53,8 +57,12 @@ def load_leaderboard(path=LEADERBOARD):
     out = {}
     if isinstance(scores, dict):
         for repo, entry in scores.items():
-            if isinstance(entry, dict) and isinstance(entry.get("mmlu"), (int, float)):
-                out[str(repo).lower()] = float(entry["mmlu"])
+            if not isinstance(entry, dict):
+                continue
+            metric, score = entry.get("metric"), entry.get("score")
+            if isinstance(metric, str) and isinstance(score, (int, float)):
+                out[str(repo).lower()] = {"metric": metric.upper(),
+                                          "score": float(score)}
     return out
 
 
@@ -73,12 +81,31 @@ def load_arena_ranks(path=ARENA):
     return out
 
 
+def _leaderboard_score(model, lb, metric):
+    entry = lb.get((model.get("hf_repo") or "").lower())
+    if isinstance(entry, dict) and entry.get("metric") == metric:
+        return entry["score"]
+    return None
+
+
 def mmlu_cell(model, lb):
-    repo = (model.get("hf_repo") or "").lower()
-    if repo in lb:
-        return str(lb[repo])
+    """Plain MMLU: leaderboard where available, else the vendor figure with *."""
+    score = _leaderboard_score(model, lb, "MMLU")
+    if score is not None:
+        return str(score)
     score = (model.get("benchmark") or {}).get("score")
     return f"{score}*" if isinstance(score, (int, float)) else "?"
+
+
+def mmlu_pro_cell(model, lb):
+    """MMLU-PRO: leaderboard only.
+
+    Never falls back to models.yaml benchmark.score — that field is MMLU, and
+    MMLU-PRO is a much harsher scale (~40 where MMLU reads ~80). Showing one
+    in the other's column would invent a comparison that does not exist.
+    """
+    score = _leaderboard_score(model, lb, "MMLU-PRO")
+    return str(score) if score is not None else "—"
 
 
 def arena_cell(model, ranks):
@@ -93,8 +120,8 @@ def build_table(models, lb, ranks):
         reverse=True,
     )
     head = ("| Model | Developer | Released | Params | Context | Modality | "
-            "Arena | MMLU | License | Commercial |")
-    sep = "|---|---|---|---|---|---|---|---|---|---|"
+            "Arena | MMLU | MMLU-Pro | License | Commercial |")
+    sep = "|---|---|---|---|---|---|---|---|---|---|---|"
     rows = [head, sep]
     for m in models:
         name = m["name"]
@@ -104,7 +131,7 @@ def build_table(models, lb, ranks):
             f"| {name} | {m['developer']} | {m['release_date']} | "
             f"{human_params(m['params_total_b'], m['params_active_b'], m['architecture'])} | "
             f"{human_ctx(m['context_window'])} | {m['modality']} | "
-            f"{arena_cell(m, ranks)} | {mmlu_cell(m, lb)} | "
+            f"{arena_cell(m, ranks)} | {mmlu_cell(m, lb)} | {mmlu_pro_cell(m, lb)} | "
             f"`{m['license']}` | {commercial_badge(m['commercial_use'])} |"
         )
     return "\n".join(rows)
@@ -125,10 +152,13 @@ def main():
         "Data lives in [`models.yaml`](models.yaml) (the source of truth). This table "
         "is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
         "[CONTRIBUTING.md](CONTRIBUTING.md) to add a model.\n\n"
-        "> **Columns:** **MMLU** is from the HF Open LLM Leaderboard where "
-        "available; values marked `*` fall back to a vendor/manual figure and are "
-        "not harness-comparable. **Arena** is the Agent Arena rank (`—` = not "
-        "currently ranked). See each row's `benchmark.source` in the YAML.\n\n"
+        "> **Columns:** **MMLU** values marked `*` are vendor/manual figures from "
+        "`models.yaml` and are not harness-comparable. **MMLU-Pro** comes from the "
+        "HF Open LLM Leaderboard v2 (`—` = not listed there; it was archived, so "
+        "most 2026 models are absent). The two benchmark columns are *not* "
+        "comparable to each other — MMLU-Pro is a much harsher scale. **Arena** is "
+        "the Agent Arena rank (`—` = not currently ranked). See each row's "
+        "`benchmark.source` in the YAML.\n\n"
         f"{START}\n{table}\n{END}\n\n"
         "## Regenerate\n\n"
         "```bash\n"
