@@ -25,6 +25,9 @@ jobs:
         env:
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/pull_arena.py
+      - name: Pull Artificial Analysis scores
+        continue-on-error: true    # AA must never block discovery
+        run: python scripts/pull_aa.py
       - name: Discover new models
         env:
           # Optional: add an HF token as a repo secret for higher rate limits.
@@ -47,4 +50,5 @@ jobs:
           add-paths: |
             candidates.yaml
             arena_agent_rankings.yaml
+            aa_scores.yaml
           delete-branch: true
