@@ -65,3 +65,40 @@ def parse_leaderboard(html):
             "intelligence_index": int(raw),
         })
     return rows
+
+
+_PAREN_RE = re.compile(r"\(([^)]*)\)")
+
+
+def split_variant(display):
+    """('Kimi K3 (max)') -> ('Kimi K3', 'max'). No parenthetical -> 'default'."""
+    found = _PAREN_RE.search(display)
+    variant = found.group(1).strip().lower() if found else "default"
+    base = _PAREN_RE.sub(" ", display)
+    base = re.sub(r"\s+", " ", base).strip()
+    return base, variant
+
+
+def best_by_slug(rows):
+    """Highest-scoring variant per model, keyed by slug.
+
+    AA lists the same weights at several reasoning efforts and the spread is
+    wide (Kimi K3 scores 57 at max, 47 at low), so the winner is chosen
+    explicitly rather than by whichever row happens to come last. The variant
+    that won is recorded so the number can be traced back to a row.
+    """
+    best = {}
+    for row in rows:
+        base, variant = split_variant(row["model"])
+        key = names.slug(names.strip_variant_suffix(base))
+        if not key:
+            continue
+        current = best.get(key)
+        if current is None or row["intelligence_index"] > current["intelligence_index"]:
+            best[key] = {
+                "model_slug": key,
+                "aa_model": row["model"],
+                "variant": variant,
+                "intelligence_index": row["intelligence_index"],
+            }
+    return best
