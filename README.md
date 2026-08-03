@@ -4,7 +4,7 @@ A curated, machine-readable index of open-weight LLMs — parameter count, conte
 
 Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
-> **Columns:** **AA Index** is the [Artificial Analysis Intelligence Index](https://artificialanalysis.ai/leaderboards/models) — a 0–100 composite of agentic, coding, scientific-reasoning and general evaluations. `—` means Artificial Analysis does not currently rate that model; it drops older models, so coverage skews to recent releases. The index is re-weighted between versions, so values are not comparable across time. **Arena** is the Agent Arena rank (`—` = not currently ranked).
+> **Columns:** **AA Index** is the [Artificial Analysis Intelligence Index](https://artificialanalysis.ai/leaderboards/models?weights=open) — a 0–100 composite of agentic, coding, scientific-reasoning and general evaluations. `—` means Artificial Analysis does not currently rate that model; it drops older models, so coverage skews to recent releases. The index is re-weighted between versions, so values are not comparable across time. **Arena** is the Agent Arena rank (`—` = not currently ranked).
 
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |

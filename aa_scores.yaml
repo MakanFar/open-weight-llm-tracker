@@ -7,17 +7,17 @@ scores:
   meta-llama/Llama-3.3-70B-Instruct:
     aa_model: Llama 3.3 70B
     intelligence_index: 9
-    source: https://artificialanalysis.ai/leaderboards/models
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
   meta-llama/Llama-4-Maverick-17B-128E-Instruct:
     aa_model: Llama 4 Maverick
     intelligence_index: 14
-    source: https://artificialanalysis.ai/leaderboards/models
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
   meta-llama/Llama-4-Scout-17B-16E-Instruct:
     aa_model: Llama 4 Scout
     intelligence_index: 10
-    source: https://artificialanalysis.ai/leaderboards/models
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
 unmatched:
 - Agnes 2.5 Pro Alpha
@@ -108,6 +108,7 @@ unmatched:
 - Qwen3.6 Plus
 - Qwen3.7 Max
 - Qwen3.7 Plus
+- Qwen3.8 Max
 - Ring-2.6-1T
 - Solar Pro 3
 - Step 3.7 Flash

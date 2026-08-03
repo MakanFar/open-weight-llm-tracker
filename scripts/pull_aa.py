@@ -35,7 +35,14 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 OUT = ROOT / "aa_scores.yaml"
 
-LEADERBOARD_URL = "https://artificialanalysis.ai/leaderboards/models"
+# The open-weights view. NOTE: ?weights=open is applied client-side by AA's
+# JS — the server returns the full table either way (verified byte-identical,
+# 130 scored rows, proprietary models still first). It is kept because it is
+# the URL recorded as each score's `source`, so a human clicking through lands
+# on the open-weights list. Do NOT rely on it to pre-filter: the filtering that
+# matters happens when match_to_tracked joins against models.yaml, and
+# proprietary rows simply fail to match.
+LEADERBOARD_URL = "https://artificialanalysis.ai/leaderboards/models?weights=open"
 
 # Cell positions in the data rows, matching the column header:
 #   Model | Context Window | Creator | AA Intelligence Index | Cost | ...

@@ -186,7 +186,7 @@ def main():
         "is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
         "[CONTRIBUTING.md](CONTRIBUTING.md) to add a model.\n\n"
         "> **Columns:** **AA Index** is the [Artificial Analysis Intelligence "
-        "Index](https://artificialanalysis.ai/leaderboards/models) — a 0–100 "
+        "Index](https://artificialanalysis.ai/leaderboards/models?weights=open) — a 0–100 "
         "composite of agentic, coding, scientific-reasoning and general "
         "evaluations. `—` means Artificial Analysis does not currently rate that "
         "model; it drops older models, so coverage skews to recent releases. The "
