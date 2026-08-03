@@ -17,11 +17,10 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
 
 ## The rules that matter
 
-- **One canonical benchmark.** We anchor on **MMLU** so rows compare. Put any other
-  standout result in `notes`, not in the benchmark column.
-- **Cite your benchmark source.** `benchmark.source` must be a URL (leaderboard or paper)
-  or the literal string `vendor` if it's a self-reported number. Prefer third-party
-  numbers (HF Open LLM Leaderboard, LMArena, Epoch AI) over vendor claims.
+- **Don't add a benchmark field.** `models.yaml` stores no benchmark score — the anchor
+  number is the Artificial Analysis Intelligence Index, fetched by `scripts/pull_aa.py`
+  into `aa_scores.yaml` and joined on `hf_repo` at render time. A hand-copied score with
+  no provenance is worse than no score; put any standout result in `notes` instead.
 - **Read the license.** Set `commercial_use` to `true` / `false` / `conditional` by
   actually checking the license, not by the word "open". If the license isn't in the
   allowlist in `scripts/validate.py`, add it there in the same PR.
@@ -43,8 +42,9 @@ arena leaderboard, or both — `discovered_via` says which. When a discovery PR 
    inexactly. Confirm the repo really is that model before promoting it — this is the
    one field you cannot take on trust.
 3. Fix the `TODO` fields: `params_active_b` + `architecture` for MoE models, the
-   `context_window` if it came through as `0`, the `benchmark` score + source, and
-   confirm `commercial_use` by reading the actual license.
+   `context_window` if it came through as `0`, and confirm `commercial_use` by
+   reading the actual license. Don't add a `benchmark` field — `models.yaml`
+   doesn't have one; the AA Index is joined in from `aa_scores.yaml` instead.
 4. Move approved entries into `models.yaml`, delete them from `candidates.yaml`.
    Strip the discovery-only fields listed in [SCHEMA.md](SCHEMA.md) as you go.
 5. Run `python scripts/render_readme.py`, commit, merge.
@@ -54,5 +54,7 @@ arena leaderboard, or both — `discovered_via` says which. When a discovery PR 
 - **Params / context / license tag:** the Hugging Face repo (`hf_repo`) — `pull_hf.py`
   can auto-fill these.
 - **Authoritative params & MoE split:** the model's paper / technical report.
-- **Benchmarks:** a single third-party leaderboard, run under one harness.
+- **Benchmarks:** not stored in `models.yaml`. The AA Index column comes from
+  `scripts/pull_aa.py`, which scrapes the Artificial Analysis Intelligence
+  Index into `aa_scores.yaml` and is joined on `hf_repo` at render time.
 - **Commercial-use flag:** you, reading the actual license.

@@ -20,19 +20,15 @@ Each list entry is one model. Fields:
 | `license` | yes | string | Short license id (see allowlist in `scripts/validate.py`) |
 | `commercial_use` | yes | enum | `true`, `false`, or `conditional` (e.g. Llama's 700M-MAU gate) |
 | `license_notes` | no | string | Any restriction worth flagging |
-| `benchmark.name` | yes | string | The **one canonical benchmark** you anchor on, e.g. `MMLU` |
-| `benchmark.score` | yes | number | Score on that benchmark |
-| `benchmark.source` | yes | url | Where the number came from — leaderboard or paper |
 | `weights_url` | no | url | Direct link to the weights |
 | `notes` | no | string | Free text (standout result, quantization tips, etc.) |
 
 ## Conventions
 
-- **One canonical benchmark.** Pick MMLU (or MMLU-Pro) as the anchor column so rows are
-  comparable. Put anything else in `notes`. A table where every row uses a different
-  benchmark is not a comparison.
-- **Prefer third-party benchmark numbers** (HF Open LLM Leaderboard, LMArena, Epoch AI)
-  over lab-self-reported figures. Whatever you use, record it in `benchmark.source`.
+- **Benchmark numbers are not stored here.** The anchor number is the Artificial
+  Analysis Intelligence Index, fetched by `scripts/pull_aa.py` into
+  `aa_scores.yaml` and joined at render time. Nothing hand-copies a score into
+  `models.yaml` — a figure with no provenance is worse than no figure.
 - **Set `commercial_use` by reading the license**, not by trusting the word "open".
 - **One row per model.** A family flagship, or list sizes separately — don't do both.
 
@@ -47,6 +43,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 |-------|------|-------|
 | `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
 | `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
+| `aa_index` | integer | Artificial Analysis Intelligence Index, present only if AA rates the model. Lets you see the score *before* promoting. Refreshed every run — absent means AA does not currently rate it. |
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
 | `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
@@ -61,19 +58,26 @@ weights repo resolved on Hugging Face. It is **not** arena's license label and
 **not** an org guess. `needs_hf_repo: true` marks an inexact name match that a
 human should verify before promotion.
 
-## `leaderboard_scores.yaml` (generated, joined at render)
+## `aa_scores.yaml` (generated, joined at render)
 
-Written by `scripts/pull_leaderboard.py`. Maps `hf_repo` → an MMLU score from the
-HF Open LLM Leaderboard:
+Written by `scripts/pull_aa.py`. Maps `hf_repo` → the Artificial Analysis
+Intelligence Index, a 0-100 composite (Agents 34%, Coding 24%, Scientific
+Reasoning 24%, General 18%) that is re-weighted between versions, so values
+are **not** comparable across time — only the current snapshot is stored:
 
 ```yaml
 scores:
-  meta-llama/Llama-3.1-405B-Instruct:
-    mmlu: 88.6
-    source: "https://huggingface.co/spaces/open-llm-leaderboard/open_llm_leaderboard"
+  meta-llama/Llama-3.3-70B-Instruct:
+    aa_model: Llama 3.3 70B
+    intelligence_index: 9
+    source: https://artificialanalysis.ai/leaderboards/models
+    variant: default
 ```
 
-`render_readme.py` reads this file and uses the leaderboard score for the MMLU
-column when a repo is present, otherwise it falls back to that row's manual
-`benchmark.score` in `models.yaml`. The file is committed so the render stays
-offline; a missing/empty/malformed file just means every row uses its manual score.
+This replaced an HF-leaderboard-based `benchmark` field that could never be
+filled automatically: HF Open LLM Leaderboard v2 publishes no plain MMLU and is
+archived, and the HF model card API returns no structured eval data for any
+tracked model. `render_readme.py` reads this file and prints `—` for any row
+whose `hf_repo` isn't present — AA covers recent models only, so gaps on older
+rows are expected. The file is committed so the render stays offline; a
+missing/empty/malformed file just means every row renders `—`.

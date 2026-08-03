@@ -18,6 +18,7 @@ python -m pytest tests/test_arena_resolve.py::test_name  # a single test
 python scripts/validate.py        # schema-check models.yaml (CI gate; exits non-zero on any problem)
 python scripts/render_readme.py   # regenerate README.md from models.yaml
 python scripts/pull_hf.py         # dry-run: auto-fill fields from HF (--write to apply)
+python scripts/pull_aa.py         # scrape AA Intelligence Index -> aa_scores.yaml
 python scripts/discover.py        # org sweep + arena merge -> candidates.yaml
 python scripts/pull_arena.py      # scrape arena leaderboard -> arena_agent_rankings.yaml
 ```
@@ -29,7 +30,7 @@ Network caveat: `pull_hf.py`, `discover.py`, and `pull_arena.py` all reach out t
 ## Two-file data model
 
 - **`models.yaml`** — the reviewed, published index. Only this file is validated and rendered. Fields are documented in [SCHEMA.md](SCHEMA.md).
-- **`candidates.yaml`** — a staging queue of *unreviewed* auto-discovered models, written by `discover.py`. Rows here carry extra discovery-only fields (`discovered_via`, `arena_rank`, `downloads`, `needs_hf_repo`, `resolution_confidence`). **These fields must be stripped when a row is promoted into `models.yaml`** — `validate.py` only checks `models.yaml`, so they would otherwise leak in. Nothing automated ever writes to `models.yaml`; promotion is always a human editing the file.
+- **`candidates.yaml`** — a staging queue of *unreviewed* auto-discovered models, written by `discover.py`. Rows here carry extra discovery-only fields (`discovered_via`, `arena_rank`, `aa_index`, `downloads`, `needs_hf_repo`, `resolution_confidence`). **These fields must be stripped when a row is promoted into `models.yaml`** — `validate.py` only checks `models.yaml`, so they would otherwise leak in. Nothing automated ever writes to `models.yaml`; promotion is always a human editing the file.
 
 ## Discovery pipeline (the core architecture)
 
@@ -56,7 +57,7 @@ The point of the pipeline is to surface frontier releases without a human hand-w
 
 ## Conventions that keep the data trustworthy
 
-- **One canonical benchmark** (MMLU) per row so the table is comparable; anything else goes in `notes`.
+- **No benchmark field.** The anchor number is the Artificial Analysis Intelligence Index in `aa_scores.yaml`, written by `scripts/pull_aa.py` and joined on `hf_repo` at render time. AA covers recent models only, so `—` is expected and correct for older rows.
 - **Set `commercial_use` by reading the actual license**, not the word "open". Values are `true` / `false` / `conditional`.
 - **One row per model** — a family flagship or distinct sizes, never both.
 - **MoE**: total params in `params_total_b`, routed/active in `params_active_b`; for dense models the two are equal (validated).
