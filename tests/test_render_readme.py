@@ -75,7 +75,8 @@ def test_load_aa_scores_skips_entries_with_no_numeric_index(tmp_path):
 
 def test_table_has_an_aa_index_column_and_no_mmlu():
     table = rr.build_table([_model(hf_repo="org/m")],
-                           {"org/m": {"index": 42, "variant": "max"}}, {})
+                           {"org/m": {"index": 42, "variant": "max"}},
+                           {"repos": {}, "names": {}})
     head = table.splitlines()[0]
     assert "| AA Index |" in head
     assert "MMLU" not in head

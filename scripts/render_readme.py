@@ -132,15 +132,10 @@ def aa_cell(model, aa):
 
 
 def arena_cell(model, ranks):
-    """Rank by resolved repo, else by model name, else '—'.
-
-    Tolerates a ranks dict missing "repos"/"names" (e.g. `{}` in a test that
-    only cares about the AA column) rather than KeyError-ing — the real
-    caller always supplies load_arena_ranks()'s full shape.
-    """
-    rank = ranks.get("repos", {}).get((model.get("hf_repo") or "").lower())
+    """Rank by resolved repo, else by model name, else '—'."""
+    rank = ranks["repos"].get((model.get("hf_repo") or "").lower())
     if rank is None:
-        rank = ranks.get("names", {}).get(_slug(model.get("name") or ""))
+        rank = ranks["names"].get(_slug(model.get("name") or ""))
     return str(rank) if rank is not None else "—"
 
 
