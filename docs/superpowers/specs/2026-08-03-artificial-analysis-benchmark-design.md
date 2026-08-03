@@ -116,7 +116,9 @@ rather than overwriting it with an empty one. This is the lesson from
 empty parse (page fetched, zero rows recognised) is also treated as failure,
 since it means the markup changed.
 
-`--html <file>` parses a saved page offline. `--no-fetch` rewrites from empty.
+`--html <file>` parses a saved page offline. There is deliberately no
+`--no-fetch` flag: its only effect would be to write an empty sidecar, which is
+exactly the destructive behaviour this design exists to prevent.
 
 ### `aa_scores.yaml`
 
