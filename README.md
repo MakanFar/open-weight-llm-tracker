@@ -46,4 +46,4 @@ Two scripts feed the review queue in [`candidates.yaml`](candidates.yaml). Neith
 
 **Open-weight status comes from whether weights actually resolve on Hugging Face** — not from a vendor's name and not from a leaderboard's license label. A model is open-weight if and only if a public weights repo was found for it. See [SCHEMA.md](SCHEMA.md) for the discovery-only fields, including `needs_hf_repo`, which flags an inexact name match for a human to confirm.
 
-The `discover-models` GitHub Action runs it weekly and opens a **pull request** with the new candidates — review the PR, fill the `TODO` fields (active params, benchmark, commercial-use), move approved rows into `models.yaml`, and merge.
+The `discover-models` GitHub Action runs it weekly and opens a **pull request** with the new candidates — review the PR, fill the `TODO` fields (active params, commercial-use), move approved rows into `models.yaml`, and merge.

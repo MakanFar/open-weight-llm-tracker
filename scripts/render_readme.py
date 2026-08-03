@@ -11,10 +11,14 @@ changes belong here.
   python scripts/render_readme.py
 """
 import re
+import sys
 from datetime import date
 from pathlib import Path
 
 import yaml
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import names  # noqa: E402  (names.py imports only `re` — keeps this renderer offline)
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
@@ -52,12 +56,14 @@ _ORG_TAIL_WORDS = {
 
 
 def _slug(text):
-    """Lowercase, strip non-alphanumerics. Mirrors pull_arena.slug.
+    """Coerce to str, then delegate to names.slug.
 
-    Duplicated rather than imported: pull_arena pulls in requests/bs4 at module
-    scope, and this renderer must stay offline and dependency-light.
+    The str() coercion guards against a non-string value coming out of YAML
+    (e.g. a numeric model name) — names.slug assumes a string, so it can't be
+    called directly here. names.py imports only `re`, so this stays offline
+    and dependency-light.
     """
-    return re.sub(r"[^a-z0-9]", "", str(text).lower())
+    return names.slug(str(text))
 
 
 def _arena_display_name(display):
@@ -216,7 +222,7 @@ def main():
         "`needs_hf_repo`, which flags an inexact name match for a human to confirm.\n\n"
         "The `discover-models` GitHub Action runs it weekly and opens a **pull request** "
         "with the new candidates — review the PR, fill the `TODO` fields (active params, "
-        "benchmark, commercial-use), move approved rows into `models.yaml`, and merge.\n"
+        "commercial-use), move approved rows into `models.yaml`, and merge.\n"
     )
     README.write_text(body)
     print(f"Rendered README.md with {n} models.")
