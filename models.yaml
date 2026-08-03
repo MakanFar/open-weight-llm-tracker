@@ -247,3 +247,93 @@ models:
     license_notes: "700M-MAU gate."
     weights_url: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
     notes: "Common edge/local baseline."
+
+  - name: Kimi K3
+    hf_repo: moonshotai/Kimi-K3
+    developer: Moonshot AI
+    release_date: 2026-06-13
+    params_total_b: 2779.9
+    params_active_b: 104
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: kimi-k3
+    commercial_use: conditional
+    license_notes: "Modified MIT; extra obligations for products above 100M users."
+    weights_url: https://huggingface.co/moonshotai/Kimi-K3
+    notes: "Top open-weight model on both Agent Arena (#5) and AA Intelligence Index (57). Activates 16 of 896 experts."
+
+  - name: DeepSeek-V4-Pro
+    hf_repo: deepseek-ai/DeepSeek-V4-Pro
+    developer: DeepSeek
+    release_date: 2026-04-22
+    params_total_b: 1598.8
+    params_active_b: 49
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: "MIT; no additional use restrictions."
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro
+    notes: "Card: 1.6T parameters, 49B activated."
+
+  - name: MiniMax-M3
+    hf_repo: MiniMaxAI/MiniMax-M3
+    developer: MiniMax
+    release_date: 2026-06-02
+    params_total_b: 427.0
+    params_active_b: 23
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: minimax-community
+    commercial_use: conditional
+    license_notes: "Community licence: non-commercial by default; commercial use has separate conditions."
+    weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M3
+    notes: "Native multimodal, 1M context. Card: ~428B params, ~23B activated."
+
+  - name: MiMo-V2.5-Pro
+    hf_repo: XiaomiMiMo/MiMo-V2.5-Pro
+    developer: Xiaomi
+    release_date: 2026-04-27
+    params_total_b: 1023.2
+    params_active_b: 42
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: "MIT; no additional use restrictions."
+    weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro
+    notes: "Card: 1.02T total, 42B active. Hybrid attention."
+
+  - name: Hy3
+    hf_repo: tencent/Hy3
+    developer: Tencent
+    release_date: 2026-07-02
+    params_total_b: 298.8
+    params_active_b: 21
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Apache-2.0 per the repo tag."
+    weights_url: https://huggingface.co/tencent/Hy3
+    notes: "Card: 295B params, 21B active, 192 experts top-8. Plus 3.8B MTP layer."
+
+  - name: Gemma 4 31B
+    hf_repo: google/gemma-4-31B-it
+    developer: Google
+    release_date: 2026-03-11
+    params_total_b: 32.7
+    params_active_b: 32.7
+    architecture: dense
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "VERIFY: repo tag says apache-2.0, unlike previous Gemma releases which used the Gemma licence."
+    weights_url: https://huggingface.co/google/gemma-4-31B-it
+    notes: "Only dense model in this batch."

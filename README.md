@@ -1,6 +1,6 @@
 # Open-Weight & Open-Source LLM Tracker
 
-A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **16 models**.
+A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **22 models**.
 
 Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
@@ -9,6 +9,12 @@ Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is 
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
+| [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 27 | 41 | `apache-2.0` | Yes |
+| [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) | Moonshot AI | 2026-06-13 | 2779.9B (104B active) | 1M | text | 5 | 57 | `kimi-k3` | Conditional |
+| [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 33 | 44 | `minimax-community` | Conditional |
+| [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 32 | 42 | `mit` | Yes |
+| [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 26 | 44 | `mit` | Yes |
+| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 44 | 29 | `apache-2.0` | Yes |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | — | — | `apache-2.0` | Yes |
 | [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | — | 14 | `llama-4-community` | Conditional |
 | [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | — | 10 | `llama-4-community` | Conditional |

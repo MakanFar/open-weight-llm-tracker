@@ -3,27 +3,6 @@
 # context, commercial_use), then move approved rows into
 # models.yaml and delete them here.
 models:
-- name: Kimi-K3
-  hf_repo: moonshotai/Kimi-K3
-  developer: moonshotai
-  release_date: 2026-06-13
-  params_total_b: 2779.9
-  params_active_b: 2779.9
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: other
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/moonshotai/Kimi-K3
-  downloads: 493481
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 5
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 57
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
@@ -88,49 +67,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   aa_index: 42
-- name: DeepSeek-V4-Pro
-  hf_repo: deepseek-ai/DeepSeek-V4-Pro
-  developer: deepseek-ai
-  release_date: 2026-04-22
-  params_total_b: 1598.8
-  params_active_b: 1598.8
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro
-  downloads: 1636857
-  discovered_via:
-  - arena
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 26
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 44
-- name: Hy3
-  hf_repo: tencent/Hy3
-  developer: tencent
-  release_date: 2026-07-02
-  params_total_b: 298.8
-  params_active_b: 298.8
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/tencent/Hy3
-  downloads: 22607
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 27
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 41
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -151,49 +87,6 @@ models:
   arena_rank: 29
   needs_hf_repo: false
   resolution_confidence: high
-- name: MiMo-V2.5-Pro
-  hf_repo: XiaomiMiMo/MiMo-V2.5-Pro
-  developer: XiaomiMiMo
-  release_date: 2026-04-27
-  params_total_b: 1023.2
-  params_active_b: 1023.2
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro
-  downloads: 56752
-  discovered_via:
-  - arena
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 32
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 42
-- name: MiniMax-M3
-  hf_repo: MiniMaxAI/MiniMax-M3
-  developer: MiniMaxAI
-  release_date: 2026-06-02
-  params_total_b: 427.0
-  params_active_b: 427.0
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: other
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M3
-  downloads: 160389
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 33
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 44
 - name: DeepSeek-V4-Flash
   hf_repo: deepseek-ai/DeepSeek-V4-Flash
   developer: deepseek-ai
@@ -257,27 +150,6 @@ models:
   arena_rank: 41
   needs_hf_repo: false
   resolution_confidence: high
-- name: gemma-4-31B-it
-  hf_repo: google/gemma-4-31B-it
-  developer: google
-  release_date: 2026-03-11
-  params_total_b: 32.7
-  params_active_b: 32.7
-  architecture: dense
-  context_window: 262144
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/google/gemma-4-31B-it
-  downloads: 12156752
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 44
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 29
 - name: DeepSeek-V4-Flash-0731
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
   developer: deepseek-ai
@@ -1593,3 +1465,4665 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   aa_index: 21
+- name: Qwen3-Coder-Next
+  hf_repo: Qwen/Qwen3-Coder-Next
+  developer: Qwen
+  release_date: 2026-01-30
+  params_total_b: 79.7
+  params_active_b: 79.7
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
+  downloads: 552224
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-Hybrid-7B
+  hf_repo: allenai/Olmo-Hybrid-7B
+  developer: allenai
+  release_date: 2026-01-28
+  params_total_b: 7.4
+  params_active_b: 7.4
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-Hybrid-7B
+  downloads: 30449
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.7-Flash
+  hf_repo: zai-org/GLM-4.7-Flash
+  developer: zai-org
+  release_date: 2026-01-19
+  params_total_b: 31.2
+  params_active_b: 31.2
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.7-Flash
+  downloads: 2074814
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-3.3-8b-math-prm-v2
+  hf_repo: ibm-granite/granite-3.3-8b-math-prm-v2
+  developer: ibm-granite
+  release_date: 2026-01-07
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-3.3-8b-math-prm-v2
+  downloads: 214
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba2-3B
+  hf_repo: ai21labs/AI21-Jamba2-3B
+  developer: ai21labs
+  release_date: 2026-01-06
+  params_total_b: 3.0
+  params_active_b: 3.0
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba2-3B
+  downloads: 30217
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba2-Mini
+  hf_repo: ai21labs/AI21-Jamba2-Mini
+  developer: ai21labs
+  release_date: 2026-01-06
+  params_total_b: 51.6
+  params_active_b: 51.6
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba2-Mini
+  downloads: 247
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.7
+  hf_repo: zai-org/GLM-4.7
+  developer: zai-org
+  release_date: 2025-12-22
+  params_total_b: 358.3
+  params_active_b: 358.3
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.7
+  downloads: 72466
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M2.1
+  hf_repo: MiniMaxAI/MiniMax-M2.1
+  developer: MiniMaxAI
+  release_date: 2025-12-20
+  params_total_b: 228.7
+  params_active_b: 228.7
+  architecture: moe
+  context_window: 196608
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2.1
+  downloads: 12798
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-V2-Flash-Base
+  hf_repo: XiaomiMiMo/MiMo-V2-Flash-Base
+  developer: XiaomiMiMo
+  release_date: 2025-12-16
+  params_total_b: 309.8
+  params_active_b: 309.8
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash-Base
+  downloads: 9429
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 25
+- name: MiMo-V2-Flash
+  hf_repo: XiaomiMiMo/MiMo-V2-Flash
+  developer: XiaomiMiMo
+  release_date: 2025-12-16
+  params_total_b: 309.8
+  params_active_b: 309.8
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash
+  downloads: 90789
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Bolmo-7B
+  hf_repo: allenai/Bolmo-7B
+  developer: allenai
+  release_date: 2025-12-13
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Bolmo-7B
+  downloads: 154
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3.1-7B-RL-Zero-Math
+  hf_repo: allenai/Olmo-3.1-7B-RL-Zero-Math
+  developer: allenai
+  release_date: 2025-12-12
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-7B-RL-Zero-Math
+  downloads: 982
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3.1-7B-RL-Zero-Code
+  hf_repo: allenai/Olmo-3.1-7B-RL-Zero-Code
+  developer: allenai
+  release_date: 2025-12-10
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-7B-RL-Zero-Code
+  downloads: 324
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3.1-32B-Instruct
+  hf_repo: allenai/Olmo-3.1-32B-Instruct
+  developer: allenai
+  release_date: 2025-12-10
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Instruct
+  downloads: 51648
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3.1-32B-Think
+  hf_repo: allenai/Olmo-3.1-32B-Think
+  developer: allenai
+  release_date: 2025-12-10
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Think
+  downloads: 6142
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.2
+  hf_repo: deepseek-ai/DeepSeek-V3.2
+  developer: deepseek-ai
+  release_date: 2025-12-01
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2
+  downloads: 1238427
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-RL-Zero-Mix
+  hf_repo: allenai/Olmo-3-7B-RL-Zero-Mix
+  developer: allenai
+  release_date: 2025-12-01
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-RL-Zero-Mix
+  downloads: 12343
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.2-Speciale
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Speciale
+  developer: deepseek-ai
+  release_date: 2025-11-28
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Speciale
+  downloads: 5128
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Math-V2
+  hf_repo: deepseek-ai/DeepSeek-Math-V2
+  developer: deepseek-ai
+  release_date: 2025-11-27
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Math-V2
+  downloads: 425
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-Instruct
+  hf_repo: allenai/Olmo-3-7B-Instruct
+  developer: allenai
+  release_date: 2025-11-19
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-Instruct
+  downloads: 417527
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-32B-Think
+  hf_repo: allenai/Olmo-3-32B-Think
+  developer: allenai
+  release_date: 2025-11-19
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-32B-Think
+  downloads: 13031
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-Instruct-DPO
+  hf_repo: allenai/Olmo-3-7B-Instruct-DPO
+  developer: allenai
+  release_date: 2025-11-19
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-Instruct-DPO
+  downloads: 6971
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3.1-32B-Instruct-DPO
+  hf_repo: allenai/Olmo-3.1-32B-Instruct-DPO
+  developer: allenai
+  release_date: 2025-11-18
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Instruct-DPO
+  downloads: 1102
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-Think-DPO
+  hf_repo: allenai/Olmo-3-7B-Think-DPO
+  developer: allenai
+  release_date: 2025-11-18
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-Think-DPO
+  downloads: 4289
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-Think
+  hf_repo: allenai/Olmo-3-7B-Think
+  developer: allenai
+  release_date: 2025-11-18
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-Think
+  downloads: 41220
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-Instruct-SFT
+  hf_repo: allenai/Olmo-3-7B-Instruct-SFT
+  developer: allenai
+  release_date: 2025-11-17
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-Instruct-SFT
+  downloads: 310558
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-RL-Zero-Code
+  hf_repo: allenai/Olmo-3-7B-RL-Zero-Code
+  developer: allenai
+  release_date: 2025-11-17
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-RL-Zero-Code
+  downloads: 734
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Olmo-3-7B-RL-Zero-Math
+  hf_repo: allenai/Olmo-3-7B-RL-Zero-Math
+  developer: allenai
+  release_date: 2025-11-17
+  params_total_b: 7.3
+  params_active_b: 7.3
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3-7B-RL-Zero-Math
+  downloads: 4134
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-guardian-3.2-8b-factuality-detection
+  hf_repo: ibm-granite/granite-guardian-3.2-8b-factuality-detection
+  developer: ibm-granite
+  release_date: 2025-11-10
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-guardian-3.2-8b-factuality-detection
+  downloads: 3293
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-K2-Thinking
+  hf_repo: moonshotai/Kimi-K2-Thinking
+  developer: moonshotai
+  release_date: 2025-11-04
+  params_total_b: 1058.1
+  params_active_b: 1058.1
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-K2-Thinking
+  downloads: 62805
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-Linear-48B-A3B-Base
+  hf_repo: moonshotai/Kimi-Linear-48B-A3B-Base
+  developer: moonshotai
+  release_date: 2025-10-30
+  params_total_b: 49.1
+  params_active_b: 49.1
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-Linear-48B-A3B-Base
+  downloads: 2188
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-Linear-48B-A3B-Instruct
+  hf_repo: moonshotai/Kimi-Linear-48B-A3B-Instruct
+  developer: moonshotai
+  release_date: 2025-10-30
+  params_total_b: 49.1
+  params_active_b: 49.1
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-Linear-48B-A3B-Instruct
+  downloads: 95001
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1R-7B
+  hf_repo: tiiuae/Falcon-H1R-7B
+  developer: tiiuae
+  release_date: 2025-10-29
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1R-7B
+  downloads: 2587
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: JanusCoder-14B
+  hf_repo: internlm/JanusCoder-14B
+  developer: internlm
+  release_date: 2025-10-27
+  params_total_b: 14.8
+  params_active_b: 14.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/JanusCoder-14B
+  downloads: 83
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M2
+  hf_repo: MiniMaxAI/MiniMax-M2
+  developer: MiniMaxAI
+  release_date: 2025-10-22
+  params_total_b: 228.7
+  params_active_b: 228.7
+  architecture: moe
+  context_window: 196608
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2
+  downloads: 108116
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba-Reasoning-3B
+  hf_repo: ai21labs/AI21-Jamba-Reasoning-3B
+  developer: ai21labs
+  release_date: 2025-10-05
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba-Reasoning-3B
+  downloads: 6082
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-4B-SafeRL
+  hf_repo: Qwen/Qwen3-4B-SafeRL
+  developer: Qwen
+  release_date: 2025-09-30
+  params_total_b: 4.4
+  params_active_b: 4.4
+  architecture: dense
+  context_window: 40960
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-4B-SafeRL
+  downloads: 803
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.2-Exp
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
+  developer: deepseek-ai
+  release_date: 2025-09-29
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp
+  downloads: 252109
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.2-Exp-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp-Base
+  developer: deepseek-ai
+  release_date: 2025-09-29
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp-Base
+  downloads: 343
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.6
+  hf_repo: zai-org/GLM-4.6
+  developer: zai-org
+  release_date: 2025-09-29
+  params_total_b: 356.8
+  params_active_b: 356.8
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.6
+  downloads: 26467
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3Guard-Gen-8B
+  hf_repo: Qwen/Qwen3Guard-Gen-8B
+  developer: Qwen
+  release_date: 2025-09-23
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3Guard-Gen-8B
+  downloads: 48225
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3Guard-Gen-4B
+  hf_repo: Qwen/Qwen3Guard-Gen-4B
+  developer: Qwen
+  release_date: 2025-09-23
+  params_total_b: 4.4
+  params_active_b: 4.4
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3Guard-Gen-4B
+  downloads: 404971
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.1-Terminus
+  hf_repo: deepseek-ai/DeepSeek-V3.1-Terminus
+  developer: deepseek-ai
+  release_date: 2025-09-22
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Terminus
+  downloads: 16978
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: gpt-oss-safeguard-20b
+  hf_repo: openai/gpt-oss-safeguard-20b
+  developer: openai
+  release_date: 2025-09-18
+  params_total_b: 21.5
+  params_active_b: 21.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/openai/gpt-oss-safeguard-20b
+  downloads: 101805
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: gpt-oss-safeguard-120b
+  hf_repo: openai/gpt-oss-safeguard-120b
+  developer: openai
+  release_date: 2025-09-18
+  params_total_b: 120.4
+  params_active_b: 120.4
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/openai/gpt-oss-safeguard-120b
+  downloads: 4032
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-micro-base
+  hf_repo: ibm-granite/granite-4.0-micro-base
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 3.4
+  params_active_b: 3.4
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-micro-base
+  downloads: 705
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-h-tiny-base
+  hf_repo: ibm-granite/granite-4.0-h-tiny-base
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 6.9
+  params_active_b: 6.9
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-h-tiny-base
+  downloads: 506
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-h-micro-base
+  hf_repo: ibm-granite/granite-4.0-h-micro-base
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-h-micro-base
+  downloads: 441
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-h-tiny
+  hf_repo: ibm-granite/granite-4.0-h-tiny
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 6.9
+  params_active_b: 6.9
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-h-tiny
+  downloads: 282402
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-h-small
+  hf_repo: ibm-granite/granite-4.0-h-small
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-h-small
+  downloads: 132537
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-micro
+  hf_repo: ibm-granite/granite-4.0-micro
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 3.4
+  params_active_b: 3.4
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-micro
+  downloads: 124848
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-4.0-h-micro
+  hf_repo: ibm-granite/granite-4.0-h-micro
+  developer: ibm-granite
+  release_date: 2025-09-16
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.0-h-micro
+  downloads: 24846
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-Next-80B-A3B-Thinking
+  hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
+  developer: Qwen
+  release_date: 2025-09-09
+  params_total_b: 81.3
+  params_active_b: 81.3
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking
+  downloads: 37095
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-Next-80B-A3B-Instruct
+  hf_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
+  developer: Qwen
+  release_date: 2025-09-09
+  params_total_b: 81.3
+  params_active_b: 81.3
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct
+  downloads: 285987
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 17
+- name: ERNIE-4.5-21B-A3B-Thinking
+  hf_repo: baidu/ERNIE-4.5-21B-A3B-Thinking
+  developer: baidu
+  release_date: 2025-09-08
+  params_total_b: 21.8
+  params_active_b: 21.8
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Thinking
+  downloads: 14512
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-K2-Instruct-0905
+  hf_repo: moonshotai/Kimi-K2-Instruct-0905
+  developer: moonshotai
+  release_date: 2025-09-03
+  params_total_b: 1026.5
+  params_active_b: 1026.5
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-K2-Instruct-0905
+  downloads: 66851
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: command-a-translate-08-2025
+  hf_repo: CohereLabs/command-a-translate-08-2025
+  developer: CohereLabs
+  release_date: 2025-08-27
+  params_total_b: 111.1
+  params_active_b: 111.1
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/command-a-translate-08-2025
+  downloads: 1498
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.1
+  hf_repo: deepseek-ai/DeepSeek-V3.1
+  developer: deepseek-ai
+  release_date: 2025-08-21
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1
+  downloads: 273040
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3.1-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.1-Base
+  developer: deepseek-ai
+  release_date: 2025-08-19
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Base
+  downloads: 22595
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: command-a-reasoning-08-2025
+  hf_repo: CohereLabs/command-a-reasoning-08-2025
+  developer: CohereLabs
+  release_date: 2025-08-12
+  params_total_b: 111.1
+  params_active_b: 111.1
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/command-a-reasoning-08-2025
+  downloads: 1614
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-4B-Thinking-2507
+  hf_repo: Qwen/Qwen3-4B-Thinking-2507
+  developer: Qwen
+  release_date: 2025-08-05
+  params_total_b: 4.0
+  params_active_b: 4.0
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-4B-Thinking-2507
+  downloads: 329960
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-4B-Instruct-2507
+  hf_repo: Qwen/Qwen3-4B-Instruct-2507
+  developer: Qwen
+  release_date: 2025-08-05
+  params_total_b: 4.0
+  params_active_b: 4.0
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-4B-Instruct-2507
+  downloads: 3213183
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: gpt-oss-20b
+  hf_repo: openai/gpt-oss-20b
+  developer: openai
+  release_date: 2025-08-04
+  params_total_b: 21.5
+  params_active_b: 21.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/openai/gpt-oss-20b
+  downloads: 8501701
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 15
+- name: gpt-oss-120b
+  hf_repo: openai/gpt-oss-120b
+  developer: openai
+  release_date: 2025-08-04
+  params_total_b: 120.4
+  params_active_b: 120.4
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/openai/gpt-oss-120b
+  downloads: 4197649
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 24
+- name: Qwen3-Coder-30B-A3B-Instruct
+  hf_repo: Qwen/Qwen3-Coder-30B-A3B-Instruct
+  developer: Qwen
+  release_date: 2025-07-31
+  params_total_b: 30.5
+  params_active_b: 30.5
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Coder-30B-A3B-Instruct
+  downloads: 1462772
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-30B-A3B-Thinking-2507
+  hf_repo: Qwen/Qwen3-30B-A3B-Thinking-2507
+  developer: Qwen
+  release_date: 2025-07-29
+  params_total_b: 30.5
+  params_active_b: 30.5
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-30B-A3B-Thinking-2507
+  downloads: 137435
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-30B-A3B-Instruct-2507
+  hf_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
+  developer: Qwen
+  release_date: 2025-07-28
+  params_total_b: 30.5
+  params_active_b: 30.5
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507
+  downloads: 1902844
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-235B-A22B-Thinking-2507
+  hf_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
+  developer: Qwen
+  release_date: 2025-07-25
+  params_total_b: 235.1
+  params_active_b: 235.1
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507
+  downloads: 29970
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-Coder-480B-A35B-Instruct
+  hf_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
+  developer: Qwen
+  release_date: 2025-07-22
+  params_total_b: 480.2
+  params_active_b: 480.2
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct
+  downloads: 91304
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Qwen3-235B-A22B-Instruct-2507
+  hf_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
+  developer: Qwen
+  release_date: 2025-07-21
+  params_total_b: 235.1
+  params_active_b: 235.1
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507
+  downloads: 59827
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.5-Base
+  hf_repo: zai-org/GLM-4.5-Base
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 358.3
+  params_active_b: 358.3
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5-Base
+  downloads: 999
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.5-Air
+  hf_repo: zai-org/GLM-4.5-Air
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 110.5
+  params_active_b: 110.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5-Air
+  downloads: 441341
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.5
+  hf_repo: zai-org/GLM-4.5
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 358.3
+  params_active_b: 358.3
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5
+  downloads: 123213
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4.5-Air-Base
+  hf_repo: zai-org/GLM-4.5-Air-Base
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 110.5
+  params_active_b: 110.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5-Air-Base
+  downloads: 594
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-K2-Instruct
+  hf_repo: moonshotai/Kimi-K2-Instruct
+  developer: moonshotai
+  release_date: 2025-07-11
+  params_total_b: 1026.5
+  params_active_b: 1026.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-K2-Instruct
+  downloads: 177689
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SmolLM3-3B
+  hf_repo: HuggingFaceTB/SmolLM3-3B
+  developer: HuggingFaceTB
+  release_date: 2025-07-08
+  params_total_b: 3.1
+  params_active_b: 3.1
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/HuggingFaceTB/SmolLM3-3B
+  downloads: 869563
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-K2-Base
+  hf_repo: moonshotai/Kimi-K2-Base
+  developer: moonshotai
+  release_date: 2025-07-03
+  params_total_b: 1026.5
+  params_active_b: 1026.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-K2-Base
+  downloads: 7859
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M1-40k-hf
+  hf_repo: MiniMaxAI/MiniMax-M1-40k-hf
+  developer: MiniMaxAI
+  release_date: 2025-07-01
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M1-40k-hf
+  downloads: 135
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M1-80k-hf
+  hf_repo: MiniMaxAI/MiniMax-M1-80k-hf
+  developer: MiniMaxAI
+  release_date: 2025-07-01
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M1-80k-hf
+  downloads: 254
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-300B-A47B-2Bits-Paddle
+  hf_repo: baidu/ERNIE-4.5-300B-A47B-2Bits-Paddle
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 91.7
+  params_active_b: 91.7
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-2Bits-Paddle
+  downloads: 40
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-21B-A3B-Base-Paddle
+  hf_repo: baidu/ERNIE-4.5-21B-A3B-Base-Paddle
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 22.1
+  params_active_b: 22.1
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Base-Paddle
+  downloads: 39
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-300B-A47B-Base-Paddle
+  hf_repo: baidu/ERNIE-4.5-300B-A47B-Base-Paddle
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 299.5
+  params_active_b: 299.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Base-Paddle
+  downloads: 36
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-21B-A3B-Paddle
+  hf_repo: baidu/ERNIE-4.5-21B-A3B-Paddle
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 21.9
+  params_active_b: 21.9
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Paddle
+  downloads: 53
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-21B-A3B-PT
+  hf_repo: baidu/ERNIE-4.5-21B-A3B-PT
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 21.9
+  params_active_b: 21.9
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-PT
+  downloads: 44469
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-21B-A3B-Base-PT
+  hf_repo: baidu/ERNIE-4.5-21B-A3B-Base-PT
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 21.8
+  params_active_b: 21.8
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-21B-A3B-Base-PT
+  downloads: 955
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-300B-A47B-PT
+  hf_repo: baidu/ERNIE-4.5-300B-A47B-PT
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 300.5
+  params_active_b: 300.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-PT
+  downloads: 1406
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-300B-A47B-Base-PT
+  hf_repo: baidu/ERNIE-4.5-300B-A47B-Base-PT
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 299.5
+  params_active_b: 299.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Base-PT
+  downloads: 73
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: ERNIE-4.5-300B-A47B-Paddle
+  hf_repo: baidu/ERNIE-4.5-300B-A47B-Paddle
+  developer: baidu
+  release_date: 2025-06-28
+  params_total_b: 300.5
+  params_active_b: 300.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/ERNIE-4.5-300B-A47B-Paddle
+  downloads: 253
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-xl-xl-prefixlm-it
+  hf_repo: google/t5gemma-xl-xl-prefixlm-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-xl-xl-prefixlm-it
+  downloads: 70
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-xl-xl-ul2-it
+  hf_repo: google/t5gemma-xl-xl-ul2-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-xl-xl-ul2-it
+  downloads: 68
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-xl-xl-prefixlm
+  hf_repo: google/t5gemma-xl-xl-prefixlm
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-xl-xl-prefixlm
+  downloads: 163
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-xl-xl-ul2
+  hf_repo: google/t5gemma-xl-xl-ul2
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-xl-xl-ul2
+  downloads: 1932
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-2b-prefixlm-it
+  hf_repo: google/t5gemma-9b-2b-prefixlm-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 12.3
+  params_active_b: 12.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-2b-prefixlm-it
+  downloads: 80
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-2b-ul2-it
+  hf_repo: google/t5gemma-9b-2b-ul2-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 12.3
+  params_active_b: 12.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-2b-ul2-it
+  downloads: 18
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-2b-prefixlm
+  hf_repo: google/t5gemma-9b-2b-prefixlm
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 12.3
+  params_active_b: 12.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-2b-prefixlm
+  downloads: 147
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-2b-ul2
+  hf_repo: google/t5gemma-9b-2b-ul2
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 12.3
+  params_active_b: 12.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-2b-ul2
+  downloads: 338
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-9b-prefixlm-it
+  hf_repo: google/t5gemma-9b-9b-prefixlm-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 20.3
+  params_active_b: 20.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-9b-prefixlm-it
+  downloads: 431
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-9b-ul2-it
+  hf_repo: google/t5gemma-9b-9b-ul2-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 20.3
+  params_active_b: 20.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-9b-ul2-it
+  downloads: 103
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-9b-prefixlm
+  hf_repo: google/t5gemma-9b-9b-prefixlm
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 20.3
+  params_active_b: 20.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-9b-prefixlm
+  downloads: 380
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-9b-9b-ul2
+  hf_repo: google/t5gemma-9b-9b-ul2
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 20.3
+  params_active_b: 20.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-9b-9b-ul2
+  downloads: 476
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-2b-2b-prefixlm-it
+  hf_repo: google/t5gemma-2b-2b-prefixlm-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 5.6
+  params_active_b: 5.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-2b-2b-prefixlm-it
+  downloads: 109
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-2b-2b-ul2-it
+  hf_repo: google/t5gemma-2b-2b-ul2-it
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 5.6
+  params_active_b: 5.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-2b-2b-ul2-it
+  downloads: 11136
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-2b-2b-prefixlm
+  hf_repo: google/t5gemma-2b-2b-prefixlm
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 5.6
+  params_active_b: 5.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-2b-2b-prefixlm
+  downloads: 408
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: t5gemma-2b-2b-ul2
+  hf_repo: google/t5gemma-2b-2b-ul2
+  developer: google
+  release_date: 2025-06-19
+  params_total_b: 5.6
+  params_active_b: 5.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/t5gemma-2b-2b-ul2
+  downloads: 3826
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SmolLM3-3B-Base
+  hf_repo: HuggingFaceTB/SmolLM3-3B-Base
+  developer: HuggingFaceTB
+  release_date: 2025-06-19
+  params_total_b: 3.1
+  params_active_b: 3.1
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/HuggingFaceTB/SmolLM3-3B-Base
+  downloads: 159328
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Kimi-Dev-72B
+  hf_repo: moonshotai/Kimi-Dev-72B
+  developer: moonshotai
+  release_date: 2025-06-16
+  params_total_b: 72.7
+  params_active_b: 72.7
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Kimi-Dev-72B
+  downloads: 3338
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M1-80k
+  hf_repo: MiniMaxAI/MiniMax-M1-80k
+  developer: MiniMaxAI
+  release_date: 2025-06-13
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M1-80k
+  downloads: 628
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-M1-40k
+  hf_repo: MiniMaxAI/MiniMax-M1-40k
+  developer: MiniMaxAI
+  release_date: 2025-06-05
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M1-40k
+  downloads: 6818
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: granite-guardian-3.3-8b
+  hf_repo: ibm-granite/granite-guardian-3.3-8b
+  developer: ibm-granite
+  release_date: 2025-06-03
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-guardian-3.3-8b
+  downloads: 3134
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiniMax-Text-01-hf
+  hf_repo: MiniMaxAI/MiniMax-Text-01-hf
+  developer: MiniMaxAI
+  release_date: 2025-06-03
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-Text-01-hf
+  downloads: 13137
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SynLogic-7B
+  hf_repo: MiniMaxAI/SynLogic-7B
+  developer: MiniMaxAI
+  release_date: 2025-06-03
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/SynLogic-7B
+  downloads: 308
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SynLogic-Mix-3-32B
+  hf_repo: MiniMaxAI/SynLogic-Mix-3-32B
+  developer: MiniMaxAI
+  release_date: 2025-05-30
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/SynLogic-Mix-3-32B
+  downloads: 133
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SynLogic-32B
+  hf_repo: MiniMaxAI/SynLogic-32B
+  developer: MiniMaxAI
+  release_date: 2025-05-30
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/SynLogic-32B
+  downloads: 131
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-7B-RL-0530
+  hf_repo: XiaomiMiMo/MiMo-7B-RL-0530
+  developer: XiaomiMiMo
+  release_date: 2025-05-30
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-7B-RL-0530
+  downloads: 234
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-0528-Qwen3-8B
+  hf_repo: deepseek-ai/DeepSeek-R1-0528-Qwen3-8B
+  developer: deepseek-ai
+  release_date: 2025-05-29
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528-Qwen3-8B
+  downloads: 1744030
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-0528
+  hf_repo: deepseek-ai/DeepSeek-R1-0528
+  developer: deepseek-ai
+  release_date: 2025-05-28
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+  downloads: 206900
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: medgemma-27b-text-it
+  hf_repo: google/medgemma-27b-text-it
+  developer: google
+  release_date: 2025-05-19
+  params_total_b: 27.0
+  params_active_b: 27.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/medgemma-27b-text-it
+  downloads: 30543
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-34B-Instruct
+  hf_repo: tiiuae/Falcon-H1-34B-Instruct
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 33.6
+  params_active_b: 33.6
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-34B-Instruct
+  downloads: 1824
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-7B-Instruct
+  hf_repo: tiiuae/Falcon-H1-7B-Instruct
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-7B-Instruct
+  downloads: 17680
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-3B-Instruct
+  hf_repo: tiiuae/Falcon-H1-3B-Instruct
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 3.1
+  params_active_b: 3.1
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-3B-Instruct
+  downloads: 2709
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-34B-Base
+  hf_repo: tiiuae/Falcon-H1-34B-Base
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 33.6
+  params_active_b: 33.6
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-34B-Base
+  downloads: 1193
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-7B-Base
+  hf_repo: tiiuae/Falcon-H1-7B-Base
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-7B-Base
+  downloads: 993
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon-H1-3B-Base
+  hf_repo: tiiuae/Falcon-H1-3B-Base
+  developer: tiiuae
+  release_date: 2025-05-01
+  params_total_b: 3.1
+  params_active_b: 3.1
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon-H1-3B-Base
+  downloads: 1070
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-7B-RL-Zero
+  hf_repo: XiaomiMiMo/MiMo-7B-RL-Zero
+  developer: XiaomiMiMo
+  release_date: 2025-04-29
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-7B-RL-Zero
+  downloads: 537
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-7B-RL
+  hf_repo: XiaomiMiMo/MiMo-7B-RL
+  developer: XiaomiMiMo
+  release_date: 2025-04-29
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-7B-RL
+  downloads: 574345
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-7B-Base
+  hf_repo: XiaomiMiMo/MiMo-7B-Base
+  developer: XiaomiMiMo
+  release_date: 2025-04-29
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-7B-Base
+  downloads: 289643
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: MiMo-7B-SFT
+  hf_repo: XiaomiMiMo/MiMo-7B-SFT
+  developer: XiaomiMiMo
+  release_date: 2025-04-29
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-7B-SFT
+  downloads: 664
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-Z1-Rumination-32B-0414
+  hf_repo: zai-org/GLM-Z1-Rumination-32B-0414
+  developer: zai-org
+  release_date: 2025-04-13
+  params_total_b: 33.1
+  params_active_b: 33.1
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-Z1-Rumination-32B-0414
+  downloads: 226
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-Z1-32B-0414
+  hf_repo: zai-org/GLM-Z1-32B-0414
+  developer: zai-org
+  release_date: 2025-04-08
+  params_total_b: 32.6
+  params_active_b: 32.6
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-Z1-32B-0414
+  downloads: 7832
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-Z1-9B-0414
+  hf_repo: zai-org/GLM-Z1-9B-0414
+  developer: zai-org
+  release_date: 2025-04-08
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-Z1-9B-0414
+  downloads: 4040
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4-32B-Base-0414
+  hf_repo: zai-org/GLM-4-32B-Base-0414
+  developer: zai-org
+  release_date: 2025-04-07
+  params_total_b: 32.6
+  params_active_b: 32.6
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4-32B-Base-0414
+  downloads: 816
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4-32B-0414
+  hf_repo: zai-org/GLM-4-32B-0414
+  developer: zai-org
+  release_date: 2025-04-07
+  params_total_b: 32.6
+  params_active_b: 32.6
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4-32B-0414
+  downloads: 12353
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: GLM-4-9B-0414
+  hf_repo: zai-org/GLM-4-9B-0414
+  developer: zai-org
+  release_date: 2025-04-07
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4-9B-0414
+  downloads: 32072
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SWE-Dev-32B
+  hf_repo: zai-org/SWE-Dev-32B
+  developer: zai-org
+  release_date: 2025-04-06
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/SWE-Dev-32B
+  downloads: 109
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V3-0324
+  hf_repo: deepseek-ai/DeepSeek-V3-0324
+  developer: deepseek-ai
+  release_date: 2025-03-24
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+  downloads: 899240
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: txgemma-27b-predict
+  hf_repo: google/txgemma-27b-predict
+  developer: google
+  release_date: 2025-03-21
+  params_total_b: 27.2
+  params_active_b: 27.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/txgemma-27b-predict
+  downloads: 102
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: txgemma-27b-chat
+  hf_repo: google/txgemma-27b-chat
+  developer: google
+  release_date: 2025-03-21
+  params_total_b: 27.2
+  params_active_b: 27.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/txgemma-27b-chat
+  downloads: 86
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: txgemma-9b-chat
+  hf_repo: google/txgemma-9b-chat
+  developer: google
+  release_date: 2025-03-21
+  params_total_b: 9.2
+  params_active_b: 9.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/txgemma-9b-chat
+  downloads: 332
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: txgemma-9b-predict
+  hf_repo: google/txgemma-9b-predict
+  developer: google
+  release_date: 2025-03-21
+  params_total_b: 9.2
+  params_active_b: 9.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/txgemma-9b-predict
+  downloads: 154
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-a-03-2025
+  hf_repo: CohereLabs/c4ai-command-a-03-2025
+  developer: CohereLabs
+  release_date: 2025-03-11
+  params_total_b: 111.1
+  params_active_b: 111.1
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-a-03-2025
+  downloads: 1814
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r7b-arabic-02-2025
+  hf_repo: CohereLabs/c4ai-command-r7b-arabic-02-2025
+  developer: CohereLabs
+  release_date: 2025-02-27
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r7b-arabic-02-2025
+  downloads: 1873
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba-Mini-1.6
+  hf_repo: ai21labs/AI21-Jamba-Mini-1.6
+  developer: ai21labs
+  release_date: 2025-02-27
+  params_total_b: 51.6
+  params_active_b: 51.6
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba-Mini-1.6
+  downloads: 49
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba-Large-1.6
+  hf_repo: ai21labs/AI21-Jamba-Large-1.6
+  developer: ai21labs
+  release_date: 2025-02-27
+  params_total_b: 398.6
+  params_active_b: 398.6
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba-Large-1.6
+  downloads: 59
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Moonlight-16B-A3B-Instruct
+  hf_repo: moonshotai/Moonlight-16B-A3B-Instruct
+  developer: moonshotai
+  release_date: 2025-02-22
+  params_total_b: 16.0
+  params_active_b: 16.0
+  architecture: moe
+  context_window: 8192
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Moonlight-16B-A3B-Instruct
+  downloads: 42262
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Moonlight-16B-A3B
+  hf_repo: moonshotai/Moonlight-16B-A3B
+  developer: moonshotai
+  release_date: 2025-02-22
+  params_total_b: 16.0
+  params_active_b: 16.0
+  architecture: moe
+  context_window: 8192
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/moonshotai/Moonlight-16B-A3B
+  downloads: 10748
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: OREAL-DeepSeek-R1-Distill-Qwen-7B
+  hf_repo: internlm/OREAL-DeepSeek-R1-Distill-Qwen-7B
+  developer: internlm
+  release_date: 2025-02-10
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/OREAL-DeepSeek-R1-Distill-Qwen-7B
+  downloads: 59
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: OREAL-7B-SFT
+  hf_repo: internlm/OREAL-7B-SFT
+  developer: internlm
+  release_date: 2025-02-10
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/OREAL-7B-SFT
+  downloads: 65
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: OREAL-32B
+  hf_repo: internlm/OREAL-32B
+  developer: internlm
+  release_date: 2025-02-10
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/OREAL-32B
+  downloads: 66
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: OREAL-7B
+  hf_repo: internlm/OREAL-7B
+  developer: internlm
+  release_date: 2025-02-10
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/OREAL-7B
+  downloads: 64
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Distill-Qwen-32B
+  hf_repo: deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-32B
+  downloads: 801384
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Distill-Qwen-14B
+  hf_repo: deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 14.8
+  params_active_b: 14.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-14B
+  downloads: 730335
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Distill-Qwen-7B
+  hf_repo: deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Qwen-7B
+  downloads: 292468
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Distill-Llama-70B
+  hf_repo: deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-70B
+  downloads: 543482
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Distill-Llama-8B
+  hf_repo: deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Distill-Llama-8B
+  downloads: 401929
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-R1-Zero
+  hf_repo: deepseek-ai/DeepSeek-R1-Zero
+  developer: deepseek-ai
+  release_date: 2025-01-20
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-Zero
+  downloads: 5687
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: glm-4-9b-hf
+  hf_repo: zai-org/glm-4-9b-hf
+  developer: zai-org
+  release_date: 2025-01-16
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/glm-4-9b-hf
+  downloads: 1541
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm3-8b-instruct
+  hf_repo: internlm/internlm3-8b-instruct
+  developer: internlm
+  release_date: 2025-01-13
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm3-8b-instruct
+  downloads: 86659
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SWE-Fixer-Editor-72B
+  hf_repo: internlm/SWE-Fixer-Editor-72B
+  developer: internlm
+  release_date: 2025-01-09
+  params_total_b: 72.7
+  params_active_b: 72.7
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/SWE-Fixer-Editor-72B
+  downloads: 23
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: SWE-Fixer-Retriever-7B
+  hf_repo: internlm/SWE-Fixer-Retriever-7B
+  developer: internlm
+  release_date: 2025-01-09
+  params_total_b: 7.6
+  params_active_b: 7.6
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/SWE-Fixer-Retriever-7B
+  downloads: 148
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon3-10B-Base-1.58bit
+  hf_repo: tiiuae/Falcon3-10B-Base-1.58bit
+  developer: tiiuae
+  release_date: 2024-12-16
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon3-10B-Base-1.58bit
+  downloads: 92
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Falcon3-10B-Instruct-1.58bit
+  hf_repo: tiiuae/Falcon3-10B-Instruct-1.58bit
+  developer: tiiuae
+  release_date: 2024-12-16
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/tiiuae/Falcon3-10B-Instruct-1.58bit
+  downloads: 519
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r7b-12-2024
+  hf_repo: CohereLabs/c4ai-command-r7b-12-2024
+  developer: CohereLabs
+  release_date: 2024-12-11
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r7b-12-2024
+  downloads: 17041
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2.5-1210
+  hf_repo: deepseek-ai/DeepSeek-V2.5-1210
+  developer: deepseek-ai
+  release_date: 2024-12-10
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2.5-1210
+  downloads: 664
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: VisionReward-Video
+  hf_repo: zai-org/VisionReward-Video
+  developer: zai-org
+  release_date: 2024-12-10
+  params_total_b: 12.5
+  params_active_b: 12.5
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/VisionReward-Video
+  downloads: 1979
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: glm-edge-4b-chat
+  hf_repo: zai-org/glm-edge-4b-chat
+  developer: zai-org
+  release_date: 2024-11-20
+  params_total_b: 4.3
+  params_active_b: 4.3
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/glm-edge-4b-chat
+  downloads: 16173
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: LongReward-glm4-9b-DPO
+  hf_repo: zai-org/LongReward-glm4-9b-DPO
+  developer: zai-org
+  release_date: 2024-10-28
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/LongReward-glm4-9b-DPO
+  downloads: 92
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: glm-4-9b-chat-1m-hf
+  hf_repo: zai-org/glm-4-9b-chat-1m-hf
+  developer: zai-org
+  release_date: 2024-10-24
+  params_total_b: 9.5
+  params_active_b: 9.5
+  architecture: dense
+  context_window: 1048576
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/glm-4-9b-chat-1m-hf
+  downloads: 2256
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: aya-expanse-32b
+  hf_repo: CohereLabs/aya-expanse-32b
+  developer: CohereLabs
+  release_date: 2024-10-23
+  params_total_b: 32.3
+  params_active_b: 32.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/aya-expanse-32b
+  downloads: 9684
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: aya-expanse-8b
+  hf_repo: CohereLabs/aya-expanse-8b
+  developer: CohereLabs
+  release_date: 2024-10-23
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/aya-expanse-8b
+  downloads: 20445
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: glm-4-9b-chat-hf
+  hf_repo: zai-org/glm-4-9b-chat-hf
+  developer: zai-org
+  release_date: 2024-10-23
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/glm-4-9b-chat-hf
+  downloads: 18746
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.2-3B
+  hf_repo: meta-llama/Llama-3.2-3B
+  developer: meta-llama
+  release_date: 2024-09-18
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.2-3B
+  downloads: 543327
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.2-3B-Instruct
+  hf_repo: meta-llama/Llama-3.2-3B-Instruct
+  developer: meta-llama
+  release_date: 2024-09-18
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct
+  downloads: 1461226
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Coder-V2-Instruct-0724
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct-0724
+  developer: deepseek-ai
+  release_date: 2024-09-05
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct-0724
+  downloads: 475
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2.5
+  hf_repo: deepseek-ai/DeepSeek-V2.5
+  developer: deepseek-ai
+  release_date: 2024-09-05
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2.5
+  downloads: 5740
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r-plus-08-2024
+  hf_repo: CohereLabs/c4ai-command-r-plus-08-2024
+  developer: CohereLabs
+  release_date: 2024-08-21
+  params_total_b: 103.8
+  params_active_b: 103.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r-plus-08-2024
+  downloads: 298
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-Coder-9B-Chat
+  hf_repo: 01-ai/Yi-Coder-9B-Chat
+  developer: 01-ai
+  release_date: 2024-08-21
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-Coder-9B-Chat
+  downloads: 11096
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r-08-2024
+  hf_repo: CohereLabs/c4ai-command-r-08-2024
+  developer: CohereLabs
+  release_date: 2024-08-19
+  params_total_b: 32.3
+  params_active_b: 32.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r-08-2024
+  downloads: 2594
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba-Large-1.5
+  hf_repo: ai21labs/AI21-Jamba-Large-1.5
+  developer: ai21labs
+  release_date: 2024-08-19
+  params_total_b: 398.6
+  params_active_b: 398.6
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba-Large-1.5
+  downloads: 49
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AI21-Jamba-Mini-1.5
+  hf_repo: ai21labs/AI21-Jamba-Mini-1.5
+  developer: ai21labs
+  release_date: 2024-08-19
+  params_total_b: 51.6
+  params_active_b: 51.6
+  architecture: moe
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/AI21-Jamba-Mini-1.5
+  downloads: 14144
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-Coder-9B
+  hf_repo: 01-ai/Yi-Coder-9B
+  developer: 01-ai
+  release_date: 2024-08-15
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-Coder-9B
+  downloads: 8495
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: LongWriter-llama3.1-8b
+  hf_repo: zai-org/LongWriter-llama3.1-8b
+  developer: zai-org
+  release_date: 2024-08-12
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/LongWriter-llama3.1-8b
+  downloads: 244
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2_5-20b
+  hf_repo: internlm/internlm2_5-20b
+  developer: internlm
+  release_date: 2024-07-31
+  params_total_b: 19.9
+  params_active_b: 19.9
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2_5-20b
+  downloads: 154
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2_5-20b-chat
+  hf_repo: internlm/internlm2_5-20b-chat
+  developer: internlm
+  release_date: 2024-07-30
+  params_total_b: 19.9
+  params_active_b: 19.9
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2_5-20b-chat
+  downloads: 7483
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-Guard-3-8B
+  hf_repo: meta-llama/Llama-Guard-3-8B
+  developer: meta-llama
+  release_date: 2024-07-22
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-Guard-3-8B
+  downloads: 148608
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2-Chat-0628
+  hf_repo: deepseek-ai/DeepSeek-V2-Chat-0628
+  developer: deepseek-ai
+  release_date: 2024-07-18
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2-Chat-0628
+  downloads: 4921
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.1-70B-Instruct
+  hf_repo: meta-llama/Llama-3.1-70B-Instruct
+  developer: meta-llama
+  release_date: 2024-07-16
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct
+  downloads: 812989
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.1-405B
+  hf_repo: meta-llama/Llama-3.1-405B
+  developer: meta-llama
+  release_date: 2024-07-16
+  params_total_b: 405.9
+  params_active_b: 405.9
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.1-405B
+  downloads: 119971
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.1-70B
+  hf_repo: meta-llama/Llama-3.1-70B
+  developer: meta-llama
+  release_date: 2024-07-14
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.1-70B
+  downloads: 43040
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-3.1-8B
+  hf_repo: meta-llama/Llama-3.1-8B
+  developer: meta-llama
+  release_date: 2024-07-14
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3.1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.1-8B
+  downloads: 1500627
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: codegeex4-all-9b
+  hf_repo: zai-org/codegeex4-all-9b
+  developer: zai-org
+  release_date: 2024-07-05
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/codegeex4-all-9b
+  downloads: 9522
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: cogvlm2-video-llama3-base
+  hf_repo: zai-org/cogvlm2-video-llama3-base
+  developer: zai-org
+  release_date: 2024-07-03
+  params_total_b: 12.5
+  params_active_b: 12.5
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/cogvlm2-video-llama3-base
+  downloads: 74
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: cogvlm2-video-llama3-chat
+  hf_repo: zai-org/cogvlm2-video-llama3-chat
+  developer: zai-org
+  release_date: 2024-07-03
+  params_total_b: 12.5
+  params_active_b: 12.5
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/cogvlm2-video-llama3-chat
+  downloads: 159
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2_5-7b-chat-1m
+  hf_repo: internlm/internlm2_5-7b-chat-1m
+  developer: internlm
+  release_date: 2024-06-28
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2_5-7b-chat-1m
+  downloads: 715
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2_5-7b-chat
+  hf_repo: internlm/internlm2_5-7b-chat
+  developer: internlm
+  release_date: 2024-06-27
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2_5-7b-chat
+  downloads: 125004
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Coder-V2-Lite-Instruct
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 15.7
+  params_active_b: 15.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Instruct
+  downloads: 545541
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Coder-V2-Lite-Base
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Lite-Base
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 15.7
+  params_active_b: 15.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Lite-Base
+  downloads: 4769
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Coder-V2-Instruct
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
+  downloads: 7168
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-Coder-V2-Base
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Base
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Base
+  downloads: 2194
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: glm-4-9b
+  hf_repo: zai-org/glm-4-9b
+  developer: zai-org
+  release_date: 2024-06-04
+  params_total_b: 9.4
+  params_active_b: 9.4
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/glm-4-9b
+  downloads: 12709
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: AlchemistCoder-L-7B
+  hf_repo: internlm/AlchemistCoder-L-7B
+  developer: internlm
+  release_date: 2024-05-29
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 16384
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/AlchemistCoder-L-7B
+  downloads: 18
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-plus-mixtral8x22b
+  hf_repo: internlm/internlm2-math-plus-mixtral8x22b
+  developer: internlm
+  release_date: 2024-05-24
+  params_total_b: 140.6
+  params_active_b: 140.6
+  architecture: moe
+  context_window: 65536
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-plus-mixtral8x22b
+  downloads: 42
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-plus-20b
+  hf_repo: internlm/internlm2-math-plus-20b
+  developer: internlm
+  release_date: 2024-05-24
+  params_total_b: 19.9
+  params_active_b: 19.9
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-plus-20b
+  downloads: 117
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-plus-7b
+  hf_repo: internlm/internlm2-math-plus-7b
+  developer: internlm
+  release_date: 2024-05-24
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-plus-7b
+  downloads: 344
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: aya-23-35B
+  hf_repo: CohereLabs/aya-23-35B
+  developer: CohereLabs
+  release_date: 2024-05-19
+  params_total_b: 35.0
+  params_active_b: 35.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/aya-23-35B
+  downloads: 783
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: aya-23-8B
+  hf_repo: CohereLabs/aya-23-8B
+  developer: CohereLabs
+  release_date: 2024-05-19
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/aya-23-8B
+  downloads: 12646
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2-Lite-Chat
+  hf_repo: deepseek-ai/DeepSeek-V2-Lite-Chat
+  developer: deepseek-ai
+  release_date: 2024-05-15
+  params_total_b: 15.7
+  params_active_b: 15.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite-Chat
+  downloads: 1295725
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2-Lite
+  hf_repo: deepseek-ai/DeepSeek-V2-Lite
+  developer: deepseek-ai
+  release_date: 2024-05-15
+  params_total_b: 15.7
+  params_active_b: 15.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2-Lite
+  downloads: 494344
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-9B-Chat-16K
+  hf_repo: 01-ai/Yi-1.5-9B-Chat-16K
+  developer: 01-ai
+  release_date: 2024-05-15
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 16384
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-9B-Chat-16K
+  downloads: 8482
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-34B-Chat-16K
+  hf_repo: 01-ai/Yi-1.5-34B-Chat-16K
+  developer: 01-ai
+  release_date: 2024-05-15
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 16384
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-34B-Chat-16K
+  downloads: 8400
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-9B-32K
+  hf_repo: 01-ai/Yi-1.5-9B-32K
+  developer: 01-ai
+  release_date: 2024-05-15
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-9B-32K
+  downloads: 8425
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-34B-32K
+  hf_repo: 01-ai/Yi-1.5-34B-32K
+  developer: 01-ai
+  release_date: 2024-05-15
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-34B-32K
+  downloads: 8246
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-6B-Chat
+  hf_repo: 01-ai/Yi-1.5-6B-Chat
+  developer: 01-ai
+  release_date: 2024-05-11
+  params_total_b: 6.1
+  params_active_b: 6.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-6B-Chat
+  downloads: 6150
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-9B
+  hf_repo: 01-ai/Yi-1.5-9B
+  developer: 01-ai
+  release_date: 2024-05-11
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-9B
+  downloads: 15151
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-34B
+  hf_repo: 01-ai/Yi-1.5-34B
+  developer: 01-ai
+  release_date: 2024-05-11
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-34B
+  downloads: 10234
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-6B
+  hf_repo: 01-ai/Yi-1.5-6B
+  developer: 01-ai
+  release_date: 2024-05-11
+  params_total_b: 6.1
+  params_active_b: 6.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-6B
+  downloads: 13469
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-34B-Chat
+  hf_repo: 01-ai/Yi-1.5-34B-Chat
+  developer: 01-ai
+  release_date: 2024-05-10
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-34B-Chat
+  downloads: 14914
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-1.5-9B-Chat
+  hf_repo: 01-ai/Yi-1.5-9B-Chat
+  developer: 01-ai
+  release_date: 2024-05-10
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-1.5-9B-Chat
+  downloads: 16650
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: DeepSeek-V2-Chat
+  hf_repo: deepseek-ai/DeepSeek-V2-Chat
+  developer: deepseek-ai
+  release_date: 2024-04-28
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2-Chat
+  downloads: 10548
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Meta-Llama-Guard-2-8B
+  hf_repo: meta-llama/Meta-Llama-Guard-2-8B
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-Guard-2-8B
+  downloads: 5065
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Meta-Llama-3-8B
+  hf_repo: meta-llama/Meta-Llama-3-8B
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-8B
+  downloads: 1953997
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Meta-Llama-3-8B-Instruct
+  hf_repo: meta-llama/Meta-Llama-3-8B-Instruct
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct
+  downloads: 1789187
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Meta-Llama-3-70B-Instruct
+  hf_repo: meta-llama/Meta-Llama-3-70B-Instruct
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct
+  downloads: 113642
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Meta-Llama-3-70B
+  hf_repo: meta-llama/Meta-Llama-3-70B
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama3
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-70B
+  downloads: 144861
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: stablelm-2-12b-chat
+  hf_repo: stabilityai/stablelm-2-12b-chat
+  developer: stabilityai
+  release_date: 2024-04-04
+  params_total_b: 12.1
+  params_active_b: 12.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/stablelm-2-12b-chat
+  downloads: 316
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r-plus
+  hf_repo: CohereLabs/c4ai-command-r-plus
+  developer: CohereLabs
+  release_date: 2024-04-03
+  params_total_b: 103.8
+  params_active_b: 103.8
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r-plus
+  downloads: 942
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Jamba-v0.1
+  hf_repo: ai21labs/Jamba-v0.1
+  developer: ai21labs
+  release_date: 2024-03-28
+  params_total_b: 51.6
+  params_active_b: 51.6
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ai21labs/Jamba-v0.1
+  downloads: 9518
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: stablelm-2-12b
+  hf_repo: stabilityai/stablelm-2-12b
+  developer: stabilityai
+  release_date: 2024-03-21
+  params_total_b: 12.1
+  params_active_b: 12.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/stablelm-2-12b
+  downloads: 780
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-9B-200K
+  hf_repo: 01-ai/Yi-9B-200K
+  developer: 01-ai
+  release_date: 2024-03-15
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-9B-200K
+  downloads: 8564
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-34b-Instruct-hf
+  hf_repo: meta-llama/CodeLlama-34b-Instruct-hf
+  developer: meta-llama
+  release_date: 2024-03-14
+  params_total_b: 33.7
+  params_active_b: 33.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-34b-Instruct-hf
+  downloads: 622
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-34b-Python-hf
+  hf_repo: meta-llama/CodeLlama-34b-Python-hf
+  developer: meta-llama
+  release_date: 2024-03-14
+  params_total_b: 33.7
+  params_active_b: 33.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-34b-Python-hf
+  downloads: 4
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-34b-hf
+  hf_repo: meta-llama/CodeLlama-34b-hf
+  developer: meta-llama
+  release_date: 2024-03-14
+  params_total_b: 33.7
+  params_active_b: 33.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-34b-hf
+  downloads: 46
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-70b-Instruct-hf
+  hf_repo: meta-llama/CodeLlama-70b-Instruct-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-70b-Instruct-hf
+  downloads: 474
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-70b-Python-hf
+  hf_repo: meta-llama/CodeLlama-70b-Python-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-70b-Python-hf
+  downloads: 24
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-70b-hf
+  hf_repo: meta-llama/CodeLlama-70b-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-70b-hf
+  downloads: 4
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-13b-Instruct-hf
+  hf_repo: meta-llama/CodeLlama-13b-Instruct-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 13.0
+  params_active_b: 13.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-13b-Instruct-hf
+  downloads: 492
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-13b-Python-hf
+  hf_repo: meta-llama/CodeLlama-13b-Python-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 13.0
+  params_active_b: 13.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-13b-Python-hf
+  downloads: 3
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-13b-hf
+  hf_repo: meta-llama/CodeLlama-13b-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 13.0
+  params_active_b: 13.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-13b-hf
+  downloads: 94
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-7b-Instruct-hf
+  hf_repo: meta-llama/CodeLlama-7b-Instruct-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-7b-Instruct-hf
+  downloads: 1717
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-7b-Python-hf
+  hf_repo: meta-llama/CodeLlama-7b-Python-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-7b-Python-hf
+  downloads: 204
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: CodeLlama-7b-hf
+  hf_repo: meta-llama/CodeLlama-7b-hf
+  developer: meta-llama
+  release_date: 2024-03-13
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/CodeLlama-7b-hf
+  downloads: 980
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: c4ai-command-r-v01
+  hf_repo: CohereLabs/c4ai-command-r-v01
+  developer: CohereLabs
+  release_date: 2024-03-11
+  params_total_b: 35.0
+  params_active_b: 35.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/CohereLabs/c4ai-command-r-v01
+  downloads: 26829
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-9B
+  hf_repo: 01-ai/Yi-9B
+  developer: 01-ai
+  release_date: 2024-03-01
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-9B
+  downloads: 9116
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-20b
+  hf_repo: internlm/internlm2-math-20b
+  developer: internlm
+  release_date: 2024-01-22
+  params_total_b: 19.9
+  params_active_b: 19.9
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-20b
+  downloads: 80
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-7b
+  hf_repo: internlm/internlm2-math-7b
+  developer: internlm
+  release_date: 2024-01-22
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-7b
+  downloads: 97
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-base-20b
+  hf_repo: internlm/internlm2-math-base-20b
+  developer: internlm
+  release_date: 2024-01-22
+  params_total_b: 19.9
+  params_active_b: 19.9
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-base-20b
+  downloads: 73
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: internlm2-math-base-7b
+  hf_repo: internlm/internlm2-math-base-7b
+  developer: internlm
+  release_date: 2024-01-22
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/internlm/internlm2-math-base-7b
+  downloads: 84
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Mistral-7B-Instruct-v0.2
+  hf_repo: mistralai/Mistral-7B-Instruct-v0.2
+  developer: mistralai
+  release_date: 2023-12-11
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2
+  downloads: 1308270
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: LlamaGuard-7b
+  hf_repo: meta-llama/LlamaGuard-7b
+  developer: meta-llama
+  release_date: 2023-12-05
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/LlamaGuard-7b
+  downloads: 3278
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-6B-Chat
+  hf_repo: 01-ai/Yi-6B-Chat
+  developer: 01-ai
+  release_date: 2023-11-22
+  params_total_b: 6.1
+  params_active_b: 6.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-6B-Chat
+  downloads: 23743
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-34B-Chat
+  hf_repo: 01-ai/Yi-34B-Chat
+  developer: 01-ai
+  release_date: 2023-11-22
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-34B-Chat
+  downloads: 23417
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-6B-200K
+  hf_repo: 01-ai/Yi-6B-200K
+  developer: 01-ai
+  release_date: 2023-11-06
+  params_total_b: 6.1
+  params_active_b: 6.1
+  architecture: dense
+  context_window: 200000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-6B-200K
+  downloads: 13352
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-34B-200K
+  hf_repo: 01-ai/Yi-34B-200K
+  developer: 01-ai
+  release_date: 2023-11-06
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 200000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-34B-200K
+  downloads: 8957
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-6B
+  hf_repo: 01-ai/Yi-6B
+  developer: 01-ai
+  release_date: 2023-11-01
+  params_total_b: 6.1
+  params_active_b: 6.1
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-6B
+  downloads: 15683
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Yi-34B
+  hf_repo: 01-ai/Yi-34B
+  developer: 01-ai
+  release_date: 2023-11-01
+  params_total_b: 34.4
+  params_active_b: 34.4
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/01-ai/Yi-34B
+  downloads: 9012
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-instruct-ja_vocab-beta-7b
+  hf_repo: stabilityai/japanese-stablelm-instruct-ja_vocab-beta-7b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 6.9
+  params_active_b: 6.9
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-instruct-ja_vocab-beta-7b
+  downloads: 141
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-base-ja_vocab-beta-7b
+  hf_repo: stabilityai/japanese-stablelm-base-ja_vocab-beta-7b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 6.9
+  params_active_b: 6.9
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-base-ja_vocab-beta-7b
+  downloads: 118
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-instruct-beta-70b
+  hf_repo: stabilityai/japanese-stablelm-instruct-beta-70b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-instruct-beta-70b
+  downloads: 135
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-instruct-beta-7b
+  hf_repo: stabilityai/japanese-stablelm-instruct-beta-7b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-instruct-beta-7b
+  downloads: 100
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-base-beta-70b
+  hf_repo: stabilityai/japanese-stablelm-base-beta-70b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-base-beta-70b
+  downloads: 136
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-base-beta-7b
+  hf_repo: stabilityai/japanese-stablelm-base-beta-7b
+  developer: stabilityai
+  release_date: 2023-10-30
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-base-beta-7b
+  downloads: 93
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-instruct-gamma-7b
+  hf_repo: stabilityai/japanese-stablelm-instruct-gamma-7b
+  developer: stabilityai
+  release_date: 2023-10-16
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-instruct-gamma-7b
+  downloads: 158
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-base-gamma-7b
+  hf_repo: stabilityai/japanese-stablelm-base-gamma-7b
+  developer: stabilityai
+  release_date: 2023-10-16
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-base-gamma-7b
+  downloads: 165
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Mistral-7B-Instruct-v0.1
+  hf_repo: mistralai/Mistral-7B-Instruct-v0.1
+  developer: mistralai
+  release_date: 2023-09-27
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.1
+  downloads: 244870
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: japanese-stablelm-instruct-alpha-7b-v2
+  hf_repo: stabilityai/japanese-stablelm-instruct-alpha-7b-v2
+  developer: stabilityai
+  release_date: 2023-09-26
+  params_total_b: 7.0
+  params_active_b: 7.0
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/japanese-stablelm-instruct-alpha-7b-v2
+  downloads: 100
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Mistral-7B-v0.1
+  hf_repo: mistralai/Mistral-7B-v0.1
+  developer: mistralai
+  release_date: 2023-09-20
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mistral-7B-v0.1
+  downloads: 601506
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: stablecode-completion-alpha-3b-4k
+  hf_repo: stabilityai/stablecode-completion-alpha-3b-4k
+  developer: stabilityai
+  release_date: 2023-08-07
+  params_total_b: 3.3
+  params_active_b: 3.3
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/stablecode-completion-alpha-3b-4k
+  downloads: 435
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: stablecode-instruct-alpha-3b
+  hf_repo: stabilityai/stablecode-instruct-alpha-3b
+  developer: stabilityai
+  release_date: 2023-08-07
+  params_total_b: 3.3
+  params_active_b: 3.3
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: other
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/stablecode-instruct-alpha-3b
+  downloads: 2
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: StableBeluga1-Delta
+  hf_repo: stabilityai/StableBeluga1-Delta
+  developer: stabilityai
+  release_date: 2023-07-20
+  params_total_b: 65.3
+  params_active_b: 65.3
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: cc-by-nc-4.0
+  commercial_use: false
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/stabilityai/StableBeluga1-Delta
+  downloads: 240
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-70b-chat-hf
+  hf_repo: meta-llama/Llama-2-70b-chat-hf
+  developer: meta-llama
+  release_date: 2023-07-14
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-70b-chat-hf
+  downloads: 10679
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-7b-chat-hf
+  hf_repo: meta-llama/Llama-2-7b-chat-hf
+  developer: meta-llama
+  release_date: 2023-07-13
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-7b-chat-hf
+  downloads: 753906
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-7b-hf
+  hf_repo: meta-llama/Llama-2-7b-hf
+  developer: meta-llama
+  release_date: 2023-07-13
+  params_total_b: 6.7
+  params_active_b: 6.7
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-7b-hf
+  downloads: 762497
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-13b-hf
+  hf_repo: meta-llama/Llama-2-13b-hf
+  developer: meta-llama
+  release_date: 2023-07-13
+  params_total_b: 13.0
+  params_active_b: 13.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-13b-hf
+  downloads: 26537
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-13b-chat-hf
+  hf_repo: meta-llama/Llama-2-13b-chat-hf
+  developer: meta-llama
+  release_date: 2023-07-13
+  params_total_b: 13.0
+  params_active_b: 13.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-13b-chat-hf
+  downloads: 217168
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+- name: Llama-2-70b-hf
+  hf_repo: meta-llama/Llama-2-70b-hf
+  developer: meta-llama
+  release_date: 2023-07-11
+  params_total_b: 69.0
+  params_active_b: 69.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama2
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-2-70b-hf
+  downloads: 5337
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
