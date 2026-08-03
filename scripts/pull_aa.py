@@ -19,6 +19,7 @@ OPENNESS IS NOT READ FROM AA:
     Proprietary rows simply fail to match models.yaml and fall out. Open-weight
     status stays decided by HF repo resolution alone.
 """
+import argparse
 import re
 import sys
 from pathlib import Path
@@ -176,3 +177,68 @@ def match_to_tracked(best, tracked):
             break
     unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in claimed_by)
     return scores, unmatched
+
+
+HEADER = (
+    "# AUTO-SCRAPED by scripts/pull_aa.py — do not hand-edit.\n"
+    "# Artificial Analysis Intelligence Index (0-100 composite), by hf_repo.\n"
+    "# variant records which reasoning-effort row won (the highest scoring).\n"
+    "# The index is re-weighted between versions, so values are NOT comparable\n"
+    "# across time. unmatched lists AA rows no tracked model claimed.\n"
+)
+
+
+def fetch_html(url, get=requests.get):
+    """Leaderboard HTML, or None on any failure."""
+    try:
+        resp = get(url, timeout=30,
+                   headers={"User-Agent": "Mozilla/5.0 (owlt-aa/1.0)"})
+    except Exception as exc:
+        print(f"  ! AA fetch failed: {exc}")
+        return None
+    if getattr(resp, "status_code", None) != 200:
+        print(f"  ! AA returned HTTP {getattr(resp, 'status_code', '?')}")
+        return None
+    return resp.text
+
+
+def write_scores(path, scores, unmatched):
+    Path(path).write_text(HEADER + yaml.safe_dump(
+        {"scores": scores, "unmatched": unmatched},
+        sort_keys=True, allow_unicode=True, width=100))
+
+
+def refresh(path, html, tracked):
+    """Rewrite the sidecar. Returns the score count, or None if nothing was written.
+
+    None means the run failed and the committed file was left alone. A zero-row
+    parse is a failure: AA is never legitimately empty, so an empty parse means
+    the markup changed and writing would erase good data.
+    """
+    if html is None:
+        print(f"  ! leaving {Path(path).name} unchanged")
+        return None
+    rows = parse_leaderboard(html)
+    if not rows:
+        print(f"  ! parsed 0 rows — AA markup may have changed; "
+              f"leaving {Path(path).name} unchanged")
+        return None
+    scores, unmatched = match_to_tracked(best_by_slug(rows), tracked)
+    write_scores(path, scores, unmatched)
+    return len(scores)
+
+
+def main():
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--html", help="parse a saved page instead of fetching")
+    args = ap.parse_args()
+
+    html = Path(args.html).read_text() if args.html else fetch_html(LEADERBOARD_URL)
+    n = refresh(OUT, html, tracked_models())
+    if n is None:
+        return
+    print(f"Wrote {n} AA score(s) to {OUT.name}")
+
+
+if __name__ == "__main__":
+    main()

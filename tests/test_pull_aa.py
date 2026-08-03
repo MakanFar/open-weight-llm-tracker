@@ -198,3 +198,58 @@ def test_match_does_not_double_claim_an_aa_entry(capsys):
     assert "org/first-repo" in warning
     assert "org/Dupe" in warning
     assert "Dupe Model" in warning
+
+
+def test_refresh_writes_scores_and_unmatched(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    n = pull_aa.refresh(out, FIXTURE, TRACKED)
+    assert n == 3
+    doc = yaml.safe_load(out.read_text())
+    assert doc["scores"]["moonshotai/Kimi-K3"]["intelligence_index"] == 57
+    assert doc["unmatched"] == ["Claude Opus 5 (max)"]
+
+
+def test_refresh_leaves_the_sidecar_untouched_when_the_fetch_failed(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    out.write_text("scores:\n  org/m:\n    intelligence_index: 42\n")
+    before = out.read_text()
+
+    assert pull_aa.refresh(out, None, TRACKED) is None
+    assert out.read_text() == before
+
+
+def test_refresh_treats_a_zero_row_parse_as_failure(tmp_path):
+    """Empty parse means AA's markup changed — do not erase good data."""
+    out = tmp_path / "aa_scores.yaml"
+    out.write_text("scores:\n  org/m:\n    intelligence_index: 42\n")
+    before = out.read_text()
+
+    assert pull_aa.refresh(out, "<html><body>redesigned</body></html>", TRACKED) is None
+    assert out.read_text() == before
+
+
+def test_refresh_writes_an_empty_score_set_when_rows_parsed_but_matched_nothing(tmp_path):
+    """Parsed fine, matched nobody: that is a real answer, not a failure."""
+    out = tmp_path / "aa_scores.yaml"
+    assert pull_aa.refresh(out, FIXTURE, []) == 0
+    assert yaml.safe_load(out.read_text())["scores"] == {}
+
+
+def test_fetch_html_returns_none_on_error():
+    def boom(url, **kw):
+        raise RuntimeError("HTTP Error 429: Too Many Requests")
+    assert pull_aa.fetch_html(pull_aa.LEADERBOARD_URL, get=boom) is None
+
+
+def test_fetch_html_returns_none_on_bad_status():
+    class Resp:
+        status_code = 503
+        text = "nope"
+    assert pull_aa.fetch_html(pull_aa.LEADERBOARD_URL, get=lambda u, **kw: Resp()) is None
+
+
+def test_fetch_html_returns_the_body_on_success():
+    class Resp:
+        status_code = 200
+        text = "<html>ok</html>"
+    assert pull_aa.fetch_html(pull_aa.LEADERBOARD_URL, get=lambda u, **kw: Resp()) == "<html>ok</html>"
