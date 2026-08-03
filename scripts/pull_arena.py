@@ -57,6 +57,11 @@ try:
 except ImportError:
     _js_validate = None
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import names
+slug = names.slug
+_VARIANT_SUFFIXES = names.VARIANT_SUFFIXES
+
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "arena_agent_rankings.yaml"
 DEFAULT_URL = "https://arena.ai/leaderboard/agent"
@@ -100,10 +105,6 @@ ORG_DISPLAY_ALIASES = {
     "cohere", "mistral", "tencent", "xiaomi", "thinky", "ibm", "baidu",
     "ai2", "01.ai", "tii", "zhipu",
 }
-
-# Repo-name suffixes that mark an instruction-tuned variant of the same model.
-# Stripped before comparing an arena name to a repo name.
-_VARIANT_SUFFIXES = ("instruct", "it", "chat", "base")
 
 # Vendor names that appear at the START of an arena display label. Sorted
 # longest-first at use so a multi-word vendor beats its first word.
@@ -197,11 +198,6 @@ def without_leading_vendor(name):
                 [t.lower() for t in tokens[:len(parts)]] == parts:
             return " ".join(tokens[len(parts):]).strip()
     return name
-
-
-def slug(text):
-    """Lowercase and strip every non-alphanumeric character."""
-    return re.sub(r"[^a-z0-9]", "", text.lower())
 
 
 # Minimum length ratio (shorter slug / longer slug) for a prefix relation to
