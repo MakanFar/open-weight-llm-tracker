@@ -3,9 +3,16 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
+import yaml
 import pull_aa
 
 FIXTURE = (Path(__file__).resolve().parent / "fixtures" / "aa_leaderboard.html").read_text()
+
+TRACKED = [
+    {"name": "Kimi K3", "hf_repo": "moonshotai/Kimi-K3"},
+    {"name": "Llama 3.3 70B Instruct", "hf_repo": "meta-llama/Llama-3.3-70B-Instruct"},
+    {"name": "Some Model", "hf_repo": "zai-org/GLM-5.2"},
+]
 
 
 def test_parse_reads_every_scored_row():
@@ -79,3 +86,45 @@ def test_best_by_slug_keeps_different_sizes_apart():
     assert sorted(best) == ["qwen2572b", "qwen257b"]
     assert best["qwen2572b"]["intelligence_index"] == 30
     assert best["qwen257b"]["intelligence_index"] == 12
+
+
+def test_match_joins_on_the_model_name():
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    scores, _ = pull_aa.match_to_tracked(best, TRACKED)
+    assert scores["moonshotai/Kimi-K3"]["intelligence_index"] == 57
+    assert scores["moonshotai/Kimi-K3"]["variant"] == "max"
+
+
+def test_match_tolerates_an_instruct_suffix_on_our_side():
+    """AA says 'Llama 3.3 70B'; models.yaml says 'Llama 3.3 70B Instruct'."""
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    scores, _ = pull_aa.match_to_tracked(best, TRACKED)
+    assert scores["meta-llama/Llama-3.3-70B-Instruct"]["intelligence_index"] == 9
+
+
+def test_match_falls_back_to_the_repo_tail():
+    """'Some Model' does not match, but the repo tail GLM-5.2 does."""
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    scores, _ = pull_aa.match_to_tracked(best, TRACKED)
+    assert scores["zai-org/GLM-5.2"]["intelligence_index"] == 34
+
+
+def test_match_reports_aa_rows_that_hit_nothing():
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    _, unmatched = pull_aa.match_to_tracked(best, TRACKED)
+    assert unmatched == ["Claude Opus 5 (max)"]
+
+
+def test_match_records_the_source_url():
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    scores, _ = pull_aa.match_to_tracked(best, TRACKED)
+    assert scores["moonshotai/Kimi-K3"]["source"] == pull_aa.LEADERBOARD_URL
+
+
+def test_tracked_models_reads_models_yaml(tmp_path):
+    f = tmp_path / "models.yaml"
+    f.write_text(yaml.safe_dump({"models": [
+        {"name": "M", "hf_repo": "org/m"},
+        {"name": "No repo"},
+    ]}))
+    assert pull_aa.tracked_models(f) == [{"name": "M", "hf_repo": "org/m"}]

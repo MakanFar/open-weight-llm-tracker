@@ -102,3 +102,46 @@ def best_by_slug(rows):
                 "intelligence_index": row["intelligence_index"],
             }
     return best
+
+
+def tracked_models(path=DATA):
+    """models.yaml rows that carry an hf_repo."""
+    doc = yaml.safe_load(Path(path).read_text()) or {}
+    rows = doc.get("models") if isinstance(doc, dict) else None
+    if not isinstance(rows, list):
+        return []
+    return [r for r in rows if isinstance(r, dict) and r.get("hf_repo")]
+
+
+def _keys_for(model):
+    """Every slug a tracked model may be known by on a leaderboard."""
+    candidates = {model["name"], model["hf_repo"].split("/")[-1]}
+    return {names.slug(names.strip_variant_suffix(c)) for c in candidates if c}
+
+
+def match_to_tracked(best, tracked):
+    """Join AA entries onto tracked models. Returns (scores, unmatched).
+
+    Matching is local: AA publishes display names, not repo ids, and doing the
+    lookup here avoids depending on HF search, whose rate limits have already
+    caused silent data loss elsewhere in this repo.
+
+    unmatched is expected to be long — most AA rows are proprietary models this
+    tracker will never carry — so it is informational, never an error.
+    """
+    scores, used = {}, set()
+    for model in tracked:
+        for key in _keys_for(model):
+            entry = best.get(key)
+            if entry is None:
+                continue
+            scores[model["hf_repo"]] = {
+                "intelligence_index": entry["intelligence_index"],
+                "variant": entry["variant"],
+                "aa_model": entry["aa_model"],
+                "source": LEADERBOARD_URL,
+            }
+            used.add(key)
+            break
+    unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in used)
+    return scores, unmatched
