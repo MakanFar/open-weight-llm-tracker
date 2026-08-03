@@ -128,3 +128,73 @@ def test_tracked_models_reads_models_yaml(tmp_path):
         {"name": "No repo"},
     ]}))
     assert pull_aa.tracked_models(f) == [{"name": "M", "hf_repo": "org/m"}]
+
+
+def test_keys_for_orders_name_before_repo_tail():
+    """name is checked before the hf_repo tail, so precedence must be explicit.
+
+    A set has no order, so returning one made the winner depend on Python's
+    hash-randomized iteration when the two sources resolve to different AA
+    entries (see test_match_prefers_name_key_over_repo_tail_key below). The
+    fix is an ordered, deduplicated sequence: name first, repo tail second.
+    """
+    model = {"name": "Name Key", "hf_repo": "org/Repo-Key"}
+    assert pull_aa._keys_for(model) == ["namekey", "repokey"]
+
+
+def test_keys_for_dedupes_when_name_and_repo_tail_match():
+    """The two sources often agree; that must yield one key, not a repeat."""
+    model = {"name": "Same", "hf_repo": "org/same"}
+    assert pull_aa._keys_for(model) == ["same"]
+
+
+def test_match_prefers_name_key_over_repo_tail_key():
+    """When name and repo-tail keys resolve to different AA rows, name wins.
+
+    Before the fix this depended on set iteration order (hash-randomized),
+    so the same inputs could pick either row across runs.
+    """
+    best = {
+        "namekey": {
+            "model_slug": "namekey", "aa_model": "Name Entry",
+            "variant": "default", "intelligence_index": 10,
+        },
+        "repokey": {
+            "model_slug": "repokey", "aa_model": "Repo Entry",
+            "variant": "default", "intelligence_index": 99,
+        },
+    }
+    tracked = [{"name": "Name Key", "hf_repo": "org/Repo-Key"}]
+    scores, unmatched = pull_aa.match_to_tracked(best, tracked)
+    assert scores["org/Repo-Key"]["intelligence_index"] == 10
+    assert scores["org/Repo-Key"]["aa_model"] == "Name Entry"
+    assert unmatched == ["Repo Entry"]
+
+
+def test_match_does_not_double_claim_an_aa_entry(capsys):
+    """An AA row may score at most one tracked model; first claim wins.
+
+    Two tracked rows can produce overlapping keys (a near-duplicate entry, or
+    one row's name-key colliding with another row's repo-tail-key). Silently
+    giving both the same AA measurement would double-count one data point as
+    two models' scores with no trace of it happening.
+    """
+    best = {
+        "dupe": {
+            "model_slug": "dupe", "aa_model": "Dupe Model",
+            "variant": "default", "intelligence_index": 50,
+        },
+    }
+    tracked = [
+        {"name": "Dupe", "hf_repo": "org/first-repo"},
+        {"name": "Something Else", "hf_repo": "org/Dupe"},
+    ]
+    scores, unmatched = pull_aa.match_to_tracked(best, tracked)
+    assert scores["org/first-repo"]["intelligence_index"] == 50
+    assert "org/Dupe" not in scores
+    assert unmatched == []
+
+    warning = capsys.readouterr().out
+    assert "org/first-repo" in warning
+    assert "org/Dupe" in warning
+    assert "Dupe Model" in warning

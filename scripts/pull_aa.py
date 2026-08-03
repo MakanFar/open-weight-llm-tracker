@@ -114,9 +114,26 @@ def tracked_models(path=DATA):
 
 
 def _keys_for(model):
-    """Every slug a tracked model may be known by on a leaderboard."""
-    candidates = {model["name"], model["hf_repo"].split("/")[-1]}
-    return {names.slug(names.strip_variant_suffix(c)) for c in candidates if c}
+    """Slugs a tracked model may be known by on a leaderboard, in try-order.
+
+    The name is tried before the hf_repo tail: models.yaml's `name` is the
+    curated, human-facing label, while the repo tail is a fallback for when
+    AA's display name doesn't match it (e.g. "Some Model" vs repo
+    "zai-org/GLM-5.2"). Order must be explicit and a set cannot express it —
+    iterating a set is hash-randomized, so if the two sources ever resolved to
+    different AA entries, which one won would vary between runs on identical
+    inputs. Returning an ordered, deduplicated list fixes both the order and
+    the case where the two sources agree (no repeated key).
+    """
+    candidates = [model["name"], model["hf_repo"].split("/")[-1]]
+    keys = []
+    for c in candidates:
+        if not c:
+            continue
+        key = names.slug(names.strip_variant_suffix(c))
+        if key and key not in keys:
+            keys.append(key)
+    return keys
 
 
 def match_to_tracked(best, tracked):
@@ -126,22 +143,36 @@ def match_to_tracked(best, tracked):
     lookup here avoids depending on HF search, whose rate limits have already
     caused silent data loss elsewhere in this repo.
 
+    An AA entry may be claimed by at most one tracked model, first claim wins.
+    Two tracked rows can produce overlapping keys (a near-duplicate
+    models.yaml entry, or one row's name-key colliding with another row's
+    repo-tail-key); without this guard both would silently get a score
+    pointing at the same AA measurement. The collision is also printed so it
+    surfaces during a discovery run instead of quietly corrupting the data.
+
     unmatched is expected to be long — most AA rows are proprietary models this
-    tracker will never carry — so it is informational, never an error.
+    tracker will never carry — so it is informational, never an error. An
+    entry claimed by any tracked model (even one whose claim was rejected as a
+    duplicate) is not unmatched.
     """
-    scores, used = {}, set()
+    scores, claimed_by = {}, {}
     for model in tracked:
         for key in _keys_for(model):
             entry = best.get(key)
             if entry is None:
                 continue
+            prior = claimed_by.get(key)
+            if prior is not None:
+                print(f"  ! {model['hf_repo']} and {prior} both match AA "
+                      f"model {entry['aa_model']!r}; keeping {prior}")
+                break
+            claimed_by[key] = model["hf_repo"]
             scores[model["hf_repo"]] = {
                 "intelligence_index": entry["intelligence_index"],
                 "variant": entry["variant"],
                 "aa_model": entry["aa_model"],
                 "source": LEADERBOARD_URL,
             }
-            used.add(key)
             break
-    unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in used)
+    unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in claimed_by)
     return scores, unmatched
