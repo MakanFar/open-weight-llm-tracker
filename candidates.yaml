@@ -23,6 +23,7 @@ models:
   arena_rank: 5
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 57
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
@@ -44,6 +45,7 @@ models:
   arena_rank: 12
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 51
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -85,6 +87,7 @@ models:
   arena_rank: 23
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 42
 - name: DeepSeek-V4-Pro
   hf_repo: deepseek-ai/DeepSeek-V4-Pro
   developer: deepseek-ai
@@ -106,6 +109,7 @@ models:
   arena_rank: 26
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 44
 - name: Hy3
   hf_repo: tencent/Hy3
   developer: tencent
@@ -126,6 +130,7 @@ models:
   arena_rank: 27
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 41
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -167,6 +172,7 @@ models:
   arena_rank: 32
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 42
 - name: MiniMax-M3
   hf_repo: MiniMaxAI/MiniMax-M3
   developer: MiniMaxAI
@@ -187,6 +193,7 @@ models:
   arena_rank: 33
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 44
 - name: DeepSeek-V4-Flash
   hf_repo: deepseek-ai/DeepSeek-V4-Flash
   developer: deepseek-ai
@@ -228,6 +235,7 @@ models:
   arena_rank: 36
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 41
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
   developer: MiniMaxAI
@@ -269,6 +277,7 @@ models:
   arena_rank: 44
   needs_hf_repo: false
   resolution_confidence: high
+  aa_index: 29
 - name: DeepSeek-V4-Flash-0731
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
   developer: deepseek-ai
@@ -286,6 +295,7 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 50
 - name: MiniMax-M3-DSpark
   hf_repo: nvidia/MiniMax-M3-DSpark
   developer: nvidia
@@ -779,6 +789,7 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 37
 - name: MiMo-V2.5-Base
   hf_repo: XiaomiMiMo/MiMo-V2.5-Base
   developer: XiaomiMiMo
@@ -1136,6 +1147,7 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 9
 - name: granite-4.1-30b
   hf_repo: ibm-granite/granite-4.1-30b
   developer: ibm-granite
@@ -1204,6 +1216,7 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 5
 - name: granite-4.1-3b
   hf_repo: ibm-granite/granite-4.1-3b
   developer: ibm-granite
@@ -1306,6 +1319,7 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 18
 - name: Nemotron-Labs-Diffusion-8B
   hf_repo: nvidia/Nemotron-Labs-Diffusion-8B
   developer: nvidia
@@ -1578,3 +1592,4 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 21

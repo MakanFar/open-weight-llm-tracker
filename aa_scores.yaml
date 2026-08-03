@@ -4,6 +4,51 @@
 # The index is re-weighted between versions, so values are NOT comparable
 # across time. unmatched lists AA rows no tracked model claimed.
 scores:
+  MiniMaxAI/MiniMax-M3:
+    aa_model: MiniMax-M3
+    intelligence_index: 44
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  Qwen/Qwen3-Coder-Next-Base:
+    aa_model: Qwen3 Coder Next
+    intelligence_index: 21
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  XiaomiMiMo/MiMo-V2.5:
+    aa_model: MiMo-V2.5
+    intelligence_index: 37
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  XiaomiMiMo/MiMo-V2.5-Pro:
+    aa_model: MiMo-V2.5-Pro
+    intelligence_index: 42
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  deepseek-ai/DeepSeek-V4-Flash-0731:
+    aa_model: DeepSeek V4 Flash 0731 (max)
+    intelligence_index: 50
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: max
+  deepseek-ai/DeepSeek-V4-Pro:
+    aa_model: DeepSeek V4 Pro (max)
+    intelligence_index: 44
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: max
+  google/gemma-4-31B-it:
+    aa_model: Gemma 4 31B
+    intelligence_index: 29
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  ibm-granite/granite-4.1-30b-base:
+    aa_model: Granite 4.1 30B
+    intelligence_index: 9
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  ibm-granite/granite-4.1-3b-base:
+    aa_model: Granite 4.1 3B
+    intelligence_index: 5
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
   meta-llama/Llama-3.3-70B-Instruct:
     aa_model: Llama 3.3 70B
     intelligence_index: 9
@@ -19,6 +64,36 @@ scores:
     intelligence_index: 10
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
+  moonshotai/Kimi-K2.7-Code:
+    aa_model: Kimi K2.7 Code
+    intelligence_index: 42
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  moonshotai/Kimi-K3:
+    aa_model: Kimi K3 (max)
+    intelligence_index: 57
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: max
+  nvidia/Nemotron-Cascade-2-30B-A3B:
+    aa_model: Nemotron Cascade 2 30B A3B
+    intelligence_index: 18
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  tencent/Hy3:
+    aa_model: Hy3
+    intelligence_index: 41
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  thinkingmachines/Inkling:
+    aa_model: Inkling
+    intelligence_index: 41
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  zai-org/GLM-5.2:
+    aa_model: GLM-5.2 (max)
+    intelligence_index: 51
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: max
 unmatched:
 - Agnes 2.5 Pro Alpha
 - Celeris-1
@@ -27,15 +102,12 @@ unmatched:
 - Claude Opus 5 (max)
 - Claude Sonnet 5 (max)
 - Command A+
-- DeepSeek V4 Flash 0731 (max)
-- DeepSeek V4 Pro (max)
 - Devstral 2
 - Devstral Small 2
 - DiffusionGemma 26B A4B
 - EXAONE 4.5 33B
 - G9v3-39A5B
 - G9v3-3B
-- GLM-5.2 (max)
 - GPT-5.5 Instant (June 2026)
 - GPT-5.6 Luna (max)
 - GPT-5.6 Sol (max)
@@ -48,33 +120,23 @@ unmatched:
 - Gemini 3.6 Flash
 - Gemma 4 12B
 - Gemma 4 26B A4B
-- Gemma 4 31B
 - Gemma 4 E2B
 - Gemma 4 E4B
-- Granite 4.1 30B
-- Granite 4.1 3B
 - Grok 4.3 (Non-reasoning)
 - Grok 4.5 (high)
-- Hy3
 - HyperNova 60B 2605
-- Inkling
 - Inkling Small
 - JT-4.1 Flash 236B A21B
 - K-EXAONE
 - K2 Think V2
 - KAT-Coder-Pro V2
-- Kimi K2.7 Code
-- Kimi K3 (max)
 - Ling 2.6 Flash
 - LongCat 2.0
 - Magistral Medium 1.2
 - Magistral Small 1.2
 - Mercury 2
 - MiMo-V2-Flash
-- MiMo-V2.5
-- MiMo-V2.5-Pro
 - MiniCPM-V 4.6 1.3B
-- MiniMax-M3
 - Ministral 3 14B
 - Ministral 3 3B
 - Ministral 3 8B
@@ -89,13 +151,11 @@ unmatched:
 - NVIDIA Nemotron 3 Super
 - Nanbeige4.1-3B
 - Nemotron 3 Ultra
-- Nemotron Cascade 2 30B A3B
 - Nex-N2-Pro
 - North Mini Code
 - Nova 2.0 Lite (high)
 - Nova 2.0 Pro Preview (medium)
 - Phi-4 Mini
-- Qwen3 Coder Next
 - Qwen3 Next 80B A3B
 - Qwen3.5 0.8B
 - Qwen3.5 122B A10B

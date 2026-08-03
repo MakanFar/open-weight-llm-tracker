@@ -102,6 +102,7 @@ ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 CANDIDATES = ROOT / "candidates.yaml"
 ARENA = ROOT / "arena_agent_rankings.yaml"
+AA = ROOT / "aa_scores.yaml"
 
 # How far back the org sweep reaches. Kept generous relative to the weekly
 # schedule so a run that fails or is skipped does not create a coverage hole.
@@ -311,6 +312,54 @@ def merge_candidates(org_rows, arena_rows):
                                  -_release_ordinal(c)))
 
 
+def load_aa_index(path=AA):
+    """{lower_repo: intelligence_index}. {} on missing/unreadable/malformed.
+
+    Never load-bearing, exactly like the arena file: a discovery run with no
+    aa_scores.yaml simply stages rows without an index.
+    """
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {}
+    scores = doc.get("scores") if isinstance(doc, dict) else None
+    out = {}
+    if isinstance(scores, dict):
+        for repo, entry in scores.items():
+            if not isinstance(entry, dict):
+                continue
+            idx = entry.get("intelligence_index")
+            if isinstance(idx, int) and not isinstance(idx, bool):
+                out[str(repo).lower()] = idx
+    return out
+
+
+def annotate_aa(rows, aa_index):
+    """Stamp each row with its Artificial Analysis index, in place.
+
+    Mirrors arena_rank: a discovery-only field, absent rather than null when
+    unknown, and stripped on promotion. The point is that a reviewer sees the
+    score while deciding whether to take a model, instead of only after it
+    lands in models.yaml.
+
+    A row whose repo has dropped out of the sidecar loses the field rather
+    than keeping the old number — AA delists older models, and a stale score
+    on a carried-forward row would silently misrepresent it.
+
+    NOTE ON FRESHNESS: the workflow runs pull_aa.py before discover.py, and
+    pull_aa scores what is already in candidates.yaml. A brand-new candidate
+    therefore gets its index on the NEXT weekly run, not the one that found
+    it. That lag is accepted: closing it would need a second discovery pass.
+    """
+    for row in rows:
+        idx = aa_index.get((row.get("hf_repo") or "").lower())
+        if idx is None:
+            row.pop("aa_index", None)
+        else:
+            row["aa_index"] = idx
+    return rows
+
+
 def _release_ordinal(candidate):
     """Sort key for release_date, tolerant of hand-edited candidates.yaml.
 
@@ -336,8 +385,8 @@ def write_candidates(path, candidates):
 
 
 def refresh(api, min_params, *, orgs=None, data_path=DATA,
-            candidates_path=CANDIDATES, arena_path=ARENA, use_arena=True,
-            get_json=hf_meta._http_get_json,
+            candidates_path=CANDIDATES, arena_path=ARENA, aa_path=AA,
+            use_arena=True, get_json=hf_meta._http_get_json,
             max_age_days=DEFAULT_MAX_AGE_DAYS, today=None):
     """Build the next review queue. Returns (candidates, skips, new_orgs).
 
@@ -369,7 +418,14 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         else:
             print("  no arena data (run scripts/pull_arena.py first)")
 
-    return merge_candidates(staged + org_rows, arena_rows), skips, new_orgs
+    candidates = merge_candidates(staged + org_rows, arena_rows)
+
+    aa_index = load_aa_index(aa_path)
+    annotate_aa(candidates, aa_index)
+    scored = sum(1 for c in candidates if "aa_index" in c)
+    print(f"  Artificial Analysis rates {scored} of {len(candidates)} candidate(s)")
+
+    return candidates, skips, new_orgs
 
 
 def main():

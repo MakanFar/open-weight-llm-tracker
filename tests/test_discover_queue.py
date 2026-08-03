@@ -127,3 +127,56 @@ def test_write_candidates_round_trips(tmp_path):
 
     assert path.read_text().startswith("# AUTO-GENERATED")
     assert yaml.safe_load(path.read_text())["models"] == rows
+
+
+# --- AA index merged onto candidate rows, mirroring arena_rank --------------
+
+def test_load_aa_index_reads_the_sidecar(tmp_path):
+    f = tmp_path / "aa.yaml"
+    f.write_text("scores:\n  Moonshot/Kimi-K3:\n    intelligence_index: 57\n"
+                 "    variant: max\n")
+    assert discover.load_aa_index(f) == {"moonshot/kimi-k3": 57}
+
+
+def test_load_aa_index_degrades_on_a_missing_or_broken_file(tmp_path):
+    assert discover.load_aa_index(tmp_path / "nope.yaml") == {}
+    bad = tmp_path / "bad.yaml"
+    bad.write_text("scores: [not, a, mapping]\n")
+    assert discover.load_aa_index(bad) == {}
+
+
+def test_annotate_aa_sets_the_index_on_matching_rows():
+    rows = [{"hf_repo": "moonshotai/Kimi-K3"}, {"hf_repo": "org/unrated"}]
+    discover.annotate_aa(rows, {"moonshotai/kimi-k3": 57})
+    assert rows[0]["aa_index"] == 57
+    assert "aa_index" not in rows[1], "absent, not null — matches arena_rank"
+
+
+def test_annotate_aa_refreshes_a_stale_index():
+    rows = [{"hf_repo": "org/m", "aa_index": 10}]
+    discover.annotate_aa(rows, {"org/m": 42})
+    assert rows[0]["aa_index"] == 42
+
+
+def test_annotate_aa_drops_an_index_the_sidecar_no_longer_has():
+    """AA delists older models; a carried-forward row must not keep a dead score."""
+    rows = [{"hf_repo": "org/m", "aa_index": 10}]
+    discover.annotate_aa(rows, {})
+    assert "aa_index" not in rows[0]
+
+
+def test_refresh_annotates_carried_forward_candidates(tmp_path):
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Kimi-K3", "hf_repo": "moonshotai/Kimi-K3",
+         "release_date": date(2026, 7, 1)}]}))
+    (tmp_path / "aa.yaml").write_text(
+        "scores:\n  moonshotai/Kimi-K3:\n    intelligence_index: 57\n")
+    api = FakeApi({})
+
+    candidates, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "aa.yaml",
+        use_arena=False, get_json=lambda url: {}, today=TODAY)
+
+    assert candidates[0]["aa_index"] == 57

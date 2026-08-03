@@ -30,7 +30,7 @@ Network caveat: `pull_hf.py`, `discover.py`, and `pull_arena.py` all reach out t
 ## Two-file data model
 
 - **`models.yaml`** — the reviewed, published index. Only this file is validated and rendered. Fields are documented in [SCHEMA.md](SCHEMA.md).
-- **`candidates.yaml`** — a staging queue of *unreviewed* auto-discovered models, written by `discover.py`. Rows here carry extra discovery-only fields (`discovered_via`, `arena_rank`, `downloads`, `needs_hf_repo`, `resolution_confidence`). **These fields must be stripped when a row is promoted into `models.yaml`** — `validate.py` only checks `models.yaml`, so they would otherwise leak in. Nothing automated ever writes to `models.yaml`; promotion is always a human editing the file.
+- **`candidates.yaml`** — a staging queue of *unreviewed* auto-discovered models, written by `discover.py`. Rows here carry extra discovery-only fields (`discovered_via`, `arena_rank`, `aa_index`, `downloads`, `needs_hf_repo`, `resolution_confidence`). **These fields must be stripped when a row is promoted into `models.yaml`** — `validate.py` only checks `models.yaml`, so they would otherwise leak in. Nothing automated ever writes to `models.yaml`; promotion is always a human editing the file.
 
 ## Discovery pipeline (the core architecture)
 

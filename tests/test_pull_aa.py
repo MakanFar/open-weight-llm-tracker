@@ -253,3 +253,46 @@ def test_fetch_html_returns_the_body_on_success():
         status_code = 200
         text = "<html>ok</html>"
     assert pull_aa.fetch_html(pull_aa.LEADERBOARD_URL, get=lambda u, **kw: Resp()) == "<html>ok</html>"
+
+
+# --- the join covers the review queue, not just the published index ---------
+
+def test_staged_models_reads_candidates(tmp_path):
+    f = tmp_path / "candidates.yaml"
+    f.write_text(yaml.safe_dump({"models": [
+        {"name": "Kimi-K3", "hf_repo": "moonshotai/Kimi-K3"},
+        {"name": "No repo"},
+    ]}))
+    assert pull_aa.staged_models(f) == [
+        {"name": "Kimi-K3", "hf_repo": "moonshotai/Kimi-K3"}]
+
+
+def test_staged_models_tolerates_a_missing_file(tmp_path):
+    assert pull_aa.staged_models(tmp_path / "nope.yaml") == []
+
+
+def test_joinable_prefers_models_yaml_on_duplicate_repo(tmp_path):
+    """A row mid-promotion can briefly sit in both files; score it once."""
+    data = tmp_path / "models.yaml"
+    data.write_text(yaml.safe_dump({"models": [
+        {"name": "Tracked Name", "hf_repo": "org/m"}]}))
+    cands = tmp_path / "candidates.yaml"
+    cands.write_text(yaml.safe_dump({"models": [
+        {"name": "Staged Name", "hf_repo": "org/m"},
+        {"name": "Other", "hf_repo": "org/n"}]}))
+
+    rows = pull_aa.joinable_models(data, cands)
+
+    assert [r["hf_repo"] for r in rows] == ["org/m", "org/n"]
+    assert rows[0]["name"] == "Tracked Name"
+
+
+def test_staged_candidates_get_scored(tmp_path):
+    """A model in the review queue must not be reported as unmatched."""
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    staged = [{"name": "Kimi-K3", "hf_repo": "moonshotai/Kimi-K3"}]
+
+    scores, unmatched = pull_aa.match_to_tracked(best, staged)
+
+    assert scores["moonshotai/Kimi-K3"]["intelligence_index"] == 57
+    assert "Kimi K3 (max)" not in unmatched

@@ -43,6 +43,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 |-------|------|-------|
 | `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
 | `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
+| `aa_index` | integer | Artificial Analysis Intelligence Index, present only if AA rates the model. Lets you see the score *before* promoting. Refreshed every run — absent means AA does not currently rate it. |
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
 | `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |

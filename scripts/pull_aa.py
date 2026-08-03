@@ -33,6 +33,7 @@ import names
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
+CANDIDATES = ROOT / "candidates.yaml"
 OUT = ROOT / "aa_scores.yaml"
 
 # The open-weights view. NOTE: ?weights=open is applied client-side by AA's
@@ -112,13 +113,49 @@ def best_by_slug(rows):
     return best
 
 
-def tracked_models(path=DATA):
-    """models.yaml rows that carry an hf_repo."""
-    doc = yaml.safe_load(Path(path).read_text()) or {}
+def _rows_with_repo(path):
+    """A YAML file's `models:` rows that carry an hf_repo. [] if unreadable."""
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return []
     rows = doc.get("models") if isinstance(doc, dict) else None
     if not isinstance(rows, list):
         return []
     return [r for r in rows if isinstance(r, dict) and r.get("hf_repo")]
+
+
+def tracked_models(path=DATA):
+    """models.yaml rows that carry an hf_repo."""
+    return _rows_with_repo(path)
+
+
+def staged_models(path=CANDIDATES):
+    """candidates.yaml rows that carry an hf_repo."""
+    return _rows_with_repo(path)
+
+
+def joinable_models(data_path=DATA, candidates_path=CANDIDATES):
+    """Every row worth scoring: published models plus the review queue.
+
+    Staged candidates are included because the score is most useful BEFORE
+    promotion, not after — a reviewer deciding whether to take a model wants
+    its index in hand. Scoring only models.yaml also made the `unmatched` list
+    lie: 15 of 95 entries were models already sitting in the queue, which
+    drowned the entries that are genuine coverage gaps.
+
+    models.yaml wins on a duplicate hf_repo. A row mid-promotion can briefly
+    appear in both files, and scoring it twice would trip the double-claim
+    guard in match_to_tracked and drop the score entirely.
+    """
+    rows, seen = [], set()
+    for row in list(_rows_with_repo(data_path)) + list(_rows_with_repo(candidates_path)):
+        key = row["hf_repo"].lower()
+        if key in seen:
+            continue
+        seen.add(key)
+        rows.append(row)
+    return rows
 
 
 def _keys_for(model):
@@ -241,7 +278,7 @@ def main():
     args = ap.parse_args()
 
     html = Path(args.html).read_text() if args.html else fetch_html(LEADERBOARD_URL)
-    n = refresh(OUT, html, tracked_models())
+    n = refresh(OUT, html, joinable_models())
     if n is None:
         return
     print(f"Wrote {n} AA score(s) to {OUT.name}")
