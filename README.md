@@ -4,27 +4,27 @@ A curated, machine-readable index of open-weight LLMs — parameter count, conte
 
 Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
-> **Columns:** **MMLU** values marked `*` are vendor/manual figures from `models.yaml` and are not harness-comparable. **MMLU-Pro** comes from the HF Open LLM Leaderboard v2 (`—` = not listed there; it was archived, so most 2026 models are absent). The two benchmark columns are *not* comparable to each other — MMLU-Pro is a much harsher scale. **Arena** is the Agent Arena rank (`—` = not currently ranked). See each row's `benchmark.source` in the YAML.
+> **Columns:** **AA Index** is the [Artificial Analysis Intelligence Index](https://artificialanalysis.ai/leaderboards/models) — a 0–100 composite of agentic, coding, scientific-reasoning and general evaluations. `—` means Artificial Analysis does not currently rate that model; it drops older models, so coverage skews to recent releases. The index is re-weighted between versions, so values are not comparable across time. **Arena** is the Agent Arena rank (`—` = not currently ranked).
 
 <!-- MODELS_TABLE_START -->
-| Model | Developer | Released | Params | Context | Modality | Arena | MMLU | MMLU-Pro | License | Commercial |
-|---|---|---|---|---|---|---|---|---|---|---|
-| [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | — | 87.0* | — | `apache-2.0` | Yes |
-| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | — | 85.5* | — | `llama-4-community` | Conditional |
-| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | — | 79.6* | — | `llama-4-community` | Conditional |
-| [Gemma 3 27B](https://huggingface.co/google/gemma-3-27b-it) | Google | 2025-03-12 | 27B | 128K | vision-language | — | 78.6* | — | `gemma` | Conditional |
-| [Mistral Small 3](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501) | Mistral AI | 2025-01-30 | 24B | 32K | text | — | 81.0* | — | `apache-2.0` | Yes |
-| [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) | DeepSeek | 2025-01-20 | 671B (37B active) | 128K | text | — | 90.8* | — | `mit` | Yes |
-| [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) | DeepSeek | 2024-12-26 | 671B (37B active) | 128K | text | — | 88.5* | — | `deepseek` | Yes |
-| [Phi-4](https://huggingface.co/microsoft/phi-4) | Microsoft | 2024-12-12 | 14B | 16K | text | — | 84.8* | — | `mit` | Yes |
-| [Llama 3.3 70B Instruct](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | Meta | 2024-12-06 | 70B | 128K | text | — | 86.0* | — | `llama-3.3-community` | Conditional |
-| [Qwen2.5 72B Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) | Alibaba | 2024-09-19 | 72.7B | 131K | text | — | 86.1* | — | `qwen` | Conditional |
-| [Qwen2.5 7B Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) | Alibaba | 2024-09-19 | 7.6B | 131K | text | — | 74.2* | — | `apache-2.0` | Yes |
-| [Command R+ (08-2024)](https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024) | Cohere | 2024-08-30 | 104B | 128K | text | — | 75.7* | — | `cc-by-nc-4.0` | No |
-| [Llama 3.1 405B Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct) | Meta | 2024-07-23 | 405B | 128K | text | — | 88.6* | — | `llama-3.1-community` | Conditional |
-| [Llama 3.1 8B Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) | Meta | 2024-07-23 | 8B | 128K | text | — | 68.4* | — | `llama-3.1-community` | Conditional |
-| [Gemma 2 27B](https://huggingface.co/google/gemma-2-27b-it) | Google | 2024-06-27 | 27B | 8K | text | — | 75.2* | — | `gemma` | Conditional |
-| [Mixtral 8x22B Instruct](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1) | Mistral AI | 2024-04-17 | 141B (39B active) | 65K | text | — | 77.8* | — | `apache-2.0` | Yes |
+| Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
+|---|---|---|---|---|---|---|---|---|---|
+| [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | — | — | `apache-2.0` | Yes |
+| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | — | 14 | `llama-4-community` | Conditional |
+| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | — | 10 | `llama-4-community` | Conditional |
+| [Gemma 3 27B](https://huggingface.co/google/gemma-3-27b-it) | Google | 2025-03-12 | 27B | 128K | vision-language | — | — | `gemma` | Conditional |
+| [Mistral Small 3](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501) | Mistral AI | 2025-01-30 | 24B | 32K | text | — | — | `apache-2.0` | Yes |
+| [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) | DeepSeek | 2025-01-20 | 671B (37B active) | 128K | text | — | — | `mit` | Yes |
+| [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) | DeepSeek | 2024-12-26 | 671B (37B active) | 128K | text | — | — | `deepseek` | Yes |
+| [Phi-4](https://huggingface.co/microsoft/phi-4) | Microsoft | 2024-12-12 | 14B | 16K | text | — | — | `mit` | Yes |
+| [Llama 3.3 70B Instruct](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | Meta | 2024-12-06 | 70B | 128K | text | — | 9 | `llama-3.3-community` | Conditional |
+| [Qwen2.5 72B Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) | Alibaba | 2024-09-19 | 72.7B | 131K | text | — | — | `qwen` | Conditional |
+| [Qwen2.5 7B Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) | Alibaba | 2024-09-19 | 7.6B | 131K | text | — | — | `apache-2.0` | Yes |
+| [Command R+ (08-2024)](https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024) | Cohere | 2024-08-30 | 104B | 128K | text | — | — | `cc-by-nc-4.0` | No |
+| [Llama 3.1 405B Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct) | Meta | 2024-07-23 | 405B | 128K | text | — | — | `llama-3.1-community` | Conditional |
+| [Llama 3.1 8B Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) | Meta | 2024-07-23 | 8B | 128K | text | — | — | `llama-3.1-community` | Conditional |
+| [Gemma 2 27B](https://huggingface.co/google/gemma-2-27b-it) | Google | 2024-06-27 | 27B | 8K | text | — | — | `gemma` | Conditional |
+| [Mixtral 8x22B Instruct](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1) | Mistral AI | 2024-04-17 | 141B (39B active) | 65K | text | — | — | `apache-2.0` | Yes |
 <!-- MODELS_TABLE_END -->
 
 ## Regenerate

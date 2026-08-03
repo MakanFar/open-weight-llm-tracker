@@ -19,8 +19,8 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 README = ROOT / "README.md"
-LEADERBOARD = ROOT / "leaderboard_scores.yaml"
 ARENA = ROOT / "arena_agent_rankings.yaml"
+AA = ROOT / "aa_scores.yaml"
 
 START = "<!-- MODELS_TABLE_START -->"
 END = "<!-- MODELS_TABLE_END -->"
@@ -42,29 +42,6 @@ def human_ctx(n):
 
 def commercial_badge(v):
     return {True: "Yes", False: "No", "conditional": "Conditional"}.get(v, str(v))
-
-
-def load_leaderboard(path=LEADERBOARD):
-    """{lower_repo: {"metric": str, "score": float}}. {} on missing/malformed.
-
-    Both keys are required: a score whose metric is unknown cannot be placed,
-    because MMLU and MMLU-PRO go in different columns.
-    """
-    try:
-        doc = yaml.safe_load(Path(path).read_text()) or {}
-    except (OSError, yaml.YAMLError):
-        return {}
-    scores = doc.get("scores") if isinstance(doc, dict) else None
-    out = {}
-    if isinstance(scores, dict):
-        for repo, entry in scores.items():
-            if not isinstance(entry, dict):
-                continue
-            metric, score = entry.get("metric"), entry.get("score")
-            if isinstance(metric, str) and isinstance(score, (int, float)):
-                out[str(repo).lower()] = {"metric": metric.upper(),
-                                          "score": float(score)}
-    return out
 
 
 _ORG_TAIL_WORDS = {
@@ -124,42 +101,50 @@ def load_arena_ranks(path=ARENA):
     return {"repos": repos, "names": names}
 
 
-def _leaderboard_score(model, lb, metric):
-    entry = lb.get((model.get("hf_repo") or "").lower())
-    if isinstance(entry, dict) and entry.get("metric") == metric:
-        return entry["score"]
-    return None
+def load_aa_scores(path=AA):
+    """{lower_repo: {"index": int, "variant": str}}. {} on missing/malformed."""
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {}
+    scores = doc.get("scores") if isinstance(doc, dict) else None
+    out = {}
+    if isinstance(scores, dict):
+        for repo, entry in scores.items():
+            if not isinstance(entry, dict):
+                continue
+            idx = entry.get("intelligence_index")
+            if isinstance(idx, int) and not isinstance(idx, bool):
+                out[str(repo).lower()] = {
+                    "index": idx, "variant": entry.get("variant")}
+    return out
 
 
-def mmlu_cell(model, lb):
-    """Plain MMLU: leaderboard where available, else the vendor figure with *."""
-    score = _leaderboard_score(model, lb, "MMLU")
-    if score is not None:
-        return str(score)
-    score = (model.get("benchmark") or {}).get("score")
-    return f"{score}*" if isinstance(score, (int, float)) else "?"
+def aa_cell(model, aa):
+    """Artificial Analysis Intelligence Index, or — when AA does not rate it.
 
-
-def mmlu_pro_cell(model, lb):
-    """MMLU-PRO: leaderboard only.
-
-    Never falls back to models.yaml benchmark.score — that field is MMLU, and
-    MMLU-PRO is a much harsher scale (~40 where MMLU reads ~80). Showing one
-    in the other's column would invent a comparison that does not exist.
+    There is deliberately no fallback to a manual figure: models.yaml no longer
+    carries one, because MMLU (~86) and the AA index (~10-57) are different
+    scales and sharing a column invited a comparison that does not exist.
     """
-    score = _leaderboard_score(model, lb, "MMLU-PRO")
-    return str(score) if score is not None else "—"
+    entry = aa.get((model.get("hf_repo") or "").lower())
+    return str(entry["index"]) if entry else "—"
 
 
 def arena_cell(model, ranks):
-    """Rank by resolved repo, else by model name, else '—'."""
-    rank = ranks["repos"].get((model.get("hf_repo") or "").lower())
+    """Rank by resolved repo, else by model name, else '—'.
+
+    Tolerates a ranks dict missing "repos"/"names" (e.g. `{}` in a test that
+    only cares about the AA column) rather than KeyError-ing — the real
+    caller always supplies load_arena_ranks()'s full shape.
+    """
+    rank = ranks.get("repos", {}).get((model.get("hf_repo") or "").lower())
     if rank is None:
-        rank = ranks["names"].get(_slug(model.get("name") or ""))
+        rank = ranks.get("names", {}).get(_slug(model.get("name") or ""))
     return str(rank) if rank is not None else "—"
 
 
-def build_table(models, lb, ranks):
+def build_table(models, aa, ranks):
     # newest first, then by size
     models = sorted(
         models,
@@ -167,8 +152,8 @@ def build_table(models, lb, ranks):
         reverse=True,
     )
     head = ("| Model | Developer | Released | Params | Context | Modality | "
-            "Arena | MMLU | MMLU-Pro | License | Commercial |")
-    sep = "|---|---|---|---|---|---|---|---|---|---|---|"
+            "Arena | AA Index | License | Commercial |")
+    sep = "|---|---|---|---|---|---|---|---|---|---|"
     rows = [head, sep]
     for m in models:
         name = m["name"]
@@ -178,7 +163,7 @@ def build_table(models, lb, ranks):
             f"| {name} | {m['developer']} | {m['release_date']} | "
             f"{human_params(m['params_total_b'], m['params_active_b'], m['architecture'])} | "
             f"{human_ctx(m['context_window'])} | {m['modality']} | "
-            f"{arena_cell(m, ranks)} | {mmlu_cell(m, lb)} | {mmlu_pro_cell(m, lb)} | "
+            f"{arena_cell(m, ranks)} | {aa_cell(m, aa)} | "
             f"`{m['license']}` | {commercial_badge(m['commercial_use'])} |"
         )
     return "\n".join(rows)
@@ -186,9 +171,9 @@ def build_table(models, lb, ranks):
 
 def main():
     doc = yaml.safe_load(DATA.read_text())
-    lb = load_leaderboard()
+    aa = load_aa_scores()
     ranks = load_arena_ranks()
-    table = build_table(doc["models"], lb, ranks)
+    table = build_table(doc["models"], aa, ranks)
     n = len(doc["models"])
 
     body = (
@@ -199,13 +184,14 @@ def main():
         "Data lives in [`models.yaml`](models.yaml) (the source of truth). This table "
         "is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
         "[CONTRIBUTING.md](CONTRIBUTING.md) to add a model.\n\n"
-        "> **Columns:** **MMLU** values marked `*` are vendor/manual figures from "
-        "`models.yaml` and are not harness-comparable. **MMLU-Pro** comes from the "
-        "HF Open LLM Leaderboard v2 (`—` = not listed there; it was archived, so "
-        "most 2026 models are absent). The two benchmark columns are *not* "
-        "comparable to each other — MMLU-Pro is a much harsher scale. **Arena** is "
-        "the Agent Arena rank (`—` = not currently ranked). See each row's "
-        "`benchmark.source` in the YAML.\n\n"
+        "> **Columns:** **AA Index** is the [Artificial Analysis Intelligence "
+        "Index](https://artificialanalysis.ai/leaderboards/models) — a 0–100 "
+        "composite of agentic, coding, scientific-reasoning and general "
+        "evaluations. `—` means Artificial Analysis does not currently rate that "
+        "model; it drops older models, so coverage skews to recent releases. The "
+        "index is re-weighted between versions, so values are not comparable "
+        "across time. **Arena** is the Agent Arena rank (`—` = not currently "
+        "ranked).\n\n"
         f"{START}\n{table}\n{END}\n\n"
         "## Regenerate\n\n"
         "```bash\n"
