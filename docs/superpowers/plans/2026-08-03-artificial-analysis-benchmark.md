@@ -932,34 +932,59 @@ git rm scripts/pull_leaderboard.py leaderboard_scores.yaml tests/test_pull_leade
 
 - [ ] **Step 2: Strip the `benchmark` block from every models.yaml row**
 
+`models.yaml` is the hand-curated source of truth. Do **not** round-trip it through `yaml.safe_dump` — that would reflow every row, drop the comment header, and bury the real change in a whole-file diff. Remove the block line-wise instead, so the diff shows exactly 64 deleted lines and nothing else.
+
+Each row's block is exactly four lines at a fixed indent:
+
+```yaml
+    benchmark:
+      name: MMLU
+      score: 88.6
+      source: vendor
+```
+
 Run this once:
 
 ```bash
 .venv/bin/python - <<'PY'
-import yaml
 from pathlib import Path
 p = Path("models.yaml")
-doc = yaml.safe_load(p.read_text())
-removed = 0
-for m in doc["models"]:
-    if m.pop("benchmark", None) is not None:
+lines = p.read_text().splitlines(keepends=True)
+out, i, removed = [], 0, 0
+while i < len(lines):
+    if lines[i].rstrip("\n") == "    benchmark:":
+        i += 1
+        while i < len(lines) and lines[i].startswith("      "):
+            i += 1
         removed += 1
-head = p.read_text().split("models:")[0]
-p.write_text(head + yaml.safe_dump({"models": doc["models"]}, sort_keys=False,
-                                   allow_unicode=True, width=100).replace("models:", "models:", 1))
+        continue
+    out.append(lines[i])
+    i += 1
+p.write_text("".join(out))
 print(f"removed benchmark from {removed} rows")
 PY
 ```
 
 Expected: `removed benchmark from 16 rows`
 
-Then open `models.yaml` and confirm the leading comment block survived and no row still has a `benchmark:` key:
+- [ ] **Step 2b: Replace the benchmark note in the models.yaml header**
 
-```bash
-grep -c "benchmark" models.yaml
+Lines 5-9 of `models.yaml` are a comment block entirely about `benchmark.score`. Replace those five lines with:
+
+```yaml
+# NOTE ON BENCHMARKS: this file stores no benchmark score. The anchor number is
+# the Artificial Analysis Intelligence Index, fetched by scripts/pull_aa.py into
+# aa_scores.yaml and joined on hf_repo at render time. A hand-copied score with
+# no provenance is worse than no score.
 ```
 
-Expected: `0`
+Then confirm nothing references the removed field:
+
+```bash
+grep -n "benchmark" models.yaml
+```
+
+Expected: only the new comment lines, no `benchmark:` key.
 
 - [ ] **Step 3: Drop benchmark from validate.py**
 
