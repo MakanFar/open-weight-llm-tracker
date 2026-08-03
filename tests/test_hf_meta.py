@@ -97,6 +97,16 @@ def test_candidate_from_repo_shape():
     assert "resolution_confidence" not in c
 
 
+def test_candidate_from_repo_has_no_benchmark_field():
+    """models.yaml has no benchmark field; the AA Index is joined at render
+    time from aa_scores.yaml, keyed by hf_repo, and is never stored per-row.
+    A candidate row must not mint a field that doesn't exist downstream.
+    """
+    info = FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"])
+    assert "benchmark" not in c
+
+
 def test_candidate_from_repo_carries_arena_rank():
     info = FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit")
     c = hf_meta.candidate_from_repo(info, discovered_via=["arena"], arena_rank=10)

@@ -76,7 +76,10 @@ NOTES / deliberate choices (the "don'ts"):
     architecture IS derived — config.json declares an expert count — but that
     count does not yield active params, so detecting MoE only sharpens the
     TODO, it does not close it.
-  - We do NOT trust card eval results as the benchmark column — left blank.
+  - Candidate rows carry NO benchmark field at all — not even a TODO stub.
+    models.yaml has none either: the anchor number is the Artificial Analysis
+    Intelligence Index, scraped by pull_aa.py into aa_scores.yaml and joined
+    onto a row by hf_repo at render time, never hand-copied or stored here.
   - license tag is uploader-supplied; commercial_use is a *guess* to be checked.
 """
 import argparse
@@ -321,7 +324,7 @@ def _release_ordinal(candidate):
 HEADER = (
     "# AUTO-GENERATED candidate models from scripts/discover.py\n"
     "# Review each entry, fix the TODO fields (active params, architecture,\n"
-    "# context, benchmark, commercial_use), then move approved rows into\n"
+    "# context, commercial_use), then move approved rows into\n"
     "# models.yaml and delete them here.\n"
 )
 
