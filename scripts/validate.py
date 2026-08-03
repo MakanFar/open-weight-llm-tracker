@@ -18,7 +18,6 @@ DATA = ROOT / "models.yaml"
 REQUIRED = [
     "name", "developer", "release_date", "params_total_b", "params_active_b",
     "architecture", "context_window", "modality", "license", "commercial_use",
-    "benchmark",
 ]
 
 # Extend this allowlist as you add models — keeps license strings consistent.
@@ -77,12 +76,6 @@ def main():
             errors.append(f"[{tag}] release_date must be YYYY-MM-DD")
         elif rd > date.today():
             errors.append(f"[{tag}] release_date is in the future: {rd}")
-
-        # benchmark block
-        b = m.get("benchmark") or {}
-        for bf in ("name", "score", "source"):
-            if b.get(bf) in (None, ""):
-                errors.append(f"[{tag}] benchmark.{bf} is required")
 
         ctx = m.get("context_window")
         if not isinstance(ctx, int) or ctx <= 0:

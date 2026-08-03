@@ -2,11 +2,10 @@
 # Edit this file, then run:  python scripts/render_readme.py
 # Validate with:            python scripts/validate.py
 #
-# NOTE ON BENCHMARKS: scores below are seeded from vendor reports / public
-# leaderboards and marked with their source. Before treating this as
-# authoritative, re-verify each `benchmark.score` against ONE leaderboard run
-# under the same harness (HF Open LLM Leaderboard is the usual choice) so the
-# column is truly comparable. Values marked source "vendor" are self-reported.
+# NOTE ON BENCHMARKS: this file stores no benchmark score. The anchor number is
+# the Artificial Analysis Intelligence Index, fetched by scripts/pull_aa.py into
+# aa_scores.yaml and joined on hf_repo at render time. A hand-copied score with
+# no provenance is worse than no score.
 
 models:
   - name: Llama 3.1 405B Instruct
@@ -21,10 +20,6 @@ models:
     license: llama-3.1-community
     commercial_use: conditional
     license_notes: "Free commercial use below 700M MAU; attribution + naming terms apply."
-    benchmark:
-      name: MMLU
-      score: 88.6
-      source: vendor
     weights_url: https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct
     notes: "Dense flagship; strong general reasoning."
 
@@ -40,10 +35,6 @@ models:
     license: llama-3.3-community
     commercial_use: conditional
     license_notes: "700M-MAU gate; near-405B quality at 70B size."
-    benchmark:
-      name: MMLU
-      score: 86.0
-      source: vendor
     weights_url: https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct
     notes: ""
 
@@ -59,10 +50,6 @@ models:
     license: llama-4-community
     commercial_use: conditional
     license_notes: "700M-MAU gate. Native multimodal; very long context."
-    benchmark:
-      name: MMLU
-      score: 79.6
-      source: https://techsy.io/en/blog/best-open-source-llms-2026
     weights_url: https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct
     notes: "Headline 10M-token context window."
 
@@ -78,10 +65,6 @@ models:
     license: llama-4-community
     commercial_use: conditional
     license_notes: "700M-MAU gate."
-    benchmark:
-      name: MMLU
-      score: 85.5
-      source: https://computingforgeeks.com/open-source-llm-comparison/
     weights_url: https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct
     notes: "128-expert MoE."
 
@@ -97,10 +80,6 @@ models:
     license: qwen
     commercial_use: conditional
     license_notes: "Qwen license (72B tier is not Apache-2.0; most smaller Qwen2.5 sizes are)."
-    benchmark:
-      name: MMLU
-      score: 86.1
-      source: vendor
     weights_url: https://huggingface.co/Qwen/Qwen2.5-72B-Instruct
     notes: ""
 
@@ -116,10 +95,6 @@ models:
     license: apache-2.0
     commercial_use: true
     license_notes: "Fully permissive."
-    benchmark:
-      name: MMLU
-      score: 87.0
-      source: vendor
     weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B
     notes: "Hybrid thinking/non-thinking modes."
 
@@ -135,10 +110,6 @@ models:
     license: deepseek
     commercial_use: true
     license_notes: "DeepSeek Model License; commercial use permitted."
-    benchmark:
-      name: MMLU
-      score: 88.5
-      source: vendor
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3
     notes: "Large MoE; strong price/performance."
 
@@ -154,10 +125,6 @@ models:
     license: mit
     commercial_use: true
     license_notes: "Weights released under MIT; distillation allowed."
-    benchmark:
-      name: MMLU
-      score: 90.8
-      source: vendor
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1
     notes: "Reasoning model; MATH-500 ~97."
 
@@ -173,10 +140,6 @@ models:
     license: apache-2.0
     commercial_use: true
     license_notes: "Fully permissive."
-    benchmark:
-      name: MMLU
-      score: 81.0
-      source: vendor
     weights_url: https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501
     notes: ""
 
@@ -192,10 +155,6 @@ models:
     license: apache-2.0
     commercial_use: true
     license_notes: "Fully permissive."
-    benchmark:
-      name: MMLU
-      score: 77.8
-      source: vendor
     weights_url: https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1
     notes: "Sparse MoE."
 
@@ -211,10 +170,6 @@ models:
     license: gemma
     commercial_use: conditional
     license_notes: "Gemma Terms of Use; permissive but with use restrictions."
-    benchmark:
-      name: MMLU
-      score: 75.2
-      source: vendor
     weights_url: https://huggingface.co/google/gemma-2-27b-it
     notes: ""
 
@@ -230,10 +185,6 @@ models:
     license: gemma
     commercial_use: conditional
     license_notes: "Gemma Terms of Use. Adds vision + long context over Gemma 2."
-    benchmark:
-      name: MMLU
-      score: 78.6
-      source: https://computingforgeeks.com/open-source-llm-comparison/
     weights_url: https://huggingface.co/google/gemma-3-27b-it
     notes: ""
 
@@ -249,10 +200,6 @@ models:
     license: mit
     commercial_use: true
     license_notes: "Fully permissive."
-    benchmark:
-      name: MMLU
-      score: 84.8
-      source: vendor
     weights_url: https://huggingface.co/microsoft/phi-4
     notes: "Small model, strong reasoning for size."
 
@@ -268,10 +215,6 @@ models:
     license: cc-by-nc-4.0
     commercial_use: false
     license_notes: "Non-commercial only — good example of an open-weight but NON-commercial license."
-    benchmark:
-      name: MMLU
-      score: 75.7
-      source: vendor
     weights_url: https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024
     notes: "Strong RAG/tool-use; weights are research-only."
 
@@ -287,10 +230,6 @@ models:
     license: apache-2.0
     commercial_use: true
     license_notes: "Fully permissive."
-    benchmark:
-      name: MMLU
-      score: 74.2
-      source: vendor
     weights_url: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
     notes: "Popular small-model workhorse."
 
@@ -306,9 +245,5 @@ models:
     license: llama-3.1-community
     commercial_use: conditional
     license_notes: "700M-MAU gate."
-    benchmark:
-      name: MMLU
-      score: 68.4
-      source: vendor
     weights_url: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
     notes: "Common edge/local baseline."
