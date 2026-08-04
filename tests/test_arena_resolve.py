@@ -341,6 +341,17 @@ def test_format_rank_orders_clean_above_native_above_quantized():
     assert pa.format_rank("nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4") == 0
 
 
+def test_format_rank_ignores_a_format_token_in_the_author_segment():
+    """Only the repo NAME is tokenized, not the author namespace.
+
+    A hypothetical org namespace containing a format token (e.g. "fp8-org")
+    must not misrank every repo underneath it — format_rank used to split the
+    whole repo_id, so "fp8-org/CleanModel" scored 0 (quantized) instead of 2
+    (clean).
+    """
+    assert pa.format_rank("fp8-org/CleanModel") == 2
+
+
 def test_prefers_the_native_repo_over_the_quantized_one():
     """The Nemotron case. NVFP4 is in hf_meta.EXCLUDE_PATTERNS, so resolving to
     it means discover.py drops the row and arena rank 42 never reaches the

@@ -109,11 +109,16 @@ def load_arena_ranks_from_rows(rows):
 def load_arena_ranks(path=ARENA):
     """Rank indexes from arena_agent_rankings.yaml.
 
-    Three indexes, because a rank and a weights repo are separate facts. HF
-    resolution fails transiently — one rate-limited search writes
-    resolved_repo: null — and a rank already scraped should not vanish from the
-    table because of it. Open-weight status still comes only from resolution;
-    these indexes decide where a number is printed, nothing more.
+    Three indexes: `repos` (exact resolved_repo, lowercased), `names` (display
+    name, for when resolution never happened at all), and `identities` (repo
+    identity, for when arena and AA resolved the same model to two different
+    repo strings). `repos` and `names` exist because a rank and a weights repo
+    are separate facts — HF resolution fails transiently, one rate-limited
+    search writes resolved_repo: null, and a rank already scraped should not
+    vanish from the table because of it. `identities` exists for the exact-match
+    miss: two spellings of the same repo must still land on one row. Open-weight
+    status still comes only from resolution; these indexes decide where a
+    number is printed, nothing more.
     """
     empty = {"repos": {}, "names": {}, "identities": {}}
     try:
@@ -148,7 +153,12 @@ def load_aa_scores_from_dict(scores, identity_of=names.repo_identity):
 
 
 def load_aa_scores(path=AA):
-    """AA indexes keyed by lowercased repo and by repo identity."""
+    """AA indexes keyed by lowercased repo and by repo identity.
+
+    Returns {"repos": {}, "identities": {}} on a missing, empty, or malformed
+    file — never raises — so the render always completes and every row just
+    falls through to aa_cell's '—'.
+    """
     try:
         doc = yaml.safe_load(Path(path).read_text()) or {}
     except (OSError, yaml.YAMLError):

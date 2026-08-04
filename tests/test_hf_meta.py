@@ -267,11 +267,17 @@ def test_every_quant_format_is_excluded_by_hf_meta():
     then happily stages. Same technique as
     test_author_hints_stay_in_step_with_org_allowlist.
 
-    Tokens are probed as "model-<token>" because EXCLUDE_PATTERNS anchors
-    several of them on a leading hyphen (-int4, -fp8, -4bit).
+    Tokens are probed with all three separators repo ids actually use ("-",
+    "_", "."): EXCLUDE_PATTERNS anchors several of them on a leading hyphen
+    (-int4, -fp8, -4bit), but names.repo_identity splits repo ids on
+    [-_.] — an underscore- or dot-separated quantized mirror
+    ("org/Model_INT4", "org/Model.int4") must be excluded too, or it slips
+    into the review queue and then inherits the primary repo's AA score via
+    repo_identity.
     """
-    missing = sorted(t for t in names.QUANT_FORMATS
-                     if not hf_meta.EXCLUDE_PATTERNS.search(f"model-{t}"))
+    missing = sorted(
+        f"{sep}{t}" for t in names.QUANT_FORMATS for sep in ("-", "_", ".")
+        if not hf_meta.EXCLUDE_PATTERNS.search(f"model{sep}{t}"))
     assert not missing, (
         f"names.QUANT_FORMATS entries not caught by EXCLUDE_PATTERNS: {missing}")
 

@@ -229,7 +229,8 @@ def format_rank(repo_id):
     -NVFP4, and resolving to the NVFP4 repo means hf_meta.EXCLUDE_PATTERNS
     rejects it and the arena rank never reaches the review queue.
     """
-    tokens = {p.lower() for p in re.split(r"[-_./]", repo_id) if p}
+    tail = repo_id.split("/", 1)[-1]
+    tokens = {p.lower() for p in re.split(r"[-_./]", tail) if p}
     if tokens & names.QUANT_FORMATS:
         return 0
     if tokens & names.NATIVE_FORMATS:
