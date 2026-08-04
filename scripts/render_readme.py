@@ -111,14 +111,16 @@ def load_arena_ranks(path=ARENA):
 
     Three indexes: `repos` (exact resolved_repo, lowercased), `names` (display
     name, for when resolution never happened at all), and `identities` (repo
-    identity, for when arena and AA resolved the same model to two different
-    repo strings). `repos` and `names` exist because a rank and a weights repo
-    are separate facts — HF resolution fails transiently, one rate-limited
-    search writes resolved_repo: null, and a rank already scraped should not
-    vanish from the table because of it. `identities` exists for the exact-match
-    miss: two spellings of the same repo must still land on one row. Open-weight
-    status still comes only from resolution; these indexes decide where a
-    number is printed, nothing more.
+    identity, for when arena resolved a different spelling of the repo than the
+    one models.yaml carries — e.g. arena resolves the -NVFP4 mirror while the
+    tracked row is the -BF16 release). All three are built from this file alone;
+    aa_scores.yaml is never read here.
+
+    `repos` and `names` exist because a rank and a weights repo are separate
+    facts — HF resolution fails transiently, one rate-limited search writes
+    resolved_repo: null, and a rank already scraped should not vanish from the
+    table because of it. Open-weight status still comes only from resolution;
+    these indexes decide where a number is printed, nothing more.
     """
     empty = {"repos": {}, "names": {}, "identities": {}}
     try:
