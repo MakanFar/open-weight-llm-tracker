@@ -180,3 +180,23 @@ def test_refresh_annotates_carried_forward_candidates(tmp_path):
         use_arena=False, get_json=lambda url: {}, today=TODAY)
 
     assert candidates[0]["aa_index"] == 57
+
+
+def test_a_skipped_arena_repo_reports_the_rank_it_takes_with_it(capsys):
+    """A dropped quantization also drops its leaderboard rank.
+
+    hf_meta.EXCLUDE_PATTERNS is right to reject a quantized repo, but the rank
+    is real and the model may deserve a row under its primary repo. Say so,
+    rather than dropping it silently — this is how Nemotron 3 Ultra's rank 42
+    vanished from the review queue.
+    """
+    class _Api:
+        def model_info(self, repo, expand=None):
+            return FakeInfo(id=repo)
+
+    rows = [{"resolved_repo": "nvidia/Some-Model-NVFP4", "rank": 42}]
+    discover.arena_candidates(_Api(), rows, min_params=0, known=set())
+
+    out = capsys.readouterr().out
+    assert "nvidia/Some-Model-NVFP4" in out
+    assert "42" in out

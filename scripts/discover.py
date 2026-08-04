@@ -273,7 +273,12 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
             continue
         keep, reason = hf_meta.should_track(info, min_params)
         if not keep:
-            print(f"  - {repo} skipped ({reason})")
+            # Name the rank being dropped. The filter is right to reject a
+            # quantization, but the rank is real and the model may deserve a
+            # row under its primary repo — this is how Nemotron 3 Ultra's
+            # rank 42 vanished from the queue without a trace.
+            print(f"  - {repo} skipped ({reason}; arena rank "
+                  f"{row.get('rank')} dropped)")
             continue
         ctx, arch = hf_meta.resolve_facts(info, get_json)
         out.append(hf_meta.candidate_from_repo(
