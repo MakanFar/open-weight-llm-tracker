@@ -84,13 +84,18 @@ def load_arena_ranks_from_rows(rows):
     Split out from load_arena_ranks so tests can exercise the indexing without
     a file on disk.
     """
-    repos, name_index, identity_pairs = {}, {}, []
+    repos, name_index, identity_pairs = {}, {}, {}
     for r in rows:
         if not isinstance(r, dict) or not isinstance(r.get("rank"), int):
             continue
         if r.get("resolved_repo"):
             repos[str(r["resolved_repo"]).lower()] = r["rank"]
-            identity_pairs.append((str(r["resolved_repo"]), r["rank"]))
+            # setdefault keeps the BEST rank: rows arrive rank-ordered, and the
+            # same model listed at several reasoning efforts legitimately
+            # resolves to the same repo (see name_index below for the display-
+            # name equivalent). A genuinely ambiguous identity — two DIFFERENT
+            # repo strings — is still caught by _index_by_identity below.
+            identity_pairs.setdefault(str(r["resolved_repo"]), r["rank"])
         if r.get("model"):
             # Full name first, vendor-stripped second. setdefault keeps the
             # BEST rank: rows arrive rank-ordered, and the same model listed at
@@ -98,7 +103,7 @@ def load_arena_ranks_from_rows(rows):
             for key in names.display_identity(str(r["model"])):
                 name_index.setdefault(key, r["rank"])
     return {"repos": repos, "names": name_index,
-            "identities": _index_by_identity(identity_pairs)}
+            "identities": _index_by_identity(identity_pairs.items())}
 
 
 def load_arena_ranks(path=ARENA):

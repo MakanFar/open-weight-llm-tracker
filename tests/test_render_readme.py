@@ -42,6 +42,7 @@ def test_load_arena_ranks_indexes_resolved_and_unresolved_rows(tmp_path):
     ranks = rr.load_arena_ranks(f)
     assert ranks["repos"] == {"org/m": 3}
     assert ranks["names"]["kimik3"] == 5
+    assert ranks["identities"] == {"m": 3}
 
 
 def test_aa_cell_shows_the_index():
@@ -61,8 +62,11 @@ def test_load_aa_scores_parses_the_sidecar(tmp_path):
     f = tmp_path / "aa.yaml"
     f.write_text("scores:\n  Moonshot/Kimi-K3:\n    intelligence_index: 57\n"
                  "    variant: max\n")
-    assert rr.load_aa_scores(f)["repos"] == {
+    loaded = rr.load_aa_scores(f)
+    assert loaded["repos"] == {
         "moonshot/kimi-k3": {"index": 57, "variant": "max"}}
+    assert loaded["identities"] == {
+        "kimik3": {"index": 57, "variant": "max"}}
 
 
 def test_load_aa_scores_tolerates_a_missing_file(tmp_path):
@@ -158,3 +162,37 @@ def test_distinct_sizes_do_not_collide():
     })
     assert aa["identities"]["llama31405b"]["index"] == 30
     assert aa["identities"]["llama318b"]["index"] == 12
+
+
+def test_arena_same_repo_at_several_reasoning_efforts_keeps_the_best_rank():
+    """The arena leaderboard legitimately lists one model at several reasoning
+    efforts as separate rows, resolving to the SAME repo with different ranks.
+    That must not look like a collision: the best (lowest) rank wins, silently,
+    with no warning."""
+    rows = [
+        {"rank": 4, "model": "GLM 5.2 (Max) Z.ai · MIT",
+         "resolved_repo": "zai-org/GLM-5.2"},
+        {"rank": 8, "model": "GLM 5.2 (High) Z.ai · MIT",
+         "resolved_repo": "zai-org/GLM-5.2"},
+    ]
+    ranks = rr.load_arena_ranks_from_rows(rows)
+    assert ranks["identities"] == {"glm52": 4}
+
+
+def test_arena_ambiguous_identity_is_dropped_rather_than_guessed(capsys):
+    """Two DIFFERENT resolved repos that share a repo_identity (a bare repo and
+    its dated-snapshot sibling) but carry different ranks cannot be resolved —
+    dropped and reported, same as the AA-side guard."""
+    rows = [
+        {"rank": 4, "model": "DeepSeek V4 Flash 0731",
+         "resolved_repo": "deepseek-ai/DeepSeek-V4-Flash-0731"},
+        {"rank": 9, "model": "DeepSeek V4 Flash",
+         "resolved_repo": "deepseek-ai/DeepSeek-V4-Flash"},
+    ]
+    # Confirm the chosen pair actually collides under names.repo_identity.
+    assert rr.names.repo_identity("deepseek-ai/DeepSeek-V4-Flash-0731") == \
+        rr.names.repo_identity("deepseek-ai/DeepSeek-V4-Flash")
+
+    ranks = rr.load_arena_ranks_from_rows(rows)
+    assert ranks["identities"] == {}
+    assert "deepseekv4flash" in capsys.readouterr().out
