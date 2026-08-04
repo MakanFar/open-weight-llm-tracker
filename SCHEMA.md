@@ -27,8 +27,9 @@ Each list entry is one model. Fields:
 
 - **Benchmark numbers are not stored here.** The anchor number is the Artificial
   Analysis Intelligence Index, fetched by `scripts/pull_aa.py` into
-  `aa_scores.yaml` and joined at render time. Nothing hand-copies a score into
-  `models.yaml` — a figure with no provenance is worse than no figure.
+  `aa_scores.yaml` and joined on `hf_repo` (falling back to repo identity) at
+  render time. Nothing hand-copies a score into `models.yaml` — a figure with
+  no provenance is worse than no figure.
 - **Set `commercial_use` by reading the license**, not by trusting the word "open".
 - **One row per model.** A family flagship, or list sizes separately — don't do both.
 
@@ -43,7 +44,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 |-------|------|-------|
 | `discovered_via` | list | `org-sweep`, `arena`, or both — which source found it |
 | `arena_rank` | integer | Agent Arena rank, present only if arena resolved it. Sorts the review queue. |
-| `aa_index` | integer | Artificial Analysis Intelligence Index, present only if AA rates the model. Lets you see the score *before* promoting. Refreshed every run — absent means AA does not currently rate it. |
+| `aa_index` | integer | Artificial Analysis Intelligence Index, present only if AA rates this exact `hf_repo` string. Lets you see the score *before* promoting. Refreshed every run, but keyed on an exact repo match — absent does NOT always mean AA does not rate the model: `render_readme.py` also falls back to a repo-identity join, so a model AA scores under a differently-spelled repo will still show a number once promoted. Check `aa_scores.yaml` directly if unsure. |
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
 | `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
@@ -78,6 +79,7 @@ This replaced an HF-leaderboard-based `benchmark` field that could never be
 filled automatically: HF Open LLM Leaderboard v2 publishes no plain MMLU and is
 archived, and the HF model card API returns no structured eval data for any
 tracked model. `render_readme.py` reads this file and prints `—` for any row
-whose `hf_repo` isn't present — AA covers recent models only, so gaps on older
-rows are expected. The file is committed so the render stays offline; a
-missing/empty/malformed file just means every row renders `—`.
+whose `hf_repo` isn't present, by exact match or by repo identity — AA covers
+recent models only, so gaps on older rows are expected. The file is committed
+so the render stays offline; a missing/empty/malformed file just means every
+row renders `—`.

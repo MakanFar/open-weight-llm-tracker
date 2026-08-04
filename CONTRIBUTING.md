@@ -13,20 +13,23 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
    python scripts/render_readme.py
    ```
 4. Commit both `models.yaml` and the regenerated `README.md`.
-5. Open a PR. CI runs `validate.py`; a red check means a schema problem.
+5. Open a PR. CI runs `validate.py`; a red check means a schema problem — including two rows whose `hf_repo` name the same weights (see "One row per model" below).
 
 ## The rules that matter
 
 - **Don't add a benchmark field.** `models.yaml` stores no benchmark score — the anchor
   number is the Artificial Analysis Intelligence Index, fetched by `scripts/pull_aa.py`
-  into `aa_scores.yaml` and joined on `hf_repo` at render time. A hand-copied score with
-  no provenance is worse than no score; put any standout result in `notes` instead.
+  into `aa_scores.yaml` and joined on `hf_repo` (falling back to repo identity) at render
+  time. A hand-copied score with no provenance is worse than no score; put any standout
+  result in `notes` instead.
 - **Read the license.** Set `commercial_use` to `true` / `false` / `conditional` by
   actually checking the license, not by the word "open". If the license isn't in the
   allowlist in `scripts/validate.py`, add it there in the same PR.
 - **Open weights only.** The model's weights must be publicly downloadable. API-only
   models (GPT-4, Claude, Gemini) don't belong here.
 - **One row per model.** Either the family flagship or distinct sizes — don't list both.
+  `validate.py` enforces this: two rows whose `hf_repo` resolves to the same repo
+  identity (same model, different repo spelling) fail CI as a duplicate.
 - **MoE params:** put total in `params_total_b` and routed/active in `params_active_b`.
   For dense models the two are equal.
 
@@ -56,5 +59,6 @@ arena leaderboard, or both — `discovered_via` says which. When a discovery PR 
 - **Authoritative params & MoE split:** the model's paper / technical report.
 - **Benchmarks:** not stored in `models.yaml`. The AA Index column comes from
   `scripts/pull_aa.py`, which scrapes the Artificial Analysis Intelligence
-  Index into `aa_scores.yaml` and is joined on `hf_repo` at render time.
+  Index into `aa_scores.yaml` and is joined on `hf_repo` (falling back to repo
+  identity) at render time.
 - **Commercial-use flag:** you, reading the actual license.
