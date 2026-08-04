@@ -10,7 +10,6 @@ changes belong here.
 
   python scripts/render_readme.py
 """
-import re
 import sys
 from datetime import date
 from pathlib import Path
@@ -48,44 +47,82 @@ def commercial_badge(v):
     return {True: "Yes", False: "No", "conditional": "Conditional"}.get(v, str(v))
 
 
-_ORG_TAIL_WORDS = {
-    "anthropic", "openai", "google", "meta", "alibaba", "deepseek", "moonshot",
-    "z.ai", "zai", "minimax", "nvidia", "xai", "microsoft", "cohere", "mistral",
-    "tencent", "xiaomi", "thinky", "ibm", "baidu", "ai2", "01.ai", "tii", "zhipu",
-}
+def _index_by_identity(pairs, identity_of=names.repo_identity):
+    """{identity: value} from (repo_id, value) pairs, ambiguous keys dropped.
 
+    An identity claimed by two entries with DIFFERENT values cannot be resolved
+    — we would be guessing which one the tracked row means — so it is dropped
+    and reported. Identical values are harmless and kept: two spellings of the
+    same repo naturally agree.
 
-def _slug(text):
-    """Coerce to str, then delegate to names.slug.
+    Values are compared with != rather than collected into a set, because an AA
+    value is a dict and dicts are unhashable.
 
-    The str() coercion guards against a non-string value coming out of YAML
-    (e.g. a numeric model name) — names.slug assumes a string, so it can't be
-    called directly here. names.py imports only `re`, so this stays offline
-    and dependency-light.
+    identity_of is a seam for testing the guard; production always uses
+    names.repo_identity.
     """
-    return names.slug(str(text))
+    grouped = {}
+    for repo_id, value in pairs:
+        grouped.setdefault(identity_of(repo_id), []).append((repo_id, value))
+
+    out = {}
+    for identity, claims in grouped.items():
+        if not identity:
+            continue
+        first = claims[0][1]
+        if any(value != first for _, value in claims[1:]):
+            print(f"  ! identity {identity!r} claimed by "
+                  f"{sorted(r for r, _ in claims)}; not joining")
+            continue
+        out[identity] = first
+    return out
 
 
-def _arena_display_name(display):
-    """Strip leaderboard chrome: 'Kimi K3 Moonshot · Proprietary' -> 'Kimi K3'."""
-    name = str(display).split("·")[0]
-    name = re.sub(r"\([^)]*\)", " ", name)
-    tokens = re.sub(r"\s+", " ", name).strip().split(" ")
-    if len(tokens) > 1 and tokens[-1].lower() in _ORG_TAIL_WORDS:
-        tokens = tokens[:-1]
-    return " ".join(tokens)
+def load_arena_ranks_from_rows(rows):
+    """Build the rank indexes from already-parsed arena rows.
+
+    Split out from load_arena_ranks so tests can exercise the indexing without
+    a file on disk.
+    """
+    repos, name_index, identity_pairs = {}, {}, {}
+    for r in rows:
+        if not isinstance(r, dict) or not isinstance(r.get("rank"), int):
+            continue
+        if r.get("resolved_repo"):
+            repos[str(r["resolved_repo"]).lower()] = r["rank"]
+            # setdefault keeps the BEST rank: rows arrive rank-ordered, and the
+            # same model listed at several reasoning efforts legitimately
+            # resolves to the same repo (see name_index below for the display-
+            # name equivalent). A genuinely ambiguous identity — two DIFFERENT
+            # repo strings — is still caught by _index_by_identity below.
+            identity_pairs.setdefault(str(r["resolved_repo"]), r["rank"])
+        if r.get("model"):
+            # Full name first, vendor-stripped second. setdefault keeps the
+            # BEST rank: rows arrive rank-ordered, and the same model listed at
+            # several reasoning efforts legitimately repeats a display name.
+            for key in names.display_identity(str(r["model"])):
+                name_index.setdefault(key, r["rank"])
+    return {"repos": repos, "names": name_index,
+            "identities": _index_by_identity(identity_pairs.items())}
 
 
 def load_arena_ranks(path=ARENA):
-    """{"repos": {lower_repo: rank}, "names": {name_slug: rank}}.
+    """Rank indexes from arena_agent_rankings.yaml.
 
-    Two indexes, because a rank and a weights repo are separate facts. HF
-    resolution fails transiently — one rate-limited search writes
-    resolved_repo: null — and a rank already scraped should not vanish from the
+    Three indexes: `repos` (exact resolved_repo, lowercased), `names` (display
+    name, for when resolution never happened at all), and `identities` (repo
+    identity, for when arena resolved a different spelling of the repo than the
+    one models.yaml carries — e.g. arena resolves the -NVFP4 mirror while the
+    tracked row is the -BF16 release). All three are built from this file alone;
+    aa_scores.yaml is never read here.
+
+    `repos` and `names` exist because a rank and a weights repo are separate
+    facts — HF resolution fails transiently, one rate-limited search writes
+    resolved_repo: null, and a rank already scraped should not vanish from the
     table because of it. Open-weight status still comes only from resolution;
-    this index decides where a number is printed, nothing more.
+    these indexes decide where a number is printed, nothing more.
     """
-    empty = {"repos": {}, "names": {}}
+    empty = {"repos": {}, "names": {}, "identities": {}}
     try:
         doc = yaml.safe_load(Path(path).read_text()) or {}
     except (OSError, yaml.YAMLError):
@@ -93,55 +130,74 @@ def load_arena_ranks(path=ARENA):
     rows = doc.get("arena_agent") if isinstance(doc, dict) else None
     if not isinstance(rows, list):
         return empty
-
-    repos, names = {}, {}
-    for r in rows:
-        if not isinstance(r, dict) or not isinstance(r.get("rank"), int):
-            continue
-        if r.get("resolved_repo"):
-            repos[str(r["resolved_repo"]).lower()] = r["rank"]
-        if r.get("model"):
-            key = _slug(_arena_display_name(r["model"]))
-            if key:
-                names.setdefault(key, r["rank"])
-    return {"repos": repos, "names": names}
+    return load_arena_ranks_from_rows(rows)
 
 
-def load_aa_scores(path=AA):
-    """{lower_repo: {"index": int, "variant": str}}. {} on missing/malformed."""
-    try:
-        doc = yaml.safe_load(Path(path).read_text()) or {}
-    except (OSError, yaml.YAMLError):
-        return {}
-    scores = doc.get("scores") if isinstance(doc, dict) else None
-    out = {}
+def load_aa_scores_from_dict(scores, identity_of=names.repo_identity):
+    """Build the AA indexes from an already-parsed `scores:` mapping.
+
+    Split out from load_aa_scores so tests can exercise the indexing and the
+    collision guard without a file on disk.
+    """
+    repos, pairs = {}, []
     if isinstance(scores, dict):
         for repo, entry in scores.items():
             if not isinstance(entry, dict):
                 continue
             idx = entry.get("intelligence_index")
             if isinstance(idx, int) and not isinstance(idx, bool):
-                out[str(repo).lower()] = {
-                    "index": idx, "variant": entry.get("variant")}
-    return out
+                value = {"index": idx, "variant": entry.get("variant")}
+                repos[str(repo).lower()] = value
+                pairs.append((str(repo), value))
+
+    return {"repos": repos,
+            "identities": _index_by_identity(pairs, identity_of)}
+
+
+def load_aa_scores(path=AA):
+    """AA indexes keyed by lowercased repo and by repo identity.
+
+    Returns {"repos": {}, "identities": {}} on a missing, empty, or malformed
+    file — never raises — so the render always completes and every row just
+    falls through to aa_cell's '—'.
+    """
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {"repos": {}, "identities": {}}
+    scores = doc.get("scores") if isinstance(doc, dict) else None
+    return load_aa_scores_from_dict(scores)
 
 
 def aa_cell(model, aa):
     """Artificial Analysis Intelligence Index, or — when AA does not rate it.
 
+    Exact repo first, then repo identity: AA and arena disagree about which
+    repo string names a model (AA scored DeepSeek-V4-Flash-0731, arena resolved
+    DeepSeek-V4-Flash), and an exact-only join prints — for a model both rate.
+
     There is deliberately no fallback to a manual figure: models.yaml no longer
     carries one, because MMLU (~86) and the AA index (~10-57) are different
     scales and sharing a column invited a comparison that does not exist.
     """
-    entry = aa.get((model.get("hf_repo") or "").lower())
+    repo = model.get("hf_repo") or ""
+    entry = aa["repos"].get(repo.lower())
+    if entry is None and repo:
+        entry = aa["identities"].get(names.repo_identity(repo))
     return str(entry["index"]) if entry else "—"
 
 
 def arena_cell(model, ranks):
-    """Rank by resolved repo, else by model name, else '—'."""
-    rank = ranks["repos"].get((model.get("hf_repo") or "").lower())
+    """Rank by resolved repo, then repo identity, then display name, else '—'."""
+    repo = model.get("hf_repo") or ""
+    rank = ranks["repos"].get(repo.lower())
+    if rank is None and repo:
+        rank = ranks["identities"].get(names.repo_identity(repo))
     if rank is None:
-        rank = ranks["names"].get(_slug(model.get("name") or ""))
+        for key in names.display_identity(str(model.get("name") or "")):
+            rank = ranks["names"].get(key)
+            if rank is not None:
+                break
     return str(rank) if rank is not None else "—"
 
 

@@ -59,8 +59,14 @@ except ImportError:
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import names
+
+# The name/repo normalisation vocabulary lives in names.py so render_readme.py
+# can share it — an earlier drifted copy there is what broke the arena name
+# fallback for org-prefixed labels like "Tencent Hy3".
 slug = names.slug
-_VARIANT_SUFFIXES = names.VARIANT_SUFFIXES
+
+# Public alias: this is the name the tests and the rest of this module use.
+normalize_model_name = names.normalize_display
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "arena_agent_rankings.yaml"
@@ -95,32 +101,6 @@ KEYWORD_MAP = {
     "hunyuan": "Tencent", "hy3": "Tencent",
     "mimo": "Xiaomi",
     "inkling": "Thinking Machines",
-}
-
-# Org display names as they appear appended to leaderboard labels, e.g.
-# "GLM 5.2 (Max) Z.ai · MIT". Stripped during normalization.
-ORG_DISPLAY_ALIASES = {
-    "anthropic", "openai", "google", "meta", "alibaba", "deepseek",
-    "moonshot", "z.ai", "zai", "minimax", "nvidia", "xai", "microsoft",
-    "cohere", "mistral", "tencent", "xiaomi", "thinky", "ibm", "baidu",
-    "ai2", "01.ai", "tii", "zhipu",
-}
-
-# Vendor names that appear at the START of an arena display label. Sorted
-# longest-first at use so a multi-word vendor beats its first word.
-_LEADING_ORG_PHRASES = (
-    "thinking machines", "meta", "anthropic", "google", "openai", "nvidia",
-    "microsoft", "alibaba", "tencent", "xiaomi", "baidu", "mistral", "cohere",
-)
-
-# Repo-slug decorations that carry no identity: parameter counts (550B),
-# active-param counts (A55B), and weight precisions. A repo differing from
-# the arena name only by these is the same model, so they are stripped before
-# comparison — "NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16" -> "Nemotron-3-Ultra".
-_SIZE_TOKEN = re.compile(r"^[aA]?\d+(?:\.\d+)?[bBmM]$")
-_PRECISION_TOKENS = {
-    "bf16", "fp16", "fp32", "fp8", "int4", "int8", "nvfp4", "mxfp8",
-    "w4a16", "w8a8", "4bit", "8bit", "gguf", "awq", "gptq",
 }
 
 SCORE_RE = re.compile(r"(-?\d+(?:\.\d+)?)\s*%\s*(?:±|\+/-|\+-|\+\-)?\s*(\d+(?:\.\d+)?)?\s*%?")
@@ -164,42 +144,6 @@ def looks_like_model(text):
     return derive_org(text)[1] is not None or bool(re.search(r"[A-Za-z]{3,}", text))
 
 
-def normalize_model_name(display):
-    """Strip leaderboard chrome from a display label.
-
-    "GLM 5.2 (Max) Z.ai · MIT · SiliconFlow" -> "GLM 5.2"
-
-    Three steps: drop everything from the first "·" separator, drop
-    parenthetical effort tags like "(High)"/"(Max)", then drop a single
-    trailing org display name.
-    """
-    name = display.split("·")[0]
-    name = re.sub(r"\([^)]*\)", " ", name)
-    name = re.sub(r"\s+", " ", name).strip()
-
-    tokens = name.split(" ")
-    if len(tokens) > 1 and tokens[-1].lower() in ORG_DISPLAY_ALIASES:
-        tokens = tokens[:-1]
-    return " ".join(tokens).strip()
-
-
-def without_leading_vendor(name):
-    """Drop a leading vendor phrase: 'Thinking Machines Inkling' -> 'Inkling'.
-
-    Only score_match uses this. normalize_model_name keeps the vendor because
-    that string is the human-readable label printed in reports; it is the
-    matcher that has to tolerate a repo slug carrying just the model name.
-    Longest phrase first, so "thinking machines" beats "thinking".
-    """
-    tokens = name.split(" ")
-    for phrase in sorted(_LEADING_ORG_PHRASES, key=len, reverse=True):
-        parts = phrase.split(" ")
-        if len(tokens) > len(parts) and \
-                [t.lower() for t in tokens[:len(parts)]] == parts:
-            return " ".join(tokens[len(parts):]).strip()
-    return name
-
-
 # Minimum length ratio (shorter slug / longer slug) for a prefix relation to
 # count as "medium". A bare prefix test is far too weak: "Qwen3" is a prefix of
 # "Qwen37Max", "grok" of "grok45", "gpt" of "gpt56sol" — so every proprietary
@@ -216,35 +160,6 @@ def without_leading_vendor(name):
 _MIN_PREFIX_RATIO = 0.7
 
 
-def strip_repo_decorations(repo_id):
-    """Reduce a repo id to its identifying name.
-
-    Drops the author, a duplicated vendor prefix ("nvidia/NVIDIA-Nemotron-…"),
-    then trailing size/precision/variant tokens. Only decorations go: a token
-    like "Nano" or "Ultra" distinguishes two real models and is kept, so
-    Nemotron-3-Ultra and Nemotron-3-Nano do not collapse together.
-    """
-    author, _, tail = repo_id.rpartition("/")
-    parts = [p for p in re.split(r"[-_.]", tail) if p]
-
-    if author and parts and parts[0].lower() == author.split("/")[-1].lower():
-        parts = parts[1:]
-
-    return "-".join(_strip_decorations(parts))
-
-
-def _strip_decorations(parts):
-    """Drop trailing size/precision/variant tokens from a token list."""
-    while parts:
-        last = parts[-1].lower()
-        if last in _PRECISION_TOKENS or last in _VARIANT_SUFFIXES \
-                or _SIZE_TOKEN.match(parts[-1]):
-            parts.pop()
-            continue
-        break
-    return parts
-
-
 def score_match(query, repo_id):
     """Rate how well an arena name matches an HF repo id: high/medium/low.
 
@@ -252,9 +167,9 @@ def score_match(query, repo_id):
     the symmetric case: "Gemma 4 31B" vs "google/gemma-4-31b-it" would compare
     "gemma431b" against "gemma4" and score low.
     """
-    r = slug(strip_repo_decorations(repo_id))
-    for candidate in (query, without_leading_vendor(query)):
-        q = slug("-".join(_strip_decorations(
+    r = slug(names.strip_repo_decorations(repo_id))
+    for candidate in (query, names.without_leading_vendor(query)):
+        q = slug("-".join(names.strip_decorations(
             [p for p in re.split(r"[-_.\s]", candidate) if p])))
         conf = _rate(q, r)
         if conf != "low":
@@ -303,6 +218,26 @@ HF_AUTHOR_HINTS = {
 }
 
 
+def format_rank(repo_id):
+    """Prefer a vendor's primary release repo over a quantized mirror.
+
+    2 = no precision token, 1 = a native format only (BF16/FP16/FP32),
+    0 = carries a quantization token.
+
+    Not a boolean, because "is it clean?" cannot choose when every candidate
+    carries a token — NVIDIA publishes Nemotron 3 Ultra only as -BF16 and
+    -NVFP4, and resolving to the NVFP4 repo means hf_meta.EXCLUDE_PATTERNS
+    rejects it and the arena rank never reaches the review queue.
+    """
+    tail = repo_id.split("/", 1)[-1]
+    tokens = {p.lower() for p in re.split(r"[-_./]", tail) if p}
+    if tokens & names.QUANT_FORMATS:
+        return 0
+    if tokens & names.NATIVE_FORMATS:
+        return 1
+    return 2
+
+
 def resolve_row(row, search_fn):
     """Resolve an arena row to an HF repo. Mutates and returns the row.
 
@@ -338,14 +273,15 @@ def resolve_row(row, search_fn):
         row["search_failed"] = True
         return row
 
-    best, best_conf = None, "low"
+    # Every hit is scored — no early break. An earlier version stopped at the
+    # first "high" match, so a better-format repo further down the result list
+    # was never examined. Confidence dominates; format only breaks ties.
     _ORDER = {"high": 3, "medium": 2, "low": 1}
-    for repo_id in repo_ids:
-        conf = score_match(query, repo_id)
-        if best is None or _ORDER[conf] > _ORDER[best_conf]:
-            best, best_conf = repo_id, conf
-        if best_conf == "high":
-            break
+    scored = [(repo_id, score_match(query, repo_id)) for repo_id in repo_ids]
+    best, best_conf = None, "low"
+    if scored:
+        best, best_conf = max(
+            scored, key=lambda pair: (_ORDER[pair[1]], format_rank(pair[0])))
 
     if best is None or best_conf == "low":
         row["resolved_repo"] = None

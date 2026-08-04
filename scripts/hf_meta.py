@@ -37,9 +37,9 @@ COMMERCIAL_GUESS = {
 #   eagle3_* / dflash_* / draft           -> speculative decoding artifacts
 #   *-Embed / reranker                    -> not text-generation models
 EXCLUDE_PATTERNS = re.compile(
-    r"(gguf|awq|gptq|-int4|-int8|-fp8|mxfp8|nvfp4|w4a16|w8a8|-qat-|-bnb|-mlx|"
+    r"(gguf|awq|gptq|[-_.]int4|[-_.]int8|[-_.]fp8|mxfp8|nvfp4|w4a16|w8a8|-qat-|-bnb|-mlx|"
     r"-onnx|lora|adapter|draft|eagle3|dflash|-embed|reranker|"
-    r"-4bit|-8bit|quantized|merge)",
+    r"[-_.]4bit|[-_.]8bit|quantized|merge)",
     re.IGNORECASE,
 )
 

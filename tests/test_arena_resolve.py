@@ -331,3 +331,71 @@ def test_suffix_stripping_does_not_invent_matches():
         "Nemotron 3 Ultra",
         "nvidia/NVIDIA-Nemotron-3-Nano-30B-A3B-BF16") == "low"
     assert pa.score_match("Grok 4.5", "xai-org/grok-1") == "low"
+
+
+# --- format preference -------------------------------------------------------
+
+def test_format_rank_orders_clean_above_native_above_quantized():
+    assert pa.format_rank("zai-org/GLM-5.2") == 2
+    assert pa.format_rank("nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16") == 1
+    assert pa.format_rank("nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4") == 0
+
+
+def test_format_rank_ignores_a_format_token_in_the_author_segment():
+    """Only the repo NAME is tokenized, not the author namespace.
+
+    A hypothetical org namespace containing a format token (e.g. "fp8-org")
+    must not misrank every repo underneath it — format_rank used to split the
+    whole repo_id, so "fp8-org/CleanModel" scored 0 (quantized) instead of 2
+    (clean).
+    """
+    assert pa.format_rank("fp8-org/CleanModel") == 2
+
+
+def test_prefers_the_native_repo_over_the_quantized_one():
+    """The Nemotron case. NVFP4 is in hf_meta.EXCLUDE_PATTERNS, so resolving to
+    it means discover.py drops the row and arena rank 42 never reaches the
+    review queue. BF16 is not excluded and must win.
+    """
+    row = {"model": "Nemotron 3 Ultra Nvidia · OpenMDW-1.1",
+           "org": "NVIDIA", "matched_keyword": "nemotron"}
+    search = fake_search({"nvidia": [
+        "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4",   # listed first
+        "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16",
+    ]})
+
+    out = pull_arena.resolve_row(row, search)
+
+    assert out["resolved_repo"] == "nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16"
+    assert out["open_weight"] is True
+
+
+def test_a_high_confidence_quant_does_not_short_circuit_the_search():
+    """The old loop broke on the first 'high' hit, so a clean repo later in the
+    result list was never examined."""
+    row = {"model": "GLM 5.2 Z.ai · MIT", "org": "Zhipu AI",
+           "matched_keyword": "glm"}
+    search = fake_search({"zai-org": [
+        "zai-org/GLM-5.2-GPTQ",   # high confidence, quantized, listed first
+        "zai-org/GLM-5.2",        # high confidence, clean
+    ]})
+
+    out = pull_arena.resolve_row(row, search)
+
+    assert out["resolved_repo"] == "zai-org/GLM-5.2"
+    assert out["resolution_confidence"] == "high"
+
+
+def test_format_preference_never_beats_confidence():
+    """A clean but low-confidence repo must not outrank a high-confidence one."""
+    row = {"model": "Kimi K2.6 Moonshot · Modified MIT",
+           "org": "Moonshot AI", "matched_keyword": "kimi"}
+    search = fake_search({"moonshotai": [
+        "moonshotai/Kimi-K2-Thinking",   # clean, but low confidence
+        "moonshotai/Kimi-K2.6-BF16",     # high confidence, native format
+    ]})
+
+    out = pull_arena.resolve_row(row, search)
+
+    assert out["resolved_repo"] == "moonshotai/Kimi-K2.6-BF16"
+    assert out["resolution_confidence"] == "high"

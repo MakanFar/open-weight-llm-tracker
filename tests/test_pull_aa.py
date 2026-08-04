@@ -74,7 +74,7 @@ def test_best_by_slug_is_order_independent():
 def test_best_by_slug_keeps_different_sizes_apart():
     """Size is identity: 72B and 7B are different models, not variants.
 
-    pull_arena's _strip_decorations drops size tokens, which is right for its
+    names.strip_decorations drops size tokens, which is right for pull_arena's
     pairwise ratio matching and fatally wrong here — both would key to 'qwen25'
     and one would silently overwrite the other.
     """

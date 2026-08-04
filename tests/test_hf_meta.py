@@ -7,6 +7,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 import hf_meta
+import names
 
 
 class FakeInfo:
@@ -255,3 +256,40 @@ def test_candidate_uses_explicit_context_window():
     info = FakeInfo("org/m")
     row = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"], context_window=65536)
     assert row["context_window"] == 65536
+
+
+def test_every_quant_format_is_excluded_by_hf_meta():
+    """Two overlapping vocabularies, held together by a test not by coupling.
+
+    names.QUANT_FORMATS says "this token is a quantized re-release";
+    hf_meta.EXCLUDE_PATTERNS says "reject this repo". Every quant format must
+    appear in both, or pull_arena would de-prioritise a repo that discover.py
+    then happily stages. Same technique as
+    test_author_hints_stay_in_step_with_org_allowlist.
+
+    Tokens are probed with all three separators repo ids actually use ("-",
+    "_", "."): EXCLUDE_PATTERNS anchors several of them on a leading hyphen
+    (-int4, -fp8, -4bit), but names.repo_identity splits repo ids on
+    [-_.] — an underscore- or dot-separated quantized mirror
+    ("org/Model_INT4", "org/Model.int4") must be excluded too, or it slips
+    into the review queue and then inherits the primary repo's AA score via
+    repo_identity.
+    """
+    missing = sorted(
+        f"{sep}{t}" for t in names.QUANT_FORMATS for sep in ("-", "_", ".")
+        if not hf_meta.EXCLUDE_PATTERNS.search(f"model{sep}{t}"))
+    assert not missing, (
+        f"names.QUANT_FORMATS entries not caught by EXCLUDE_PATTERNS: {missing}")
+
+
+def test_native_formats_are_deliberately_not_excluded():
+    """BF16 is a release format, not a quantization. Do not 'fix' this gap.
+
+    NVIDIA publishes Nemotron 3 Ultra ONLY as -BF16 repos — there is no bare
+    nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B. Adding bf16 to EXCLUDE_PATTERNS
+    would delete the model from the tracker entirely. The token still belongs
+    in names.PRECISION_TOKENS, because it IS noise when comparing two names.
+    """
+    for fmt in names.NATIVE_FORMATS:
+        assert not hf_meta.EXCLUDE_PATTERNS.search(f"model-{fmt}"), (
+            f"{fmt} is a primary release format and must stay excludable-free")

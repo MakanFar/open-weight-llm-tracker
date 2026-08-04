@@ -57,7 +57,7 @@ The point of the pipeline is to surface frontier releases without a human hand-w
 
 ## Conventions that keep the data trustworthy
 
-- **No benchmark field.** The anchor number is the Artificial Analysis Intelligence Index in `aa_scores.yaml`, written by `scripts/pull_aa.py` and joined on `hf_repo` at render time. AA covers recent models only, so `—` is expected and correct for older rows.
+- **No benchmark field.** The anchor number is the Artificial Analysis Intelligence Index in `aa_scores.yaml`, written by `scripts/pull_aa.py` and joined on `hf_repo` (falling back to repo identity) at render time. AA covers recent models only, so `—` is expected and correct for older rows.
 - **Set `commercial_use` by reading the actual license**, not the word "open". Values are `true` / `false` / `conditional`.
 - **One row per model** — a family flagship or distinct sizes, never both.
 - **MoE**: total params in `params_total_b`, routed/active in `params_active_b`; for dense models the two are equal (validated).
