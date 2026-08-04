@@ -154,18 +154,68 @@ the `validate.py` check in "Also in scope" below rather than at render time.
 
 ### `pull_arena.py` — prefer un-quantized repos
 
-`resolve_row`'s scoring loop breaks ties on confidence toward the repo with no
-precision/quant token. The existing early `break` on `best_conf == "high"` is
-removed: it short-circuits before a clean repo can be seen. Replaced by
-collecting all hits and selecting `max` on `(confidence_rank, is_clean)`.
+`resolve_row`'s scoring loop breaks ties on confidence toward the repo with the
+better format rank (see "Consequence for the un-quantized preference" below).
+The existing early `break` on `best_conf == "high"` is removed: it
+short-circuits before a better-format repo can be seen. Replaced by collecting
+all hits and selecting `max` on `(confidence_rank, format_rank)`.
 
 ### Keeping the two quant vocabularies in step
 
-`names.PRECISION_TOKENS` (a token set) and `hf_meta.EXCLUDE_PATTERNS` (a
-substring regex) overlap. They are not interchangeable, so both stay. A test
-asserts every entry in `names.PRECISION_TOKENS` is matched by
-`hf_meta.EXCLUDE_PATTERNS` — the same technique the repo already uses to hold
-`HF_AUTHOR_HINTS` and `ORG_ALLOWLIST` in step, documented in `unmapped_orgs`.
+**Amended 2026-08-04 after checking the data — the original form of this section
+was wrong.** It called for a test asserting every `names.PRECISION_TOKENS` entry
+is matched by `hf_meta.EXCLUDE_PATTERNS`. That test cannot pass, and should not:
+`bf16`, `fp16`, and `fp32` are absent from `EXCLUDE_PATTERNS` deliberately.
+
+NVIDIA publishes Nemotron 3 Ultra **only** as `-BF16` repos — there is no bare
+`nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B`. Six such repos sit in
+`candidates.yaml` today. Adding `bf16` to `EXCLUDE_PATTERNS` would delete the
+model from the tracker entirely.
+
+The two vocabularies answer different questions. "Is this token a decoration to
+ignore when comparing two names?" (`PRECISION_TOKENS`) is not "is this repo a
+derivative to reject?" (`EXCLUDE_PATTERNS`). Neither set is a subset of the
+other in either direction — `EXCLUDE_PATTERNS` also carries `lora`, `adapter`,
+`reranker`, `merge`, none of which are precision markers.
+
+`names.py` therefore splits the set to make the distinction nameable:
+
+```python
+NATIVE_FORMATS = {"bf16", "fp16", "fp32"}          # a vendor's primary release
+QUANT_FORMATS  = {"fp8", "int4", "int8", "nvfp4", "mxfp8", "w4a16",
+                  "w8a8", "4bit", "8bit", "gguf", "awq", "gptq"}
+PRECISION_TOKENS = NATIVE_FORMATS | QUANT_FORMATS  # both are name decorations
+```
+
+The invariant that *does* hold, and is worth a test: every `QUANT_FORMATS`
+entry must be matched by `EXCLUDE_PATTERNS` (verified — all 12 match as
+`model-<token>`). A second test pins `NATIVE_FORMATS` as deliberately **not**
+excluded, citing Nemotron 3 Ultra, so a future contributor cannot "tidy up" the
+gap without deleting a model.
+
+### Consequence for the un-quantized preference
+
+The preference in `pull_arena.resolve_row` cannot be a boolean: when every
+candidate carries a precision token, clean-vs-not cannot choose. It becomes a
+three-level rank, applied after confidence:
+
+| Rank | Condition | Example |
+|---|---|---|
+| 2 | no precision token | `zai-org/GLM-5.2` |
+| 1 | `NATIVE_FORMATS` only | `nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16` |
+| 0 | any `QUANT_FORMATS` token | `nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-NVFP4` |
+
+This resolves the Nemotron case at the source: the BF16 repo outranks the NVFP4
+one, and `should_track` accepts it, so rank 42 reaches the review queue.
+
+### Issue #2 is also self-healing via the identity fallback
+
+`nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16` is already staged in
+`candidates.yaml`, and `repo_identity` maps it to `nemotron3ultra550ba55b` — the
+same identity as the NVFP4 repo arena resolved. So the render-time fallback
+joins rank 42 onto it on promotion even before `pull_arena.py` is next run with
+network access. The source fix above remains worth making: it repairs the review
+queue, which the renderer cannot reach.
 
 ## Also in scope
 
@@ -208,8 +258,9 @@ matching would show up as a README diff rather than as silent data corruption.
 - `test_arena_resolve.py` — a clean repo beats a quantized one at equal
   confidence; a high-confidence quantized hit no longer short-circuits the
   search before a clean repo is examined.
-- `test_hf_meta.py` — every `names.PRECISION_TOKENS` entry matches
-  `hf_meta.EXCLUDE_PATTERNS`.
+- `test_hf_meta.py` — every `names.QUANT_FORMATS` entry matches
+  `hf_meta.EXCLUDE_PATTERNS`; `names.NATIVE_FORMATS` is asserted **not** matched,
+  with Nemotron 3 Ultra named in the docstring as the reason.
 - `test_pull_aa.py` — unchanged. `pull_aa.py` is not touched.
 
 ## Out of scope
