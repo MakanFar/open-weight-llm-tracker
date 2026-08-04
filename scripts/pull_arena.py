@@ -218,6 +218,25 @@ HF_AUTHOR_HINTS = {
 }
 
 
+def format_rank(repo_id):
+    """Prefer a vendor's primary release repo over a quantized mirror.
+
+    2 = no precision token, 1 = a native format only (BF16/FP16/FP32),
+    0 = carries a quantization token.
+
+    Not a boolean, because "is it clean?" cannot choose when every candidate
+    carries a token — NVIDIA publishes Nemotron 3 Ultra only as -BF16 and
+    -NVFP4, and resolving to the NVFP4 repo means hf_meta.EXCLUDE_PATTERNS
+    rejects it and the arena rank never reaches the review queue.
+    """
+    tokens = {p.lower() for p in re.split(r"[-_./]", repo_id) if p}
+    if tokens & names.QUANT_FORMATS:
+        return 0
+    if tokens & names.NATIVE_FORMATS:
+        return 1
+    return 2
+
+
 def resolve_row(row, search_fn):
     """Resolve an arena row to an HF repo. Mutates and returns the row.
 
@@ -253,14 +272,15 @@ def resolve_row(row, search_fn):
         row["search_failed"] = True
         return row
 
-    best, best_conf = None, "low"
+    # Every hit is scored — no early break. An earlier version stopped at the
+    # first "high" match, so a better-format repo further down the result list
+    # was never examined. Confidence dominates; format only breaks ties.
     _ORDER = {"high": 3, "medium": 2, "low": 1}
-    for repo_id in repo_ids:
-        conf = score_match(query, repo_id)
-        if best is None or _ORDER[conf] > _ORDER[best_conf]:
-            best, best_conf = repo_id, conf
-        if best_conf == "high":
-            break
+    scored = [(repo_id, score_match(query, repo_id)) for repo_id in repo_ids]
+    best, best_conf = None, "low"
+    if scored:
+        best, best_conf = max(
+            scored, key=lambda pair: (_ORDER[pair[1]], format_rank(pair[0])))
 
     if best is None or best_conf == "low":
         row["resolved_repo"] = None
