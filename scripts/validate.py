@@ -12,6 +12,9 @@ from pathlib import Path
 
 import yaml
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import names  # noqa: E402  (names.py imports only `re`)
+
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 
@@ -30,6 +33,34 @@ LICENSES = {
 ARCH = {"dense", "moe"}
 MODALITY = {"text", "vision-language", "multimodal"}
 COMMERCIAL = {True, False, "conditional"}
+
+
+def identity_errors(models):
+    """Reject two rows whose hf_repos name the same weights.
+
+    render_readme joins AA scores and arena ranks by repo identity when the
+    exact repo string misses. Two rows sharing an identity would both claim the
+    same sidecar entry, so the renderer's guard would drop it and BOTH rows
+    would lose their number. It is also a plain duplicate: CLAUDE.md allows one
+    row per model, a family flagship or distinct sizes, never both.
+    """
+    seen = {}
+    errors = []
+    for m in models:
+        repo = m.get("hf_repo")
+        if not repo:
+            continue
+        identity = names.repo_identity(repo)
+        if not identity:
+            continue
+        if identity in seen:
+            errors.append(
+                f"[{m.get('name', repo)}] hf_repo '{repo}' names the same model "
+                f"as '{seen[identity]}' (shared identity '{identity}') — "
+                f"keep one row per model")
+        else:
+            seen[identity] = repo
+    return errors
 
 
 def main():
@@ -80,6 +111,8 @@ def main():
         ctx = m.get("context_window")
         if not isinstance(ctx, int) or ctx <= 0:
             errors.append(f"[{tag}] context_window must be a positive integer")
+
+    errors.extend(identity_errors(models))
 
     if errors:
         print(f"VALIDATION FAILED — {len(errors)} problem(s):\n")
