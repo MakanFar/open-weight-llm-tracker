@@ -108,22 +108,30 @@ rank 12) are both notable; promoting both breaks the project's "one row per mode
 convention. If a promotable row's family stem already appears in `models.yaml`, it is
 routed to review with `family-already-tracked` so a human decides supersede-or-coexist.
 
-The stem is `developer` plus the model name with **version tokens only** removed —
-a token that is digits, dotted digits, or a single letter followed by digits
-(`5.2`, `K3`, `V4`, `4`) — and with size and variant tokens (`70B`, `A22B`,
-`Instruct`, `it`, `Base`) removed. Alphabetic distinguishing words are **kept**:
+`names.repo_identity()` is **not** the right key here. It is an exact-model identity
+that deliberately keeps size tokens, and it keeps version tokens too, so
+`glm52` ≠ `glm51` and no collision would ever fire.
 
-| repo | stem | effect |
+`family_stem()` is a new, coarser key: `repo_identity`'s output with **version tokens
+additionally stripped**. A version token matches `^[A-Za-z]?\d+(\.\d+)*$` — an
+optional leading letter then digits (`4`, `5.2`, `K3`, `V4`). Tokens ending in a
+letter are sizes or expert counts, not versions, and are **kept** (`405B`, `17B`,
+`16E`, `A22B`).
+
+| repo | family stem | effect |
 |---|---|---|
-| `zai-org/GLM-5.2` vs `GLM-5.1` | `zai-org/glm` | collide → review |
-| `meta-llama/Llama-4-Scout-17B-16E-Instruct` | `meta-llama/llama-scout` | no collision |
-| `meta-llama/Llama-4-Maverick-17B-128E-Instruct` | `meta-llama/llama-maverick` | with Scout — both stay |
-| `moonshotai/Kimi-K3` vs `Kimi-K2.7-Code` | `moonshotai/kimi-k` vs `kimi-k-code` | no collision |
+| `zai-org/GLM-5.2` vs `GLM-5.1` | `glm` vs `glm` | collide → review |
+| `meta-llama/Llama-3.1-405B-Instruct` | `llama405b` | — |
+| `meta-llama/Llama-3.1-8B-Instruct` | `llama8b` | distinct from 405B — both stay |
+| `meta-llama/Llama-4-Scout-17B-16E-Instruct` | `llamascout17b16e` | — |
+| `meta-llama/Llama-4-Maverick-17B-128E-Instruct` | `llamamaverick17b128e` | distinct from Scout — both stay |
+| `moonshotai/Kimi-K3` vs `Kimi-K2.7-Code` | `kimi` vs `kimicode` | no collision |
 
-Keeping distinguishing words matters: `Llama 4 Scout` and `Llama 4 Maverick` are both
-legitimately tracked today, and a stem that collapsed them to `llama` would send every
-sibling release to review, defeating the point of automating. Over-collision is safe
-but costly; this rule errs toward promoting siblings and catching version bumps.
+Keeping sizes and distinguishing words matters: Llama-3.1-405B/8B and Llama-4
+Scout/Maverick are all legitimately tracked today, and a stem that collapsed them
+would send every sibling release to review, defeating the point of automating. The
+rule fires on a *version bump at the same size* — which is exactly the
+supersede-or-coexist judgement a human should make.
 
 ### `commercial_use`
 
