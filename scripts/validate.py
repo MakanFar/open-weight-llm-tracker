@@ -26,9 +26,11 @@ REQUIRED = [
 # Extend this allowlist as you add models — keeps license strings consistent.
 LICENSES = {
     "apache-2.0", "mit", "bsd-3-clause",
-    "llama-3.1-community", "llama-3.3-community", "llama-4-community",
+    "llama-2-community", "llama-3-community",
+    "llama-3.1-community", "llama-3.2-community",
+    "llama-3.3-community", "llama-4-community",
     "qwen", "gemma", "deepseek",
-    "cc-by-nc-4.0", "cc-by-4.0", "kimi-k3","minimax-community"
+    "cc-by-nc-4.0", "cc-by-4.0", "kimi-k3", "minimax-community",
 }
 ARCH = {"dense", "moe"}
 MODALITY = {"text", "vision-language", "multimodal"}

@@ -87,3 +87,70 @@ def fetch_card(repo, get_text=_http_get_text):
         return get_text(CARD_URL.format(repo=repo))
     except Exception:
         return None
+
+
+# HF licence tags whose spelling differs from validate.LICENSES. The tracker
+# uses the vendor's own name for the licence; HF uses a short tag.
+LICENSE_TAG_MAP = {
+    "llama2": "llama-2-community",
+    "llama3": "llama-3-community",
+    "llama3.1": "llama-3.1-community",
+    "llama3.2": "llama-3.2-community",
+    "llama3.3": "llama-3.3-community",
+    "llama4": "llama-4-community",
+}
+
+
+def _card_dict(info):
+    cd = getattr(info, "card_data", None)
+    if cd is None:
+        return {}
+    return cd.to_dict() if hasattr(cd, "to_dict") else dict(cd)
+
+
+def license_string(info):
+    """The real licence identifier, or None if it cannot be determined.
+
+    'other' is not a licence, it is HF's way of saying "custom". The actual
+    name lives in cardData.license_name — that is how kimi-k3,
+    minimax-community, modified-mit and nvidia-open-model-license were
+    recovered from rows the tag alone marked unusable.
+    """
+    data = _card_dict(info)
+    tag = data.get("license")
+    if not isinstance(tag, str) or not tag:
+        return None
+    tag = tag.strip().lower()
+    if tag != "other":
+        return LICENSE_TAG_MAP.get(tag, tag)
+
+    name = data.get("license_name")
+    if not isinstance(name, str) or not name.strip():
+        return None
+    return re.sub(r"[^a-z0-9]+", "-", name.strip().lower()).strip("-") or None
+
+
+TOKENIZER_URL = "https://huggingface.co/{repo}/resolve/main/tokenizer_config.json"
+
+# Transformers writes this when model_max_length is unset. It is not a context
+# length; treating it as one would publish a 1e30-token window.
+_SENTINEL_MAX_LENGTH = 1_000_000_000_000_000
+
+
+def context_from_tokenizer(repo, get_json):
+    """Context length from tokenizer_config.json, or None.
+
+    Tried only after config.json has already failed — 80 discovered rows had
+    no length in either the API expand or config.json, and this is where the
+    remainder publish it.
+    """
+    try:
+        cfg = get_json(TOKENIZER_URL.format(repo=repo))
+    except Exception:
+        return None
+    if not isinstance(cfg, dict):
+        return None
+    n = cfg.get("model_max_length")
+    if isinstance(n, int) and not isinstance(n, bool) and 0 < n < _SENTINEL_MAX_LENGTH:
+        return n
+    return None

@@ -83,3 +83,59 @@ def test_fetch_card_returns_none_on_failure():
 
 def test_fetch_card_returns_the_body():
     assert enrich.fetch_card("org/m", get_text=lambda url: "# card") == "# card"
+
+
+class FakeInfo:
+    def __init__(self, card_data):
+        self.card_data = card_data
+
+
+def test_license_passes_through_a_usable_tag():
+    assert enrich.license_string(FakeInfo({"license": "mit"})) == "mit"
+    assert enrich.license_string(FakeInfo({"license": "apache-2.0"})) == "apache-2.0"
+
+
+def test_license_maps_hf_llama_tags_to_allowlist_spellings():
+    """HF tags say llama3.1; validate.LICENSES says llama-3.1-community."""
+    assert enrich.license_string(FakeInfo({"license": "llama3.1"})) == "llama-3.1-community"
+    assert enrich.license_string(FakeInfo({"license": "llama3.3"})) == "llama-3.3-community"
+    assert enrich.license_string(FakeInfo({"license": "llama4"})) == "llama-4-community"
+
+
+def test_license_recovers_the_real_name_when_the_tag_is_other():
+    """'other' is not a licence. cardData.license_name carries the real one."""
+    info = FakeInfo({"license": "other", "license_name": "kimi-k3"})
+    assert enrich.license_string(info) == "kimi-k3"
+
+
+def test_license_normalises_a_recovered_name():
+    info = FakeInfo({"license": "other", "license_name": "MiniMax Community"})
+    assert enrich.license_string(info) == "minimax-community"
+
+
+def test_license_returns_none_when_other_has_no_name():
+    assert enrich.license_string(FakeInfo({"license": "other"})) is None
+
+
+def test_license_returns_none_when_absent():
+    assert enrich.license_string(FakeInfo({})) is None
+    assert enrich.license_string(FakeInfo(None)) is None
+
+
+def test_context_from_tokenizer_config():
+    cfg = {"model_max_length": 262144}
+    assert enrich.context_from_tokenizer("org/m", get_json=lambda u: cfg) == 262144
+
+
+def test_context_ignores_the_sentinel_length():
+    """Transformers writes a huge int32 sentinel meaning 'unset'."""
+    cfg = {"model_max_length": 1000000000000000019884624838656}
+    assert enrich.context_from_tokenizer("org/m", get_json=lambda u: cfg) is None
+
+
+def test_context_returns_none_when_absent_or_unfetchable():
+    assert enrich.context_from_tokenizer("org/m", get_json=lambda u: {}) is None
+
+    def boom(url):
+        raise RuntimeError("404")
+    assert enrich.context_from_tokenizer("org/m", get_json=boom) is None
