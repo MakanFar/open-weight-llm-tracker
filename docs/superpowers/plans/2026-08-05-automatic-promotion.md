@@ -101,6 +101,20 @@ def family_stem(repo_id):
     So this fires on exactly one shape: a version bump at the same size, which
     is the supersede-or-coexist call a human should make.
     """
+    return slug("-".join(p for p in _identity_parts(repo_id)
+                         if not _VERSION_TOKEN.match(p)))
+```
+
+**Do not copy `repo_identity`'s body.** Extract the shared prefix instead, so the
+two keys cannot drift apart. Refactor `repo_identity` to:
+
+```python
+def _identity_parts(repo_id):
+    """Repo tail split into tokens, author prefix and trailing noise removed.
+
+    Shared by repo_identity and family_stem so the two keys always agree on
+    what counts as noise; they differ only in whether versions survive.
+    """
     author, _, tail = repo_id.rpartition("/")
     parts = [p for p in re.split(r"[-_.]", tail) if p]
 
@@ -111,9 +125,16 @@ def family_stem(repo_id):
                               or parts[-1].lower() in VARIANT_SUFFIXES
                               or DATE_TOKEN.match(parts[-1])):
         parts.pop()
+    return parts
 
-    return slug("-".join(p for p in parts if not _VERSION_TOKEN.match(p)))
+
+def repo_identity(repo_id):
+    """<keep the existing docstring verbatim>"""
+    return slug("-".join(_identity_parts(repo_id)))
 ```
+
+The existing `repo_identity` tests must still pass unchanged — that is the proof
+the refactor is behaviour-preserving.
 
 - [ ] **Step 4: Run test to verify it passes**
 
