@@ -183,17 +183,17 @@ def repo_identity(repo_id):
     return slug("-".join(_identity_parts(repo_id)))
 
 
-# A token that is a version, not a size: an optional leading letter then digits
-# and dots. "4", "5.2", "K3", "V4" match; "405B", "17B", "16E", "A22B" do not,
+# A token that is a version, not a size: an optional leading letter then digits.
+# "4", "5", "K3", "V4" match; "405B", "17B", "16E", "A22B" do not,
 # because they end in a letter and therefore denote a size or an expert count.
-_VERSION_TOKEN = re.compile(r"^[A-Za-z]?\d+(?:\.\d+)*$")
+_VERSION_TOKEN = re.compile(r"^[A-Za-z]?\d+$")
 
 # A version fused directly onto the family name with no separator to split on,
 # e.g. "Qwen3" ("Qwen/Qwen3-235B-A22B" — HF writes no hyphen before the
 # generation digit, unlike Llama's "Llama-4-Scout"). Requires letters BEFORE
 # the digits, which is what keeps it from ever matching a size/expert token:
 # those end in a letter ("405B", "16E"), never in a digit.
-_FUSED_VERSION = re.compile(r"^([A-Za-z]+?)\d+(?:\.\d+)*$")
+_FUSED_VERSION = re.compile(r"^([A-Za-z]+?)\d+$")
 
 
 def family_stem(repo_id):
@@ -211,6 +211,15 @@ def family_stem(repo_id):
     a version fused onto the family name itself (Qwen2 -> Qwen3): Qwen ships
     generation bumps that way, and missing them would defeat the point of this
     key for one of the most active open-weight vendors.
+
+    LIMITATION: Collisions in family_stem indicate that a human should review
+    whether the models are truly the same family line. The heuristic cannot
+    distinguish a version marker from a product-line marker — both are a single
+    letter followed by digits (e.g. "V3", "R1"). DeepSeek-V3 and DeepSeek-R1
+    are different product lines (base/chat vs reasoning), not versions of each
+    other, yet both produce the stem "deepseek". Collision is not an error; it
+    is a signal to check. While the collision exists, no DeepSeek model can
+    auto-promote based on family_stem matching.
     """
     kept = []
     for part in _identity_parts(repo_id):
