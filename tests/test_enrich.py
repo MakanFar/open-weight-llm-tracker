@@ -40,6 +40,36 @@ def test_returns_none_when_the_card_states_no_figure():
     assert enrich.active_params_from_card(_card("nofigure.md")) is None
 
 
+def test_returns_none_when_a_shared_card_states_two_distinct_figures():
+    """A card describing multiple variants (e.g. Pro/Flash) is ambiguous — the
+    function has no way to know which variant the caller means, so guessing
+    wrong and silently publishing it is far worse than asking a human."""
+    assert enrich.active_params_from_card(_card("two_variants.md")) is None
+
+
+def test_repeated_mentions_of_the_same_figure_are_not_ambiguous():
+    """The same number said twice is not a conflict — only distinct values are."""
+    text = (
+        "Model-X has 23B activated parameters in the abstract. "
+        "Later, the table repeats: ~23B activated parameters."
+    )
+    value, _ = enrich.active_params_from_card(text)
+    assert value == 23.0
+
+
+def test_unit_t_converts_to_billions():
+    """T (trillion) must scale UP by 1000x — untested until now, so an inverted
+    _UNIT_TO_B multiplier would only misfire on the very largest models."""
+    value, _ = enrich.active_params_from_card("Model-Y (1.6T activated)")
+    assert value == 1600.0
+
+
+def test_unit_m_converts_to_billions():
+    """M (million) must scale DOWN by 1000x, the inverse of the T case above."""
+    value, _ = enrich.active_params_from_card("Model-Z (800M activated)")
+    assert value == 0.8
+
+
 def test_returns_none_for_empty_input():
     assert enrich.active_params_from_card("") is None
     assert enrich.active_params_from_card(None) is None

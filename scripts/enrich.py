@@ -55,17 +55,30 @@ def active_params_from_card(text):
     None is the important case: it routes the row to human review. Returning 0
     or a computed estimate would be worse than useless, because nothing
     downstream can tell an invented number from a published one.
+
+    A card can document several variants in one README (e.g. a "Pro" and a
+    "Flash" size, each with its own activated-parameter figure). This function
+    only ever sees text, never which variant the caller means, so if the card
+    yields more than one DISTINCT figure it is ambiguous and the only safe
+    answer is None — guessing which mention belongs to the requested repo
+    would silently attribute the wrong model's number. Repeated mentions of
+    the SAME figure are not a conflict and must still resolve normally, so
+    every pattern is searched across the WHOLE text (not just its first hit)
+    before any decision is made.
     """
     if not text:
         return None
+    matches = []
     for pattern in _ACTIVE_PATTERNS:
-        m = pattern.search(text)
-        if not m:
-            continue
-        value = float(m.group(1)) * _UNIT_TO_B[m.group(2).lower()]
-        quote = " ".join(m.group(0).split())
-        return round(value, 1), quote
-    return None
+        for m in pattern.finditer(text):
+            value = round(float(m.group(1)) * _UNIT_TO_B[m.group(2).lower()], 1)
+            quote = " ".join(m.group(0).split())
+            matches.append((value, quote))
+    if not matches:
+        return None
+    if len({value for value, _ in matches}) > 1:
+        return None
+    return matches[0]
 
 
 def fetch_card(repo, get_text=_http_get_text):
