@@ -176,9 +176,9 @@ def promotion_row(candidate):
     human has read the licence — a candidate arriving with
     commercial_use_verified already True (e.g. hand-edited in
     candidates.yaml from a licence-tag guess) must NOT promote as verified.
-    Task 7 is expected to make the renderer mark unverified values so a
-    reader can tell an inferred claim from a checked one; that does not
-    exist yet, so this row just carries the correct value for it to use.
+    render_readme.py marks an unverified value with a trailing `?` on the
+    Commercial column, so a reader can tell an inferred claim from a checked
+    one — this row just has to carry the correct value for it to key off.
 
     The auto-discovery boilerplate note (stamped by every candidate at
     creation, see hf_meta.AUTO_DISCOVERY_NOTE) is dropped rather than
@@ -653,7 +653,17 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
             promoted.append(row)
             stems.add(names.family_stem(row["hf_repo"]))
             continue
-        row["needs_review"] = classify.missing_vitals(row, stems)
+        # route() can land here for two independent reasons: missing_vitals
+        # (worth a look but not complete) and/or schema_errors (would fail
+        # validate.py outright, e.g. a hand-edited candidates.yaml row with a
+        # release_date that is not a date). Both are surfaced so a reviewer
+        # sees everything wrong in one pass; the schema complaints are
+        # prefixed "schema-invalid:" so they read distinctly from the terse
+        # vitals tokens (e.g. "no-context-window") and still carry the exact
+        # validator message.
+        reasons = classify.missing_vitals(row, stems)
+        reasons += [f"schema-invalid: {e}" for e in classify.schema_errors(row)]
+        row["needs_review"] = reasons
         queue.append(row)
 
     print(f"  {len(promoted)} promotable, {len(queue)} need review, "
@@ -689,7 +699,12 @@ def main():
     write_candidates(CANDIDATES, queue)
     print(f"\nPromoted {n} model(s) into {DATA.name}; "
           f"{len(queue)} awaiting review in {CANDIDATES.name}")
-    # exit 0 always; the Action decides whether the diff is non-empty
+    # No explicit exit code: a normal run falls off the end and exits 0, and
+    # the Action decides whether the diff is non-empty. This is NOT a
+    # guarantee append_models() always succeeds — a models.yaml that fails
+    # _assert_appendable_shape() raises ModelsYamlShapeError here, which
+    # propagates uncaught and exits non-zero on purpose, so a shape problem
+    # fails the Action loudly instead of silently corrupting the file.
 
 
 if __name__ == "__main__":

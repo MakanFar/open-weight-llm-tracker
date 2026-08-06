@@ -1,4 +1,5 @@
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -7,9 +8,16 @@ import classify
 
 
 def _row(**kw):
+    # Schema-complete by default (adds the fields missing_vitals does not
+    # check but validate.py — and now classify.schema_errors — does), so
+    # route()'s "promote" tests exercise a row that would actually pass
+    # validate.py, not one that would fail it for reasons unrelated to what
+    # the test is checking.
     base = dict(name="M", hf_repo="org/m", developer="org",
+                release_date=date(2025, 6, 1),
                 params_total_b=70.0, params_active_b=70.0, architecture="dense",
-                context_window=131072, license="mit", downloads=0)
+                context_window=131072, modality="text", license="mit",
+                commercial_use=True, downloads=0)
     base.update(kw)
     return base
 
@@ -115,3 +123,23 @@ def test_notable_and_incomplete_goes_to_review():
 def test_not_notable_is_dropped_even_when_complete():
     """110 complete-but-unremarkable rows must never reach models.yaml."""
     assert classify.route(_row(downloads=10), set()) == "drop"
+
+
+# --- schema gate -------------------------------------------------------
+
+def test_schema_errors_flags_a_row_missing_vitals_would_wave_through():
+    """release_date is not one of missing_vitals's checks (moe/context/
+    licence/needs_hf_repo/family stem) but it IS one of validate.py's
+    REQUIRED fields — this is the gap Finding A closes."""
+    row = _row(release_date="sometime in 2025")
+    assert classify.missing_vitals(row, set()) == []
+    assert classify.schema_errors(row) != []
+
+
+def test_notable_but_schema_invalid_goes_to_review_not_promote():
+    row = _row(aa_index=29, release_date="sometime in 2025")
+    assert classify.route(row, set()) == "review"
+
+
+def test_notable_and_schema_valid_still_promotes():
+    assert classify.route(_row(aa_index=29), set()) == "promote"

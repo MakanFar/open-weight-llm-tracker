@@ -33,11 +33,24 @@ jobs:
           # Optional: add an HF token as a repo secret for higher rate limits.
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/discover.py --min-params 3
-      - name: Rebuild README if models.yaml gained a row
+      - name: Validate models.yaml
         # discover.py can now append promoted rows straight to models.yaml.
-        # validate.yml re-renders README.md and fails the PR on any diff, so
-        # this must run in the SAME commit the Action produces — otherwise
-        # the auto-opened PR would arrive already red.
+        # classify.py's schema gate should stop anything invalid before it
+        # gets here, but running the real CI gate right after discovery turns
+        # a gate bug (or a promoted row it didn't anticipate) into a legible
+        # validation error in this log, instead of a TypeError deep inside
+        # render_readme.py's date sort with no clue what row caused it.
+        run: python scripts/validate.py
+      - name: Rebuild README (always, not just when a row was promoted)
+        # This must run unconditionally, every week, whether or not
+        # discover.py appended a row: pull_aa.py runs earlier in this same
+        # job and can change an AA Index value already in aa_scores.yaml with
+        # no new row in models.yaml at all. Before this step ran
+        # unconditionally, that case opened a PR with a stale README, and
+        # validate.yml's `git diff --exit-code README.md` check then failed
+        # on every such PR. Re-rendering every run, regardless of what
+        # changed upstream, is what keeps README.md always in sync with
+        # whatever this job just produced.
         run: python scripts/render_readme.py
       - name: Open PR if there are new candidates
         uses: peter-evans/create-pull-request@v6

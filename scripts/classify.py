@@ -39,6 +39,13 @@ def missing_vitals(row, tracked_stems):
 
     Returns ALL reasons rather than the first, so one review pass shows a
     human everything the row needs.
+
+    This only checks the fields worth an unassisted promotion (MoE active
+    params, context window, licence allowlist, needs_hf_repo, family stem).
+    It does NOT check release_date's type, the modality/architecture/
+    commercial_use enums, or the dense params_active_b == params_total_b
+    rule — those are validate.py's job, and route() below also calls
+    schema_errors() to cover them before deciding to promote.
     """
     reasons = []
 
@@ -67,14 +74,35 @@ def missing_vitals(row, tracked_stems):
     return reasons
 
 
+def schema_errors(row):
+    """Validator complaints validate.py would raise about this row if it were
+    appended to models.yaml as-is. [] means the row is schema-clean.
+
+    missing_vitals only judges whether a row is worth promoting unassisted;
+    it says nothing about whether the row is even well-formed. Auto-built
+    rows always are, but a carried-forward candidates.yaml row is hand-edited
+    by a human and can carry a release_date like "sometime in 2025" —
+    missing_vitals has no opinion on that, so without this check such a row
+    would promote, and render_readme.py's release_date sort would then raise
+    TypeError comparing a datetime.date to a str, killing the weekly PR with
+    no PR ever opening. Reuses validate.row_errors rather than
+    reimplementing CI's rules, so the two can never drift apart.
+    """
+    return validate.row_errors(row)
+
+
 def route(row, tracked_stems):
     """'promote' | 'review' | 'drop'.
 
     Notability gates first: completeness alone is not evidence of worth (see
     module docstring), so an unremarkable-but-complete row is dropped rather
-    than promoted. Only a notable row's completeness is then checked to decide
-    between an unreviewed promotion and a human review pass.
+    than promoted. A notable row is then checked two ways before an
+    unreviewed promotion is allowed: missing_vitals (is it worth promoting
+    unassisted?) and schema_errors (would validate.py accept it?). Either one
+    failing sends the row to review instead — a schema failure is never
+    promoted, no matter how complete the row otherwise looks.
     """
     if not is_notable(row):
         return "drop"
-    return "review" if missing_vitals(row, tracked_stems) else "promote"
+    return "review" if missing_vitals(row, tracked_stems) or schema_errors(row) \
+        else "promote"

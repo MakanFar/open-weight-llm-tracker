@@ -133,6 +133,51 @@ def test_staged_row_with_unusable_release_date_survives(tmp_path):
         "org/no-date", "org/str-date"]
 
 
+def test_schema_invalid_carried_forward_row_is_demoted_not_promoted(tmp_path):
+    """A hand-edited candidates.yaml row can clear every vitals check
+    (classify.missing_vitals) and still fail validate.py's own rules —
+    release_date: "sometime in 2025" is exactly the garbage
+    test_staged_row_with_unusable_release_date_survives proves a human can
+    type. missing_vitals alone would wave this row through to models.yaml,
+    where render_readme's date sort then raises TypeError comparing a
+    datetime.date to a str, killing the whole weekly PR. The promotion gate
+    must also run validate.py's per-row checks and demote a failure to
+    review — never append it — carrying the specific complaint so a human
+    can see what is wrong.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "BadDate", "hf_repo": "org/bad-date", "developer": "org",
+         "release_date": "sometime in 2025", "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = _refresh(api, tmp_path)
+
+    assert promoted == []
+    assert [c["hf_repo"] for c in queue] == ["org/bad-date"]
+    assert any("schema-invalid" in r for r in queue[0]["needs_review"]), \
+        queue[0]["needs_review"]
+
+
+def test_schema_valid_carried_forward_row_still_promotes(tmp_path):
+    """Same shape as the row above but with a real date: the new schema gate
+    must not reject a genuinely clean row, only a broken one."""
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "GoodDate", "hf_repo": "org/good-date", "developer": "org",
+         "release_date": date(2025, 6, 1), "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = _refresh(api, tmp_path)
+
+    assert [c["hf_repo"] for c in promoted] == ["org/good-date"]
+    assert queue == []
+
+
 def test_write_candidates_round_trips(tmp_path):
     path = tmp_path / "candidates.yaml"
     rows = [{"name": "GLM-5.2", "hf_repo": "zai-org/GLM-5.2",

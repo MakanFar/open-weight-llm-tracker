@@ -65,6 +65,58 @@ def identity_errors(models):
     return errors
 
 
+def row_errors(m, tag=None):
+    """Every schema problem with a single row. [] means the row is clean.
+
+    This is the per-row subset of what main() checks on every entry in
+    models.yaml — everything except the duplicate-entry check, which needs
+    the `seen` state main() accumulates across rows and so cannot live in a
+    single-row function. Kept separate from main() so other code (classify.py's
+    promotion gate) can run the identical checks on a row that is not yet, and
+    may never be, in models.yaml — without reimplementing the rules and
+    risking them drifting apart from what CI actually enforces.
+    """
+    if tag is None:
+        tag = m.get("name") or m.get("hf_repo") or "<unnamed>"
+    errors = []
+
+    for f in REQUIRED:
+        if m.get(f) in (None, ""):
+            errors.append(f"[{tag}] missing required field: {f}")
+
+    if m.get("architecture") not in ARCH:
+        errors.append(f"[{tag}] architecture must be one of {ARCH}")
+    if m.get("modality") not in MODALITY:
+        errors.append(f"[{tag}] modality must be one of {MODALITY}")
+    if m.get("commercial_use") not in COMMERCIAL:
+        errors.append(f"[{tag}] commercial_use must be true/false/conditional")
+    if m.get("license") not in LICENSES:
+        errors.append(f"[{tag}] license '{m.get('license')}' not in allowlist "
+                      f"(add it to validate.py if intentional)")
+
+    # MoE sanity: active <= total
+    pt, pa = m.get("params_total_b"), m.get("params_active_b")
+    if isinstance(pt, (int, float)) and isinstance(pa, (int, float)) and pa > pt:
+        errors.append(f"[{tag}] params_active_b ({pa}) > params_total_b ({pt})")
+
+    # dense models: active should equal total
+    if m.get("architecture") == "dense" and pt != pa:
+        errors.append(f"[{tag}] dense model should have params_active_b == params_total_b")
+
+    # date format + not in the future
+    rd = m.get("release_date")
+    if not isinstance(rd, date):
+        errors.append(f"[{tag}] release_date must be YYYY-MM-DD")
+    elif rd > date.today():
+        errors.append(f"[{tag}] release_date is in the future: {rd}")
+
+    ctx = m.get("context_window")
+    if not isinstance(ctx, int) or ctx <= 0:
+        errors.append(f"[{tag}] context_window must be a positive integer")
+
+    return errors
+
+
 def main():
     doc = yaml.safe_load(DATA.read_text())
     models = doc.get("models", [])
@@ -74,45 +126,13 @@ def main():
     for i, m in enumerate(models):
         tag = m.get("name", f"<index {i}>")
 
-        for f in REQUIRED:
-            if m.get(f) in (None, ""):
-                errors.append(f"[{tag}] missing required field: {f}")
+        errors.extend(row_errors(m, tag=tag))
 
         # no duplicate models
         key = (m.get("name"), m.get("hf_repo"))
         if key in seen:
             errors.append(f"[{tag}] duplicate entry")
         seen.add(key)
-
-        if m.get("architecture") not in ARCH:
-            errors.append(f"[{tag}] architecture must be one of {ARCH}")
-        if m.get("modality") not in MODALITY:
-            errors.append(f"[{tag}] modality must be one of {MODALITY}")
-        if m.get("commercial_use") not in COMMERCIAL:
-            errors.append(f"[{tag}] commercial_use must be true/false/conditional")
-        if m.get("license") not in LICENSES:
-            errors.append(f"[{tag}] license '{m.get('license')}' not in allowlist "
-                          f"(add it to validate.py if intentional)")
-
-        # MoE sanity: active <= total
-        pt, pa = m.get("params_total_b"), m.get("params_active_b")
-        if isinstance(pt, (int, float)) and isinstance(pa, (int, float)) and pa > pt:
-            errors.append(f"[{tag}] params_active_b ({pa}) > params_total_b ({pt})")
-
-        # dense models: active should equal total
-        if m.get("architecture") == "dense" and pt != pa:
-            errors.append(f"[{tag}] dense model should have params_active_b == params_total_b")
-
-        # date format + not in the future
-        rd = m.get("release_date")
-        if not isinstance(rd, date):
-            errors.append(f"[{tag}] release_date must be YYYY-MM-DD")
-        elif rd > date.today():
-            errors.append(f"[{tag}] release_date is in the future: {rd}")
-
-        ctx = m.get("context_window")
-        if not isinstance(ctx, int) or ctx <= 0:
-            errors.append(f"[{tag}] context_window must be a positive integer")
 
     errors.extend(identity_errors(models))
 
