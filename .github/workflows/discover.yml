@@ -33,6 +33,12 @@ jobs:
           # Optional: add an HF token as a repo secret for higher rate limits.
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/discover.py --min-params 3
+      - name: Rebuild README if models.yaml gained a row
+        # discover.py can now append promoted rows straight to models.yaml.
+        # validate.yml re-renders README.md and fails the PR on any diff, so
+        # this must run in the SAME commit the Action produces — otherwise
+        # the auto-opened PR would arrive already red.
+        run: python scripts/render_readme.py
       - name: Open PR if there are new candidates
         uses: peter-evans/create-pull-request@v6
         with:
@@ -40,15 +46,20 @@ jobs:
           branch: auto/model-candidates
           title: "New open-weight model candidates for review"
           body: |
-            Automated discovery from the Hugging Face Hub.
+            Automated discovery.
 
-            Review `candidates.yaml`, fix the `TODO` fields (active params for MoE,
-            architecture, context window, commercial_use).
-            For rows with `needs_hf_repo: true`, verify that the `hf_repo` really is
-            the model the leaderboard named. Then move approved rows into `models.yaml`,
-            run `python scripts/render_readme.py`, and merge.
+            **`models.yaml`** — rows auto-promoted because they cleared the
+            notability bar with no missing vitals. `commercial_use` on these is
+            inferred from the licence tag, not read from the licence: check any
+            row rendered with a trailing `?` before merging.
+
+            **`candidates.yaml`** — rows that need a decision. Each carries a
+            `needs_review` list saying what is missing. Fill the gap here and the
+            next run promotes the row automatically.
           add-paths: |
+            models.yaml
             candidates.yaml
             arena_agent_rankings.yaml
             aa_scores.yaml
+            README.md
           delete-branch: true

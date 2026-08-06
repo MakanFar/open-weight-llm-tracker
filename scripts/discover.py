@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-Discover NEW open-weight LLMs and stage them as candidates for review. This
-does NOT touch models.yaml directly — it writes candidates.yaml so a human
-approves them (via PR) before they land.
+Discover NEW open-weight LLMs, classify each one, and route it accordingly.
+A row that clears the notability bar (classify.is_notable) with no missing
+vitals (classify.missing_vitals) is APPENDED to models.yaml; everything else
+that is notable waits in candidates.yaml with a `needs_review` list; anything
+unremarkable is dropped before either file sees it. This never edits, reorders
+or deletes a row already in models.yaml — only append_models() writes to it,
+and only by adding to the end — and it never commits to main: the Action opens
+a PR, which stays the human-in-the-loop approval step.
 
 WHY AN ORG SWEEP, NOT A GLOBAL SCAN:
     This script used to sort ALL of Hugging Face by created_at and take the
@@ -100,6 +105,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hf_meta
 import enrich
 import names
+import classify
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
@@ -149,8 +155,12 @@ def tracked_repos(path=DATA):
 
 # Discovery-only fields. SCHEMA.md requires these stripped on promotion —
 # validate.py checks models.yaml only, so they would otherwise leak in.
+# needs_review is classify.route's own output (why a row waited rather than
+# promoted); a promoted row has already cleared that bar, so the reason it
+# once carried is stale and must not survive into models.yaml.
 PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
-                          "downloads", "needs_hf_repo", "resolution_confidence")
+                          "downloads", "needs_hf_repo", "resolution_confidence",
+                          "needs_review")
 
 
 def tracked_stems(path=DATA):
@@ -302,7 +312,7 @@ def surviving_staged(staged, tracked):
 
 
 def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
-               max_age_days=None, today=None):
+               get_text=enrich._http_get_text, max_age_days=None, today=None):
     """One list_models call per org. Returns (candidates, skip_counts).
 
     A failure on one org is logged and skipped — it never aborts the sweep.
@@ -313,6 +323,11 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
     entire back-catalogue of every allowlisted org instead of what is new. A
     repo with no created_at is kept — an unknown date cannot prove staleness.
     Pass 0 or None to disable the window.
+
+    Each candidate is enriched (enrich_row) before it is returned. This must
+    happen here, not later in refresh(), because classify.route() judges
+    completeness on the row it is handed — an MoE row would look permanently
+    incomplete if the card-derived active-params figure were never fetched.
     """
     candidates = []
     skips = {"known": 0, "derivative": 0, "small": 0, "license": 0,
@@ -354,9 +369,10 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
                 skips[reason] += 1
                 continue
             ctx, arch = hf_meta.resolve_facts(info, get_json)
-            candidates.append(hf_meta.candidate_from_repo(
+            row = hf_meta.candidate_from_repo(
                 info, discovered_via=["org-sweep"], context_window=ctx,
-                architecture=arch))
+                architecture=arch)
+            candidates.append(enrich_row(row, info, get_text, get_json))
             seen.add(info.id.lower())
 
     return candidates, skips
@@ -406,8 +422,14 @@ def load_arena(path=ARENA):
     return rows, list(raw_new_orgs or [])
 
 
-def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_json):
-    """Build candidates from arena-resolved repos via the shared hf_meta path."""
+def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_json,
+                     get_text=enrich._http_get_text):
+    """Build candidates from arena-resolved repos via the shared hf_meta path.
+
+    Enriched the same way as sweep_orgs, and for the same reason: classify.py
+    must see the card-derived active-params figure, not just what the HF API
+    expand exposes.
+    """
     out = []
     for row in rows:
         repo = row["resolved_repo"]
@@ -428,11 +450,12 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
                   f"{row.get('rank')} dropped)")
             continue
         ctx, arch = hf_meta.resolve_facts(info, get_json)
-        out.append(hf_meta.candidate_from_repo(
+        candidate = hf_meta.candidate_from_repo(
             info, discovered_via=["arena"], arena_rank=row.get("rank"),
             needs_hf_repo=row.get("needs_hf_repo"),
             resolution_confidence=row.get("resolution_confidence"),
-            context_window=ctx, architecture=arch))
+            context_window=ctx, architecture=arch)
+        out.append(enrich_row(candidate, info, get_text, get_json))
     return out
 
 
@@ -581,8 +604,11 @@ def write_candidates(path, candidates):
 def refresh(api, min_params, *, orgs=None, data_path=DATA,
             candidates_path=CANDIDATES, arena_path=ARENA, aa_path=AA,
             use_arena=True, get_json=hf_meta._http_get_json,
+            get_text=enrich._http_get_text,
             max_age_days=DEFAULT_MAX_AGE_DAYS, today=None):
-    """Build the next review queue. Returns (candidates, skips, new_orgs).
+    """Build the next promotion batch and review queue.
+
+    Returns (promoted, queue, skips, new_orgs).
 
     The queue is cumulative: rows already staged are carried forward (minus
     any promoted into models.yaml) and newly discovered rows are added to
@@ -597,7 +623,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
           f"max age {max_age_days or 'unlimited'} days)")
     org_rows, skips = sweep_orgs(api, orgs, min_params, known,
-                                 get_json=get_json,
+                                 get_json=get_json, get_text=get_text,
                                  max_age_days=max_age_days, today=today)
     print(f"  carried {len(staged)} staged candidate(s) forward")
     print(f"  org sweep found {len(org_rows)} new candidate(s); skipped: {skips}")
@@ -608,7 +634,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         if resolved:
             print(f"  arena contributed {len(resolved)} resolved repo(s)")
             arena_rows = arena_candidates(api, resolved, min_params, known,
-                                          get_json=get_json)
+                                          get_json=get_json, get_text=get_text)
         else:
             print("  no arena data (run scripts/pull_arena.py first)")
 
@@ -616,10 +642,24 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
 
     aa_index = load_aa_index(aa_path)
     annotate_aa(candidates, aa_index)
-    scored = sum(1 for c in candidates if "aa_index" in c)
-    print(f"  Artificial Analysis rates {scored} of {len(candidates)} candidate(s)")
 
-    return candidates, skips, new_orgs
+    stems = tracked_stems(data_path)
+    promoted, queue = [], []
+    for row in candidates:
+        verdict = classify.route(row, stems)
+        if verdict == "drop":
+            continue
+        if verdict == "promote":
+            promoted.append(row)
+            stems.add(names.family_stem(row["hf_repo"]))
+            continue
+        row["needs_review"] = classify.missing_vitals(row, stems)
+        queue.append(row)
+
+    print(f"  {len(promoted)} promotable, {len(queue)} need review, "
+          f"{len(candidates) - len(promoted) - len(queue)} below the bar")
+
+    return promoted, queue, skips, new_orgs
 
 
 def main():
@@ -636,17 +676,19 @@ def main():
     token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
     api = HfApi(token=token)
 
-    candidates, _, new_orgs = refresh(api, args.min_params,
-                                      use_arena=not args.no_arena,
-                                      max_age_days=args.max_age_days)
+    promoted, queue, _, new_orgs = refresh(api, args.min_params,
+                                           use_arena=not args.no_arena,
+                                           max_age_days=args.max_age_days)
 
     if new_orgs:
         print(f"\nNEW ORGS seen on the leaderboard but not in ORG_ALLOWLIST: "
               f"{', '.join(new_orgs)}")
         print("Add them to ORG_ALLOWLIST in this file to widen coverage.")
 
-    write_candidates(CANDIDATES, candidates)
-    print(f"\nWrote {len(candidates)} candidate(s) to {CANDIDATES.name}")
+    n = append_models(DATA, [promotion_row(r) for r in promoted])
+    write_candidates(CANDIDATES, queue)
+    print(f"\nPromoted {n} model(s) into {DATA.name}; "
+          f"{len(queue)} awaiting review in {CANDIDATES.name}")
     # exit 0 always; the Action decides whether the diff is non-empty
 
 

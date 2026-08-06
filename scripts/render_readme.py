@@ -43,8 +43,17 @@ def human_ctx(n):
     return str(n)
 
 
-def commercial_badge(v):
-    return {True: "Yes", False: "No", "conditional": "Conditional"}.get(v, str(v))
+def commercial_badge(model):
+    """Commercial-use badge. Unverified values carry a trailing ?.
+
+    A row promoted automatically carries a value inferred from the licence
+    TAG, not from anyone reading the licence. Rendering it identically to a
+    checked value would publish an unverified legal claim as a settled one.
+    """
+    label = {True: "Yes", False: "No",
+             "conditional": "Conditional"}.get(model.get("commercial_use"),
+                                               str(model.get("commercial_use")))
+    return label if model.get("commercial_use_verified") else f"{label}?"
 
 
 def _index_by_identity(pairs, identity_of=names.repo_identity):
@@ -221,7 +230,7 @@ def build_table(models, aa, ranks):
             f"{human_params(m['params_total_b'], m['params_active_b'], m['architecture'])} | "
             f"{human_ctx(m['context_window'])} | {m['modality']} | "
             f"{arena_cell(m, ranks)} | {aa_cell(m, aa)} | "
-            f"`{m['license']}` | {commercial_badge(m['commercial_use'])} |"
+            f"`{m['license']}` | {commercial_badge(m)} |"
         )
     return "\n".join(rows)
 
@@ -248,7 +257,9 @@ def main():
         "model; it drops older models, so coverage skews to recent releases. The "
         "index is re-weighted between versions, so values are not comparable "
         "across time. **Arena** is the Agent Arena rank (`—` = not currently "
-        "ranked).\n\n"
+        "ranked). "
+        "A trailing `?` on **Commercial** marks a value inferred from the "
+        "licence tag and not yet checked against the licence text.\n\n"
         f"{START}\n{table}\n{END}\n\n"
         "## Regenerate\n\n"
         "```bash\n"
@@ -258,8 +269,15 @@ def main():
         "python scripts/render_readme.py   # rebuild this table\n"
         "```\n\n"
         "## Staying current (automatic discovery)\n\n"
-        "Two scripts feed the review queue in [`candidates.yaml`](candidates.yaml). "
-        "Neither ever edits `models.yaml` directly.\n\n"
+        "Discovery runs weekly and classifies what it finds. A model that clears "
+        "the notability bar (an Artificial Analysis score, an Agent Arena rank, or "
+        "≥500k Hugging Face downloads) **and** has no missing vitals is "
+        "**appended** to `models.yaml` automatically — never edited, reordered, or "
+        "deleted, only added to. A notable model missing something (most often the "
+        "MoE active-parameter count, since the Hugging Face API does not expose "
+        "it) waits in [`candidates.yaml`](candidates.yaml) with a `needs_review` "
+        "list explaining what is missing. An unremarkable model is dropped before "
+        "either file sees it.\n\n"
         "[`scripts/discover.py`](scripts/discover.py) sweeps an allowlist of "
         "organizations — one Hugging Face query per org — rather than scanning all of "
         "HF by recency. Sorting the whole Hub by upload date returns finetunes and "
@@ -276,9 +294,14 @@ def main():
         "A model is open-weight if and only if a public weights repo was found for it. "
         "See [SCHEMA.md](SCHEMA.md) for the discovery-only fields, including "
         "`needs_hf_repo`, which flags an inexact name match for a human to confirm.\n\n"
-        "The `discover-models` GitHub Action runs it weekly and opens a **pull request** "
-        "with the new candidates — review the PR, fill the `TODO` fields (active params, "
-        "commercial-use), move approved rows into `models.yaml`, and merge.\n"
+        "The `discover-models` GitHub Action runs this weekly and opens a **pull "
+        "request** — nothing it does ever commits straight to `main`, and that PR "
+        "is the human-in-the-loop approval step. A row in the table above marked "
+        "with a trailing `?` on **Commercial** was auto-promoted with "
+        "`commercial_use` inferred from the licence tag: check it against the "
+        "licence text before merging. For a row left in `candidates.yaml`, fill "
+        "the gap named in its `needs_review` list and the next run promotes it "
+        "automatically.\n"
     )
     README.write_text(body)
     print(f"Rendered README.md with {n} models.")

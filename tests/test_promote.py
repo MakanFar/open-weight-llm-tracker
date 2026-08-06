@@ -55,6 +55,18 @@ def test_promotion_row_strips_discovery_only_fields():
         assert field not in row, f"{field} must not leak into models.yaml"
 
 
+def test_promotion_row_strips_needs_review():
+    """needs_review is classify.route's own output, not a fact about the model.
+
+    A row only ever reaches promotion_row after classify.route judged it
+    complete, so any needs_review it still carries (e.g. from a prior run
+    where it was staged, then a human filled the gap by hand) is stale and
+    must not leak into models.yaml the way arena_rank and friends must not.
+    """
+    row = discover.promotion_row(_candidate(needs_review=["no-context-window"]))
+    assert "needs_review" not in row
+
+
 def test_promotion_row_keeps_the_activation_provenance():
     """A reviewer must be able to check where 32B came from."""
     assert discover.promotion_row(_candidate())["params_active_source"] == "32B activated"
