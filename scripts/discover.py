@@ -98,6 +98,7 @@ except ImportError:
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hf_meta
 import enrich
+import names
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
@@ -143,6 +144,60 @@ def tracked_repos(path=DATA):
     write_candidates() empty the queue on the very next run.
     """
     return {r["hf_repo"].lower() for r in _rows_of(path)}
+
+
+# Discovery-only fields. SCHEMA.md requires these stripped on promotion —
+# validate.py checks models.yaml only, so they would otherwise leak in.
+PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
+                          "downloads", "needs_hf_repo", "resolution_confidence")
+
+
+def tracked_stems(path=DATA):
+    """Family stems already present in models.yaml."""
+    return {names.family_stem(r["hf_repo"]) for r in _rows_of(path)
+            if r.get("hf_repo")}
+
+
+def promotion_row(candidate):
+    """A candidate reshaped for models.yaml.
+
+    commercial_use_verified is stamped False because the value came from a
+    licence-tag inference, not from anyone reading the licence. The renderer
+    marks unverified values so a reader can tell an inferred claim from a
+    checked one; a human setting it True is an ordinary edit that append-only
+    preserves.
+    """
+    row = {k: v for k, v in candidate.items() if k not in PROMOTION_STRIP_FIELDS}
+    row.setdefault("commercial_use_verified", False)
+    return row
+
+
+def append_models(path, rows):
+    """Append rows to models.yaml. Returns the count appended.
+
+    APPEND-ONLY, and literally so: the existing file is not parsed and
+    re-dumped, it is read as text and added to. Round-tripping through
+    yaml.safe_dump would reflow every hand-curated row and drop the comment
+    header, which is precisely the human ownership this file exists to hold.
+
+    Rows are dumped on their own (not wrapped in a {"models": rows} document)
+    because PyYAML's block-sequence indent is 0 by default — a top-level dump
+    would emit "- name: ..." flush against the margin, but every row already
+    in the file sits indented two spaces under the `models:` key. Dumping the
+    bare list and indenting each line by hand matches that existing
+    convention instead of fighting it.
+    """
+    rows = list(rows)
+    if not rows:
+        return 0
+    dumped = yaml.safe_dump(rows, sort_keys=False, allow_unicode=True, width=100)
+    body = "".join("  " + line if line.strip() else line
+                   for line in dumped.splitlines(keepends=True))
+    existing = Path(path).read_text()
+    if not existing.endswith("\n"):
+        existing += "\n"
+    Path(path).write_text(existing + body)
+    return len(rows)
 
 
 def load_staged(path=CANDIDATES):
