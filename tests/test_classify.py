@@ -34,6 +34,29 @@ def test_not_notable_with_no_signal_and_few_downloads():
     assert classify.is_notable(_row(downloads=1200)) is False
 
 
+def test_notable_with_aa_index_zero():
+    """Artificial Analysis scores start at 0; a truthiness check would wrongly
+    treat a genuine 0 as absent."""
+    assert classify.is_notable(_row(aa_index=0)) is True
+
+
+def test_notable_with_arena_rank_zero():
+    """Arena leaderboard ranks start at 0; a truthiness check would wrongly
+    treat a genuine 0 as absent."""
+    assert classify.is_notable(_row(arena_rank=0)) is True
+
+
+def test_notable_with_downloads_none():
+    """downloads=None must not raise; it should be treated as 0 (not notable)."""
+    assert classify.is_notable(_row(downloads=None)) is False
+
+
+def test_context_window_true_rejected():
+    """Python's bool is a subclass of int, so naive isinstance(ctx, int) would
+    let True through as a context window. Must explicitly reject booleans."""
+    assert "no-context-window" in classify.missing_vitals(_row(context_window=True), set())
+
+
 # --- vitals ----------------------------------------------------------------
 
 def test_complete_dense_row_has_no_missing_vitals():
