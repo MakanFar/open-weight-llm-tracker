@@ -43,6 +43,12 @@ EXCLUDE_PATTERNS = re.compile(
     re.IGNORECASE,
 )
 
+# The boilerplate stamped onto every auto-discovered row's `notes` field.
+# Named so discover.promotion_row can strip it by identity (candidate_from_repo
+# is the only writer of this exact sentence) rather than duplicating the
+# literal, which would silently drift the moment either string changed.
+AUTO_DISCOVERY_NOTE = "Auto-discovered candidate; review before merging into models.yaml."
+
 CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
 
 # Expert-count keys that mark a mixture-of-experts model. Vendors disagree on
@@ -216,7 +222,7 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "weights_url": f"https://huggingface.co/{repo}",
         "downloads": getattr(info, "downloads", None),
         "discovered_via": list(discovered_via),
-        "notes": "Auto-discovered candidate; review before merging into models.yaml.",
+        "notes": AUTO_DISCOVERY_NOTE,
     }
     if arena_rank is not None:
         candidate["arena_rank"] = arena_rank

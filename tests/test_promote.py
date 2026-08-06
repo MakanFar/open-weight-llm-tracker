@@ -1,6 +1,8 @@
+import os
 import sys
 from pathlib import Path
 
+import pytest
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -62,6 +64,25 @@ def test_promotion_row_marks_commercial_use_unverified():
     assert discover.promotion_row(_candidate())["commercial_use_verified"] is False
 
 
+def test_promotion_row_stamps_false_even_if_candidate_claims_verified():
+    """A human hand-editing candidates.yaml could set this true from a licence
+    tag, but the value was never actually read off a licence — it must be
+    forced to False regardless of what the candidate carries in."""
+    row = discover.promotion_row(_candidate(commercial_use_verified=True))
+    assert row["commercial_use_verified"] is False
+
+
+def test_promotion_row_drops_the_auto_discovery_boilerplate_note():
+    row = discover.promotion_row(_candidate(
+        notes="Auto-discovered candidate; review before merging into models.yaml."))
+    assert "notes" not in row
+
+
+def test_promotion_row_keeps_a_human_written_note():
+    row = discover.promotion_row(_candidate(notes="Confirmed with vendor blog post."))
+    assert row["notes"] == "Confirmed with vendor blog post."
+
+
 def test_append_leaves_existing_rows_byte_identical(tmp_path):
     """The invariant. A human's hand-edited row must survive untouched."""
     p = tmp_path / "models.yaml"
@@ -107,3 +128,97 @@ def test_appended_file_still_parses_and_validates_shape(tmp_path):
                   "params_active_b", "architecture", "context_window",
                   "modality", "license", "commercial_use"):
         assert field in new
+
+
+def test_append_separates_the_new_row_with_a_blank_line(tmp_path):
+    """Every row pair in the real file has a blank line between them; an
+    appended row must match that hand-formatting instead of butting directly
+    against the previous row's last line."""
+    p = tmp_path / "models.yaml"
+    p.write_text(EXISTING)
+    discover.append_models(p, [discover.promotion_row(_candidate())])
+
+    text = p.read_text()
+    assert '"Hand-written note that must survive."\n\n  - name: GLM-5.2' in text
+
+
+def test_append_separates_multiple_new_rows_from_each_other(tmp_path):
+    """Blank-line separation is the file's convention between EVERY row
+    pair, including two rows landing in the same append batch — not just
+    between the last existing row and the first new one."""
+    p = tmp_path / "models.yaml"
+    p.write_text(EXISTING)
+    second = _candidate(name="Kimi K2.7", hf_repo="moonshotai/Kimi-K2.7")
+    discover.append_models(p, [discover.promotion_row(_candidate()),
+                                discover.promotion_row(second)])
+
+    text = p.read_text()
+    assert "  - name: GLM-5.2" in text and "  - name: Kimi K2.7" in text
+    between = text.split("  - name: GLM-5.2", 1)[1]
+    assert "\n\n  - name: Kimi K2.7" in between
+
+
+def test_append_refuses_when_last_top_level_key_is_not_models(tmp_path):
+    """If models.yaml ever ends with a second top-level key (e.g. a `sources:`
+    block), naive EOF-append would land the new row under that key instead of
+    under `models:` — the file would still parse, `models` would be
+    unchanged, and the promoted model would silently vanish. Refuse instead
+    of writing."""
+    p = tmp_path / "models.yaml"
+    bad = EXISTING + "\nsources:\n  - https://example.com\n"
+    p.write_text(bad)
+
+    with pytest.raises(Exception):
+        discover.append_models(p, [discover.promotion_row(_candidate())])
+
+    assert p.read_text() == bad
+
+
+def test_append_refuses_on_empty_file(tmp_path):
+    p = tmp_path / "models.yaml"
+    p.write_text("")
+
+    with pytest.raises(Exception):
+        discover.append_models(p, [discover.promotion_row(_candidate())])
+
+    assert p.read_text() == ""
+
+
+def test_append_refuses_when_no_models_key_present(tmp_path):
+    p = tmp_path / "models.yaml"
+    header_only = "# Open-weight tracker — SOURCE OF TRUTH\n# Hand-curated. Do not reformat.\n"
+    p.write_text(header_only)
+
+    with pytest.raises(Exception):
+        discover.append_models(p, [discover.promotion_row(_candidate())])
+
+    assert p.read_text() == header_only
+
+
+def test_append_writes_atomically(tmp_path, monkeypatch):
+    """A crash mid-write must not leave models.yaml truncated. append_models
+    should write to a temp file in the same directory and os.replace() it
+    onto the target, never truncate the target in place."""
+    p = tmp_path / "models.yaml"
+    p.write_text(EXISTING)
+
+    real_replace = os.replace
+    called = {}
+
+    def spy_replace(src, dst):
+        called["src"] = Path(src)
+        called["dst"] = Path(dst)
+        # At the moment of replace, the temp file must already hold the full
+        # new content and the target must still hold the OLD content
+        # untouched — proof the write happened off to the side first.
+        assert Path(src).read_text() != EXISTING
+        assert Path(dst).read_text() == EXISTING
+        return real_replace(src, dst)
+
+    monkeypatch.setattr(os, "replace", spy_replace)
+
+    discover.append_models(p, [discover.promotion_row(_candidate())])
+
+    assert called, "os.replace was never called — write is not atomic"
+    assert called["dst"] == p
+    assert called["src"].parent == p.parent

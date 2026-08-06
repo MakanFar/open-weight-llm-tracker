@@ -85,6 +85,7 @@ NOTES / deliberate choices (the "don'ts"):
 import argparse
 import os
 import sys
+import tempfile
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -154,22 +155,81 @@ PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
 
 def tracked_stems(path=DATA):
     """Family stems already present in models.yaml."""
-    return {names.family_stem(r["hf_repo"]) for r in _rows_of(path)
-            if r.get("hf_repo")}
+    return {names.family_stem(r["hf_repo"]) for r in _rows_of(path)}
 
 
 def promotion_row(candidate):
     """A candidate reshaped for models.yaml.
 
-    commercial_use_verified is stamped False because the value came from a
-    licence-tag inference, not from anyone reading the licence. The renderer
-    marks unverified values so a reader can tell an inferred claim from a
-    checked one; a human setting it True is an ordinary edit that append-only
-    preserves.
+    commercial_use_verified is force-stamped False (an unconditional
+    assignment, not a setdefault) because the value must reflect that no
+    human has read the licence — a candidate arriving with
+    commercial_use_verified already True (e.g. hand-edited in
+    candidates.yaml from a licence-tag guess) must NOT promote as verified.
+    Task 7 is expected to make the renderer mark unverified values so a
+    reader can tell an inferred claim from a checked one; that does not
+    exist yet, so this row just carries the correct value for it to use.
+
+    The auto-discovery boilerplate note (stamped by every candidate at
+    creation, see hf_meta.AUTO_DISCOVERY_NOTE) is dropped rather than
+    promoted: it is a to-do for the reviewer, not a fact about the model, and
+    is false the instant the row is promoted. Matched by exact identity so a
+    human's own "notes" survives untouched — only that literal sentence is
+    ever removed. license_notes is a different field with a legitimate
+    standing marker ("AUTO-DISCOVERED — verify license terms.") and is left
+    alone.
     """
     row = {k: v for k, v in candidate.items() if k not in PROMOTION_STRIP_FIELDS}
-    row.setdefault("commercial_use_verified", False)
+    row["commercial_use_verified"] = False
+    if row.get("notes") == hf_meta.AUTO_DISCOVERY_NOTE:
+        del row["notes"]
     return row
+
+
+class ModelsYamlShapeError(Exception):
+    """models.yaml is not shaped the way append_models requires.
+
+    Raised instead of writing anything. append_models concatenates text at
+    EOF with no re-parse of what it wrote — that is deliberate (see its
+    docstring) — but that only works if the LAST top-level key in the file
+    really is `models:`. If the file ever ends with a different top-level
+    key (e.g. a hand-added `sources:` block), a naive text-append lands the
+    new row underneath that key instead: the file still parses, `models` is
+    unchanged, and the promoted model silently vanishes with no exception
+    and no change to validate.py's reported count. Refusing loudly here is
+    the only thing that turns that into a visible failure instead of a
+    silent data loss.
+    """
+
+
+def _assert_appendable_shape(text):
+    """Refuse to append unless models.yaml is a mapping ending in `models: [...]`.
+
+    append_models writes raw text onto the end of the file, so anything
+    after that point in the real file would end up appearing to belong to
+    whatever key trails it. Checking that `models` is LAST (not just
+    present) is what keeps the append landing in the right place.
+    """
+    try:
+        doc = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        raise ModelsYamlShapeError(f"models.yaml is not valid YAML: {exc}") from exc
+
+    if not isinstance(doc, dict) or not doc:
+        raise ModelsYamlShapeError(
+            "models.yaml does not parse as a non-empty mapping; refusing to "
+            "append rather than risk corrupting it")
+
+    last_key = list(doc.keys())[-1]
+    if last_key != "models":
+        raise ModelsYamlShapeError(
+            f"models.yaml's last top-level key is {last_key!r}, not "
+            "'models'; an EOF append would land under that key instead and "
+            "silently vanish from the tracked list, so refusing to write")
+
+    if not isinstance(doc["models"], list):
+        raise ModelsYamlShapeError(
+            "models.yaml's 'models' key is not a list; refusing to append")
 
 
 def append_models(path, rows):
@@ -179,24 +239,55 @@ def append_models(path, rows):
     re-dumped, it is read as text and added to. Round-tripping through
     yaml.safe_dump would reflow every hand-curated row and drop the comment
     header, which is precisely the human ownership this file exists to hold.
+    Before touching anything, _assert_appendable_shape checks (read-only)
+    that the file's last top-level key really is `models:` — see
+    ModelsYamlShapeError for why that precondition matters. This function
+    still never re-dumps the rows it writes; the check only reads.
 
     Rows are dumped on their own (not wrapped in a {"models": rows} document)
     because PyYAML's block-sequence indent is 0 by default — a top-level dump
     would emit "- name: ..." flush against the margin, but every row already
     in the file sits indented two spaces under the `models:` key. Dumping the
     bare list and indenting each line by hand matches that existing
-    convention instead of fighting it.
+    convention instead of fighting it. Each row is dumped separately (rather
+    than all at once) so a blank line can be inserted before every one of
+    them, not just before the first — every row pair already in the file is
+    separated by a blank line, including consecutive rows within a single
+    append batch, and this matches that existing hand-formatting.
+
+    The write itself is atomic: the new content is written to a temp file in
+    the same directory and moved into place with os.replace(), which is
+    atomic on POSIX. models.yaml is hand-curated source of truth with no
+    automated backup; a plain write_text() truncates in place, so a process
+    killed mid-write would leave it truncated with the appended rows (and
+    possibly existing ones) gone.
     """
     rows = list(rows)
     if not rows:
         return 0
-    dumped = yaml.safe_dump(rows, sort_keys=False, allow_unicode=True, width=100)
-    body = "".join("  " + line if line.strip() else line
-                   for line in dumped.splitlines(keepends=True))
+
     existing = Path(path).read_text()
+    _assert_appendable_shape(existing)
+
+    blocks = []
+    for row in rows:
+        dumped = yaml.safe_dump([row], sort_keys=False, allow_unicode=True, width=100)
+        blocks.append("".join("  " + line if line.strip() else line
+                              for line in dumped.splitlines(keepends=True)))
+    body = "\n".join(blocks)  # blank line between consecutive appended rows too
     if not existing.endswith("\n"):
         existing += "\n"
-    Path(path).write_text(existing + body)
+    new_text = existing + "\n" + body
+
+    directory = Path(path).resolve().parent
+    fd, tmp_name = tempfile.mkstemp(prefix=".models.yaml.", dir=directory)
+    try:
+        with os.fdopen(fd, "w") as f:
+            f.write(new_text)
+        os.replace(tmp_name, path)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
     return len(rows)
 
 
