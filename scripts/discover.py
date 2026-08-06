@@ -97,6 +97,7 @@ except ImportError:
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hf_meta
+import enrich
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
@@ -287,6 +288,48 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
             resolution_confidence=row.get("resolution_confidence"),
             context_window=ctx, architecture=arch))
     return out
+
+
+def enrich_row(row, info, get_text, get_json):
+    """Fill fields the HF API does not expose, in place. Never fabricates.
+
+    Enrichment must run before classify.py judges a row complete: the HF API
+    has no field for MoE active params, so without this step every MoE
+    candidate looks incomplete regardless of what its model card actually
+    states.
+
+    Only MoE rows get an activation lookup: a dense row's active params equal
+    its total by definition, and validate.py enforces that, so writing a
+    card-derived figure onto one could only break it. The guard checks the
+    row's OWN stated architecture — it does not re-derive one, so a model
+    upstream mislabelled "dense" is a pre-existing gap this function must not
+    try to paper over.
+
+    Every lookup is None-safe: enrich.* returns None rather than a guess when
+    it cannot find an answer, and None here means "leave the field alone",
+    never "write nothing over something". Overwriting a real value with
+    nothing would destroy information a human would otherwise have reviewed.
+
+    params_active_source records the exact sentence the number came from, so
+    a reviewer can check the claim without re-reading the card.
+    """
+    if row.get("architecture") == "moe" and \
+            row.get("params_active_b") == row.get("params_total_b"):
+        found = enrich.active_params_from_card(
+            enrich.fetch_card(row["hf_repo"], get_text))
+        if found is not None:
+            row["params_active_b"], row["params_active_source"] = found
+
+    if not row.get("context_window"):
+        ctx = enrich.context_from_tokenizer(row["hf_repo"], get_json)
+        if ctx:
+            row["context_window"] = ctx
+
+    lic = enrich.license_string(info)
+    if lic:
+        row["license"] = lic
+
+    return row
 
 
 def merge_candidates(org_rows, arena_rows):
