@@ -178,6 +178,89 @@ def test_schema_valid_carried_forward_row_still_promotes(tmp_path):
     assert queue == []
 
 
+# --- re-enrichment of carried-forward rows ----------------------------------
+# enrich_row previously only ran inside sweep_orgs/arena_candidates, i.e. only
+# when a row was newly built. A row already staged in candidates.yaml goes
+# through surviving_staged() untouched, so every one of the 358 real staged
+# rows got exactly one enrichment attempt, at first discovery, and never
+# again — enrich.py was permanently inert against the existing queue.
+
+def test_refresh_reenriches_a_carried_forward_row_with_unmet_vitals(tmp_path):
+    """A carried-forward MoE row still missing its active-params figure must
+    get a fresh enrichment attempt on every refresh(), not just at the run
+    that first discovered it — a vendor can publish the activation figure on
+    the card later, and the row should unblock automatically once they do.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+    card = "It has ~700B parameters and ~35B activated parameters."
+
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {},
+        get_text=lambda url: card, today=TODAY)
+
+    assert [r["hf_repo"] for r in promoted] == ["org/gappy"]
+    assert promoted[0]["params_active_b"] == 35.0
+
+
+def test_refresh_does_not_reenrich_a_carried_forward_row_that_is_already_complete(tmp_path):
+    """Only rows classify.missing_vitals still flags should get a re-fetch
+    attempt — a fully complete row must not pay for a network round trip on
+    every single weekly run forever."""
+    def boom(url):
+        raise AssertionError(f"should not have fetched {url} for a complete row")
+
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Ready", "hf_repo": "org/ready", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {},
+        get_text=boom, today=TODAY)
+
+    assert [r["hf_repo"] for r in promoted] == ["org/ready"]
+
+
+def test_refresh_reenrichment_survives_a_carried_forward_row_having_no_model_info(tmp_path):
+    """Carried-forward rows have no ModelInfo (they were never fetched this
+    run) — enrich_row's licence half needs one for license_string. Passing
+    None must not raise; it just means the licence half is a no-op for a
+    carried row, honestly reflecting that no fresher licence data exists."""
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 0, "modality": "text", "license": "other",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    # Must not raise even though there is no ModelInfo to read a licence from.
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {"model_max_length": 65536},
+        get_text=lambda url: "", today=TODAY)
+
+    assert queue[0]["context_window"] == 65536
+    assert queue[0]["license"] == "other"  # licence half is a no-op for carried rows
+
+
 def test_write_candidates_round_trips(tmp_path):
     path = tmp_path / "candidates.yaml"
     rows = [{"name": "GLM-5.2", "hf_repo": "zai-org/GLM-5.2",

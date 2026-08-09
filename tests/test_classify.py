@@ -42,10 +42,36 @@ def test_not_notable_with_no_signal_and_few_downloads():
     assert classify.is_notable(_row(downloads=1200)) is False
 
 
-def test_notable_with_aa_index_zero():
+def test_aa_index_zero_is_a_real_value_not_absent_but_still_below_the_floor():
     """Artificial Analysis scores start at 0; a truthiness check would wrongly
-    treat a genuine 0 as absent."""
-    assert classify.is_notable(_row(aa_index=0)) is True
+    treat a genuine 0 as absent (None). But 0 is also far below
+    AA_NOTABILITY_FLOOR, so — unlike before the floor existed — it must NOT
+    confer notability on its own. It still must not raise or be confused
+    with None: notability via another signal (downloads here) still works."""
+    assert classify.is_notable(_row(aa_index=0)) is False
+    assert classify.is_notable(_row(aa_index=0, downloads=600_000)) is True
+
+
+def test_low_aa_index_alone_is_not_notable():
+    """granite-4.1-3b-base at aa=5 is exactly the case the floor exists to
+    reject: AA rated it and placed it nowhere near the frontier."""
+    assert classify.is_notable(_row(aa_index=5)) is False
+
+
+def test_aa_index_at_the_floor_boundary():
+    assert classify.is_notable(_row(aa_index=classify.AA_NOTABILITY_FLOOR)) is True
+    assert classify.is_notable(_row(aa_index=classify.AA_NOTABILITY_FLOOR - 1)) is False
+
+
+def test_low_aa_index_still_notable_via_downloads():
+    """gpt-oss-20b: aa 15, 8.5M downloads. The floor must gate the AA-alone
+    path only, never weaken the downloads path."""
+    assert classify.is_notable(_row(aa_index=15, downloads=8_500_000)) is True
+
+
+def test_low_aa_index_still_notable_via_arena_rank():
+    """The floor must not weaken the arena_rank path either."""
+    assert classify.is_notable(_row(aa_index=5, arena_rank=12)) is True
 
 
 def test_notable_with_arena_rank_zero():
@@ -98,6 +124,50 @@ def test_family_already_tracked_is_incomplete():
     """GLM-5.2 must not auto-promote while GLM-5.1 is tracked."""
     row = _row(hf_repo="zai-org/GLM-5.2")
     assert "family-already-tracked" in classify.missing_vitals(row, {"glm"})
+
+
+def test_distill_repo_is_flagged_derivative_or_base():
+    """Four of the 12 wrong auto-promotions were DeepSeek-R1 distills — a
+    derivative of an already-tracked model, not a primary release."""
+    row = _row(hf_repo="deepseek-ai/DeepSeek-R1-Distill-Qwen-32B")
+    assert "derivative-or-base" in classify.missing_vitals(row, set())
+
+
+def test_distill_is_matched_case_insensitively_anywhere_in_the_repo_id():
+    row = _row(hf_repo="deepseek-ai/deepseek-r1-DISTILL-llama-70b")
+    assert "derivative-or-base" in classify.missing_vitals(row, set())
+
+
+def test_trailing_base_repo_is_flagged_derivative_or_base():
+    """granite-4.1-30b-base and Mistral-7B-v0.1-adjacent base releases were
+    two more of the wrong promotions: pretraining checkpoints, not the
+    models this index tracks as primary rows."""
+    row = _row(hf_repo="ibm-granite/granite-4.1-30b-base")
+    assert "derivative-or-base" in classify.missing_vitals(row, set())
+
+
+def test_trailing_base_matches_underscore_separator_too():
+    row = _row(hf_repo="org/some_model_Base")
+    assert "derivative-or-base" in classify.missing_vitals(row, set())
+
+
+def test_base_as_part_of_a_longer_word_is_not_flagged():
+    """'base' must be its OWN trailing token (preceded by - or _), not a
+    substring — a repo genuinely named ...-Firebase or ...-Codebase is not a
+    base-model release and must not be misflagged."""
+    row = _row(hf_repo="org/some-model-Firebase")
+    assert "derivative-or-base" not in classify.missing_vitals(row, set())
+
+
+def test_base_mid_repo_id_is_not_flagged():
+    """Only a TRAILING base token counts — 'base' earlier in the id (e.g. a
+    hypothetical 'base-camp' release) is not a base-model marker."""
+    row = _row(hf_repo="org/base-camp-7B")
+    assert "derivative-or-base" not in classify.missing_vitals(row, set())
+
+
+def test_ordinary_repo_is_not_flagged_derivative_or_base():
+    assert classify.missing_vitals(_row(), set()) == []
 
 
 def test_reports_every_reason_not_just_the_first():

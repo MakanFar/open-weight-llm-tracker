@@ -613,12 +613,40 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     The queue is cumulative: rows already staged are carried forward (minus
     any promoted into models.yaml) and newly discovered rows are added to
     them, because write_candidates() replaces the file wholesale and anything
-    not returned here is lost.
+    not returned here is lost. Carried-forward rows that still have unmet
+    vitals also get a fresh enrich_row() attempt here (see the comment at
+    that call site) — otherwise a staged row only ever gets enriched once,
+    at the run that first discovered it.
     """
     orgs = ORG_ALLOWLIST if orgs is None else orgs
     tracked = tracked_repos(data_path)
     staged = surviving_staged(load_staged(candidates_path), tracked)
     known = tracked | {r["hf_repo"].lower() for r in staged}
+
+    # Re-attempt enrichment on carried-forward rows. sweep_orgs/arena_candidates
+    # each call enrich_row exactly once, at construction time, because a row
+    # freshly built there is the only row they ever see. A row already sitting
+    # in candidates.yaml skips both of those paths entirely (it is "known"),
+    # so without this loop enrich.py never touches it again after the run
+    # that first discovered it — every one of the 358 real staged rows had
+    # gotten exactly one enrichment attempt, permanently. A vendor who
+    # publishes the missing activation figure a week later should unblock the
+    # row automatically instead of leaving it stuck in review forever.
+    #
+    # Gated on missing_vitals so a fully complete row is never re-fetched —
+    # tracked_stems(data_path) does not change within this call, so computing
+    # it once up front is enough to gate this loop.
+    #
+    # info=None: a carried-forward row has no ModelInfo (it was not fetched
+    # this run), and enrich_row's licence half needs one for
+    # enrich.license_string. Rather than fabricate an info object, pass None
+    # and let license_string's existing None-tolerant path make that half a
+    # documented no-op for carried rows — only the card-derived active-params
+    # and tokenizer-derived context-window halves can actually help them.
+    stems = tracked_stems(data_path)
+    for row in staged:
+        if classify.missing_vitals(row, stems):
+            enrich_row(row, None, get_text, get_json)
 
     print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
           f"max age {max_age_days or 'unlimited'} days)")
@@ -643,7 +671,9 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     aa_index = load_aa_index(aa_path)
     annotate_aa(candidates, aa_index)
 
-    stems = tracked_stems(data_path)
+    # Reuses the `stems` computed above the re-enrichment loop rather than
+    # recomputing tracked_stems(data_path) — nothing in between mutates
+    # data_path, so the value is still current.
     promoted, queue = [], []
     for row in candidates:
         verdict = classify.route(row, stems)
