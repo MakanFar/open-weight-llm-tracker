@@ -577,6 +577,72 @@ def annotate_aa(rows, aa_index):
     return rows
 
 
+def load_arena_index(path=ARENA):
+    """{lower_repo: best_rank}. {} on missing/unreadable/malformed.
+
+    Mirrors load_aa_index: arena_rank is re-annotated onto every row on every
+    run rather than merged once when a row is first staged, so a rank that
+    changes -- or vanishes -- underneath a carried-forward row is reflected
+    the next time refresh() runs. load_arena (above) builds candidate rows
+    for NEW repos and has no need to type-check `rank`; this function feeds
+    a comparison/sort (`rank < out[key]`), so a non-int value like "n/a"
+    would blow up there, and is dropped instead -- matching
+    render_readme.load_arena_ranks_from_rows's isinstance(rank, int) check,
+    the stricter of the two contracts already in this codebase for the same
+    file.
+
+    A repo can appear more than once (the same model at several reasoning
+    efforts); the BEST -- numerically lowest -- rank wins, since that is the
+    rank that actually matters for notability and the promotion floor.
+    """
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return {}
+    rows = doc.get("arena_agent") if isinstance(doc, dict) else None
+    out = {}
+    if isinstance(rows, list):
+        for row in rows:
+            if not isinstance(row, dict):
+                continue
+            repo = row.get("resolved_repo")
+            rank = row.get("rank")
+            if not repo or not isinstance(rank, int) or isinstance(rank, bool):
+                continue
+            key = str(repo).lower()
+            if key not in out or rank < out[key]:
+                out[key] = rank
+    return out
+
+
+def annotate_arena_rank(rows, arena_index):
+    """Stamp each row with its arena_agent leaderboard rank, in place.
+
+    Mirrors annotate_aa exactly, and the reason is identical: arena_rank is a
+    discovery-only field that both classify.is_notable and the promotion
+    floor treat as sufficient on its own (`arena_rank is not None`), so a
+    stale value does not just misinform a reviewer -- it keeps a row that
+    fell off the leaderboard being treated as ranked, and therefore
+    promotable, forever. sweep_orgs/arena_candidates only ever build rows for
+    repos NOT already `known`, so a carried-forward row's rank is never
+    touched by either of them again; this is the only code path that
+    refreshes it.
+
+    A row whose repo the current file does not rank loses the field rather
+    than keeping the old number. Concretely: moonshotai/Kimi-K2.7-Code was
+    staged at rank 23; the model was later dropped from the leaderboard
+    entirely, yet without this the row kept asserting rank 23 -- and kept
+    clearing the notability and promotion-floor checks -- indefinitely.
+    """
+    for row in rows:
+        rank = arena_index.get((row.get("hf_repo") or "").lower())
+        if rank is None:
+            row.pop("arena_rank", None)
+        else:
+            row["arena_rank"] = rank
+    return rows
+
+
 def _release_ordinal(candidate):
     """Sort key for release_date, tolerant of hand-edited candidates.yaml.
 
@@ -676,6 +742,9 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
 
     aa_index = load_aa_index(aa_path)
     annotate_aa(candidates, aa_index)
+
+    arena_index = load_arena_index(arena_path)
+    annotate_arena_rank(candidates, arena_index)
 
     # Reuses the `stems` computed above the re-enrichment loop rather than
     # recomputing tracked_stems(data_path) — nothing in between mutates
