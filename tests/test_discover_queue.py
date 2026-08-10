@@ -31,10 +31,15 @@ TODAY = date(2026, 7, 30)
 
 
 def _refresh(api, tmp_path, **kw):
-    # aa_path defaults to a sidecar that does not exist, not the real
-    # aa_scores.yaml — these tests are about carry-forward mechanics, not
-    # about whatever AA currently rates zai-org/GLM-5.2.
+    # aa_path and arena_path both default to sidecars that do not exist, not
+    # the real aa_scores.yaml / arena_agent_rankings.yaml — these tests are
+    # about carry-forward mechanics, not about whatever AA or arena currently
+    # says about zai-org/GLM-5.2. arena_path matters as much as aa_path now
+    # that annotate_arena_rank re-stamps ranks every run: the production file
+    # ranks GLM-5.2, which is this module's main fixture, so leaving it to the
+    # default would silently bind these assertions to a scraped leaderboard.
     kw.setdefault("aa_path", tmp_path / "nope.yaml")
+    kw.setdefault("arena_path", tmp_path / "no-arena.yaml")
     kw.setdefault("get_text", lambda url: "")
     return discover.refresh(
         api, 3.0,
