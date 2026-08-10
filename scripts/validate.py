@@ -90,12 +90,38 @@ def row_errors(m, tag=None):
         errors.append(f"[{tag}] modality must be one of {MODALITY}")
     if m.get("commercial_use") not in COMMERCIAL:
         errors.append(f"[{tag}] commercial_use must be true/false/conditional")
+
+    # Optional (not in REQUIRED — plenty of legitimate rows omit it), but
+    # when present it gates render_readme.commercial_badge's trailing `?`
+    # marker: that marker is the only visible signal that commercial_use was
+    # a licence-tag guess, never actually read by a human. A string like
+    # "no" is truthy, so an unchecked isinstance-free `if` would render it
+    # as verified — publishing an unverified legal claim as a checked one.
+    cuv = m.get("commercial_use_verified")
+    if cuv is not None and not isinstance(cuv, bool):
+        errors.append(f"[{tag}] commercial_use_verified must be true/false, "
+                      f"got {cuv!r}")
     if m.get("license") not in LICENSES:
         errors.append(f"[{tag}] license '{m.get('license')}' not in allowlist "
                       f"(add it to validate.py if intentional)")
 
-    # MoE sanity: active <= total
+    # Numeric fields must actually BE numbers, not merely present. Presence
+    # is covered by the REQUIRED loop above; a hand-edited candidates.yaml
+    # row can carry a present-but-wrong-typed value like "700B" (units left
+    # on) that sails through a bare `m.get(f) in (None, "")` presence check.
+    # Every downstream numeric comparison below already guards with
+    # isinstance and so silently no-ops on a string — nothing here would
+    # ever complain — and render_readme.human_params does f"{total:g}",
+    # which raises ValueError on a str. bool is excluded because it is a
+    # subclass of int in Python (isinstance(True, int) is True), so a bare
+    # isinstance(x, (int, float)) would wave a stray `true`/`false` through.
     pt, pa = m.get("params_total_b"), m.get("params_active_b")
+    for field, val in (("params_total_b", pt), ("params_active_b", pa)):
+        if val not in (None, "") and (isinstance(val, bool)
+                                       or not isinstance(val, (int, float))):
+            errors.append(f"[{tag}] {field} must be a number, got {val!r}")
+
+    # MoE sanity: active <= total
     if isinstance(pt, (int, float)) and isinstance(pa, (int, float)) and pa > pt:
         errors.append(f"[{tag}] params_active_b ({pa}) > params_total_b ({pt})")
 

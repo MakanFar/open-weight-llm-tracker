@@ -327,6 +327,28 @@ def test_schema_errors_flags_a_row_missing_vitals_would_wave_through():
     assert classify.schema_errors(row) != []
 
 
+def test_string_params_total_b_is_schema_invalid_and_routes_to_review():
+    """The exact pre-merge-review scenario: a hand-edited "700B" (units left
+    on) clears every missing_vitals check -- MoE active params, context,
+    licence, needs_hf_repo, family stem are all fine -- so before validate's
+    type check existed this promoted straight through, and
+    render_readme.human_params then raised ValueError on f"{total:g}" for a
+    str, killing the weekly PR after the schema gate had already said OK.
+
+    architecture="moe" here is deliberate, not incidental: with the default
+    "dense" the pre-existing active==total equality check happens to catch
+    mismatched strings too ("700B" != "22B"), which would mask whether the
+    new type check is actually what is doing the work. MoE has no such
+    check, so this isolates the fix precisely -- before it, this row's
+    schema_errors was [] and route was "promote".
+    """
+    row = _row(architecture="moe", params_total_b="700B", params_active_b="22B",
+               aa_index=classify.AA_PROMOTION_FLOOR)
+    assert classify.missing_vitals(row, set()) == []
+    assert classify.schema_errors(row) != []
+    assert classify.route(row, set()) == "review"
+
+
 def test_notable_but_schema_invalid_goes_to_review_not_promote():
     row = _row(aa_index=29, release_date="sometime in 2025")
     assert classify.route(row, set()) == "review"

@@ -34,6 +34,61 @@ def test_row_errors_flags_dense_active_not_equal_total():
     assert any("params_active_b" in e for e in errors)
 
 
+def test_row_errors_flags_a_string_params_total_b():
+    """CONTRIBUTING.md tells reviewers to type params_active_b into
+    candidates.yaml by hand, so a string like "700B" (units left on, or a
+    stray quote) is a very plausible hand-edit. Before this check,
+    row_errors let it through, classify.route() promoted it, and
+    render_readme.human_params blew up with `f"{total:g}"` on a str -- with
+    no continue-on-error on that CI step, the whole weekly PR was lost.
+
+    architecture="moe" and a numeric params_active_b keep the pre-existing
+    dense-equality check (whose message text happens to mention both field
+    names) from firing, so this isolates the new type check specifically.
+    """
+    errors = validate.row_errors(
+        _valid_row(architecture="moe", params_total_b="700B", params_active_b=22.0))
+    assert any("params_total_b must be a number" in e for e in errors)
+
+
+def test_row_errors_flags_a_string_params_active_b():
+    errors = validate.row_errors(
+        _valid_row(architecture="moe", params_total_b=700.0, params_active_b="22B"))
+    assert any("params_active_b must be a number" in e for e in errors)
+
+
+def test_row_errors_rejects_bool_for_params_fields():
+    """bool is a subclass of int in Python, so isinstance(True, int) is True
+    -- a plain isinstance(x, (int, float)) check would silently accept it."""
+    errors = validate.row_errors(
+        _valid_row(architecture="moe", params_total_b=True, params_active_b=22.0))
+    assert any("params_total_b must be a number" in e for e in errors)
+
+
+def test_row_errors_allows_int_params():
+    """Integers are a legitimate way to write a whole-number param count."""
+    assert validate.row_errors(_valid_row(params_total_b=70, params_active_b=70)) == []
+
+
+def test_row_errors_flags_a_non_bool_commercial_use_verified():
+    """commercial_use_verified: "no" is truthy in Python, so
+    render_readme.commercial_badge would render it as verified -- publishing
+    an unverified legal claim as a checked one, exactly what the trailing
+    `?` marker exists to prevent."""
+    errors = validate.row_errors(_valid_row(commercial_use_verified="no"))
+    assert any("commercial_use_verified" in e for e in errors)
+
+
+def test_row_errors_allows_a_missing_commercial_use_verified():
+    """Not every row carries this optional field; absence is not an error."""
+    assert validate.row_errors(_valid_row()) == []
+
+
+def test_row_errors_allows_real_bool_commercial_use_verified():
+    assert validate.row_errors(_valid_row(commercial_use_verified=True)) == []
+    assert validate.row_errors(_valid_row(commercial_use_verified=False)) == []
+
+
 def test_identity_errors_flags_two_rows_naming_the_same_weights():
     """A dated snapshot and its bare repo are one model, so one row.
 

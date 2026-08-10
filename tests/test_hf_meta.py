@@ -232,11 +232,48 @@ def test_resolve_facts_fetches_config_json_at_most_once():
 
 
 def test_resolve_facts_survives_a_failed_config_fetch():
+    """The API expand already carried a usable config (ctx=2048 means
+    info.config is a real non-empty dict) before the config.json fetch
+    failed, so this is "config read, no experts declared" -- a legitimate
+    dense, not a case of never having seen a config at all."""
     def boom(url):
         raise RuntimeError("gated repo")
 
     info = FakeInfo("org/m", ctx=2048)
     assert hf_meta.resolve_facts(info, get_json=boom) == (2048, "dense")
+
+
+def test_resolve_facts_none_architecture_when_no_config_ever_resolves():
+    """Finding 2 (pre-merge review): fetch_config swallows every exception,
+    so a transient network failure (gated repo, timeout, 404) and a config
+    that genuinely declares zero experts were indistinguishable -- both
+    yielded 'dense'. A genuinely MoE model could then promote with
+    architecture=dense and params_active_b force-equal to params_total_b,
+    which validate.py's dense-equality rule then waves through cleanly.
+
+    Here the API expand carries no config at all (no ctx= given to FakeInfo,
+    so info.config is {}) AND the config.json fetch raises -- we never saw a
+    config from either source, so architecture must come back None rather
+    than default to a fact we don't actually know. validate.row_errors
+    rejects architecture not in ARCH, so classify.schema_errors routes such
+    a row to review instead of promoting a guess.
+    """
+    def boom(url):
+        raise RuntimeError("gated repo")
+
+    info = FakeInfo("org/m")  # no ctx => API expand's config is empty
+    assert hf_meta.resolve_facts(info, get_json=boom) == (0, None)
+
+
+def test_resolve_facts_dense_when_fetched_config_genuinely_has_no_experts():
+    """The other half of the distinction: a config.json body WAS read (the
+    fetch succeeded, even if the body is empty/minimal) and it simply has no
+    expert keys. That is a confirmed dense, not an unknown, so this must
+    stay 'dense' and must NOT regress to None alongside the fetch-failure
+    case above."""
+    info = FakeInfo("org/m")  # API expand empty
+    assert hf_meta.resolve_facts(info, get_json=lambda url: {"foo": 1}) \
+        == (0, "dense")
 
 
 def test_candidate_from_repo_uses_explicit_architecture():
@@ -250,6 +287,19 @@ def test_candidate_from_repo_defaults_architecture_to_dense():
     info = FakeInfo("org/m", total=7_000_000_000, license="mit")
     c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"])
     assert c["architecture"] == "dense"
+
+
+def test_candidate_from_repo_preserves_none_architecture():
+    """resolve_facts can now return architecture=None (config never resolved
+    at all -- see test_resolve_facts_none_architecture_when_no_config_ever_resolves)
+    and both discover.py call sites pass that straight through as an explicit
+    keyword argument. candidate_from_repo's `architecture="dense"` default
+    must not silently paper over an explicit None with a guessed fact --
+    an explicit argument, even a falsy one, has to win over the default."""
+    info = FakeInfo("org/m", total=7_000_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"],
+                                    architecture=None)
+    assert c["architecture"] is None
 
 
 def test_candidate_uses_explicit_context_window():

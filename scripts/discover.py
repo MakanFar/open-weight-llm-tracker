@@ -589,9 +589,15 @@ def _release_ordinal(candidate):
 
 HEADER = (
     "# AUTO-GENERATED candidate models from scripts/discover.py\n"
-    "# Review each entry, fix the TODO fields (active params, architecture,\n"
-    "# context, commercial_use), then move approved rows into\n"
-    "# models.yaml and delete them here.\n"
+    "# A row that clears the notability bar with no missing vitals and no\n"
+    "# schema problems is promoted straight into models.yaml by discover.py\n"
+    "# itself -- these rows are the ones still waiting. Each carries a\n"
+    "# needs_review list saying exactly what is missing (a vitals gap, e.g.\n"
+    "# no-context-window/moe-active-params-unknown, or a schema-invalid: ...\n"
+    "# entry quoting validate.py's complaint). Fix the gap in place; the next\n"
+    "# run promotes the row automatically once nothing is left to flag. To\n"
+    "# promote a row yourself instead of waiting, move it into models.yaml and\n"
+    "# strip the discovery-only fields listed in SCHEMA.md.\n"
 )
 
 
