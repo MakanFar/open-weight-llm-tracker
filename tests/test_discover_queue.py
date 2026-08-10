@@ -100,10 +100,20 @@ def test_promoted_candidates_leave_the_queue(tmp_path):
 
 
 def test_staged_rows_are_kept_even_when_older_than_the_age_window(tmp_path):
-    """Carry-forward outranks recency: a pending review is not stale."""
+    """Carry-forward outranks the org-sweep age window: a pending review is
+    not stale merely because sweep_orgs' max_age_days would have filtered it
+    had it been freshly discovered today.
+
+    release_date is set older than the 180-day max_age_days used below (so
+    the point above is actually exercised) but still inside
+    classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS (365) of TODAY, so the row
+    stays notable via downloads — that separate, newer recency gate is not
+    what this test is about (see test_downloads_recency_* in
+    test_classify.py for that).
+    """
     _seed(tmp_path, candidates=yaml.safe_dump({"models": [
         {"name": "OLMo-2-13B", "hf_repo": "allenai/OLMo-2-13B",
-         "release_date": date(2023, 7, 11), "downloads": 600_000}]}))
+         "release_date": date(2026, 1, 1), "downloads": 600_000}]}))
     api = FakeApi({"allenai": []})
 
     _, queue, _, _ = _refresh(api, tmp_path, max_age_days=180)
@@ -163,10 +173,15 @@ def test_schema_invalid_carried_forward_row_is_demoted_not_promoted(tmp_path):
 
 def test_schema_valid_carried_forward_row_still_promotes(tmp_path):
     """Same shape as the row above but with a real date: the new schema gate
-    must not reject a genuinely clean row, only a broken one."""
+    must not reject a genuinely clean row, only a broken one.
+
+    release_date is within classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of
+    TODAY so this row stays notable via downloads — the schema gate is what
+    this test is about, not the (separate, newer) downloads recency gate.
+    """
     _seed(tmp_path, candidates=yaml.safe_dump({"models": [
         {"name": "GoodDate", "hf_repo": "org/good-date", "developer": "org",
-         "release_date": date(2025, 6, 1), "params_total_b": 70.0,
+         "release_date": date(2026, 6, 1), "params_total_b": 70.0,
          "params_active_b": 70.0, "architecture": "dense",
          "context_window": 131072, "modality": "text", "license": "mit",
          "commercial_use": True, "downloads": 600_000}]}))

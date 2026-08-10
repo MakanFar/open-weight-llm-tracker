@@ -1,5 +1,5 @@
 import sys
-from datetime import date
+from datetime import date, timedelta
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
@@ -33,8 +33,12 @@ def test_notable_via_arena_rank():
 
 
 def test_notable_via_downloads_at_the_boundary():
-    assert classify.is_notable(_row(downloads=500_000)) is True
-    assert classify.is_notable(_row(downloads=499_999)) is False
+    # today pinned to _row()'s default release_date (2025-06-01) so this
+    # exercises the DOWNLOADS threshold boundary, not the new recency
+    # window — release_date == today is trivially "within window".
+    today = date(2025, 6, 1)
+    assert classify.is_notable(_row(downloads=500_000), today=today) is True
+    assert classify.is_notable(_row(downloads=499_999), today=today) is False
 
 
 def test_not_notable_with_no_signal_and_few_downloads():
@@ -49,7 +53,8 @@ def test_aa_index_zero_is_a_real_value_not_absent_but_still_below_the_floor():
     confer notability on its own. It still must not raise or be confused
     with None: notability via another signal (downloads here) still works."""
     assert classify.is_notable(_row(aa_index=0)) is False
-    assert classify.is_notable(_row(aa_index=0, downloads=600_000)) is True
+    assert classify.is_notable(_row(aa_index=0, downloads=600_000),
+                               today=date(2025, 6, 1)) is True
 
 
 def test_low_aa_index_alone_is_not_notable():
@@ -66,7 +71,8 @@ def test_aa_index_at_the_floor_boundary():
 def test_low_aa_index_still_notable_via_downloads():
     """gpt-oss-20b: aa 15, 8.5M downloads. The floor must gate the AA-alone
     path only, never weaken the downloads path."""
-    assert classify.is_notable(_row(aa_index=15, downloads=8_500_000)) is True
+    assert classify.is_notable(_row(aa_index=15, downloads=8_500_000),
+                               today=date(2025, 6, 1)) is True
 
 
 def test_low_aa_index_still_notable_via_arena_rank():
@@ -83,6 +89,63 @@ def test_notable_with_arena_rank_zero():
 def test_notable_with_downloads_none():
     """downloads=None must not raise; it should be treated as 0 (not notable)."""
     assert classify.is_notable(_row(downloads=None)) is False
+
+
+# --- downloads recency gate --------------------------------------------
+
+def test_downloads_notable_within_recency_window():
+    """A recent model with real adoption is genuinely notable."""
+    row = _row(downloads=600_000, release_date=date(2025, 1, 1))
+    today = date(2025, 1, 1) + timedelta(
+        days=classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS - 1)
+    assert classify.is_notable(row, today=today) is True
+
+
+def test_downloads_not_notable_just_outside_recency_window():
+    """The same row, one day past the window, must lose downloads-only
+    notability — this is the Mistral-7B-v0.1 case (2023, 601k downloads)
+    the window exists to reject."""
+    row = _row(downloads=600_000, release_date=date(2025, 1, 1))
+    today = date(2025, 1, 1) + timedelta(
+        days=classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS + 1)
+    assert classify.is_notable(row, today=today) is False
+
+
+def test_downloads_recency_window_boundary_is_inclusive():
+    row = _row(downloads=600_000, release_date=date(2025, 1, 1))
+    today = date(2025, 1, 1) + timedelta(
+        days=classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS)
+    assert classify.is_notable(row, today=today) is True
+
+
+def test_aa_path_unaffected_by_downloads_recency_window():
+    """A five-year-old model AA still rates stays notable — the recency
+    requirement governs the downloads path only."""
+    row = _row(aa_index=57, release_date=date(2020, 1, 1), downloads=0)
+    assert classify.is_notable(row, today=date(2026, 1, 1)) is True
+
+
+def test_arena_path_unaffected_by_downloads_recency_window():
+    """A five-year-old model still holding an arena rank stays notable —
+    same rationale as the AA case above."""
+    row = _row(arena_rank=3, release_date=date(2020, 1, 1), downloads=0)
+    assert classify.is_notable(row, today=date(2026, 1, 1)) is True
+
+
+def test_unparseable_release_date_does_not_block_downloads_path():
+    """A bad release_date is a schema problem (see schema_errors), not
+    evidence of staleness. is_notable must treat it as passing the recency
+    check, so route() still sends the row to review — carrying the
+    schema-invalid reason — rather than silently dropping it."""
+    row = _row(downloads=600_000, release_date="sometime in 2025")
+    assert classify.is_notable(row, today=date(2026, 1, 1)) is True
+    assert classify.route(row, set(), today=date(2026, 1, 1)) == "review"
+
+
+def test_missing_release_date_does_not_block_downloads_path():
+    row = _row(downloads=600_000)
+    del row["release_date"]
+    assert classify.is_notable(row, today=date(2026, 1, 1)) is True
 
 
 def test_context_window_true_rejected():

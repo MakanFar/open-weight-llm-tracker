@@ -676,7 +676,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # data_path, so the value is still current.
     promoted, queue = [], []
     for row in candidates:
-        verdict = classify.route(row, stems)
+        verdict = classify.route(row, stems, today=today)
         if verdict == "drop":
             continue
         if verdict == "promote":

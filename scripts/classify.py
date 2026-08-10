@@ -19,6 +19,7 @@ WHY DOWNLOADS AND NOT JUST THE LEADERBOARDS:
 """
 import re
 import sys
+from datetime import date
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -26,6 +27,20 @@ import names
 import validate
 
 NOTABILITY_DOWNLOADS = 500_000
+
+# Downloads is a LAGGING popularity metric: counts accumulate for years and
+# favour whatever is small enough to run locally or useful as a fine-tune
+# starting point. A dry run over the 358 staged candidates showed all 7
+# current downloads-only promotions skewing old — Mistral-7B-v0.1 (2023, a
+# BASE checkpoint) and Mistral-7B-Instruct-v0.2 (2023) outranked GLM-5.2 on
+# raw download count alone, which is backwards: a recent model with real
+# adoption is genuinely notable, an old one with accumulated adoption is
+# just a popular base. AA and arena both already carry their own currency —
+# AA only counts a score it still rates, arena only ranks the current
+# leaderboard — so this window applies to the downloads path ONLY (see
+# is_notable): a row must have been released within this many days to earn
+# notability via adoption alone.
+NOTABILITY_DOWNLOADS_MAX_AGE_DAYS = 365
 
 # Below this, Artificial Analysis has already rated the model and placed it
 # well short of the frontier — the rating is evidence AGAINST notability, not
@@ -77,21 +92,51 @@ def is_derivative_or_base(hf_repo):
     return bool(_DISTILL_TOKEN.search(repo) or _TRAILING_BASE_TOKEN.search(repo))
 
 
-def is_notable(row):
+def _within_downloads_recency_window(row, today):
+    """True unless release_date parses to a real date more than
+    NOTABILITY_DOWNLOADS_MAX_AGE_DAYS days before `today`.
+
+    A missing or unparseable release_date passes here on purpose: that is a
+    SCHEMA defect (a hand-edited candidates.yaml row, e.g. release_date:
+    "sometime in 2025"), not evidence the model is stale. Blocking the
+    downloads path on a bad date too would make is_notable return False,
+    route() would then return "drop", and the row would vanish silently
+    instead of surfacing in the review queue. schema_errors() already
+    catches the bad date and demotes the row to review with a
+    schema-invalid reason — that is the correct outcome, and it only
+    happens if is_notable lets the row past this check first.
+
+    release_date may be a real datetime.date (rows built by this pipeline)
+    or a string (hand-edited YAML) — isinstance guards against both without
+    raising.
+    """
+    value = row.get("release_date")
+    if not isinstance(value, date):
+        return True
+    return (today - value).days <= NOTABILITY_DOWNLOADS_MAX_AGE_DAYS
+
+
+def is_notable(row, today=None):
     """True if the model is worth publishing without a human asking for it.
 
-    arena_rank and downloads each confer notability on their own, with no
-    floor: a leaderboard rank or real adoption is evidence of relevance
-    regardless of what AA thinks. aa_index is different — it only counts
-    above AA_NOTABILITY_FLOOR, because a LOW aa_index is itself evidence the
-    model is not notable (see that constant's docstring).
+    arena_rank and the aa_index-above-floor path confer notability with no
+    recency requirement: AA only counts a score it still rates today, and
+    arena only ranks the CURRENT leaderboard, so both are already
+    self-refreshing signals of present relevance. downloads is not — it is
+    a cumulative lifetime count — so it additionally requires the release to
+    fall within NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of `today` (see that
+    constant's docstring). `today` defaults to date.today() but is
+    injectable so callers (and tests) can pin it for determinism, matching
+    the pattern discover.sweep_orgs already uses.
     """
     if row.get("arena_rank") is not None:
         return True
     aa = row.get("aa_index")
     if aa is not None and aa >= AA_NOTABILITY_FLOOR:
         return True
-    return (row.get("downloads") or 0) >= NOTABILITY_DOWNLOADS
+    if (row.get("downloads") or 0) < NOTABILITY_DOWNLOADS:
+        return False
+    return _within_downloads_recency_window(row, today or date.today())
 
 
 def missing_vitals(row, tracked_stems):
@@ -155,7 +200,7 @@ def schema_errors(row):
     return validate.row_errors(row)
 
 
-def route(row, tracked_stems):
+def route(row, tracked_stems, today=None):
     """'promote' | 'review' | 'drop'.
 
     Notability gates first: completeness alone is not evidence of worth (see
@@ -165,8 +210,11 @@ def route(row, tracked_stems):
     unassisted?) and schema_errors (would validate.py accept it?). Either one
     failing sends the row to review instead — a schema failure is never
     promoted, no matter how complete the row otherwise looks.
+
+    today is threaded straight to is_notable (see there) so the downloads
+    path's recency window can be pinned for deterministic tests.
     """
-    if not is_notable(row):
+    if not is_notable(row, today):
         return "drop"
     return "review" if missing_vitals(row, tracked_stems) or schema_errors(row) \
         else "promote"
