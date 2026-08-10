@@ -1,8 +1,37 @@
 # AUTO-GENERATED candidate models from scripts/discover.py
-# Review each entry, fix the TODO fields (active params, architecture,
-# context, commercial_use), then move approved rows into
-# models.yaml and delete them here.
+# A row that clears the notability bar with no missing vitals and no
+# schema problems is promoted straight into models.yaml by discover.py
+# itself -- these rows are the ones still waiting. Each carries a
+# needs_review list saying exactly what is missing (a vitals gap, e.g.
+# no-context-window/moe-active-params-unknown, or a schema-invalid: ...
+# entry quoting validate.py's complaint). Fix the gap in place; the next
+# run promotes the row automatically once nothing is left to flag. To
+# promote a row yourself instead of waiting, move it into models.yaml and
+# strip the discovery-only fields listed in SCHEMA.md.
 models:
+- name: GLM-5
+  hf_repo: zai-org/GLM-5
+  developer: zai-org
+  release_date: 2026-02-11
+  params_total_b: 753.9
+  params_active_b: 753.9
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-5
+  downloads: 155036
+  discovered_via:
+  - arena
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 7
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
@@ -21,12 +50,102 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 12
+  arena_rank: 2
   needs_hf_repo: false
   resolution_confidence: high
   aa_index: 53
   needs_review:
   - moe-active-params-unknown
+- name: Qwen3.5-397B-A17B
+  hf_repo: Qwen/Qwen3.5-397B-A17B
+  developer: Qwen
+  release_date: 2026-02-16
+  params_total_b: 403.4
+  params_active_b: 403.4
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.5-397B-A17B
+  downloads: 317525
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 13
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: GLM-4.7
+  hf_repo: zai-org/GLM-4.7
+  developer: zai-org
+  release_date: 2025-12-22
+  params_total_b: 358.3
+  params_active_b: 358.3
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.7
+  downloads: 67297
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 14
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: gemma-4-26B-A4B-it
+  hf_repo: google/gemma-4-26B-A4B-it
+  developer: google
+  release_date: 2026-03-11
+  params_total_b: 26.5
+  params_active_b: 26.5
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-4-26B-A4B-it
+  downloads: 10188506
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 16
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Inkling-Small
+  hf_repo: thinkingmachines/Inkling-Small
+  developer: thinkingmachines
+  release_date: 2026-07-27
+  params_total_b: 266.0
+  params_active_b: 266.0
+  architecture: moe
+  context_window: 0
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/thinkingmachines/Inkling-Small
+  downloads: 32829
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 21
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - no-context-window
+  - 'schema-invalid: [Inkling-Small] context_window must be a positive integer'
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -45,7 +164,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 22
+  arena_rank: 3
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -67,7 +186,6 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 23
   needs_hf_repo: false
   resolution_confidence: high
   aa_index: 43
@@ -75,6 +193,52 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - 'schema-invalid: [Kimi-K2.7-Code] license ''other'' not in allowlist (add it to validate.py if intentional)'
+- name: GLM-4.6
+  hf_repo: zai-org/GLM-4.6
+  developer: zai-org
+  release_date: 2025-09-29
+  params_total_b: 356.8
+  params_active_b: 356.8
+  architecture: moe
+  context_window: 202752
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.6
+  downloads: 26923
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 25
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Qwen3-235B-A22B-Instruct-2507
+  hf_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
+  developer: Qwen
+  release_date: 2025-07-21
+  params_total_b: 235.1
+  params_active_b: 235.1
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B-Instruct-2507
+  downloads: 44675
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 27
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - family-already-tracked
+  - aa-below-promotion-floor
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -92,7 +256,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 29
+  arena_rank: 5
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -100,6 +264,76 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - 'schema-invalid: [Kimi-K2.6] license ''other'' not in allowlist (add it to validate.py if intentional)'
+- name: DeepSeek-V3.2-Exp
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
+  developer: deepseek-ai
+  release_date: 2025-09-29
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp
+  downloads: 190277
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 29
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: DeepSeek-R1-0528
+  hf_repo: deepseek-ai/DeepSeek-R1-0528
+  developer: deepseek-ai
+  release_date: 2025-05-28
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1-0528
+  downloads: 157981
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 30
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: DeepSeek-V3.1-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.1-Base
+  developer: deepseek-ai
+  release_date: 2025-08-19
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Base
+  downloads: 23969
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 33
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - derivative-or-base
+  - family-already-tracked
 - name: DeepSeek-V4-Flash
   hf_repo: deepseek-ai/DeepSeek-V4-Flash
   developer: deepseek-ai
@@ -118,7 +352,29 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 34
+  arena_rank: 18
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Qwen3.5-122B-A10B
+  hf_repo: Qwen/Qwen3.5-122B-A10B
+  developer: Qwen
+  release_date: 2026-02-24
+  params_total_b: 125.1
+  params_active_b: 125.1
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.5-122B-A10B
+  downloads: 2139496
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 35
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -140,7 +396,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 36
+  arena_rank: 15
   needs_hf_repo: false
   resolution_confidence: high
   aa_index: 42
@@ -165,13 +421,57 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 38
+  arena_rank: 22
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
   - 'schema-invalid: [Mistral-Medium-3.5-128B] license ''other'' not in allowlist (add it to validate.py
     if intentional)'
+- name: Qwen3-VL-235B-A22B-Instruct
+  hf_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
+  developer: Qwen
+  release_date: 2025-09-22
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct
+  downloads: 1610304
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 39
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: DeepSeek-V3.1-Terminus
+  hf_repo: deepseek-ai/DeepSeek-V3.1-Terminus
+  developer: deepseek-ai
+  release_date: 2025-09-22
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Terminus
+  downloads: 18319
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 40
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
   developer: MiniMaxAI
@@ -190,7 +490,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 41
+  arena_rank: 37
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -198,6 +498,1184 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - 'schema-invalid: [MiniMax-M2.7] license ''other'' not in allowlist (add it to validate.py if intentional)'
+- name: GLM-4.5
+  hf_repo: zai-org/GLM-4.5
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 358.3
+  params_active_b: 358.3
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5
+  downloads: 117254
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 42
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: Qwen3-235B-A22B-Thinking-2507
+  hf_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
+  developer: Qwen
+  release_date: 2025-07-25
+  params_total_b: 235.1
+  params_active_b: 235.1
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B-Thinking-2507
+  downloads: 28825
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 47
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: DeepSeek-V3-0324
+  hf_repo: deepseek-ai/DeepSeek-V3-0324
+  developer: deepseek-ai
+  release_date: 2025-03-24
+  params_total_b: 684.5
+  params_active_b: 684.5
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3-0324
+  downloads: 1100754
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 49
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: Qwen3-VL-235B-A22B-Thinking
+  hf_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
+  developer: Qwen
+  release_date: 2025-09-22
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking
+  downloads: 12417
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 50
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Qwen3.5-35B-A3B
+  hf_repo: Qwen/Qwen3.5-35B-A3B
+  developer: Qwen
+  release_date: 2026-02-24
+  params_total_b: 36.0
+  params_active_b: 36.0
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.5-35B-A3B
+  downloads: 2111823
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 51
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Qwen3-Coder-480B-A35B-Instruct
+  hf_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
+  developer: Qwen
+  release_date: 2025-07-22
+  params_total_b: 480.2
+  params_active_b: 480.2
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Coder-480B-A35B-Instruct
+  downloads: 88871
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 55
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: Qwen3-30B-A3B-Instruct-2507
+  hf_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
+  developer: Qwen
+  release_date: 2025-07-28
+  params_total_b: 30.5
+  params_active_b: 30.5
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-30B-A3B-Instruct-2507
+  downloads: 1759055
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 58
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: GLM-4.6V
+  hf_repo: zai-org/GLM-4.6V
+  developer: zai-org
+  release_date: 2025-12-07
+  params_total_b: 107.7
+  params_active_b: 107.7
+  architecture: moe
+  context_window: 131072
+  modality: multimodal
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.6V
+  downloads: 9263
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 60
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: GLM-4.5-Air
+  hf_repo: zai-org/GLM-4.5-Air
+  developer: zai-org
+  release_date: 2025-07-20
+  params_total_b: 110.5
+  params_active_b: 110.5
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5-Air
+  downloads: 343282
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 62
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: Qwen3-Next-80B-A3B-Thinking
+  hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
+  developer: Qwen
+  release_date: 2025-09-09
+  params_total_b: 81.3
+  params_active_b: 81.3
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking
+  downloads: 31310
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 63
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: MiniMax-M1-40k
+  hf_repo: MiniMaxAI/MiniMax-M1-40k
+  developer: MiniMaxAI
+  release_date: 2025-06-05
+  params_total_b: 456.1
+  params_active_b: 456.1
+  architecture: moe
+  context_window: 10240000
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M1-40k
+  downloads: 3762
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 67
+  needs_hf_repo: true
+  resolution_confidence: medium
+  needs_review:
+  - moe-active-params-unknown
+  - inexact-repo-match
+  - aa-below-promotion-floor
+- name: GLM-4.5V
+  hf_repo: zai-org/GLM-4.5V
+  developer: zai-org
+  release_date: 2025-08-10
+  params_total_b: 107.7
+  params_active_b: 107.7
+  architecture: moe
+  context_window: 65536
+  modality: multimodal
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/zai-org/GLM-4.5V
+  downloads: 134315
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 73
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+- name: Qwen3-32B
+  hf_repo: Qwen/Qwen3-32B
+  developer: Qwen
+  release_date: 2025-04-27
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 40960
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-32B
+  downloads: 7573209
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 77
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: MiniMax-M2
+  hf_repo: MiniMaxAI/MiniMax-M2
+  developer: MiniMaxAI
+  release_date: 2025-10-22
+  params_total_b: 228.7
+  params_active_b: 228.7
+  architecture: moe
+  context_window: 196608
+  modality: text
+  license: modified-mit
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2
+  downloads: 135785
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 79
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - license-not-allowlisted
+  - family-already-tracked
+  - 'schema-invalid: [MiniMax-M2] license ''modified-mit'' not in allowlist (add it to validate.py if
+    intentional)'
+- name: gemma-3-12b-it
+  hf_repo: google/gemma-3-12b-it
+  developer: google
+  release_date: 2025-03-01
+  params_total_b: 12.2
+  params_active_b: 12.2
+  architecture: dense
+  context_window: 0
+  modality: multimodal
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-3-12b-it
+  downloads: 1209149
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 81
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-3-12b-it] context_window must be a positive integer'
+- name: QwQ-32B
+  hf_repo: Qwen/QwQ-32B
+  developer: Qwen
+  release_date: 2025-03-05
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 40960
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/QwQ-32B
+  downloads: 94576
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 82
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Qwen3-30B-A3B
+  hf_repo: Qwen/Qwen3-30B-A3B
+  developer: Qwen
+  release_date: 2025-04-27
+  params_total_b: 30.5
+  params_active_b: 30.5
+  architecture: moe
+  context_window: 40960
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3-30B-A3B
+  downloads: 2549401
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 88
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+- name: DeepSeek-V2.5-1210
+  hf_repo: deepseek-ai/DeepSeek-V2.5-1210
+  developer: deepseek-ai
+  release_date: 2024-12-10
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: deepseek
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2.5-1210
+  downloads: 658
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 90
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: gemma-3n-E4B-it
+  hf_repo: google/gemma-3n-E4B-it
+  developer: google
+  release_date: 2025-06-03
+  params_total_b: 7.8
+  params_active_b: 7.8
+  architecture: dense
+  context_window: 0
+  modality: multimodal
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-3n-E4B-it
+  downloads: 34578
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 94
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-3n-E4B-it] context_window must be a positive integer'
+- name: DeepSeek-V2.5
+  hf_repo: deepseek-ai/DeepSeek-V2.5
+  developer: deepseek-ai
+  release_date: 2024-09-05
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: deepseek
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V2.5
+  downloads: 5706
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 100
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: gemma-3-4b-it
+  hf_repo: google/gemma-3-4b-it
+  developer: google
+  release_date: 2025-02-20
+  params_total_b: 4.3
+  params_active_b: 4.3
+  architecture: dense
+  context_window: 0
+  modality: multimodal
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-3-4b-it
+  downloads: 1451530
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 105
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-3-4b-it] context_window must be a positive integer'
+- name: Mistral-Small-3.1-24B-Instruct-2503
+  hf_repo: mistralai/Mistral-Small-3.1-24B-Instruct-2503
+  developer: mistralai
+  release_date: 2025-03-11
+  params_total_b: 24.0
+  params_active_b: 24.0
+  architecture: dense
+  context_window: 131072
+  modality: null
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mistral-Small-3.1-24B-Instruct-2503
+  downloads: 275059
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 106
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] missing required field: modality'
+  - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] modality must be one of {''multimodal'', ''vision-language'',
+    ''text''}'
+- name: Llama-3.1-70B-Instruct
+  hf_repo: meta-llama/Llama-3.1-70B-Instruct
+  developer: meta-llama
+  release_date: 2024-07-16
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama-3.1-community
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.1-70B-Instruct
+  downloads: 756633
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 109
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - family-already-tracked
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Llama-3.1-70B-Instruct] context_window must be a positive integer'
+- name: Olmo-3.1-32B-Think
+  hf_repo: allenai/Olmo-3.1-32B-Think
+  developer: allenai
+  release_date: 2025-12-10
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 65536
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Think
+  downloads: 5789
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 115
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
+- name: Meta-Llama-3-70B-Instruct
+  hf_repo: meta-llama/Meta-Llama-3-70B-Instruct
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 70.6
+  params_active_b: 70.6
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama-3-community
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-70B-Instruct
+  downloads: 109971
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 118
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Meta-Llama-3-70B-Instruct] context_window must be a positive integer'
+- name: Qwen2.5-Coder-32B-Instruct
+  hf_repo: Qwen/Qwen2.5-Coder-32B-Instruct
+  developer: Qwen
+  release_date: 2024-11-06
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen2.5-Coder-32B-Instruct
+  downloads: 1134041
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 121
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: gemma-2-9b-it
+  hf_repo: google/gemma-2-9b-it
+  developer: google
+  release_date: 2024-06-24
+  params_total_b: 9.2
+  params_active_b: 9.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-2-9b-it
+  downloads: 429138
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 123
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-2-9b-it] context_window must be a positive integer'
+- name: DeepSeek-Coder-V2-Instruct
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: deepseek-license
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
+  downloads: 7261
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 124
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - license-not-allowlisted
+  - aa-below-promotion-floor
+  - 'schema-invalid: [DeepSeek-Coder-V2-Instruct] license ''deepseek-license'' not in allowlist (add it
+    to validate.py if intentional)'
+- name: Qwen2-72B-Instruct
+  hf_repo: Qwen/Qwen2-72B-Instruct
+  developer: Qwen
+  release_date: 2024-05-28
+  params_total_b: 72.7
+  params_active_b: 72.7
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen2-72B-Instruct
+  downloads: 55859
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 125
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - family-already-tracked
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen2-72B-Instruct] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: OLMo-2-0325-32B-Instruct
+  hf_repo: allenai/OLMo-2-0325-32B-Instruct
+  developer: allenai
+  release_date: 2025-03-12
+  params_total_b: 32.2
+  params_active_b: 32.2
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/OLMo-2-0325-32B-Instruct
+  downloads: 3853
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 128
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: Qwen1.5-110B-Chat
+  hf_repo: Qwen/Qwen1.5-110B-Chat
+  developer: Qwen
+  release_date: 2024-04-25
+  params_total_b: 111.2
+  params_active_b: 111.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-110B-Chat
+  downloads: 2969
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 132
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-110B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: Qwen1.5-72B-Chat
+  hf_repo: Qwen/Qwen1.5-72B-Chat
+  developer: Qwen
+  release_date: 2024-01-30
+  params_total_b: 72.3
+  params_active_b: 72.3
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-72B-Chat
+  downloads: 9926
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 133
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - family-already-tracked
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-72B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: Meta-Llama-3-8B-Instruct
+  hf_repo: meta-llama/Meta-Llama-3-8B-Instruct
+  developer: meta-llama
+  release_date: 2024-04-17
+  params_total_b: 8.0
+  params_active_b: 8.0
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama-3-community
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Meta-Llama-3-8B-Instruct
+  downloads: 1779386
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 136
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Meta-Llama-3-8B-Instruct] context_window must be a positive integer'
+- name: granite-3.1-8b-instruct
+  hf_repo: ibm-granite/granite-3.1-8b-instruct
+  developer: ibm-granite
+  release_date: 2024-12-06
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-3.1-8b-instruct
+  downloads: 112440
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 142
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: Qwen1.5-32B-Chat
+  hf_repo: Qwen/Qwen1.5-32B-Chat
+  developer: Qwen
+  release_date: 2024-04-03
+  params_total_b: 32.5
+  params_active_b: 32.5
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-32B-Chat
+  downloads: 11145
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 143
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-32B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: Phi-3-medium-4k-instruct
+  hf_repo: microsoft/Phi-3-medium-4k-instruct
+  developer: microsoft
+  release_date: 2024-05-07
+  params_total_b: 14.0
+  params_active_b: 14.0
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/microsoft/Phi-3-medium-4k-instruct
+  downloads: 12251
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 145
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Mixtral-8x7B-Instruct-v0.1
+  hf_repo: mistralai/Mixtral-8x7B-Instruct-v0.1
+  developer: mistralai
+  release_date: 2023-12-10
+  params_total_b: 46.7
+  params_active_b: 46.7
+  architecture: moe
+  context_window: 32768
+  modality: null
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mixtral-8x7B-Instruct-v0.1
+  downloads: 739561
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 146
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] missing required field: modality'
+  - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] modality must be one of {''multimodal'', ''vision-language'',
+    ''text''}'
+- name: Qwen1.5-14B-Chat
+  hf_repo: Qwen/Qwen1.5-14B-Chat
+  developer: Qwen
+  release_date: 2024-01-30
+  params_total_b: 14.2
+  params_active_b: 14.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-14B-Chat
+  downloads: 27028
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 149
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-14B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: granite-3.0-8b-instruct
+  hf_repo: ibm-granite/granite-3.0-8b-instruct
+  developer: ibm-granite
+  release_date: 2024-10-02
+  params_total_b: 8.2
+  params_active_b: 8.2
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-3.0-8b-instruct
+  downloads: 94058
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 153
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
+  - aa-below-promotion-floor
+- name: gemma-1.1-7b-it
+  hf_repo: google/gemma-1.1-7b-it
+  developer: google
+  release_date: 2024-03-26
+  params_total_b: 8.5
+  params_active_b: 8.5
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-1.1-7b-it
+  downloads: 11531
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 156
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-1.1-7b-it] context_window must be a positive integer'
+- name: Phi-3-small-8k-instruct
+  hf_repo: microsoft/Phi-3-small-8k-instruct
+  developer: microsoft
+  release_date: 2024-05-07
+  params_total_b: 7.4
+  params_active_b: 7.4
+  architecture: dense
+  context_window: 8192
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/microsoft/Phi-3-small-8k-instruct
+  downloads: 19291
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 163
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Llama-3.2-3B-Instruct
+  hf_repo: meta-llama/Llama-3.2-3B-Instruct
+  developer: meta-llama
+  release_date: 2024-09-18
+  params_total_b: 3.2
+  params_active_b: 3.2
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: llama-3.2-community
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/meta-llama/Llama-3.2-3B-Instruct
+  downloads: 1201182
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 166
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Llama-3.2-3B-Instruct] context_window must be a positive integer'
+- name: QwQ-32B-Preview
+  hf_repo: Qwen/QwQ-32B-Preview
+  developer: Qwen
+  release_date: 2024-11-27
+  params_total_b: 32.8
+  params_active_b: 32.8
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/QwQ-32B-Preview
+  downloads: 40011
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 169
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Mistral-7B-Instruct-v0.2
+  hf_repo: mistralai/Mistral-7B-Instruct-v0.2
+  developer: mistralai
+  release_date: 2023-12-11
+  params_total_b: 7.2
+  params_active_b: 7.2
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/mistralai/Mistral-7B-Instruct-v0.2
+  downloads: 1168180
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 175
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Qwen1.5-7B-Chat
+  hf_repo: Qwen/Qwen1.5-7B-Chat
+  developer: Qwen
+  release_date: 2024-01-30
+  params_total_b: 7.7
+  params_active_b: 7.7
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-7B-Chat
+  downloads: 21185
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 177
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - family-already-tracked
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-7B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
+    if intentional)'
+- name: gemma-7b-it
+  hf_repo: google/gemma-7b-it
+  developer: google
+  release_date: 2024-02-13
+  params_total_b: 8.5
+  params_active_b: 8.5
+  architecture: dense
+  context_window: 0
+  modality: text
+  license: gemma
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-7b-it
+  downloads: 23071
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 182
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - no-context-window
+  - aa-below-promotion-floor
+  - 'schema-invalid: [gemma-7b-it] context_window must be a positive integer'
+- name: Phi-3-mini-128k-instruct
+  hf_repo: microsoft/Phi-3-mini-128k-instruct
+  developer: microsoft
+  release_date: 2024-04-22
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/microsoft/Phi-3-mini-128k-instruct
+  downloads: 229849
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 185
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Phi-3-mini-4k-instruct
+  hf_repo: microsoft/Phi-3-mini-4k-instruct
+  developer: microsoft
+  release_date: 2024-04-22
+  params_total_b: 3.8
+  params_active_b: 3.8
+  architecture: dense
+  context_window: 4096
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/microsoft/Phi-3-mini-4k-instruct
+  downloads: 591967
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 186
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
+- name: Qwen1.5-4B-Chat
+  hf_repo: Qwen/Qwen1.5-4B-Chat
+  developer: Qwen
+  release_date: 2024-01-30
+  params_total_b: 4.0
+  params_active_b: 4.0
+  architecture: dense
+  context_window: 32768
+  modality: text
+  license: tongyi-qianwen-research
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen1.5-4B-Chat
+  downloads: 14512
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 198
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - license-not-allowlisted
+  - aa-below-promotion-floor
+  - 'schema-invalid: [Qwen1.5-4B-Chat] license ''tongyi-qianwen-research'' not in allowlist (add it to
+    validate.py if intentional)'
+- name: OLMo-7B-Instruct
+  hf_repo: allenai/OLMo-7B-Instruct
+  developer: allenai
+  release_date: 2024-02-23
+  params_total_b: 6.9
+  params_active_b: 6.9
+  architecture: dense
+  context_window: 2048
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/allenai/OLMo-7B-Instruct
+  downloads: 1268
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 199
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - aa-below-promotion-floor
 - name: DeepSeek-V4-Flash-0731
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
   developer: deepseek-ai
@@ -216,6 +1694,25 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   aa_index: 52
+  needs_review:
+  - moe-active-params-unknown
+- name: DeepSeek-V4-Flash-DSpark
+  hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
+  developer: deepseek-ai
+  release_date: 2026-06-27
+  params_total_b: 165.3
+  params_active_b: 165.3
+  architecture: moe
+  context_window: 1048576
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-DSpark
+  downloads: 517155
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
 - name: granite-4.1-30b-base
@@ -328,6 +1825,7 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - 'schema-invalid: [MiniMax-M2.5] license ''other'' not in allowlist (add it to validate.py if intentional)'
+  arena_rank: 54
 - name: Qwen3-Coder-Next-Base
   hf_repo: Qwen/Qwen3-Coder-Next-Base
   developer: Qwen
@@ -349,6 +1847,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - derivative-or-base
+  - family-already-tracked
 - name: GLM-4.7-Flash
   hf_repo: zai-org/GLM-4.7-Flash
   developer: zai-org
@@ -368,6 +1867,7 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
+  arena_rank: 65
 - name: MiMo-V2-Flash-Base
   hf_repo: XiaomiMiMo/MiMo-V2-Flash-Base
   developer: XiaomiMiMo
@@ -389,6 +1889,7 @@ models:
   params_active_source: 15B active param
   needs_review:
   - derivative-or-base
+  - family-already-tracked
 - name: DeepSeek-V3.2
   hf_repo: deepseek-ai/DeepSeek-V3.2
   developer: deepseek-ai
@@ -409,6 +1910,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
+  arena_rank: 24
 - name: Qwen3-Next-80B-A3B-Instruct
   hf_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
   developer: Qwen
@@ -429,7 +1931,7 @@ models:
   aa_index: 17
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  arena_rank: 45
 - name: gpt-oss-20b
   hf_repo: openai/gpt-oss-20b
   developer: openai
@@ -451,6 +1953,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - aa-below-promotion-floor
+  arena_rank: 96
 - name: gpt-oss-120b
   hf_repo: openai/gpt-oss-120b
   developer: openai
@@ -471,3 +1974,4 @@ models:
   aa_index: 24
   needs_review:
   - moe-active-params-unknown
+  arena_rank: 74

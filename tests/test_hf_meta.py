@@ -6,6 +6,7 @@ import pytest
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
+import classify
 import hf_meta
 import names
 
@@ -14,13 +15,22 @@ class FakeInfo:
     """Stand-in for huggingface_hub.ModelInfo — only the attributes we read."""
 
     def __init__(self, id, total=None, license=None, ctx=None,
-                 created_at=None, downloads=0):
+                 created_at=None, downloads=0, pipeline_tag=None, tags=None):
         self.id = id
         self.safetensors = {"total": total} if total is not None else None
         self.card_data = {"license": license} if license is not None else {}
         self.config = {"max_position_embeddings": ctx} if ctx is not None else {}
         self.created_at = created_at
         self.downloads = downloads
+        # Default None/[] rather than "text-generation"/[] so a FakeInfo
+        # built without an opinion on modality yields modality_of(info) ==
+        # None (undetermined), not a silently-assumed "text" — the same
+        # honesty modality_of itself insists on. Every existing call site
+        # that doesn't pass these two kwargs is therefore unaffected in what
+        # it was actually asserting (none of them read modality before this
+        # change existed).
+        self.pipeline_tag = pipeline_tag
+        self.tags = tags if tags is not None else []
 
 
 @pytest.mark.parametrize("repo_id", [
@@ -306,6 +316,79 @@ def test_candidate_uses_explicit_context_window():
     info = FakeInfo("org/m")
     row = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"], context_window=65536)
     assert row["context_window"] == 65536
+
+
+def test_modality_of_reads_multimodal_pipeline_tag():
+    info = FakeInfo("allenai/Molmo2-8B", pipeline_tag="image-text-to-text")
+    assert hf_meta.modality_of(info) == "multimodal"
+
+
+def test_modality_of_reads_text_pipeline_tag():
+    info = FakeInfo("allenai/Olmo-3.1-32B-Instruct", pipeline_tag="text-generation")
+    assert hf_meta.modality_of(info) == "text"
+
+
+def test_modality_of_falls_back_to_a_multimodal_tag():
+    """Real repos usually carry pipeline_tag AND the same signal duplicated
+    in tags (allenai/Molmo2-8B has both "image-text-to-text" and
+    "multimodal" as tags). This exercises the case pipeline_tag is silent
+    but a tag still says multimodal -- the fallback path, not the primary
+    one."""
+    info = FakeInfo("org/some-vlm", pipeline_tag=None, tags=["multimodal", "transformers"])
+    assert hf_meta.modality_of(info) == "multimodal"
+
+
+def test_modality_of_is_none_when_neither_signal_is_present():
+    """No pipeline_tag and no multimodal-shaped tag is an honest "we don't
+    know", not "assume text". See modality_of's docstring for why guessing
+    text here is worse than leaving the row for a human."""
+    info = FakeInfo("org/mystery-model", pipeline_tag=None, tags=["transformers", "safetensors"])
+    assert hf_meta.modality_of(info) is None
+
+
+def test_candidate_from_repo_carries_multimodal_modality():
+    """The regression itself: allenai/Molmo2-8B promoted in a dry run
+    asserting modality: text (candidate_from_repo hardcoded the literal)
+    while Hugging Face's own metadata says pipeline_tag=image-text-to-text
+    and tags include "multimodal". A row built from that info must now
+    carry the true value."""
+    info = FakeInfo("allenai/Molmo2-8B", total=8_000_000_000, license="apache-2.0",
+                    pipeline_tag="image-text-to-text",
+                    tags=["image-text-to-text", "multimodal", "transformers"])
+    c = hf_meta.candidate_from_repo(info, discovered_via=["arena"])
+    assert c["modality"] == "multimodal"
+
+
+def test_candidate_with_undetermined_modality_is_not_defaulted_to_text():
+    info = FakeInfo("org/mystery-8b", total=8_000_000_000, license="mit")
+    c = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"])
+    assert c["modality"] is None
+
+
+def test_candidate_with_undetermined_modality_routes_to_review_not_promote():
+    """Confirms Finding-closing claim 3: validate.py already rejects a
+    modality outside MODALITY, and classify.schema_errors reuses
+    validate.row_errors, so a None modality needs no new gate -- it demotes
+    the row to review by itself, the same mechanism that already catches a
+    bad release_date (see test_discover_queue's
+    test_schema_invalid_carried_forward_row_is_demoted_not_promoted).
+
+    downloads=600_000 and the default release_date (today, from
+    candidate_from_repo when no created_at is given) clear is_notable's
+    downloads-recency floor on their own, independent of aa_index/arena_rank
+    -- so this row would otherwise be a clean, unassisted PROMOTE, isolating
+    modality as the only reason it lands in review.
+    """
+    info = FakeInfo("org/mystery-8b", total=8_000_000_000, license="mit",
+                    downloads=600_000, ctx=131072)
+    row = hf_meta.candidate_from_repo(info, discovered_via=["org-sweep"])
+    assert row["modality"] is None
+    assert classify.missing_vitals(row, set()) == []
+
+    reasons = classify.missing_vitals(row, set())
+    reasons += [f"schema-invalid: {e}" for e in classify.schema_errors(row)]
+    assert any("schema-invalid" in r and "modality" in r for r in reasons), reasons
+    assert classify.route(row, set()) == "review"
 
 
 def test_every_quant_format_is_excluded_by_hf_meta():

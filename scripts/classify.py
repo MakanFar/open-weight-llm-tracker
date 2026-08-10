@@ -35,11 +35,16 @@ NOTABILITY_DOWNLOADS = 500_000
 # BASE checkpoint) and Mistral-7B-Instruct-v0.2 (2023) outranked GLM-5.2 on
 # raw download count alone, which is backwards: a recent model with real
 # adoption is genuinely notable, an old one with accumulated adoption is
-# just a popular base. AA and arena both already carry their own currency —
-# AA only counts a score it still rates, arena only ranks the current
-# leaderboard — so this window applies to the downloads path ONLY (see
-# is_notable): a row must have been released within this many days to earn
-# notability via adoption alone.
+# just a popular base. For is_notable (STAGING), AA and arena both still
+# carry their own currency — AA only counts a score it still rates — so
+# this window applies to the downloads leg of is_notable ONLY. Arena is the
+# exception documented at is_notable: the scraper now reads a historical
+# leaderboard, not a current-only one, so an arena rank no longer implies
+# recency the way a fresh AA score does. This same window is therefore also
+# applied to the arena leg of _clears_promotion_floor (unattended PROMOTION
+# only — see that function): a row must have been released within this many
+# days of `today` to earn notability via downloads, or to auto-publish via
+# an arena rank.
 NOTABILITY_DOWNLOADS_MAX_AGE_DAYS = 365
 
 # Below this, Artificial Analysis has already rated the model and placed it
@@ -98,19 +103,24 @@ def is_derivative_or_base(hf_repo):
     return bool(_DISTILL_TOKEN.search(repo) or _TRAILING_BASE_TOKEN.search(repo))
 
 
-def _within_downloads_recency_window(row, today):
+def _within_recency_window(row, today):
     """True unless release_date parses to a real date more than
     NOTABILITY_DOWNLOADS_MAX_AGE_DAYS days before `today`.
 
+    Shared by every caller that needs "is this release still current": the
+    downloads leg of is_notable, and the downloads AND arena legs of
+    _clears_promotion_floor. One predicate, reused, so those checks cannot
+    drift apart on what "recent" means.
+
     A missing or unparseable release_date passes here on purpose: that is a
     SCHEMA defect (a hand-edited candidates.yaml row, e.g. release_date:
-    "sometime in 2025"), not evidence the model is stale. Blocking the
-    downloads path on a bad date too would make is_notable return False,
-    route() would then return "drop", and the row would vanish silently
-    instead of surfacing in the review queue. schema_errors() already
-    catches the bad date and demotes the row to review with a
-    schema-invalid reason — that is the correct outcome, and it only
-    happens if is_notable lets the row past this check first.
+    "sometime in 2025"), not evidence the model is stale. Blocking a caller
+    on a bad date too would make it fail for the wrong reason — e.g.
+    is_notable would return False, route() would then return "drop", and
+    the row would vanish silently instead of surfacing in the review queue.
+    schema_errors() already catches the bad date and demotes the row to
+    review with a schema-invalid reason — that is the correct outcome, and
+    it only happens if this check lets the row past first.
 
     release_date may be a real datetime.date (rows built by this pipeline)
     or a string (hand-edited YAML) — isinstance guards against both without
@@ -127,16 +137,34 @@ def is_notable(row, today=None):
     look at. This is a visibility question, not a publication question —
     keeping those separate is the whole point of this function's shape.
     Whether a notable row may PUBLISH unattended is a stricter, later
-    question that missing_vitals answers (see AA_PROMOTION_FLOOR there).
+    question that _clears_promotion_floor answers (see AA_PROMOTION_FLOOR
+    there, and the arena note there too — this function's arena leg and
+    that one's no longer agree, on purpose; see below).
 
-    arena_rank and ANY aa_index (however low — a weak score is evidence the
-    model needs review, not evidence it is uninteresting) confer notability
-    with no recency requirement: AA only counts a score it still rates
-    today, and arena only ranks the CURRENT leaderboard, so both are already
-    self-refreshing signals of present relevance. downloads is not — it is
-    a cumulative lifetime count — so it additionally requires the release to
-    fall within NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of `today` (see that
-    constant's docstring). `today` defaults to date.today() but is
+    ANY aa_index (however low — a weak score is evidence the model needs
+    review, not evidence it is uninteresting) confers notability with no
+    recency requirement: AA only counts a score it still rates today, so an
+    aa_index is a self-refreshing signal of present relevance.
+
+    arena_rank ALSO confers notability with no recency requirement here —
+    but not because arena is self-refreshing the way AA is. That used to be
+    true (this docstring used to claim "arena only ranks the CURRENT
+    leaderboard"), back when the scraper read arena.ai's Agent board (46
+    live models). It now reads arena's TEXT leaderboard, a historical
+    ranking of 213 models spanning years — #211 is meta-llama/Llama-2-13b.
+    An arena rank is evidence a model is GOOD; it is no longer evidence a
+    model is CURRENT — those are different claims, and this function only
+    ever needed the first one: staging is where a human looks at a row, so
+    surfacing an old ranked model in candidates.yaml is the correct,
+    harmless outcome. Publishing it unattended is not, which is why
+    _clears_promotion_floor now requires an arena-ranked row to ALSO fall
+    within NOTABILITY_DOWNLOADS_MAX_AGE_DAYS, exactly like its downloads
+    leg — see that function.
+
+    downloads is neither self-refreshing: it is a cumulative lifetime
+    count, so it additionally requires the release to fall within
+    NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of `today` (see that constant's
+    docstring) even just to stage. `today` defaults to date.today() but is
     injectable so callers (and tests) can pin it for determinism, matching
     the pattern discover.sweep_orgs already uses.
     """
@@ -146,21 +174,40 @@ def is_notable(row, today=None):
         return True
     if (row.get("downloads") or 0) < NOTABILITY_DOWNLOADS:
         return False
-    return _within_downloads_recency_window(row, today or date.today())
+    return _within_recency_window(row, today or date.today())
 
 
 def _clears_promotion_floor(row, today):
     """True if the row carries a signal strong enough to PUBLISH unattended:
-    an arena rank, qualifying recent downloads, or an aa_index at or above
-    AA_PROMOTION_FLOOR. Mirrors is_notable's three paths, except the AA leg
-    is stricter here on purpose — is_notable treats any aa_index as reason
-    enough to stage the row; this treats only a score clearing the floor as
-    reason enough to publish it without a human confirming it first.
+    a RECENT arena rank, qualifying recent downloads, or an aa_index at or
+    above AA_PROMOTION_FLOOR. Mirrors is_notable's three paths, with two
+    deliberate differences:
+
+    - the AA leg is stricter — is_notable treats any aa_index as reason
+      enough to STAGE the row; this treats only a score clearing the floor
+      as reason enough to PUBLISH it without a human confirming it first.
+      AA stays exempt from the recency window on both functions: Artificial
+      Analysis genuinely delists models it no longer rates (verified), so
+      an aa_index being present at all is still evidence the model is
+      CURRENT, not just that it once scored well.
+
+    - the arena leg is ALSO stricter here, unlike in is_notable: an arena
+      rank alone no longer clears this floor. See is_notable's docstring —
+      the scraper now reads arena's historical text leaderboard (213
+      models back to 2023), so a rank is evidence of quality, not currency.
+      Unattended publication needs both, so the arena leg is held to the
+      exact same NOTABILITY_DOWNLOADS_MAX_AGE_DAYS window as the downloads
+      leg below. microsoft/Phi-3-mini-4k-instruct (arena #186, released
+      2024-04-22) is the actual regression this exists to stop: ranked,
+      complete, and stale — a live discover.py run auto-promoted it (and
+      14 other 2023-2024 models the same way) before this check existed.
+      It must route to review instead, never drop — the rank is still a
+      real signal, just not one strong enough to publish unattended.
     """
-    if row.get("arena_rank") is not None:
+    if row.get("arena_rank") is not None and _within_recency_window(row, today):
         return True
     if (row.get("downloads") or 0) >= NOTABILITY_DOWNLOADS and \
-            _within_downloads_recency_window(row, today):
+            _within_recency_window(row, today):
         return True
     aa = row.get("aa_index")
     return aa is not None and aa >= AA_PROMOTION_FLOOR
@@ -213,15 +260,22 @@ def missing_vitals(row, tracked_stems, today=None):
     if stem and stem in tracked_stems:
         reasons.append("family-already-tracked")
 
-    # is_notable stages a row on ANY aa_index, however low; this is the
-    # stricter question of whether that (or another) signal is strong enough
-    # to publish unattended. Reached via route() this can only fire in the
-    # weak-aa-alone case — arena_rank and the downloads leg here are
-    # identical to is_notable's, so if either had made the row notable it
-    # already clears the floor too. Called directly (e.g. discover.py's
-    # re-enrichment gate) on a hand-edited candidates.yaml row with no
-    # signal at all, it fires as well — which is correct: such a row is not
-    # promotable unattended either.
+    # is_notable stages a row on ANY aa_index or arena_rank, however low or
+    # stale; this is the stricter question of whether that (or another)
+    # signal is strong enough to publish unattended. The reason string kept
+    # its original name ("aa-below-promotion-floor") even though it now
+    # also covers a stale arena rank — both are the same shape of failure
+    # (a real signal that doesn't clear the unattended-publish bar), and a
+    # human reading candidates.yaml only needs to know the row needs a
+    # second look, not which leg tripped. Reached via route() this fires
+    # when: the row's only signal is a weak aa_index, OR its arena_rank is
+    # present but the release is outside NOTABILITY_DOWNLOADS_MAX_AGE_DAYS
+    # (see _clears_promotion_floor — is_notable's arena leg is deliberately
+    # more permissive than this one now), OR its downloads are high but
+    # stale. Called directly (e.g. discover.py's re-enrichment gate) on a
+    # hand-edited candidates.yaml row with no signal at all, it fires as
+    # well — which is correct: such a row is not promotable unattended
+    # either.
     if not _clears_promotion_floor(row, today or date.today()):
         reasons.append("aa-below-promotion-floor")
 

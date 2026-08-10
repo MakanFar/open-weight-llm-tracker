@@ -31,10 +31,15 @@ TODAY = date(2026, 7, 30)
 
 
 def _refresh(api, tmp_path, **kw):
-    # aa_path defaults to a sidecar that does not exist, not the real
-    # aa_scores.yaml — these tests are about carry-forward mechanics, not
-    # about whatever AA currently rates zai-org/GLM-5.2.
+    # aa_path and arena_path both default to sidecars that do not exist, not
+    # the real aa_scores.yaml / arena_agent_rankings.yaml — these tests are
+    # about carry-forward mechanics, not about whatever AA or arena currently
+    # says about zai-org/GLM-5.2. arena_path matters as much as aa_path now
+    # that annotate_arena_rank re-stamps ranks every run: the production file
+    # ranks GLM-5.2, which is this module's main fixture, so leaving it to the
+    # default would silently bind these assertions to a scraped leaderboard.
     kw.setdefault("aa_path", tmp_path / "nope.yaml")
+    kw.setdefault("arena_path", tmp_path / "no-arena.yaml")
     kw.setdefault("get_text", lambda url: "")
     return discover.refresh(
         api, 3.0,
@@ -339,6 +344,117 @@ def test_refresh_annotates_carried_forward_candidates(tmp_path):
         today=TODAY)
 
     assert queue[0]["aa_index"] == 57
+
+
+# --- arena rank re-annotated on every run, mirroring aa_index ---------------
+#
+# arena_rank has the exact same freeze problem aa_index had: a staged row is
+# in `known`, so sweep_orgs/arena_candidates skip it and merge_candidates can
+# only merge arena fields onto a row appearing in BOTH lists -- impossible for
+# a row that is only carried forward. Without re-annotation the rank a row
+# was first staged with is the rank it keeps forever, even after the model
+# falls off the leaderboard entirely.
+
+def _arena_yaml(rows):
+    return yaml.safe_dump({"arena_agent": rows})
+
+
+def test_load_arena_index_reads_the_sidecar(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text(_arena_yaml([
+        {"rank": 2, "resolved_repo": "zai-org/GLM-5.2"}]))
+    assert discover.load_arena_index(f) == {"zai-org/glm-5.2": 2}
+
+
+def test_load_arena_index_ignores_rows_with_no_resolved_repo(tmp_path):
+    f = tmp_path / "arena.yaml"
+    f.write_text(_arena_yaml([
+        {"rank": 1, "resolved_repo": None},
+        {"rank": 2, "model": "some-unresolved-model"}]))
+    assert discover.load_arena_index(f) == {}
+
+
+def test_load_arena_index_ignores_non_int_ranks(tmp_path):
+    """discover.load_arena does not type-check rank; this loader must,
+    because a rank is compared/sorted, not just displayed -- matching
+    render_readme.load_arena_ranks_from_rows's isinstance(rank, int) check.
+    """
+    f = tmp_path / "arena.yaml"
+    f.write_text(_arena_yaml([
+        {"rank": "n/a", "resolved_repo": "org/unranked"}]))
+    assert discover.load_arena_index(f) == {}
+
+
+def test_load_arena_index_keeps_the_best_rank_across_reasoning_efforts(tmp_path):
+    """The same model can appear at several reasoning efforts (e.g. -max,
+    -thinking); the row that matters for notability/promotion is the best
+    (numerically lowest) one it achieved.
+    """
+    f = tmp_path / "arena.yaml"
+    f.write_text(_arena_yaml([
+        {"rank": 12, "resolved_repo": "zai-org/GLM-5.2"},
+        {"rank": 2, "resolved_repo": "zai-org/GLM-5.2"},
+        {"rank": 5, "resolved_repo": "zai-org/GLM-5.2"}]))
+    assert discover.load_arena_index(f) == {"zai-org/glm-5.2": 2}
+
+
+def test_load_arena_index_degrades_on_a_missing_or_broken_file(tmp_path):
+    assert discover.load_arena_index(tmp_path / "nope.yaml") == {}
+    bad = tmp_path / "bad.yaml"
+    bad.write_text("arena_agent: [not, a, mapping]\n")
+    assert discover.load_arena_index(bad) == {}
+
+
+def test_annotate_arena_rank_sets_the_rank_on_matching_rows():
+    rows = [{"hf_repo": "zai-org/GLM-5.2"}, {"hf_repo": "org/unranked"}]
+    discover.annotate_arena_rank(rows, {"zai-org/glm-5.2": 2})
+    assert rows[0]["arena_rank"] == 2
+    assert "arena_rank" not in rows[1], "absent, not null"
+
+
+def test_annotate_arena_rank_refreshes_a_changed_rank():
+    """The GLM-5.2 case from the switch to the text leaderboard: staged at
+    12, now actually 2.
+    """
+    rows = [{"hf_repo": "zai-org/GLM-5.2", "arena_rank": 12}]
+    discover.annotate_arena_rank(rows, {"zai-org/glm-5.2": 2})
+    assert rows[0]["arena_rank"] == 2
+
+
+def test_annotate_arena_rank_drops_a_rank_the_board_no_longer_lists():
+    """The Kimi-K2.7-Code case: staged at rank 23, then the model fell off
+    the leaderboard entirely. arena_rank is not just informational -- both
+    classify.is_notable and the promotion-floor check treat
+    `arena_rank is not None` as sufficient on its own, so a row that keeps a
+    dead rank keeps being treated as ranked (and promotable) indefinitely.
+    The field must be removed, not left stale.
+    """
+    rows = [{"hf_repo": "moonshotai/Kimi-K2.7-Code", "arena_rank": 23}]
+    discover.annotate_arena_rank(rows, {})
+    assert "arena_rank" not in rows[0]
+
+
+def test_refresh_corrects_a_carried_forward_stale_arena_rank(tmp_path):
+    """End-to-end: a row staged from a previous run's leaderboard snapshot
+    must come out of refresh() with the CURRENT rank, not the one it was
+    first staged with -- the file's rank changed underneath it and no other
+    code path in refresh() ever touches a carried-forward row's arena_rank.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "GLM-5.2", "hf_repo": "zai-org/GLM-5.2",
+         "release_date": date(2026, 7, 1), "arena_rank": 12}]}))
+    (tmp_path / "arena.yaml").write_text(_arena_yaml([
+        {"rank": 2, "resolved_repo": "zai-org/GLM-5.2"}]))
+    api = FakeApi({})
+
+    _, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        arena_path=tmp_path / "arena.yaml", aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {}, get_text=lambda url: "",
+        today=TODAY)
+
+    assert queue[0]["arena_rank"] == 2
 
 
 def test_refresh_splits_promotable_from_reviewable(tmp_path):

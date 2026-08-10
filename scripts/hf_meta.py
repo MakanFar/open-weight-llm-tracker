@@ -58,8 +58,14 @@ CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
 MOE_KEYS = ("num_local_experts", "n_routed_experts", "num_experts",
             "moe_num_experts")
 NESTED_CONFIG_KEYS = ("text_config", "llm_config")
+# pipeline_tag is requested explicitly: without it the API returns None for
+# that field, modality_of falls through to the `tags` fallback, and every
+# genuinely-text model resolves to None instead of "text" — which routes the
+# entire promotable set to review as schema-invalid. The sweep FILTERS on
+# pipeline_tag but that does not imply the value is returned.
 EXPAND = ["safetensors", "cardData", "config", "downloads",
-          "createdAt", "lastModified", "gated", "tags", "library_name"]
+          "createdAt", "lastModified", "gated", "tags", "library_name",
+          "pipeline_tag"]
 
 
 def is_derivative(repo_id):
@@ -73,6 +79,59 @@ def license_of(info):
     if isinstance(lic, list):
         lic = lic[0] if lic else None
     return lic
+
+
+# pipeline_tag values HF itself uses to mean "this model takes non-text
+# input" -- checked against allenai/Molmo2-8B, Qwen/Qwen3.5-27B, and
+# meta-llama/Llama-4-Scout-17B-16E-Instruct (already tracked as multimodal),
+# all of which carry image-text-to-text. any-to-any, video-text-to-text and
+# visual-question-answering are the same family of tag for other input
+# shapes and are included on the same evidence: they describe a model that
+# is not pure text-in/text-out, which is the only thing "multimodal" means
+# here.
+MULTIMODAL_PIPELINE_TAGS = {
+    "image-text-to-text", "any-to-any", "video-text-to-text",
+    "visual-question-answering",
+}
+TEXT_PIPELINE_TAGS = {"text-generation"}
+
+# Fallback vocabulary for repos where pipeline_tag is silent but a tag
+# already says the same thing -- allenai/Molmo2-8B duplicates its
+# image-text-to-text pipeline_tag as a plain "multimodal" tag, so that
+# literal is included even though it is not itself a pipeline_tag value.
+MULTIMODAL_TAGS = MULTIMODAL_PIPELINE_TAGS | {"multimodal", "vision-language"}
+
+
+def modality_of(info):
+    """'multimodal' / 'text' / None from HF's own signals on a ModelInfo.
+
+    pipeline_tag is checked first: it is the single most authoritative field
+    HF publishes for this (allenai/Olmo-3.1-32B-Instruct and zai-org/GLM-5.2
+    both carry pipeline_tag=text-generation and are correctly text;
+    allenai/Molmo2-8B, Qwen/Qwen3.5-27B, and the already-tracked
+    meta-llama/Llama-4-Scout-17B-16E-Instruct all carry
+    pipeline_tag=image-text-to-text and are multimodal). tags is a fallback
+    for the rarer repo that omits pipeline_tag but still tags itself
+    "multimodal" or similar.
+
+    None -- not a default of "text" -- is the answer when neither signal is
+    present. Defaulting to "text" was the actual bug this replaces:
+    candidate_from_repo used to hardcode "text" unconditionally, so a
+    multimodal model could auto-promote into models.yaml (and the rendered
+    README) publishing a fact nobody checked. None is honest about not
+    knowing, and validate.py already rejects a modality outside its allowed
+    set -- so classify.schema_errors demotes a None-modality row to review
+    instead of silently asserting "text" the way the old hardcode did.
+    """
+    pipeline_tag = getattr(info, "pipeline_tag", None)
+    if pipeline_tag in MULTIMODAL_PIPELINE_TAGS:
+        return "multimodal"
+    if pipeline_tag in TEXT_PIPELINE_TAGS:
+        return "text"
+    tags = getattr(info, "tags", None) or []
+    if any(t in MULTIMODAL_TAGS for t in tags):
+        return "multimodal"
+    return None
 
 
 def context_of(info):
@@ -210,6 +269,15 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
 
     Caller is responsible for having run should_track() first.
 
+    modality is derived here from `info` directly via modality_of, unlike
+    architecture below: architecture needs resolve_facts's own config.json
+    fetch to resolve, so callers must run that first and thread the result
+    in as an explicit keyword. modality's signals (pipeline_tag, tags) are
+    already present on `info` -- tags is part of EXPAND -- so there is
+    nothing to fetch and no reason to push the computation out to callers;
+    computing it here is the same shape as license_of/params_b_of below,
+    which also derive a field from `info` without the caller doing it first.
+
     arena_rank / needs_hf_repo / resolution_confidence are arena-only. Each is
     omitted from the row entirely when None, so org-sweep candidates carry no
     empty arena fields. needs_hf_repo=True marks a repo matched by an inexact
@@ -231,7 +299,7 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "architecture": architecture,
         "context_window": context_window if context_window is not None
         else (context_of(info) or 0),   # 0 => fill during review
-        "modality": "text",
+        "modality": modality_of(info),
         "license": lic,
         "commercial_use": COMMERCIAL_GUESS.get(lic, "conditional"),
         "license_notes": "AUTO-DISCOVERED — verify license terms.",

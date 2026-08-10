@@ -78,14 +78,50 @@ PRECISION_TOKENS = NATIVE_FORMATS | QUANT_FORMATS
 DATE_TOKEN = re.compile(r"^\d{2}(?:\d{2}){0,3}$")
 
 
+# Reasoning-effort settings arena's TEXT leaderboard (open-source view) glues
+# directly onto the model slug with a hyphen/underscore, e.g. "glm-5.2-max",
+# "kimi-k3-max" -- unlike the older Agent board, which wrote the same thing
+# in parentheses ("GLM 5.2 (Max)"), already handled below. Both are
+# inference-time settings, not different weights, so both get stripped.
+#
+# Deliberately narrower than it looks -- every exclusion below is a case
+# where stripping would be worse than leaving the row unresolved, because a
+# missing match sends a row to review while a WRONG match publishes the
+# wrong weights under the model's name:
+#   - "thinking" is NOT here: moonshotai/Kimi-K2-Thinking is a real, separate
+#     repo. Stripping it would resolve "kimi-k2.5-thinking" to the (wrong)
+#     non-thinking Kimi-K2.5 weights instead of correctly staying unresolved.
+#   - "preview" is NOT here for the same reason: it can denote a genuinely
+#     distinct release ("deepseek-v4-pro-high-preview" is on the board) and
+#     must stay unresolved rather than be trimmed down to a guess.
+#   - "instruct"/"it"/"chat"/"base" are NOT here: VARIANT_SUFFIXES already
+#     handles those downstream in the matcher; duplicating the list here
+#     would just be two places to keep in sync.
+EFFORT_TOKENS = ("max", "high", "medium", "low", "minimal", "xhigh")
+
+# Anchored to a HYPHEN/UNDERSCORE attachment, never a plain space. That is
+# the load-bearing distinction: the new board glues the tag onto the slug
+# with a hyphen ("glm-5.2-max"), while a legitimate product name can be a
+# separate, space-delimited word that happens to be one of these words --
+# Alibaba's "Qwen3.7 Max" is a real proprietary tier, not a reasoning knob,
+# and the old board always renders it space-separated. Adding \s here would
+# silently start truncating names like that (see test_normalize_model_name
+# and test_space_separated_effort_word_is_a_real_product_name_not_a_tag).
+_EFFORT_RE = re.compile(
+    r"[-_](?:" + "|".join(EFFORT_TOKENS) + r")$", re.IGNORECASE)
+
+
 def normalize_display(display):
     """Strip leaderboard chrome from a display label.
 
     "GLM 5.2 (Max) Z.ai · MIT · SiliconFlow" -> "GLM 5.2"
+    "glm-5.2-max Z.ai · MIT" -> "glm-5.2"
 
-    Three steps: drop everything from the first "·" separator, drop
-    parenthetical effort tags like "(High)"/"(Max)", then drop a single
-    trailing org display name.
+    Four steps: drop everything from the first "·" separator, drop
+    parenthetical effort tags like "(High)"/"(Max)", drop a single trailing
+    org display name, then drop a hyphen/underscore-attached trailing effort
+    token (see EFFORT_TOKENS) -- the newer slug-style board's equivalent of
+    the parenthetical form.
     """
     name = display.split("·")[0]
     name = re.sub(r"\([^)]*\)", " ", name)
@@ -94,7 +130,8 @@ def normalize_display(display):
     tokens = name.split(" ")
     if len(tokens) > 1 and tokens[-1].lower() in ORG_DISPLAY_ALIASES:
         tokens = tokens[:-1]
-    return " ".join(tokens).strip()
+    name = " ".join(tokens).strip()
+    return _EFFORT_RE.sub("", name)
 
 
 def without_leading_vendor(name):

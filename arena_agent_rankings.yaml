@@ -1,1433 +1,6176 @@
-# AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py
+# AUTO-SCRAPED from the arena.ai text leaderboard (open-source view)
+# by scripts/pull_arena.py. Ranks are open-weight-relative.
 # open_weight means: a public weights repo was FOUND on Hugging Face.
 # It is not arena's license label and not an org guess.
 # needs_hf_repo=true means the match was inexact — verify by hand.
 arena_agent:
 - rank: 1
-  model: Anthropic Claude Opus 5 (High) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 11.99
-  net_improvement_ci: 1.37
-  arena_license_label: Anthropic Claude Opus 5 (High) Anthropic · Proprietary
-  raw:
-  - 1 1 6
-  - Anthropic Claude Opus 5 (High) Anthropic · Proprietary
-  - 11.99 % ±1.37%
-  - 16.04 % ±2.79%
-  - 19.46 % ±5.19%
-  - 10.29 % ±2.51%
-  - 13.07 % ±0.78%
-  - 1.07 % ±0.16%
-  - 19,487
-  by_header:
-    Rank: 1 1 6
-    Model: Anthropic Claude Opus 5 (High) Anthropic · Proprietary
-    Net Improvement: 11.99 % ±1.37%
-    Confirmed Success: 16.04 % ±2.79%
-    Praise vs Complaint: 19.46 % ±5.19%
-    Steerability: 10.29 % ±2.51%
-    Bash Recovery: 13.07 % ±0.78%
-    Tool Hallucination: 1.07 % ±0.16%
-    Sessions: 19,487
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 2
-  model: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 11.66
-  net_improvement_ci: 2.39
-  arena_license_label: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
-  raw:
-  - 2 1 9
-  - Anthropic Claude Fable 5 (High) Anthropic · Proprietary
-  - 11.66 % ±2.39%
-  - 11.47 % ±4.46%
-  - 22.56 % ±8.25%
-  - 10.01 % ±4.93%
-  - 13.10 % ±3.52%
-  - 1.16 % ±0.16%
-  - 24,249
-  by_header:
-    Rank: 2 1 9
-    Model: Anthropic Claude Fable 5 (High) Anthropic · Proprietary
-    Net Improvement: 11.66 % ±2.39%
-    Confirmed Success: 11.47 % ±4.46%
-    Praise vs Complaint: 22.56 % ±8.25%
-    Steerability: 10.01 % ±4.93%
-    Bash Recovery: 13.10 % ±3.52%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 24,249
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 3
-  model: Anthropic Claude Opus 5 (Max) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 11.19
-  net_improvement_ci: 1.62
-  arena_license_label: Anthropic Claude Opus 5 (Max) Anthropic · Proprietary
-  raw:
-  - 3 1 8
-  - Anthropic Claude Opus 5 (Max) Anthropic · Proprietary
-  - 11.19 % ±1.62%
-  - 16.36 % ±3.11%
-  - 19.07 % ±6.03%
-  - 5.80 % ±3.10%
-  - 13.62 % ±0.88%
-  - 1.12 % ±0.16%
-  - 15,227
-  by_header:
-    Rank: 3 1 8
-    Model: Anthropic Claude Opus 5 (Max) Anthropic · Proprietary
-    Net Improvement: 11.19 % ±1.62%
-    Confirmed Success: 16.36 % ±3.11%
-    Praise vs Complaint: 19.07 % ±6.03%
-    Steerability: 5.80 % ±3.10%
-    Bash Recovery: 13.62 % ±0.88%
-    Tool Hallucination: 1.12 % ±0.16%
-    Sessions: 15,227
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 4
-  model: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 10.28
-  net_improvement_ci: 1.72
-  arena_license_label: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
-  raw:
-  - 4 1 10
-  - GPT 5.6 Sol (xHigh) OpenAI · Proprietary
-  - 10.28 % ±1.72%
-  - 9.06 % ±3.48%
-  - 22.70 % ±6.42%
-  - 8.42 % ±3.50%
-  - 10.07 % ±1.23%
-  - 1.16 % ±0.16%
-  - 17,800
-  by_header:
-    Rank: 4 1 10
-    Model: GPT 5.6 Sol (xHigh) OpenAI · Proprietary
-    Net Improvement: 10.28 % ±1.72%
-    Confirmed Success: 9.06 % ±3.48%
-    Praise vs Complaint: 22.70 % ±6.42%
-    Steerability: 8.42 % ±3.50%
-    Bash Recovery: 10.07 % ±1.23%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 17,800
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 5
-  model: Kimi K3 (Max) Moonshot · Kimi K3 license
+  model: kimi-k3-max Moonshot · Kimi K3 license
   org: Moonshot AI
   matched_keyword: kimi
-  net_improvement_pct: 10.08
-  net_improvement_ci: 1.07
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 5 1 9
-  - Kimi K3 (Max) Moonshot · Kimi K3 license
-  - 10.08 % ±1.07%
-  - 14.97 % ±2.09%
-  - 19.68 % ±3.85%
-  - 7.45 % ±1.97%
-  - 7.13 % ±0.89%
-  - 1.16 % ±0.16%
-  - 26,156
+  - '1'
+  - '14'
+  - kimi-k3-max Moonshot · Kimi K3 license
+  - 1485 ±7 Preliminary
+  - 5 25
+  - 9,861
+  - N/A
+  - N/A
   by_header:
-    Rank: 5 1 9
-    Model: Kimi K3 (Max) Moonshot · Kimi K3 license
-    Net Improvement: 10.08 % ±1.07%
-    Confirmed Success: 14.97 % ±2.09%
-    Praise vs Complaint: 19.68 % ±3.85%
-    Steerability: 7.45 % ±1.97%
-    Bash Recovery: 7.13 % ±0.89%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 26,156
+    Rank: '1'
+    Overall Rank: '14'
+    Model: kimi-k3-max Moonshot · Kimi K3 license
+    Score: 1485 ±7 Preliminary
+    Rank Spread: 5 25
+    Votes: 9,861
+    Price $/M: N/A
+    Context: N/A
   resolved_repo: moonshotai/Kimi-K3
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
+- rank: 2
+  model: glm-5.2-max Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '2'
+  - '33'
+  - glm-5.2-max Z.ai · MIT
+  - 1471 ±5
+  - 18 44
+  - 24,250
+  - $1.40 / $4.40
+  - 1M
+  by_header:
+    Rank: '2'
+    Overall Rank: '33'
+    Model: glm-5.2-max Z.ai · MIT
+    Score: 1471 ±5
+    Rank Spread: 18 44
+    Votes: 24,250
+    Price $/M: $1.40 / $4.40
+    Context: 1M
+  resolved_repo: zai-org/GLM-5.2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 3
+  model: glm-5.1 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '3'
+  - '36'
+  - glm-5.1 Z.ai · MIT
+  - 1468 ±4
+  - 21 46
+  - 36,716
+  - $1.40 / $4.40
+  - 202.8K
+  by_header:
+    Rank: '3'
+    Overall Rank: '36'
+    Model: glm-5.1 Z.ai · MIT
+    Score: 1468 ±4
+    Rank Spread: 21 46
+    Votes: 36,716
+    Price $/M: $1.40 / $4.40
+    Context: 202.8K
+  resolved_repo: zai-org/GLM-5.1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 4
+  model: mimo-v2.5-pro Xiaomi · MIT
+  org: Xiaomi
+  matched_keyword: mimo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '4'
+  - '39'
+  - mimo-v2.5-pro Xiaomi · MIT
+  - 1467 ±4
+  - 23 46
+  - 47,805
+  - $0.43 / $0.87
+  - 1.1M
+  by_header:
+    Rank: '4'
+    Overall Rank: '39'
+    Model: mimo-v2.5-pro Xiaomi · MIT
+    Score: 1467 ±4
+    Rank Spread: 23 46
+    Votes: 47,805
+    Price $/M: $0.43 / $0.87
+    Context: 1.1M
+  resolved_repo: XiaomiMiMo/MiMo-V2.5-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 5
+  model: kimi-k2.6 Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '5'
+  - '44'
+  - kimi-k2.6 Moonshot · Modified MIT
+  - 1461 ±5
+  - 34 58
+  - 37,236
+  - $0.95 / $4
+  - 262.1K
+  by_header:
+    Rank: '5'
+    Overall Rank: '44'
+    Model: kimi-k2.6 Moonshot · Modified MIT
+    Score: 1461 ±5
+    Rank Spread: 34 58
+    Votes: 37,236
+    Price $/M: $0.95 / $4
+    Context: 262.1K
+  resolved_repo: moonshotai/Kimi-K2.6
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 6
-  model: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 9.35
-  net_improvement_ci: 1.7
-  arena_license_label: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
+  model: deepseek-v4-pro DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 6 1 12
-  - Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
-  - 9.35 % ±1.70%
-  - 8.81 % ±2.90%
-  - 21.46 % ±5.38%
-  - 8.50 % ±3.08%
-  - 9.17 % ±2.57%
-  - 1.19 % ±2.88%
-  - 34,962
+  - '6'
+  - '50'
+  - deepseek-v4-pro DeepSeek · MIT
+  - 1457 ±4
+  - 41 62
+  - 51,266
+  - $0.43 / $0.87
+  - 1M
   by_header:
-    Rank: 6 1 12
-    Model: Anthropic Claude Opus 4.8 (Thinking) Anthropic · Proprietary
-    Net Improvement: 9.35 % ±1.70%
-    Confirmed Success: 8.81 % ±2.90%
-    Praise vs Complaint: 21.46 % ±5.38%
-    Steerability: 8.50 % ±3.08%
-    Bash Recovery: 9.17 % ±2.57%
-    Tool Hallucination: 1.19 % ±2.88%
-    Sessions: 34,962
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '6'
+    Overall Rank: '50'
+    Model: deepseek-v4-pro DeepSeek · MIT
+    Score: 1457 ±4
+    Rank Spread: 41 62
+    Votes: 51,266
+    Price $/M: $0.43 / $0.87
+    Context: 1M
+  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 7
-  model: GPT 5.5 (xHigh) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 8.45
-  net_improvement_ci: 0.99
-  arena_license_label: GPT 5.5 (xHigh) OpenAI · Proprietary
+  model: glm-5 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 7 3 13
-  - GPT 5.5 (xHigh) OpenAI · Proprietary
-  - 8.45 % ±0.99%
-  - 5.24 % ±2.08%
-  - 13.56 % ±3.55%
-  - 8.19 % ±1.80%
-  - 14.13 % ±1.19%
-  - 1.15 % ±0.16%
-  - 46,499
+  - '7'
+  - '51'
+  - glm-5 Z.ai · MIT
+  - 1457 ±4
+  - 42 64
+  - 27,591
+  - $1 / $3.20
+  - 202.8K
   by_header:
-    Rank: 7 3 13
-    Model: GPT 5.5 (xHigh) OpenAI · Proprietary
-    Net Improvement: 8.45 % ±0.99%
-    Confirmed Success: 5.24 % ±2.08%
-    Praise vs Complaint: 13.56 % ±3.55%
-    Steerability: 8.19 % ±1.80%
-    Bash Recovery: 14.13 % ±1.19%
-    Tool Hallucination: 1.15 % ±0.16%
-    Sessions: 46,499
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '7'
+    Overall Rank: '51'
+    Model: glm-5 Z.ai · MIT
+    Score: 1457 ±4
+    Rank Spread: 42 64
+    Votes: 27,591
+    Price $/M: $1 / $3.20
+    Context: 202.8K
+  resolved_repo: zai-org/GLM-5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 8
-  model: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 8.33
-  net_improvement_ci: 1.32
-  arena_license_label: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
+  model: deepseek-v4-pro-high-preview DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 8 2 13
-  - Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
-  - 8.33 % ±1.32%
-  - 6.65 % ±2.76%
-  - 11.87 % ±4.59%
-  - 8.61 % ±2.72%
-  - 13.47 % ±1.10%
-  - 1.04 % ±0.19%
-  - 35,949
+  - '8'
+  - '54'
+  - deepseek-v4-pro-high-preview DeepSeek · MIT
+  - 1456 ±4
+  - 43 65
+  - 48,756
+  - $0.43 / $0.87
+  - 1M
   by_header:
-    Rank: 8 2 13
-    Model: Anthropic Claude Opus 4.7 (Thinking) Anthropic · Proprietary
-    Net Improvement: 8.33 % ±1.32%
-    Confirmed Success: 6.65 % ±2.76%
-    Praise vs Complaint: 11.87 % ±4.59%
-    Steerability: 8.61 % ±2.72%
-    Bash Recovery: 13.47 % ±1.10%
-    Tool Hallucination: 1.04 % ±0.19%
-    Sessions: 35,949
+    Rank: '8'
+    Overall Rank: '54'
+    Model: deepseek-v4-pro-high-preview DeepSeek · MIT
+    Score: 1456 ±4
+    Rank Spread: 43 65
+    Votes: 48,756
+    Price $/M: $0.43 / $0.87
+    Context: 1M
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 9
-  model: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 7.46
-  net_improvement_ci: 2.15
-  arena_license_label: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
+  model: Tencent hy3 Tencent · Apache 2.0
+  org: Tencent
+  matched_keyword: hy3
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 9 2 17
-  - Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
-  - 7.46 % ±2.15%
-  - 5.56 % ±4.29%
-  - 14.80 % ±7.65%
-  - 5.14 % ±4.55%
-  - 10.79 % ±1.56%
-  - 1.01 % ±0.17%
-  - 25,493
+  - '9'
+  - '57'
+  - Tencent hy3 Tencent · Apache 2.0
+  - 1453 ±10
+  - 40 77
+  - 3,941
+  - $0.13 / $0.53
+  - 262.1K
   by_header:
-    Rank: 9 2 17
-    Model: Anthropic Claude Sonnet 5 (High) Anthropic · Proprietary
-    Net Improvement: 7.46 % ±2.15%
-    Confirmed Success: 5.56 % ±4.29%
-    Praise vs Complaint: 14.80 % ±7.65%
-    Steerability: 5.14 % ±4.55%
-    Bash Recovery: 10.79 % ±1.56%
-    Tool Hallucination: 1.01 % ±0.17%
-    Sessions: 25,493
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '9'
+    Overall Rank: '57'
+    Model: Tencent hy3 Tencent · Apache 2.0
+    Score: 1453 ±10
+    Rank Spread: 40 77
+    Votes: 3,941
+    Price $/M: $0.13 / $0.53
+    Context: 262.1K
+  resolved_repo: tencent/Hy3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 10
-  model: Anthropic Claude Opus 4.7 Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 7.32
-  net_improvement_ci: 1.36
-  arena_license_label: Anthropic Claude Opus 4.7 Anthropic · Proprietary
+  model: gemma-4-31b Google · Apache 2.0
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 10 5 17
-  - Anthropic Claude Opus 4.7 Anthropic · Proprietary
-  - 7.32 % ±1.36%
-  - 5.55 % ±2.85%
-  - 10.72 % ±4.45%
-  - 9.54 % ±2.70%
-  - 9.69 % ±2.12%
-  - 1.10 % ±0.16%
-  - 36,507
+  - '10'
+  - '58'
+  - gemma-4-31b Google · Apache 2.0
+  - 1451 ±8
+  - 43 77
+  - 5,839
+  - $0.14 / $0.40
+  - 262.1K
   by_header:
-    Rank: 10 5 17
-    Model: Anthropic Claude Opus 4.7 Anthropic · Proprietary
-    Net Improvement: 7.32 % ±1.36%
-    Confirmed Success: 5.55 % ±2.85%
-    Praise vs Complaint: 10.72 % ±4.45%
-    Steerability: 9.54 % ±2.70%
-    Bash Recovery: 9.69 % ±2.12%
-    Tool Hallucination: 1.10 % ±0.16%
-    Sessions: 36,507
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '10'
+    Overall Rank: '58'
+    Model: gemma-4-31b Google · Apache 2.0
+    Score: 1451 ±8
+    Rank Spread: 43 77
+    Votes: 5,839
+    Price $/M: $0.14 / $0.40
+    Context: 262.1K
+  resolved_repo: google/gemma-4-31B-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 11
-  model: GPT 5.5 (High) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 7.27
-  net_improvement_ci: 0.93
-  arena_license_label: GPT 5.5 (High) OpenAI · Proprietary
+  model: kimi-k2.5-thinking Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 11 6 15
-  - GPT 5.5 (High) OpenAI · Proprietary
-  - 7.27 % ±0.93%
-  - 3.56 % ±1.95%
-  - 10.25 % ±3.27%
-  - 9.09 % ±1.66%
-  - 12.32 % ±0.99%
-  - 1.16 % ±0.16%
-  - 71,703
+  - '11'
+  - '59'
+  - kimi-k2.5-thinking Moonshot · Modified MIT
+  - 1451 ±3
+  - 47 73
+  - 68,179
+  - $0.60 / $3
+  - N/A
   by_header:
-    Rank: 11 6 15
-    Model: GPT 5.5 (High) OpenAI · Proprietary
-    Net Improvement: 7.27 % ±0.93%
-    Confirmed Success: 3.56 % ±1.95%
-    Praise vs Complaint: 10.25 % ±3.27%
-    Steerability: 9.09 % ±1.66%
-    Bash Recovery: 12.32 % ±0.99%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 71,703
+    Rank: '11'
+    Overall Rank: '59'
+    Model: kimi-k2.5-thinking Moonshot · Modified MIT
+    Score: 1451 ±3
+    Rank Spread: 47 73
+    Votes: 68,179
+    Price $/M: $0.60 / $3
+    Context: N/A
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 12
-  model: GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
-  org: Zhipu AI
-  matched_keyword: glm
-  net_improvement_pct: 6.75
-  net_improvement_ci: 0.9
+  model: minimax-m3 MiniMax · MiniMax Community License
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 12 7 17
-  - GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
-  - 6.75 % ±0.90%
-  - 9.21 % ±1.83%
-  - 12.39 % ±3.21%
-  - 5.62 % ±1.59%
-  - 5.37 % ±1.12%
-  - 1.16 % ±0.16%
-  - 50,093
+  - '12'
+  - '70'
+  - minimax-m3 MiniMax · MiniMax Community License
+  - 1445 ±5
+  - 57 81
+  - 34,343
+  - $0.60 / $2.40
+  - N/A
   by_header:
-    Rank: 12 7 17
-    Model: GLM 5.2 (Max) Z.ai · MIT · SiliconFlow
-    Net Improvement: 6.75 % ±0.90%
-    Confirmed Success: 9.21 % ±1.83%
-    Praise vs Complaint: 12.39 % ±3.21%
-    Steerability: 5.62 % ±1.59%
-    Bash Recovery: 5.37 % ±1.12%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 50,093
-  resolved_repo: zai-org/GLM-5.2
+    Rank: '12'
+    Overall Rank: '70'
+    Model: minimax-m3 MiniMax · MiniMax Community License
+    Score: 1445 ±5
+    Rank Spread: 57 81
+    Votes: 34,343
+    Price $/M: $0.60 / $2.40
+    Context: N/A
+  resolved_repo: MiniMaxAI/MiniMax-M3
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 13
-  model: Anthropic Claude Opus 4.6 Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 6.39
-  net_improvement_ci: 1.33
-  arena_license_label: Anthropic Claude Opus 4.6 Anthropic · Proprietary
+  model: qwen3.5-397b-a17b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 13 6 18
-  - Anthropic Claude Opus 4.6 Anthropic · Proprietary
-  - 6.39 % ±1.33%
-  - 4.23 % ±2.83%
-  - 8.25 % ±4.33%
-  - 7.36 % ±2.59%
-  - 10.95 % ±1.90%
-  - 1.16 % ±0.16%
-  - 35,700
+  - '13'
+  - '73'
+  - qwen3.5-397b-a17b Alibaba · Apache 2.0
+  - 1442 ±4
+  - 58 84
+  - 63,719
+  - $0.39 / $2.34
+  - 262.1K
   by_header:
-    Rank: 13 6 18
-    Model: Anthropic Claude Opus 4.6 Anthropic · Proprietary
-    Net Improvement: 6.39 % ±1.33%
-    Confirmed Success: 4.23 % ±2.83%
-    Praise vs Complaint: 8.25 % ±4.33%
-    Steerability: 7.36 % ±2.59%
-    Bash Recovery: 10.95 % ±1.90%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 35,700
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '13'
+    Overall Rank: '73'
+    Model: qwen3.5-397b-a17b Alibaba · Apache 2.0
+    Score: 1442 ±4
+    Rank Spread: 58 84
+    Votes: 63,719
+    Price $/M: $0.39 / $2.34
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3.5-397B-A17B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 14
-  model: GPT 5.5 OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 5.77
-  net_improvement_ci: 0.87
-  arena_license_label: GPT 5.5 OpenAI · Proprietary
+  model: glm-4.7 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 14 9 18
-  - GPT 5.5 OpenAI · Proprietary
-  - 5.77 % ±0.87%
-  - 2.91 % ±1.89%
-  - 7.36 % ±3.04%
-  - 6.18 % ±1.59%
-  - 11.22 % ±0.96%
-  - 1.16 % ±0.16%
-  - 72,848
+  - '14'
+  - '74'
+  - glm-4.7 Z.ai · MIT
+  - 1442 ±6
+  - 57 90
+  - 12,077
+  - $0.40 / $1.75
+  - 204.8K
   by_header:
-    Rank: 14 9 18
-    Model: GPT 5.5 OpenAI · Proprietary
-    Net Improvement: 5.77 % ±0.87%
-    Confirmed Success: 2.91 % ±1.89%
-    Praise vs Complaint: 7.36 % ±3.04%
-    Steerability: 6.18 % ±1.59%
-    Bash Recovery: 11.22 % ±0.96%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 72,848
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '14'
+    Overall Rank: '74'
+    Model: glm-4.7 Z.ai · MIT
+    Score: 1442 ±6
+    Rank Spread: 57 90
+    Votes: 12,077
+    Price $/M: $0.40 / $1.75
+    Context: 204.8K
+  resolved_repo: zai-org/GLM-4.7
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 15
-  model: Grok 4.5 SpaceXAI · Proprietary
-  org: xAI
-  matched_keyword: grok
-  net_improvement_pct: 5.57
-  net_improvement_ci: 1.27
-  arena_license_label: Grok 4.5 SpaceXAI · Proprietary
+  model: Thinking Machines inkling Thinky · Apache 2.0
+  org: Thinking Machines
+  matched_keyword: inkling
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 15 9 20
-  - Grok 4.5 SpaceXAI · Proprietary
-  - 5.57 % ±1.27%
-  - 5.00 % ±2.82%
-  - 5.29 % ±4.52%
-  - 4.82 % ±2.39%
-  - 11.57 % ±1.09%
-  - 1.16 % ±0.16%
-  - 27,653
+  - '15'
+  - '76'
+  - Thinking Machines inkling Thinky · Apache 2.0
+  - 1442 ±6
+  - 57 91
+  - 12,086
+  - $0.50 / $2.02
+  - 524.3K
   by_header:
-    Rank: 15 9 20
-    Model: Grok 4.5 SpaceXAI · Proprietary
-    Net Improvement: 5.57 % ±1.27%
-    Confirmed Success: 5.00 % ±2.82%
-    Praise vs Complaint: 5.29 % ±4.52%
-    Steerability: 4.82 % ±2.39%
-    Bash Recovery: 11.57 % ±1.09%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 27,653
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '15'
+    Overall Rank: '76'
+    Model: Thinking Machines inkling Thinky · Apache 2.0
+    Score: 1442 ±6
+    Rank Spread: 57 91
+    Votes: 12,086
+    Price $/M: $0.50 / $2.02
+    Context: 524.3K
+  resolved_repo: thinkingmachines/Inkling
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 16
-  model: GPT 5.4 (High) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 5.28
-  net_improvement_ci: 0.9
-  arena_license_label: GPT 5.4 (High) OpenAI · Proprietary
+  model: gemma-4-26b-a4b Google · Apache 2.0
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 16 10 18
-  - GPT 5.4 (High) OpenAI · Proprietary
-  - 5.28 % ±0.90%
-  - 4.87 % ±1.94%
-  - 4.04 % ±3.15%
-  - 6.61 % ±1.68%
-  - 9.71 % ±0.94%
-  - 1.16 % ±0.16%
-  - 72,066
+  - '16'
+  - '78'
+  - gemma-4-26b-a4b Google · Apache 2.0
+  - 1438 ±8
+  - 58 98
+  - 5,755
+  - N/A
+  - N/A
   by_header:
-    Rank: 16 10 18
-    Model: GPT 5.4 (High) OpenAI · Proprietary
-    Net Improvement: 5.28 % ±0.90%
-    Confirmed Success: 4.87 % ±1.94%
-    Praise vs Complaint: 4.04 % ±3.15%
-    Steerability: 6.61 % ±1.68%
-    Bash Recovery: 9.71 % ±0.94%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 72,066
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '16'
+    Overall Rank: '78'
+    Model: gemma-4-26b-a4b Google · Apache 2.0
+    Score: 1438 ±8
+    Rank Spread: 58 98
+    Votes: 5,755
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: google/gemma-4-26B-A4B-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 17
-  model: GPT 5.6 Luna (xHigh) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 4.42
-  net_improvement_ci: 1.79
-  arena_license_label: GPT 5.6 Luna (xHigh) OpenAI · Proprietary
+  model: deepseek-v4-flash-high-preview DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 17 10 22
-  - GPT 5.6 Luna (xHigh) OpenAI · Proprietary
-  - 4.42 % ±1.79%
-  - 0.64 % ±3.96%
-  - 7.59 % ±6.32%
-  - 1.73 % ±3.68%
-  - 11.01 % ±1.39%
-  - 1.16 % ±0.16%
-  - 8,431
+  - '17'
+  - '79'
+  - deepseek-v4-flash-high-preview DeepSeek · MIT
+  - 1438 ±4
+  - 69 94
+  - 48,316
+  - $0.14 / $0.28
+  - 1M
   by_header:
-    Rank: 17 10 22
-    Model: GPT 5.6 Luna (xHigh) OpenAI · Proprietary
-    Net Improvement: 4.42 % ±1.79%
-    Confirmed Success: 0.64 % ±3.96%
-    Praise vs Complaint: 7.59 % ±6.32%
-    Steerability: 1.73 % ±3.68%
-    Bash Recovery: 11.01 % ±1.39%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 8,431
+    Rank: '17'
+    Overall Rank: '79'
+    Model: deepseek-v4-flash-high-preview DeepSeek · MIT
+    Score: 1438 ±4
+    Rank Spread: 69 94
+    Votes: 48,316
+    Price $/M: $0.14 / $0.28
+    Context: 1M
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 18
-  model: GPT 5.6 Terra (xHigh) OpenAI · Proprietary
-  org: OpenAI
-  matched_keyword: gpt
-  net_improvement_pct: 3.06
-  net_improvement_ci: 1.3
-  arena_license_label: GPT 5.6 Terra (xHigh) OpenAI · Proprietary
+  model: deepseek-v4-flash DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 18 16 22
-  - GPT 5.6 Terra (xHigh) OpenAI · Proprietary
-  - 3.06 % ±1.30%
-  - 2.64 % ±3.18%
-  - 2.68 % ±4.37%
-  - 5.04 % ±2.52%
-  - 9.05 % ±1.20%
-  - 1.16 % ±0.16%
-  - 12,427
+  - '18'
+  - '81'
+  - deepseek-v4-flash DeepSeek · MIT
+  - 1436 ±4
+  - 70 96
+  - 48,561
+  - $0.14 / $0.28
+  - 1M
   by_header:
-    Rank: 18 16 22
-    Model: GPT 5.6 Terra (xHigh) OpenAI · Proprietary
-    Net Improvement: 3.06 % ±1.30%
-    Confirmed Success: 2.64 % ±3.18%
-    Praise vs Complaint: 2.68 % ±4.37%
-    Steerability: 5.04 % ±2.52%
-    Bash Recovery: 9.05 % ±1.20%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 12,427
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '18'
+    Overall Rank: '81'
+    Model: deepseek-v4-flash DeepSeek · MIT
+    Score: 1436 ±4
+    Rank Spread: 70 96
+    Votes: 48,561
+    Price $/M: $0.14 / $0.28
+    Context: 1M
+  resolved_repo: deepseek-ai/DeepSeek-V4-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 19
-  model: Anthropic Claude Opus 4.8 Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 3.04
-  net_improvement_ci: 2.18
-  arena_license_label: Anthropic Claude Opus 4.8 Anthropic · Proprietary
+  model: mimo-v2.5 Xiaomi · MIT
+  org: Xiaomi
+  matched_keyword: mimo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 19 13 25
-  - Anthropic Claude Opus 4.8 Anthropic · Proprietary
-  - 3.04 % ±2.18%
-  - 8.78 % ±2.94%
-  - 13.52 % ±5.18%
-  - 8.10 % ±3.02%
-  - 9.80 % ±2.39%
-  - 25.02 % ±7.64%
-  - 33,005
+  - '19'
+  - '85'
+  - mimo-v2.5 Xiaomi · MIT
+  - 1434 ±4
+  - 74 99
+  - 44,200
+  - $0.14 / $0.28
+  - 1.1M
   by_header:
-    Rank: 19 13 25
-    Model: Anthropic Claude Opus 4.8 Anthropic · Proprietary
-    Net Improvement: 3.04 % ±2.18%
-    Confirmed Success: 8.78 % ±2.94%
-    Praise vs Complaint: 13.52 % ±5.18%
-    Steerability: 8.10 % ±3.02%
-    Bash Recovery: 9.80 % ±2.39%
-    Tool Hallucination: 25.02 % ±7.64%
-    Sessions: 33,005
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '19'
+    Overall Rank: '85'
+    Model: mimo-v2.5 Xiaomi · MIT
+    Score: 1434 ±4
+    Rank Spread: 74 99
+    Votes: 44,200
+    Price $/M: $0.14 / $0.28
+    Context: 1.1M
+  resolved_repo: XiaomiMiMo/MiMo-V2.5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 20
-  model: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
-  org: Anthropic
-  matched_keyword: claude
-  net_improvement_pct: 3.0
-  net_improvement_ci: 1.33
-  arena_license_label: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
+  model: kimi-k2.5-instant Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 20 16 23
-  - Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
-  - 3.00 % ±1.33%
-  - 0.13 % ±2.91%
-  - 1.22 % ±4.02%
-  - 2.12 % ±2.56%
-  - 10.46 % ±2.58%
-  - 1.05 % ±0.21%
-  - 36,461
+  - '20'
+  - '89'
+  - kimi-k2.5-instant Moonshot · Modified MIT
+  - 1431 ±7
+  - 74 110
+  - 8,138
+  - $0.57 / $2.85
+  - 262.1K
   by_header:
-    Rank: 20 16 23
-    Model: Anthropic Claude Sonnet 4.6 Anthropic · Proprietary
-    Net Improvement: 3.00 % ±1.33%
-    Confirmed Success: 0.13 % ±2.91%
-    Praise vs Complaint: 1.22 % ±4.02%
-    Steerability: 2.12 % ±2.56%
-    Bash Recovery: 10.46 % ±2.58%
-    Tool Hallucination: 1.05 % ±0.21%
-    Sessions: 36,461
+    Rank: '20'
+    Overall Rank: '89'
+    Model: kimi-k2.5-instant Moonshot · Modified MIT
+    Score: 1431 ±7
+    Rank Spread: 74 110
+    Votes: 8,138
+    Price $/M: $0.57 / $2.85
+    Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 21
-  model: Deepseek V4 Flash (High) (20260731) DeepSeek · MIT
-  org: DeepSeek
-  matched_keyword: deepseek
-  net_improvement_pct: 2.84
-  net_improvement_ci: 1.1
+  model: Thinking Machines inkling-small Thinky · Apache 2.0
+  org: Thinking Machines
+  matched_keyword: inkling
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 21 17 22
-  - Deepseek V4 Flash (High) (20260731) DeepSeek · MIT
-  - 2.84 % ±1.10%
-  - 8.53 % ±2.54%
-  - 0.46 % ±3.64%
-  - 0.43 % ±2.19%
-  - 3.64 % ±1.01%
-  - 1.15 % ±0.16%
-  - 18,925
-  by_header:
-    Rank: 21 17 22
-    Model: Deepseek V4 Flash (High) (20260731) DeepSeek · MIT
-    Net Improvement: 2.84 % ±1.10%
-    Confirmed Success: 8.53 % ±2.54%
-    Praise vs Complaint: 0.46 % ±3.64%
-    Steerability: 0.43 % ±2.19%
-    Bash Recovery: 3.64 % ±1.01%
-    Tool Hallucination: 1.15 % ±0.16%
-    Sessions: 18,925
-  resolved_repo: deepseek-ai/DeepSeek-V4-Flash
+  - '-'
+  - Thinking Machines inkling-small Thinky · Apache 2.0
+  - 1431 ±11 AutoEval
+  - N/A
+  - N/A
+  - N/A
+  - N/A
+  by_header: null
+  resolved_repo: thinkingmachines/Inkling-Small
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
-- rank: 22
-  model: Meta Muse Spark 1.1 Meta · Proprietary
-  org: Meta
-  matched_keyword: muse
-  net_improvement_pct: 0.91
-  net_improvement_ci: 0.62
-  arena_license_label: Meta Muse Spark 1.1 Meta · Proprietary
+- rank: 21
+  model: kimi-k2-thinking-turbo Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 22 21 28
-  - Meta Muse Spark 1.1 Meta · Proprietary
-  - 0.91 % ±0.62%
-  - 6.14 % ±1.43%
-  - 4.86 % ±1.85%
-  - 3.71 % ±1.18%
-  - 5.89 % ±1.28%
-  - 1.11 % ±0.16%
-  - 62,721
+  - '21'
+  - '93'
+  - kimi-k2-thinking-turbo Moonshot · Modified MIT
+  - 1430 ±3
+  - 80 107
+  - 61,677
+  - $1.15 / $8
+  - 262.1K
   by_header:
-    Rank: 22 21 28
-    Model: Meta Muse Spark 1.1 Meta · Proprietary
-    Net Improvement: 0.91 % ±0.62%
-    Confirmed Success: 6.14 % ±1.43%
-    Praise vs Complaint: 4.86 % ±1.85%
-    Steerability: 3.71 % ±1.18%
-    Bash Recovery: 5.89 % ±1.28%
-    Tool Hallucination: 1.11 % ±0.16%
-    Sessions: 62,721
+    Rank: '21'
+    Overall Rank: '93'
+    Model: kimi-k2-thinking-turbo Moonshot · Modified MIT
+    Score: 1430 ±3
+    Rank Spread: 80 107
+    Votes: 61,677
+    Price $/M: $1.15 / $8
+    Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-- rank: 23
-  model: Kimi K2.7 Code Moonshot · Modified MIT
-  org: Moonshot AI
-  matched_keyword: kimi
-  net_improvement_pct: 0.69
-  net_improvement_ci: 1.94
+- rank: 22
+  model: mistral-medium-3.5 Mistral · Modified MIT
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 23 17 31
-  - Kimi K2.7 Code Moonshot · Modified MIT
-  - 0.69 % ±1.94%
-  - 4.12 % ±4.08%
-  - 2.36 % ±6.68%
-  - 1.92 % ±4.37%
-  - 2.26 % ±2.64%
-  - 1.16 % ±0.16%
-  - 10,853
+  - '22'
+  - '94'
+  - mistral-medium-3.5 Mistral · Modified MIT
+  - 1427 ±7
+  - 79 117
+  - 10,887
+  - $1.50 / $7.50
+  - 262.1K
   by_header:
-    Rank: 23 17 31
-    Model: Kimi K2.7 Code Moonshot · Modified MIT
-    Net Improvement: 0.69 % ±1.94%
-    Confirmed Success: 4.12 % ±4.08%
-    Praise vs Complaint: 2.36 % ±6.68%
-    Steerability: 1.92 % ±4.37%
-    Bash Recovery: 2.26 % ±2.64%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 10,853
-  resolved_repo: moonshotai/Kimi-K2.7-Code
+    Rank: '22'
+    Overall Rank: '94'
+    Model: mistral-medium-3.5 Mistral · Modified MIT
+    Score: 1427 ±7
+    Rank Spread: 79 117
+    Votes: 10,887
+    Price $/M: $1.50 / $7.50
+    Context: 262.1K
+  resolved_repo: mistralai/Mistral-Medium-3.5-128B
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
+- rank: 23
+  model: nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
+  raw:
+  - '23'
+  - '96'
+  - nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
+  - 1426 ±7
+  - 80 119
+  - 10,564
+  - N/A
+  - N/A
+  by_header:
+    Rank: '23'
+    Overall Rank: '96'
+    Model: nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
+    Score: 1426 ±7
+    Rank Spread: 80 119
+    Votes: 10,564
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
 - rank: 24
-  model: GLM 5.1 Z.ai · MIT · SiliconFlow
-  org: Zhipu AI
-  matched_keyword: glm
-  net_improvement_pct: 0.35
-  net_improvement_ci: 0.77
+  model: deepseek-v3.2 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 24 21 30
-  - GLM 5.1 Z.ai · MIT · SiliconFlow
-  - 0.35 % ±0.77%
-  - 1.06 % ±1.72%
-  - 0.72 % ±2.50%
-  - 0.76 % ±1.40%
-  - 0.61 % ±1.36%
-  - 0.15 % ±0.31%
-  - 69,327
+  - '24'
+  - '98'
+  - deepseek-v3.2 DeepSeek · MIT
+  - 1425 ±4
+  - 87 116
+  - 46,999
+  - $0.27 / $0.40
+  - 163.8K
   by_header:
-    Rank: 24 21 30
-    Model: GLM 5.1 Z.ai · MIT · SiliconFlow
-    Net Improvement: 0.35 % ±0.77%
-    Confirmed Success: 1.06 % ±1.72%
-    Praise vs Complaint: 0.72 % ±2.50%
-    Steerability: 0.76 % ±1.40%
-    Bash Recovery: 0.61 % ±1.36%
-    Tool Hallucination: 0.15 % ±0.31%
-    Sessions: 69,327
-  resolved_repo: zai-org/GLM-5.1
+    Rank: '24'
+    Overall Rank: '98'
+    Model: deepseek-v3.2 DeepSeek · MIT
+    Score: 1425 ±4
+    Rank Spread: 87 116
+    Votes: 46,999
+    Price $/M: $0.27 / $0.40
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-V3.2
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 25
-  model: Qwen3.7 Max Alibaba · Proprietary
-  org: Alibaba
-  matched_keyword: qwen
-  net_improvement_pct: 0.16
-  net_improvement_ci: 0.88
-  arena_license_label: Qwen3.7 Max Alibaba · Proprietary
+  model: glm-4.6 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 25 22 31
-  - Qwen3.7 Max Alibaba · Proprietary
-  - 0.16 % ±0.88%
-  - 0.24 % ±2.11%
-  - 5.07 % ±2.72%
-  - 0.21 % ±1.55%
-  - 4.20 % ±1.49%
-  - 0.51 % ±0.26%
-  - 27,375
+  - '25'
+  - '99'
+  - glm-4.6 Z.ai · MIT
+  - 1425 ±4
+  - 87 117
+  - 35,589
+  - $0.50 / $2
+  - 204.8K
   by_header:
-    Rank: 25 22 31
-    Model: Qwen3.7 Max Alibaba · Proprietary
-    Net Improvement: 0.16 % ±0.88%
-    Confirmed Success: 0.24 % ±2.11%
-    Praise vs Complaint: 5.07 % ±2.72%
-    Steerability: 0.21 % ±1.55%
-    Bash Recovery: 4.20 % ±1.49%
-    Tool Hallucination: 0.51 % ±0.26%
-    Sessions: 27,375
+    Rank: '25'
+    Overall Rank: '99'
+    Model: glm-4.6 Z.ai · MIT
+    Score: 1425 ±4
+    Rank Spread: 87 117
+    Votes: 35,589
+    Price $/M: $0.50 / $2
+    Context: 204.8K
+  resolved_repo: zai-org/GLM-4.6
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 26
+  model: deepseek-v3.2-exp-thinking DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '26'
+  - '100'
+  - deepseek-v3.2-exp-thinking DeepSeek · MIT
+  - 1425 ±7
+  - 82 120
+  - 9,051
+  - $0.27 / $0.41
+  - 163.8K
+  by_header:
+    Rank: '26'
+    Overall Rank: '100'
+    Model: deepseek-v3.2-exp-thinking DeepSeek · MIT
+    Score: 1425 ±7
+    Rank Spread: 82 120
+    Votes: 9,051
+    Price $/M: $0.27 / $0.41
+    Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-- rank: 26
-  model: DeepSeek V4 Pro DeepSeek · MIT
-  org: DeepSeek
-  matched_keyword: deepseek
-  net_improvement_pct: 0.33
-  net_improvement_ci: 0.86
-  arena_license_label: null
-  raw:
-  - 26 22 31
-  - DeepSeek V4 Pro DeepSeek · MIT
-  - 0.33 % ±0.86%
-  - 2.74 % ±2.16%
-  - 3.35 % ±2.78%
-  - 0.30 % ±1.54%
-  - 3.82 % ±0.92%
-  - 0.33 % ±0.27%
-  - 28,084
-  by_header:
-    Rank: 26 22 31
-    Model: DeepSeek V4 Pro DeepSeek · MIT
-    Net Improvement: 0.33 % ±0.86%
-    Confirmed Success: 2.74 % ±2.16%
-    Praise vs Complaint: 3.35 % ±2.78%
-    Steerability: 0.30 % ±1.54%
-    Bash Recovery: 3.82 % ±0.92%
-    Tool Hallucination: 0.33 % ±0.27%
-    Sessions: 28,084
-  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
 - rank: 27
-  model: Kimi K2.6 Moonshot · Modified MIT
-  org: Moonshot AI
-  matched_keyword: kimi
-  net_improvement_pct: 0.48
-  net_improvement_ci: 2.16
+  model: qwen3-235b-a22b-instruct-2507 Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 27 20 35
-  - Kimi K2.6 Moonshot · Modified MIT
-  - 0.48 % ±2.16%
-  - 2.28 % ±4.11%
-  - 2.12 % ±6.80%
-  - 1.66 % ±4.49%
-  - 6.27 % ±4.39%
-  - 1.16 % ±0.16%
-  - 10,970
+  - '27'
+  - '103'
+  - qwen3-235b-a22b-instruct-2507 Alibaba · Apache 2.0
+  - 1423 ±3
+  - 92 117
+  - 96,721
+  - $0.26 / $1.06
+  - N/A
   by_header:
-    Rank: 27 20 35
-    Model: Kimi K2.6 Moonshot · Modified MIT
-    Net Improvement: 0.48 % ±2.16%
-    Confirmed Success: 2.28 % ±4.11%
-    Praise vs Complaint: 2.12 % ±6.80%
-    Steerability: 1.66 % ±4.49%
-    Bash Recovery: 6.27 % ±4.39%
-    Tool Hallucination: 1.16 % ±0.16%
-    Sessions: 10,970
-  resolved_repo: moonshotai/Kimi-K2.6
+    Rank: '27'
+    Overall Rank: '103'
+    Model: qwen3-235b-a22b-instruct-2507 Alibaba · Apache 2.0
+    Score: 1423 ±3
+    Rank Spread: 92 117
+    Votes: 96,721
+    Price $/M: $0.26 / $1.06
+    Context: N/A
+  resolved_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 28
-  model: Gemini 3.1 Pro Preview Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 0.54
-  net_improvement_ci: 0.71
-  arena_license_label: Gemini 3.1 Pro Preview Google · Proprietary
+  model: deepseek-v3.2-thinking DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 28 23 31
-  - Gemini 3.1 Pro Preview Google · Proprietary
-  - 0.54 % ±0.71%
-  - 1.71 % ±1.57%
-  - 2.91 % ±2.23%
-  - 2.78 % ±1.23%
-  - 11.13 % ±1.34%
-  - 1.01 % ±0.20%
-  - 79,360
+  - '28'
+  - '104'
+  - deepseek-v3.2-thinking DeepSeek · MIT
+  - 1423 ±4
+  - 91 119
+  - 40,832
+  - $0.27 / $0.40
+  - 163.8K
   by_header:
-    Rank: 28 23 31
-    Model: Gemini 3.1 Pro Preview Google · Proprietary
-    Net Improvement: 0.54 % ±0.71%
-    Confirmed Success: 1.71 % ±1.57%
-    Praise vs Complaint: 2.91 % ±2.23%
-    Steerability: 2.78 % ±1.23%
-    Bash Recovery: 11.13 % ±1.34%
-    Tool Hallucination: 1.01 % ±0.20%
-    Sessions: 79,360
+    Rank: '28'
+    Overall Rank: '104'
+    Model: deepseek-v3.2-thinking DeepSeek · MIT
+    Score: 1423 ±4
+    Rank Spread: 91 119
+    Votes: 40,832
+    Price $/M: $0.27 / $0.40
+    Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 29
-  model: Gemini 3.5 Flash (High) Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 0.73
-  net_improvement_ci: 0.59
-  arena_license_label: Gemini 3.5 Flash (High) Google · Proprietary
-  raw:
-  - 29 23 31
-  - Gemini 3.5 Flash (High) Google · Proprietary
-  - 0.73 % ±0.59%
-  - 0.24 % ±1.40%
-  - 1.09 % ±1.83%
-  - 0.98 % ±1.05%
-  - 1.98 % ±0.95%
-  - 0.16 % ±0.20%
-  - 90,015
-  by_header:
-    Rank: 29 23 31
-    Model: Gemini 3.5 Flash (High) Google · Proprietary
-    Net Improvement: 0.73 % ±0.59%
-    Confirmed Success: 0.24 % ±1.40%
-    Praise vs Complaint: 1.09 % ±1.83%
-    Steerability: 0.98 % ±1.05%
-    Bash Recovery: 1.98 % ±0.95%
-    Tool Hallucination: 0.16 % ±0.20%
-    Sessions: 90,015
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 30
-  model: Tencent Hy3 Tencent · Apache 2.0
-  org: Tencent
-  matched_keyword: hy3
-  net_improvement_pct: 1.12
-  net_improvement_ci: 1.42
+  model: deepseek-v3.2-exp DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 30 22 35
-  - Tencent Hy3 Tencent · Apache 2.0
-  - 1.12 % ±1.42%
-  - 2.20 % ±3.04%
-  - 3.70 % ±4.91%
-  - 9.01 % ±2.60%
-  - 2.82 % ±1.82%
-  - 0.89 % ±0.63%
-  - 14,807
+  - '29'
+  - '105'
+  - deepseek-v3.2-exp DeepSeek · MIT
+  - 1423 ±6
+  - 87 122
+  - 11,902
+  - $0.27 / $0.41
+  - 163.8K
   by_header:
-    Rank: 30 22 35
-    Model: Tencent Hy3 Tencent · Apache 2.0
-    Net Improvement: 1.12 % ±1.42%
-    Confirmed Success: 2.20 % ±3.04%
-    Praise vs Complaint: 3.70 % ±4.91%
-    Steerability: 9.01 % ±2.60%
-    Bash Recovery: 2.82 % ±1.82%
-    Tool Hallucination: 0.89 % ±0.63%
-    Sessions: 14,807
-  resolved_repo: tencent/Hy3
+    Rank: '29'
+    Overall Rank: '105'
+    Model: deepseek-v3.2-exp DeepSeek · MIT
+    Score: 1423 ±6
+    Rank Spread: 87 122
+    Votes: 11,902
+    Price $/M: $0.27 / $0.41
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 30
+  model: deepseek-r1-0528 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '30'
+  - '106'
+  - deepseek-r1-0528 DeepSeek · MIT
+  - 1422 ±6
+  - 88 122
+  - 18,422
+  - $0.50 / $2.15
+  - 163.8K
+  by_header:
+    Rank: '30'
+    Overall Rank: '106'
+    Model: deepseek-r1-0528 DeepSeek · MIT
+    Score: 1422 ±6
+    Rank Spread: 88 122
+    Votes: 18,422
+    Price $/M: $0.50 / $2.15
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-R1-0528
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 31
-  model: Qwen3.7 Plus Alibaba · Proprietary
-  org: Alibaba
-  matched_keyword: qwen
-  net_improvement_pct: 1.87
-  net_improvement_ci: 1.31
-  arena_license_label: Qwen3.7 Plus Alibaba · Proprietary
+  model: kimi-k2-0905-preview Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 31 24 36
-  - Qwen3.7 Plus Alibaba · Proprietary
-  - 1.87 % ±1.31%
-  - 0.07 % ±3.33%
-  - 10.87 % ±3.94%
-  - 3.78 % ±2.73%
-  - 5.29 % ±1.96%
-  - 0.07 % ±0.40%
-  - 15,926
+  - '31'
+  - '109'
+  - kimi-k2-0905-preview Moonshot · Modified MIT
+  - 1418 ±6
+  - 93 129
+  - 11,756
+  - $0.60 / $2.50
+  - 262.1K
   by_header:
-    Rank: 31 24 36
-    Model: Qwen3.7 Plus Alibaba · Proprietary
-    Net Improvement: 1.87 % ±1.31%
-    Confirmed Success: 0.07 % ±3.33%
-    Praise vs Complaint: 10.87 % ±3.94%
-    Steerability: 3.78 % ±2.73%
-    Bash Recovery: 5.29 % ±1.96%
-    Tool Hallucination: 0.07 % ±0.40%
-    Sessions: 15,926
+    Rank: '31'
+    Overall Rank: '109'
+    Model: kimi-k2-0905-preview Moonshot · Modified MIT
+    Score: 1418 ±6
+    Rank Spread: 93 129
+    Votes: 11,756
+    Price $/M: $0.60 / $2.50
+    Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 32
-  model: Mimo V2.5 Pro Xiaomi · MIT
-  org: Xiaomi
-  matched_keyword: mimo
-  net_improvement_pct: 2.42
-  net_improvement_ci: 0.92
+  model: kimi-k2-0711-preview Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 32 29 36
-  - Mimo V2.5 Pro Xiaomi · MIT
-  - 2.42 % ±0.92%
-  - 3.88 % ±2.24%
-  - 7.27 % ±2.82%
-  - 2.19 % ±1.68%
-  - 1.30 % ±1.45%
-  - 0.08 % ±0.35%
-  - 27,785
+  - '32'
+  - '110'
+  - kimi-k2-0711-preview Moonshot · Modified MIT
+  - 1418 ±5
+  - 95 126
+  - 27,589
+  - $0.60 / $2.50
+  - 131.1K
   by_header:
-    Rank: 32 29 36
-    Model: Mimo V2.5 Pro Xiaomi · MIT
-    Net Improvement: 2.42 % ±0.92%
-    Confirmed Success: 3.88 % ±2.24%
-    Praise vs Complaint: 7.27 % ±2.82%
-    Steerability: 2.19 % ±1.68%
-    Bash Recovery: 1.30 % ±1.45%
-    Tool Hallucination: 0.08 % ±0.35%
-    Sessions: 27,785
-  resolved_repo: XiaomiMiMo/MiMo-V2.5-Pro
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 33
-  model: Minimax M3 MiniMax · MiniMax Community License
-  org: MiniMax
-  matched_keyword: minimax
-  net_improvement_pct: 2.47
-  net_improvement_ci: 0.85
-  arena_license_label: null
-  raw:
-  - 33 29 36
-  - Minimax M3 MiniMax · MiniMax Community License
-  - 2.47 % ±0.85%
-  - 5.15 % ±2.21%
-  - 9.10 % ±2.65%
-  - 4.19 % ±1.64%
-  - 5.48 % ±0.82%
-  - 0.59 % ±0.33%
-  - 27,674
-  by_header:
-    Rank: 33 29 36
-    Model: Minimax M3 MiniMax · MiniMax Community License
-    Net Improvement: 2.47 % ±0.85%
-    Confirmed Success: 5.15 % ±2.21%
-    Praise vs Complaint: 9.10 % ±2.65%
-    Steerability: 4.19 % ±1.64%
-    Bash Recovery: 5.48 % ±0.82%
-    Tool Hallucination: 0.59 % ±0.33%
-    Sessions: 27,674
-  resolved_repo: MiniMaxAI/MiniMax-M3
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 34
-  model: DeepSeek V4 Flash DeepSeek · MIT
-  org: DeepSeek
-  matched_keyword: deepseek
-  net_improvement_pct: 2.7
-  net_improvement_ci: 0.88
-  arena_license_label: null
-  raw:
-  - 34 29 36
-  - DeepSeek V4 Flash DeepSeek · MIT
-  - 2.70 % ±0.88%
-  - 3.12 % ±2.37%
-  - 10.05 % ±2.68%
-  - 1.90 % ±1.67%
-  - 2.82 % ±0.97%
-  - 1.25 % ±0.39%
-  - 23,569
-  by_header:
-    Rank: 34 29 36
-    Model: DeepSeek V4 Flash DeepSeek · MIT
-    Net Improvement: 2.70 % ±0.88%
-    Confirmed Success: 3.12 % ±2.37%
-    Praise vs Complaint: 10.05 % ±2.68%
-    Steerability: 1.90 % ±1.67%
-    Bash Recovery: 2.82 % ±0.97%
-    Tool Hallucination: 1.25 % ±0.39%
-    Sessions: 23,569
-  resolved_repo: deepseek-ai/DeepSeek-V4-Flash
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 35
-  model: gemini-3.6-flash Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 2.73
-  net_improvement_ci: 1.38
-  arena_license_label: gemini-3.6-flash Google · Proprietary
-  raw:
-  - 35 29 36
-  - gemini-3.6-flash Google · Proprietary
-  - 2.73 % ±1.38%
-  - 1.01 % ±3.37%
-  - 5.99 % ±4.30%
-  - 4.56 % ±2.80%
-  - 3.19 % ±1.82%
-  - 1.11 % ±0.18%
-  - 9,009
-  by_header:
-    Rank: 35 29 36
-    Model: gemini-3.6-flash Google · Proprietary
-    Net Improvement: 2.73 % ±1.38%
-    Confirmed Success: 1.01 % ±3.37%
-    Praise vs Complaint: 5.99 % ±4.30%
-    Steerability: 4.56 % ±2.80%
-    Bash Recovery: 3.19 % ±1.82%
-    Tool Hallucination: 1.11 % ±0.18%
-    Sessions: 9,009
+    Rank: '32'
+    Overall Rank: '110'
+    Model: kimi-k2-0711-preview Moonshot · Modified MIT
+    Score: 1418 ±5
+    Rank Spread: 95 126
+    Votes: 27,589
+    Price $/M: $0.60 / $2.50
+    Context: 131.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-- rank: 36
-  model: Gemini 3.5 Flash (Medium) Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 4.29
-  net_improvement_ci: 1.49
-  arena_license_label: Gemini 3.5 Flash (Medium) Google · Proprietary
+- rank: 33
+  model: deepseek-v3.1 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 36 31 38
-  - Gemini 3.5 Flash (Medium) Google · Proprietary
-  - 4.29 % ±1.49%
-  - 9.94 % ±3.70%
-  - 5.61 % ±4.44%
-  - 4.99 % ±2.87%
-  - 1.19 % ±2.47%
-  - 0.30 % ±0.82%
-  - 11,957
+  - '33'
+  - '111'
+  - deepseek-v3.1 DeepSeek · MIT
+  - 1418 ±6
+  - 94 129
+  - 14,942
+  - $1.23 / $4.94
+  - N/A
   by_header:
-    Rank: 36 31 38
-    Model: Gemini 3.5 Flash (Medium) Google · Proprietary
-    Net Improvement: 4.29 % ±1.49%
-    Confirmed Success: 9.94 % ±3.70%
-    Praise vs Complaint: 5.61 % ±4.44%
-    Steerability: 4.99 % ±2.87%
-    Bash Recovery: 1.19 % ±2.47%
-    Tool Hallucination: 0.30 % ±0.82%
-    Sessions: 11,957
+    Rank: '33'
+    Overall Rank: '111'
+    Model: deepseek-v3.1 DeepSeek · MIT
+    Score: 1418 ±6
+    Rank Spread: 94 129
+    Votes: 14,942
+    Price $/M: $1.23 / $4.94
+    Context: N/A
+  resolved_repo: deepseek-ai/DeepSeek-V3.1-Base
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 34
+  model: deepseek-v3.1-terminus-thinking DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '34'
+  - '112'
+  - deepseek-v3.1-terminus-thinking DeepSeek · MIT
+  - 1417 ±10
+  - 89 132
+  - 3,454
+  - $0.27 / $1
+  - 163.8K
+  by_header:
+    Rank: '34'
+    Overall Rank: '112'
+    Model: deepseek-v3.1-terminus-thinking DeepSeek · MIT
+    Score: 1417 ±10
+    Rank Spread: 89 132
+    Votes: 3,454
+    Price $/M: $0.27 / $1
+    Context: 163.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 35
+  model: qwen3.5-122b-a10b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '35'
+  - '113'
+  - qwen3.5-122b-a10b Alibaba · Apache 2.0
+  - 1417 ±4
+  - 96 127
+  - 28,208
+  - $0.29 / $2.40
+  - 262.1K
+  by_header:
+    Rank: '35'
+    Overall Rank: '113'
+    Model: qwen3.5-122b-a10b Alibaba · Apache 2.0
+    Score: 1417 ±4
+    Rank Spread: 96 127
+    Votes: 28,208
+    Price $/M: $0.29 / $2.40
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3.5-122B-A10B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 36
+  model: deepseek-v3.1-thinking DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '36'
+  - '114'
+  - deepseek-v3.1-thinking DeepSeek · MIT
+  - 1417 ±7
+  - 94 129
+  - 11,715
+  - $1.23 / $4.94
+  - N/A
+  by_header:
+    Rank: '36'
+    Overall Rank: '114'
+    Model: deepseek-v3.1-thinking DeepSeek · MIT
+    Score: 1417 ±7
+    Rank Spread: 94 129
+    Votes: 11,715
+    Price $/M: $1.23 / $4.94
+    Context: N/A
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 37
-  model: Thinking Machines Inkling Thinky · Apache 2.0
-  org: Thinking Machines
-  matched_keyword: inkling
-  net_improvement_pct: 6.6
-  net_improvement_ci: 0.89
+  model: minimax-m2.7 MiniMax · Modified MIT
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 37 36 39
-  - Thinking Machines Inkling Thinky · Apache 2.0
-  - 6.60 % ±0.89%
-  - 11.06 % ±2.48%
-  - 16.01 % ±2.60%
-  - 12.57 % ±1.77%
-  - 6.15 % ±1.08%
-  - 0.48 % ±0.24%
-  - 32,583
+  - '37'
+  - '115'
+  - minimax-m2.7 MiniMax · Modified MIT
+  - 1416 ±4
+  - 100 129
+  - 55,513
+  - $0.30 / $1.20
+  - 204.8K
   by_header:
-    Rank: 37 36 39
-    Model: Thinking Machines Inkling Thinky · Apache 2.0
-    Net Improvement: 6.60 % ±0.89%
-    Confirmed Success: 11.06 % ±2.48%
-    Praise vs Complaint: 16.01 % ±2.60%
-    Steerability: 12.57 % ±1.77%
-    Bash Recovery: 6.15 % ±1.08%
-    Tool Hallucination: 0.48 % ±0.24%
-    Sessions: 32,583
-  resolved_repo: thinkingmachines/Inkling
+    Rank: '37'
+    Overall Rank: '115'
+    Model: minimax-m2.7 MiniMax · Modified MIT
+    Score: 1416 ±4
+    Rank Spread: 100 129
+    Votes: 55,513
+    Price $/M: $0.30 / $1.20
+    Context: 204.8K
+  resolved_repo: MiniMaxAI/MiniMax-M2.7
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 38
-  model: Mistral Medium 3.5 Mistral · Modified MIT
+  model: mistral-large-3 Mistral · Apache 2.0
   org: Mistral AI
   matched_keyword: mistral
-  net_improvement_pct: 6.82
-  net_improvement_ci: 2.16
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 38 36 42
-  - Mistral Medium 3.5 Mistral · Modified MIT
-  - 6.82 % ±2.16%
-  - 10.43 % ±5.02%
-  - 8.71 % ±6.47%
-  - 11.31 % ±4.31%
-  - 0.13 % ±2.86%
-  - 3.53 % ±2.85%
-  - 4,844
+  - '38'
+  - '117'
+  - mistral-large-3 Mistral · Apache 2.0
+  - 1415 ±3
+  - 102 128
+  - 56,503
+  - $0.50 / $1.50
+  - N/A
   by_header:
-    Rank: 38 36 42
-    Model: Mistral Medium 3.5 Mistral · Modified MIT
-    Net Improvement: 6.82 % ±2.16%
-    Confirmed Success: 10.43 % ±5.02%
-    Praise vs Complaint: 8.71 % ±6.47%
-    Steerability: 11.31 % ±4.31%
-    Bash Recovery: 0.13 % ±2.86%
-    Tool Hallucination: 3.53 % ±2.85%
-    Sessions: 4,844
-  resolved_repo: mistralai/Mistral-Medium-3.5-128B
+    Rank: '38'
+    Overall Rank: '117'
+    Model: mistral-large-3 Mistral · Apache 2.0
+    Score: 1415 ±3
+    Rank Spread: 102 128
+    Votes: 56,503
+    Price $/M: $0.50 / $1.50
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 39
+  model: qwen3-vl-235b-a22b-instruct Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '39'
+  - '118'
+  - qwen3-vl-235b-a22b-instruct Alibaba · Apache 2.0
+  - 1415 ±6
+  - 95 130
+  - 11,483
+  - $0.21 / $1.90
+  - 262.1K
+  by_header:
+    Rank: '39'
+    Overall Rank: '118'
+    Model: qwen3-vl-235b-a22b-instruct Alibaba · Apache 2.0
+    Score: 1415 ±6
+    Rank Spread: 95 130
+    Votes: 11,483
+    Price $/M: $0.21 / $1.90
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
-- rank: 39
-  model: Grok 4.3 (High) SpaceXAI · Proprietary
-  org: xAI
-  matched_keyword: grok
-  net_improvement_pct: 8.3
-  net_improvement_ci: 0.83
-  arena_license_label: Grok 4.3 (High) SpaceXAI · Proprietary
-  raw:
-  - 39 37 42
-  - Grok 4.3 (High) SpaceXAI · Proprietary
-  - 8.30 % ±0.83%
-  - 9.31 % ±1.74%
-  - 13.95 % ±1.93%
-  - 6.51 % ±1.26%
-  - 12.72 % ±2.73%
-  - 1.00 % ±0.16%
-  - 60,015
-  by_header:
-    Rank: 39 37 42
-    Model: Grok 4.3 (High) SpaceXAI · Proprietary
-    Net Improvement: 8.30 % ±0.83%
-    Confirmed Success: 9.31 % ±1.74%
-    Praise vs Complaint: 13.95 % ±1.93%
-    Steerability: 6.51 % ±1.26%
-    Bash Recovery: 12.72 % ±2.73%
-    Tool Hallucination: 1.00 % ±0.16%
-    Sessions: 60,015
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
 - rank: 40
-  model: Grok Build 0.1 SpaceXAI · Proprietary
-  org: xAI
-  matched_keyword: grok
-  net_improvement_pct: 8.82
-  net_improvement_ci: 0.87
-  arena_license_label: Grok Build 0.1 SpaceXAI · Proprietary
+  model: deepseek-v3.1-terminus DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 40 38 42
-  - Grok Build 0.1 SpaceXAI · Proprietary
-  - 8.82 % ±0.87%
-  - 5.31 % ±1.80%
-  - 11.12 % ±2.27%
-  - 9.95 % ±1.54%
-  - 18.59 % ±2.55%
-  - 0.85 % ±0.16%
-  - 71,454
+  - '40'
+  - '119'
+  - deepseek-v3.1-terminus DeepSeek · MIT
+  - 1415 ±10
+  - 93 138
+  - 3,688
+  - $0.27 / $1
+  - 163.8K
   by_header:
-    Rank: 40 38 42
-    Model: Grok Build 0.1 SpaceXAI · Proprietary
-    Net Improvement: 8.82 % ±0.87%
-    Confirmed Success: 5.31 % ±1.80%
-    Praise vs Complaint: 11.12 % ±2.27%
-    Steerability: 9.95 % ±1.54%
-    Bash Recovery: 18.59 % ±2.55%
-    Tool Hallucination: 0.85 % ±0.16%
-    Sessions: 71,454
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
+    Rank: '40'
+    Overall Rank: '119'
+    Model: deepseek-v3.1-terminus DeepSeek · MIT
+    Score: 1415 ±10
+    Rank Spread: 93 138
+    Votes: 3,688
+    Price $/M: $0.27 / $1
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-V3.1-Terminus
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 41
-  model: Gemini 3 Flash Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 8.92
-  net_improvement_ci: 0.76
-  arena_license_label: Gemini 3 Flash Google · Proprietary
+  model: Tencent hunyuan-hy3-preview Tencent · tencent-hunyuan-community
+  org: Tencent
+  matched_keyword: hunyuan
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 41 38 42
-  - Gemini 3 Flash Google · Proprietary
-  - 8.92 % ±0.76%
-  - 8.51 % ±1.64%
-  - 11.36 % ±1.85%
-  - 4.37 % ±1.20%
-  - 20.36 % ±2.21%
-  - 0.01 % ±0.77%
-  - 80,624
+  - '41'
+  - '123'
+  - Tencent hunyuan-hy3-preview Tencent · tencent-hunyuan-community
+  - 1412 ±8
+  - 100 138
+  - 6,555
+  - $0.29 / $1.17
+  - 262.1K
   by_header:
-    Rank: 41 38 42
-    Model: Gemini 3 Flash Google · Proprietary
-    Net Improvement: 8.92 % ±0.76%
-    Confirmed Success: 8.51 % ±1.64%
-    Praise vs Complaint: 11.36 % ±1.85%
-    Steerability: 4.37 % ±1.20%
-    Bash Recovery: 20.36 % ±2.21%
-    Tool Hallucination: 0.01 % ±0.77%
-    Sessions: 80,624
+    Rank: '41'
+    Overall Rank: '123'
+    Model: Tencent hunyuan-hy3-preview Tencent · tencent-hunyuan-community
+    Score: 1412 ±8
+    Rank Spread: 100 138
+    Votes: 6,555
+    Price $/M: $0.29 / $1.17
+    Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
 - rank: 42
-  model: gemini-3.5-flash-lite Google · Proprietary
-  org: Google
-  matched_keyword: gemini
-  net_improvement_pct: 10.37
-  net_improvement_ci: 1.43
-  arena_license_label: gemini-3.5-flash-lite Google · Proprietary
-  raw:
-  - 42 38 44
-  - gemini-3.5-flash-lite Google · Proprietary
-  - 10.37 % ±1.43%
-  - 14.10 % ±3.56%
-  - 13.30 % ±3.78%
-  - 10.72 % ±2.74%
-  - 13.31 % ±3.09%
-  - 0.45 % ±0.62%
-  - 9,015
-  by_header:
-    Rank: 42 38 44
-    Model: gemini-3.5-flash-lite Google · Proprietary
-    Net Improvement: 10.37 % ±1.43%
-    Confirmed Success: 14.10 % ±3.56%
-    Praise vs Complaint: 13.30 % ±3.78%
-    Steerability: 10.72 % ±2.74%
-    Bash Recovery: 13.31 % ±3.09%
-    Tool Hallucination: 0.45 % ±0.62%
-    Sessions: 9,015
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 43
-  model: Minimax M2.7 MiniMax · Modified MIT
-  org: MiniMax
-  matched_keyword: minimax
-  net_improvement_pct: 11.59
-  net_improvement_ci: 1.1
+  model: glm-4.5 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 43 42 44
-  - Minimax M2.7 MiniMax · Modified MIT
-  - 11.59 % ±1.10%
-  - 13.21 % ±2.52%
-  - 15.89 % ±2.95%
-  - 13.41 % ±2.01%
-  - 16.44 % ±2.91%
-  - 1.01 % ±0.19%
-  - 27,865
+  - '42'
+  - '125'
+  - glm-4.5 Z.ai · MIT
+  - 1411 ±5
+  - 107 136
+  - 24,269
+  - $0.60 / $2.20
+  - 131.1K
   by_header:
-    Rank: 43 42 44
-    Model: Minimax M2.7 MiniMax · Modified MIT
-    Net Improvement: 11.59 % ±1.10%
-    Confirmed Success: 13.21 % ±2.52%
-    Praise vs Complaint: 15.89 % ±2.95%
-    Steerability: 13.41 % ±2.01%
-    Bash Recovery: 16.44 % ±2.91%
-    Tool Hallucination: 1.01 % ±0.19%
-    Sessions: 27,865
-  resolved_repo: MiniMaxAI/MiniMax-M2.7
+    Rank: '42'
+    Overall Rank: '125'
+    Model: glm-4.5 Z.ai · MIT
+    Score: 1411 ±5
+    Rank Spread: 107 136
+    Votes: 24,269
+    Price $/M: $0.60 / $2.20
+    Context: 131.1K
+  resolved_repo: zai-org/GLM-4.5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 43
+  model: qwen3.5-27b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '43'
+  - '129'
+  - qwen3.5-27b Alibaba · Apache 2.0
+  - 1408 ±4
+  - 110 139
+  - 27,052
+  - $0.20 / $1.56
+  - 262.1K
+  by_header:
+    Rank: '43'
+    Overall Rank: '129'
+    Model: qwen3.5-27b Alibaba · Apache 2.0
+    Score: 1408 ±4
+    Rank Spread: 110 139
+    Votes: 27,052
+    Price $/M: $0.20 / $1.56
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3.5-27B
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 44
-  model: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
-  org: NVIDIA
-  matched_keyword: nemotron
-  net_improvement_pct: 13.75
-  net_improvement_ci: 2.33
-  arena_license_label: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
+  model: qwen3-235b-a22b-no-thinking Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
   raw:
-  - 44 42 46
-  - Nemotron 3 Ultra Nvidia · OpenMDW-1.1
-  - 13.75 % ±2.33%
-  - 16.20 % ±5.23%
-  - 14.76 % ±6.61%
-  - 19.08 % ±4.76%
-  - 19.00 % ±5.52%
-  - 0.30 % ±0.41%
-  - 11,618
+  - '44'
+  - '132'
+  - qwen3-235b-a22b-no-thinking Alibaba · Apache 2.0
+  - 1403 ±5
+  - 121 145
+  - 38,137
+  - $0.46 / $1.82
+  - 131.1K
   by_header:
-    Rank: 44 42 46
-    Model: Nemotron 3 Ultra Nvidia · OpenMDW-1.1
-    Net Improvement: 13.75 % ±2.33%
-    Confirmed Success: 16.20 % ±5.23%
-    Praise vs Complaint: 14.76 % ±6.61%
-    Steerability: 19.08 % ±4.76%
-    Bash Recovery: 19.00 % ±5.52%
-    Tool Hallucination: 0.30 % ±0.41%
-    Sessions: 11,618
-  resolved_repo: nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 45
-  model: Grok 4.3 SpaceXAI · Proprietary
-  org: xAI
-  matched_keyword: grok
-  net_improvement_pct: 14.86
-  net_improvement_ci: 1.14
-  arena_license_label: Grok 4.3 SpaceXAI · Proprietary
-  raw:
-  - 45 44 46
-  - Grok 4.3 SpaceXAI · Proprietary
-  - 14.86 % ±1.14%
-  - 11.77 % ±1.67%
-  - 16.19 % ±1.82%
-  - 6.44 % ±1.21%
-  - 40.98 % ±4.91%
-  - 1.06 % ±0.16%
-  - 79,964
-  by_header:
-    Rank: 45 44 46
-    Model: Grok 4.3 SpaceXAI · Proprietary
-    Net Improvement: 14.86 % ±1.14%
-    Confirmed Success: 11.77 % ±1.67%
-    Praise vs Complaint: 16.19 % ±1.82%
-    Steerability: 6.44 % ±1.21%
-    Bash Recovery: 40.98 % ±4.91%
-    Tool Hallucination: 1.06 % ±0.16%
-    Sessions: 79,964
+    Rank: '44'
+    Overall Rank: '132'
+    Model: qwen3-235b-a22b-no-thinking Alibaba · Apache 2.0
+    Score: 1403 ±5
+    Rank Spread: 121 145
+    Votes: 38,137
+    Price $/M: $0.46 / $1.82
+    Context: 131.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-- rank: 46
-  model: Gemma 4 31B Google · Apache 2.0
-  org: Google
-  matched_keyword: gemma
-  net_improvement_pct: 17.6
-  net_improvement_ci: 2.38
+- rank: 45
+  model: qwen3-next-80b-a3b-instruct Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
   arena_license_label: null
   raw:
-  - 46 44 46
-  - Gemma 4 31B Google · Apache 2.0
-  - 17.60 % ±2.38%
-  - 0.27 % ±1.93%
-  - 2.90 % ±2.87%
-  - 9.16 % ±1.83%
-  - 44.31 % ±8.51%
-  - 31.37 % ±7.31%
-  - 56,459
+  - '45'
+  - '135'
+  - qwen3-next-80b-a3b-instruct Alibaba · Apache 2.0
+  - 1401 ±5
+  - 125 146
+  - 22,846
+  - $0.09 / $1.10
+  - 262.1K
   by_header:
-    Rank: 46 44 46
-    Model: Gemma 4 31B Google · Apache 2.0
-    Net Improvement: 17.60 % ±2.38%
-    Confirmed Success: 0.27 % ±1.93%
-    Praise vs Complaint: 2.90 % ±2.87%
-    Steerability: 9.16 % ±1.83%
-    Bash Recovery: 44.31 % ±8.51%
-    Tool Hallucination: 31.37 % ±7.31%
-    Sessions: 56,459
-  resolved_repo: google/gemma-4-31B-it
+    Rank: '45'
+    Overall Rank: '135'
+    Model: qwen3-next-80b-a3b-instruct Alibaba · Apache 2.0
+    Score: 1401 ±5
+    Rank Spread: 125 146
+    Votes: 22,846
+    Price $/M: $0.09 / $1.10
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
+- rank: 46
+  model: longcat-flash-chat Meituan · MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '46'
+  - '136'
+  - longcat-flash-chat Meituan · MIT
+  - 1401 ±6
+  - 122 149
+  - 11,379
+  - $0.20 / $0.80
+  - 131.1K
+  by_header:
+    Rank: '46'
+    Overall Rank: '136'
+    Model: longcat-flash-chat Meituan · MIT
+    Score: 1401 ±6
+    Rank Spread: 122 149
+    Votes: 11,379
+    Price $/M: $0.20 / $0.80
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 47
+  model: qwen3-235b-a22b-thinking-2507 Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '47'
+  - '138'
+  - qwen3-235b-a22b-thinking-2507 Alibaba · Apache 2.0
+  - 1399 ±7
+  - 127 155
+  - 8,975
+  - $0.23 / $2.30
+  - 262.1K
+  by_header:
+    Rank: '47'
+    Overall Rank: '138'
+    Model: qwen3-235b-a22b-thinking-2507 Alibaba · Apache 2.0
+    Score: 1399 ±7
+    Rank Spread: 127 155
+    Votes: 8,975
+    Price $/M: $0.23 / $2.30
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 48
+  model: deepseek-r1 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '48'
+  - '139'
+  - deepseek-r1 DeepSeek · MIT
+  - 1398 ±5
+  - 130 153
+  - 18,524
+  - $0.70 / $2.50
+  - 163.8K
+  by_header:
+    Rank: '48'
+    Overall Rank: '139'
+    Model: deepseek-r1 DeepSeek · MIT
+    Score: 1398 ±5
+    Rank Spread: 130 153
+    Votes: 18,524
+    Price $/M: $0.70 / $2.50
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-R1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 49
+  model: deepseek-v3-0324 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '49'
+  - '141'
+  - deepseek-v3-0324 DeepSeek · MIT
+  - 1396 ±4
+  - 131 156
+  - 45,445
+  - $3 / $4.50
+  - 32.8K
+  by_header:
+    Rank: '49'
+    Overall Rank: '141'
+    Model: deepseek-v3-0324 DeepSeek · MIT
+    Score: 1396 ±4
+    Rank Spread: 131 156
+    Votes: 45,445
+    Price $/M: $3 / $4.50
+    Context: 32.8K
+  resolved_repo: deepseek-ai/DeepSeek-V3-0324
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 50
+  model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '50'
+  - '142'
+  - qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+  - 1395 ±7
+  - 130 159
+  - 7,934
+  - $0.40 / $4
+  - 131.1K
+  by_header:
+    Rank: '50'
+    Overall Rank: '142'
+    Model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+    Score: 1395 ±7
+    Rank Spread: 130 159
+    Votes: 7,934
+    Price $/M: $0.40 / $4
+    Context: 131.1K
+  resolved_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 51
+  model: qwen3.5-35b-a3b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '51'
+  - '143'
+  - qwen3.5-35b-a3b Alibaba · Apache 2.0
+  - 1395 ±4
+  - 131 157
+  - 28,864
+  - $0.14 / $1
+  - 262.1K
+  by_header:
+    Rank: '51'
+    Overall Rank: '143'
+    Model: qwen3.5-35b-a3b Alibaba · Apache 2.0
+    Score: 1395 ±4
+    Rank Spread: 131 157
+    Votes: 28,864
+    Price $/M: $0.14 / $1
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3.5-35B-A3B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 52
+  model: Stepfun step-3.5-flash StepFun · Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '52'
+  - '145'
+  - Stepfun step-3.5-flash StepFun · Apache 2.0
+  - 1394 ±4
+  - 134 157
+  - 56,979
+  - $0.10 / $0.30
+  - 262.1K
+  by_header:
+    Rank: '52'
+    Overall Rank: '145'
+    Model: Stepfun step-3.5-flash StepFun · Apache 2.0
+    Score: 1394 ±4
+    Rank Spread: 134 157
+    Votes: 56,979
+    Price $/M: $0.10 / $0.30
+    Context: 262.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 53
+  model: mimo-v2-flash (non-thinking) Xiaomi · MIT
+  org: Xiaomi
+  matched_keyword: mimo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '53'
+  - '147'
+  - mimo-v2-flash (non-thinking) Xiaomi · MIT
+  - 1393 ±4
+  - 136 158
+  - 46,248
+  - $0.10 / $0.30
+  - 262.1K
+  by_header:
+    Rank: '53'
+    Overall Rank: '147'
+    Model: mimo-v2-flash (non-thinking) Xiaomi · MIT
+    Score: 1393 ±4
+    Rank Spread: 136 158
+    Votes: 46,248
+    Price $/M: $0.10 / $0.30
+    Context: 262.1K
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 54
+  model: minimax-m2.5 MiniMax · Modified MIT
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '54'
+  - '150'
+  - minimax-m2.5 MiniMax · Modified MIT
+  - 1390 ±4
+  - 138 162
+  - 40,688
+  - $0.22 / $0.90
+  - 204.8K
+  by_header:
+    Rank: '54'
+    Overall Rank: '150'
+    Model: minimax-m2.5 MiniMax · Modified MIT
+    Score: 1390 ±4
+    Rank Spread: 138 162
+    Votes: 40,688
+    Price $/M: $0.22 / $0.90
+    Context: 204.8K
+  resolved_repo: MiniMaxAI/MiniMax-M2.5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 55
+  model: qwen3-coder-480b-a35b-instruct Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '55'
+  - '154'
+  - qwen3-coder-480b-a35b-instruct Alibaba · Apache 2.0
+  - 1388 ±5
+  - 140 164
+  - 25,674
+  - $0.40 / $1.60
+  - 262.1K
+  by_header:
+    Rank: '55'
+    Overall Rank: '154'
+    Model: qwen3-coder-480b-a35b-instruct Alibaba · Apache 2.0
+    Score: 1388 ±5
+    Rank Spread: 140 164
+    Votes: 25,674
+    Price $/M: $0.40 / $1.60
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 56
+  model: mimo-v2-flash (thinking) Xiaomi · MIT
+  org: Xiaomi
+  matched_keyword: mimo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '56'
+  - '155'
+  - mimo-v2-flash (thinking) Xiaomi · MIT
+  - 1387 ±6
+  - 139 164
+  - 10,909
+  - $0.10 / $0.30
+  - 262.1K
+  by_header:
+    Rank: '56'
+    Overall Rank: '155'
+    Model: mimo-v2-flash (thinking) Xiaomi · MIT
+    Score: 1387 ±6
+    Rank Spread: 139 164
+    Votes: 10,909
+    Price $/M: $0.10 / $0.30
+    Context: 262.1K
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 57
+  model: minimax-m2.1-preview MiniMax · MIT
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '57'
+  - '158'
+  - minimax-m2.1-preview MiniMax · MIT
+  - 1384 ±5
+  - 144 166
+  - 17,057
+  - $0.30 / $1.20
+  - 204.8K
+  by_header:
+    Rank: '57'
+    Overall Rank: '158'
+    Model: minimax-m2.1-preview MiniMax · MIT
+    Score: 1384 ±5
+    Rank Spread: 144 166
+    Votes: 17,057
+    Price $/M: $0.30 / $1.20
+    Context: 204.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 58
+  model: qwen3-30b-a3b-instruct-2507 Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '58'
+  - '159'
+  - qwen3-30b-a3b-instruct-2507 Alibaba · Apache 2.0
+  - 1383 ±5
+  - 146 167
+  - 23,691
+  - $0.05 / $0.19
+  - 262.1K
+  by_header:
+    Rank: '58'
+    Overall Rank: '159'
+    Model: qwen3-30b-a3b-instruct-2507 Alibaba · Apache 2.0
+    Score: 1383 ±5
+    Rank Spread: 146 167
+    Votes: 23,691
+    Price $/M: $0.05 / $0.19
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 59
+  model: trinity-large-preview Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '59'
+  - '163'
+  - trinity-large-preview Apache 2.0
+  - 1379 ±4
+  - 153 171
+  - 29,651
+  - $0.15 / $0.45
+  - 131K
+  by_header:
+    Rank: '59'
+    Overall Rank: '163'
+    Model: trinity-large-preview Apache 2.0
+    Score: 1379 ±4
+    Rank Spread: 153 171
+    Votes: 29,651
+    Price $/M: $0.15 / $0.45
+    Context: 131K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 60
+  model: glm-4.6v Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '60'
+  - '164'
+  - glm-4.6v Z.ai · MIT
+  - 1377 ±11
+  - 146 179
+  - 2,797
+  - $0.30 / $0.90
+  - 131.1K
+  by_header:
+    Rank: '60'
+    Overall Rank: '164'
+    Model: glm-4.6v Z.ai · MIT
+    Score: 1377 ±11
+    Rank Spread: 146 179
+    Votes: 2,797
+    Price $/M: $0.30 / $0.90
+    Context: 131.1K
+  resolved_repo: zai-org/GLM-4.6V
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 61
+  model: qwen3-235b-a22b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '61'
+  - '165'
+  - qwen3-235b-a22b Alibaba · Apache 2.0
+  - 1375 ±5
+  - 157 174
+  - 26,241
+  - $0.46 / $1.82
+  - 131.1K
+  by_header:
+    Rank: '61'
+    Overall Rank: '165'
+    Model: qwen3-235b-a22b Alibaba · Apache 2.0
+    Score: 1375 ±5
+    Rank Spread: 157 174
+    Votes: 26,241
+    Price $/M: $0.46 / $1.82
+    Context: 131.1K
+  resolved_repo: Qwen/Qwen3-235B-A22B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 62
+  model: glm-4.5-air Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '62'
+  - '169'
+  - glm-4.5-air Z.ai · MIT
+  - 1373 ±4
+  - 161 176
+  - 31,040
+  - $0.13 / $0.85
+  - 131.1K
+  by_header:
+    Rank: '62'
+    Overall Rank: '169'
+    Model: glm-4.5-air Z.ai · MIT
+    Score: 1373 ±4
+    Rank Spread: 161 176
+    Votes: 31,040
+    Price $/M: $0.13 / $0.85
+    Context: 131.1K
+  resolved_repo: zai-org/GLM-4.5-Air
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 63
+  model: qwen3-next-80b-a3b-thinking Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '63'
+  - '171'
+  - qwen3-next-80b-a3b-thinking Alibaba · Apache 2.0
+  - 1369 ±6
+  - 163 182
+  - 13,661
+  - $0.15 / $1.20
+  - 262.1K
+  by_header:
+    Rank: '63'
+    Overall Rank: '171'
+    Model: qwen3-next-80b-a3b-thinking Alibaba · Apache 2.0
+    Score: 1369 ±6
+    Rank Spread: 163 182
+    Votes: 13,661
+    Price $/M: $0.15 / $1.20
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 64
+  model: trinity-large-thinking Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '64'
+  - '172'
+  - trinity-large-thinking Apache 2.0
+  - 1369 ±5
+  - 164 181
+  - 28,771
+  - $0.22 / $0.85
+  - 262.1K
+  by_header:
+    Rank: '64'
+    Overall Rank: '172'
+    Model: trinity-large-thinking Apache 2.0
+    Score: 1369 ±5
+    Rank Spread: 164 181
+    Votes: 28,771
+    Price $/M: $0.22 / $0.85
+    Context: 262.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 65
+  model: glm-4.7-flash Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '65'
+  - '173'
+  - glm-4.7-flash Z.ai · MIT
+  - 1368 ±6
+  - 164 183
+  - 11,678
+  - $0.06 / $0.40
+  - 202.8K
+  by_header:
+    Rank: '65'
+    Overall Rank: '173'
+    Model: glm-4.7-flash Z.ai · MIT
+    Score: 1368 ±6
+    Rank Spread: 164 183
+    Votes: 11,678
+    Price $/M: $0.06 / $0.40
+    Context: 202.8K
+  resolved_repo: zai-org/GLM-4.7-Flash
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 66
+  model: gemma-3-27b-it Google · Gemma
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '66'
+  - '175'
+  - gemma-3-27b-it Google · Gemma
+  - 1366 ±4
+  - 168 183
+  - 47,453
+  - $0.08 / $0.45
+  - 262.1K
+  by_header:
+    Rank: '66'
+    Overall Rank: '175'
+    Model: gemma-3-27b-it Google · Gemma
+    Score: 1366 ±4
+    Rank Spread: 168 183
+    Votes: 47,453
+    Price $/M: $0.08 / $0.45
+    Context: 262.1K
+  resolved_repo: google/gemma-3-27b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 67
+  model: minimax-m1 MiniMax · Apache 2.0
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '67'
+  - '176'
+  - minimax-m1 MiniMax · Apache 2.0
+  - 1364 ±4
+  - 169 186
+  - 35,117
+  - $0.55 / $2.20
+  - 1M
+  by_header:
+    Rank: '67'
+    Overall Rank: '176'
+    Model: minimax-m1 MiniMax · Apache 2.0
+    Score: 1364 ±4
+    Rank Spread: 169 186
+    Votes: 35,117
+    Price $/M: $0.55 / $2.20
+    Context: 1M
+  resolved_repo: MiniMaxAI/MiniMax-M1-40k
+  resolution_confidence: medium
+  open_weight: true
+  needs_hf_repo: true
+- rank: 68
+  model: nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
+  raw:
+  - '68'
+  - '179'
+  - nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
+  - 1361 ±7
+  - 169 198
+  - 7,484
+  - N/A
+  - N/A
+  by_header:
+    Rank: '68'
+    Overall Rank: '179'
+    Model: nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
+    Score: 1361 ±7
+    Rank Spread: 169 198
+    Votes: 7,484
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 69
+  model: deepseek-v3 DeepSeek · DeepSeek
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '69'
+  - '181'
+  - deepseek-v3 DeepSeek · DeepSeek
+  - 1359 ±5
+  - 172 197
+  - 21,770
+  - $1.14 / $4.56
+  - N/A
+  by_header:
+    Rank: '69'
+    Overall Rank: '181'
+    Model: deepseek-v3 DeepSeek · DeepSeek
+    Score: 1359 ±5
+    Rank Spread: 172 197
+    Votes: 21,770
+    Price $/M: $1.14 / $4.56
+    Context: N/A
+  resolved_repo: deepseek-ai/DeepSeek-V3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 70
+  model: mistral-small-2506 Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '70'
+  - '182'
+  - mistral-small-2506 Mistral · Apache 2.0
+  - 1358 ±5
+  - 173 200
+  - 17,685
+  - $0.10 / $0.30
+  - 32K
+  by_header:
+    Rank: '70'
+    Overall Rank: '182'
+    Model: mistral-small-2506 Mistral · Apache 2.0
+    Score: 1358 ±5
+    Rank Spread: 173 200
+    Votes: 17,685
+    Price $/M: $0.10 / $0.30
+    Context: 32K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 71
+  model: intellect-3 MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '71'
+  - '184'
+  - intellect-3 MIT
+  - 1356 ±8
+  - 171 206
+  - 5,323
+  - $0.20 / $1.10
+  - 131.1K
+  by_header:
+    Rank: '71'
+    Overall Rank: '184'
+    Model: intellect-3 MIT
+    Score: 1356 ±8
+    Rank Spread: 171 206
+    Votes: 5,323
+    Price $/M: $0.20 / $1.10
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 72
+  model: Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: command
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '72'
+  - '185'
+  - Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
+  - 1354 ±3
+  - 178 204
+  - 56,175
+  - $2.50 / $10
+  - 256K
+  by_header:
+    Rank: '72'
+    Overall Rank: '185'
+    Model: Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
+    Score: 1354 ±3
+    Rank Spread: 178 204
+    Votes: 56,175
+    Price $/M: $2.50 / $10
+    Context: 256K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 73
+  model: glm-4.5v Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '73'
+  - '187'
+  - glm-4.5v Z.ai · MIT
+  - 1354 ±8
+  - 175 207
+  - 4,953
+  - $0.60 / $1.80
+  - 65.5K
+  by_header:
+    Rank: '73'
+    Overall Rank: '187'
+    Model: glm-4.5v Z.ai · MIT
+    Score: 1354 ±8
+    Rank Spread: 175 207
+    Votes: 4,953
+    Price $/M: $0.60 / $1.80
+    Context: 65.5K
+  resolved_repo: zai-org/GLM-4.5V
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 74
+  model: gpt-oss-120b OpenAI · Apache 2.0
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: gpt-oss-120b OpenAI · Apache 2.0
+  raw:
+  - '74'
+  - '188'
+  - gpt-oss-120b OpenAI · Apache 2.0
+  - 1352 ±4
+  - 178 206
+  - 30,594
+  - $0.04 / $0.17
+  - 131.1K
+  by_header:
+    Rank: '74'
+    Overall Rank: '188'
+    Model: gpt-oss-120b OpenAI · Apache 2.0
+    Score: 1352 ±4
+    Rank Spread: 178 206
+    Votes: 30,594
+    Price $/M: $0.04 / $0.17
+    Context: 131.1K
+  resolved_repo: openai/gpt-oss-120b
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 75
+  model: Stepfun step-3 StepFun · Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '75'
+  - '192'
+  - Stepfun step-3 StepFun · Apache 2.0
+  - 1349 ±7
+  - 180 210
+  - 6,531
+  - $0.57 / $1.42
+  - 65.5K
+  by_header:
+    Rank: '75'
+    Overall Rank: '192'
+    Model: Stepfun step-3 StepFun · Apache 2.0
+    Score: 1349 ±7
+    Rank Spread: 180 210
+    Votes: 6,531
+    Price $/M: $0.57 / $1.42
+    Context: 65.5K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 76
+  model: llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
+  raw:
+  - '76'
+  - '194'
+  - llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
+  - 1348 ±12
+  - 177 219
+  - 2,549
+  - $0.60 / $1.80
+  - 131.1K
+  by_header:
+    Rank: '76'
+    Overall Rank: '194'
+    Model: llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
+    Score: 1348 ±12
+    Rank Spread: 177 219
+    Votes: 2,549
+    Price $/M: $0.60 / $1.80
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 77
+  model: qwen3-32b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '77'
+  - '196'
+  - qwen3-32b Alibaba · Apache 2.0
+  - 1347 ±9
+  - 179 217
+  - 3,926
+  - $0.08 / $0.28
+  - 131.1K
+  by_header:
+    Rank: '77'
+    Overall Rank: '196'
+    Model: qwen3-32b Alibaba · Apache 2.0
+    Score: 1347 ±9
+    Rank Spread: 179 217
+    Votes: 3,926
+    Price $/M: $0.08 / $0.28
+    Context: 131.1K
+  resolved_repo: Qwen/Qwen3-32B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 78
+  model: ling-flash-2.0 Ant Group · MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '78'
+  - '198'
+  - ling-flash-2.0 Ant Group · MIT
+  - 1346 ±7
+  - 182 216
+  - 6,993
+  - N/A
+  - N/A
+  by_header:
+    Rank: '78'
+    Overall Rank: '198'
+    Model: ling-flash-2.0 Ant Group · MIT
+    Score: 1346 ±7
+    Rank Spread: 182 216
+    Votes: 6,993
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 79
+  model: minimax-m2 MiniMax · Apache 2.0
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '79'
+  - '200'
+  - minimax-m2 MiniMax · Apache 2.0
+  - 1346 ±8
+  - 181 217
+  - 6,859
+  - $0.26 / $1.02
+  - 204.8K
+  by_header:
+    Rank: '79'
+    Overall Rank: '200'
+    Model: minimax-m2 MiniMax · Apache 2.0
+    Score: 1346 ±8
+    Rank Spread: 181 217
+    Votes: 6,859
+    Price $/M: $0.26 / $1.02
+    Context: 204.8K
+  resolved_repo: MiniMaxAI/MiniMax-M2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 80
+  model: nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
+  raw:
+  - '80'
+  - '202'
+  - nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
+  - 1343 ±10
+  - 182 220
+  - 3,340
+  - $0.10 / $0.40
+  - 131.1K
+  by_header:
+    Rank: '80'
+    Overall Rank: '202'
+    Model: nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
+    Score: 1343 ±10
+    Rank Spread: 182 220
+    Votes: 3,340
+    Price $/M: $0.10 / $0.40
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 81
+  model: gemma-3-12b-it Google · Gemma
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '81'
+  - '205'
+  - gemma-3-12b-it Google · Gemma
+  - 1342 ±10
+  - 184 221
+  - 3,829
+  - $0.05 / $0.15
+  - 131.1K
+  by_header:
+    Rank: '81'
+    Overall Rank: '205'
+    Model: gemma-3-12b-it Google · Gemma
+    Score: 1342 ±10
+    Rank Spread: 184 221
+    Votes: 3,829
+    Price $/M: $0.05 / $0.15
+    Context: 131.1K
+  resolved_repo: google/gemma-3-12b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 82
+  model: qwq-32b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwq
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '82'
+  - '210'
+  - qwq-32b Alibaba · Apache 2.0
+  - 1336 ±4
+  - 194 223
+  - 25,361
+  - $0.50 / $1
+  - 16.4K
+  by_header:
+    Rank: '82'
+    Overall Rank: '210'
+    Model: qwq-32b Alibaba · Apache 2.0
+    Score: 1336 ±4
+    Rank Spread: 194 223
+    Votes: 25,361
+    Price $/M: $0.50 / $1
+    Context: 16.4K
+  resolved_repo: Qwen/QwQ-32B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 83
+  model: Meta llama-3.1-405b-instruct-bf16 Meta · Llama 3.1 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '83'
+  - '214'
+  - Meta llama-3.1-405b-instruct-bf16 Meta · Llama 3.1 Community
+  - 1335 ±4
+  - 196 224
+  - 41,375
+  - $4 / $4
+  - 32.8K
+  by_header:
+    Rank: '83'
+    Overall Rank: '214'
+    Model: Meta llama-3.1-405b-instruct-bf16 Meta · Llama 3.1 Community
+    Score: 1335 ±4
+    Rank Spread: 196 224
+    Votes: 41,375
+    Price $/M: $4 / $4
+    Context: 32.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 84
+  model: Meta llama-3.1-405b-instruct-fp8 Meta · Llama 3.1 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '84'
+  - '216'
+  - Meta llama-3.1-405b-instruct-fp8 Meta · Llama 3.1 Community
+  - 1333 ±4
+  - 200 225
+  - 59,656
+  - $4 / $4
+  - 32.8K
+  by_header:
+    Rank: '84'
+    Overall Rank: '216'
+    Model: Meta llama-3.1-405b-instruct-fp8 Meta · Llama 3.1 Community
+    Score: 1333 ±4
+    Rank Spread: 200 225
+    Votes: 59,656
+    Price $/M: $4 / $4
+    Context: 32.8K
+  resolved_repo: meta-llama/Llama-3.1-405B-Instruct-FP8
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 85
+  model: olmo-3.1-32b-instruct Ai2 · Apache 2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '85'
+  - '217'
+  - olmo-3.1-32b-instruct Ai2 · Apache 2.0
+  - 1330 ±6
+  - 203 235
+  - 12,195
+  - $0.20 / $0.60
+  - 65.5K
+  by_header:
+    Rank: '85'
+    Overall Rank: '217'
+    Model: olmo-3.1-32b-instruct Ai2 · Apache 2.0
+    Score: 1330 ±6
+    Rank Spread: 203 235
+    Votes: 12,195
+    Price $/M: $0.20 / $0.60
+    Context: 65.5K
+  resolved_repo: allenai/Olmo-3.1-32B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 86
+  model: molmo-2-8b Ai2 · Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '86'
+  - '218'
+  - molmo-2-8b Ai2 · Apache 2.0
+  - 1329 ±21
+  - 185 256
+  - '800'
+  - $0.20 / $0.20
+  - 36.9K
+  by_header:
+    Rank: '86'
+    Overall Rank: '218'
+    Model: molmo-2-8b Ai2 · Apache 2.0
+    Score: 1329 ±21
+    Rank Spread: 185 256
+    Votes: '800'
+    Price $/M: $0.20 / $0.20
+    Context: 36.9K
+  resolved_repo: allenai/Molmo2-8B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 87
+  model: llama-3.3-nemotron-49b-super-v1 Nvidia · Nvidia
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '87'
+  - '220'
+  - llama-3.3-nemotron-49b-super-v1 Nvidia · Nvidia
+  - 1328 ±12
+  - 194 247
+  - 2,218
+  - N/A
+  - N/A
+  by_header:
+    Rank: '87'
+    Overall Rank: '220'
+    Model: llama-3.3-nemotron-49b-super-v1 Nvidia · Nvidia
+    Score: 1328 ±12
+    Rank Spread: 194 247
+    Votes: 2,218
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 88
+  model: qwen3-30b-a3b Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '88'
+  - '221'
+  - qwen3-30b-a3b Alibaba · Apache 2.0
+  - 1327 ±5
+  - 208 236
+  - 26,448
+  - $0.12 / $0.50
+  - 131.1K
+  by_header:
+    Rank: '88'
+    Overall Rank: '221'
+    Model: qwen3-30b-a3b Alibaba · Apache 2.0
+    Score: 1327 ±5
+    Rank Spread: 208 236
+    Votes: 26,448
+    Price $/M: $0.12 / $0.50
+    Context: 131.1K
+  resolved_repo: Qwen/Qwen3-30B-A3B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 89
+  model: Meta llama-4-maverick-17b-128e-instruct Meta · Llama 4
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '89'
+  - '222'
+  - Meta llama-4-maverick-17b-128e-instruct Meta · Llama 4
+  - 1327 ±4
+  - 209 236
+  - 39,928
+  - $0.63 / $1.80
+  - 131.1K
+  by_header:
+    Rank: '89'
+    Overall Rank: '222'
+    Model: Meta llama-4-maverick-17b-128e-instruct Meta · Llama 4
+    Score: 1327 ±4
+    Rank Spread: 209 236
+    Votes: 39,928
+    Price $/M: $0.63 / $1.80
+    Context: 131.1K
+  resolved_repo: meta-llama/Llama-4-Maverick-17B-128E-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 90
+  model: deepseek-v2.5-1210 DeepSeek · DeepSeek
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '90'
+  - '227'
+  - deepseek-v2.5-1210 DeepSeek · DeepSeek
+  - 1324 ±8
+  - 208 247
+  - 6,795
+  - N/A
+  - N/A
+  by_header:
+    Rank: '90'
+    Overall Rank: '227'
+    Model: deepseek-v2.5-1210 DeepSeek · DeepSeek
+    Score: 1324 ±8
+    Rank Spread: 208 247
+    Votes: 6,795
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: deepseek-ai/DeepSeek-V2.5-1210
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 91
+  model: Meta llama-4-scout-17b-16e-instruct Meta · Llama
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '91'
+  - '228'
+  - Meta llama-4-scout-17b-16e-instruct Meta · Llama
+  - 1323 ±5
+  - 216 243
+  - 30,251
+  - $0.40 / $0.70
+  - 8.2K
+  by_header:
+    Rank: '91'
+    Overall Rank: '228'
+    Model: Meta llama-4-scout-17b-16e-instruct Meta · Llama
+    Score: 1323 ±5
+    Rank Spread: 216 243
+    Votes: 30,251
+    Price $/M: $0.40 / $0.70
+    Context: 8.2K
+  resolved_repo: meta-llama/Llama-4-Scout-17B-16E-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 92
+  model: ring-flash-2.0 Ant Group · MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '92'
+  - '231'
+  - ring-flash-2.0 Ant Group · MIT
+  - 1321 ±7
+  - 216 249
+  - 7,129
+  - N/A
+  - N/A
+  by_header:
+    Rank: '92'
+    Overall Rank: '231'
+    Model: ring-flash-2.0 Ant Group · MIT
+    Score: 1321 ±7
+    Rank Spread: 216 249
+    Votes: 7,129
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 93
+  model: Meta llama-3.3-70b-instruct Meta · Llama-3.3
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '93'
+  - '234'
+  - Meta llama-3.3-70b-instruct Meta · Llama-3.3
+  - 1318 ±3
+  - 221 247
+  - 54,698
+  - $0.10 / $0.32
+  - 131.1K
+  by_header:
+    Rank: '93'
+    Overall Rank: '234'
+    Model: Meta llama-3.3-70b-instruct Meta · Llama-3.3
+    Score: 1318 ±3
+    Rank Spread: 221 247
+    Votes: 54,698
+    Price $/M: $0.10 / $0.32
+    Context: 131.1K
+  resolved_repo: meta-llama/Llama-3.3-70B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 94
+  model: gemma-3n-e4b-it Google · Gemma
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '94'
+  - '235'
+  - gemma-3n-e4b-it Google · Gemma
+  - 1318 ±5
+  - 219 249
+  - 22,553
+  - $0.06 / $0.12
+  - 32.8K
+  by_header:
+    Rank: '94'
+    Overall Rank: '235'
+    Model: gemma-3n-e4b-it Google · Gemma
+    Score: 1318 ±5
+    Rank Spread: 219 249
+    Votes: 22,553
+    Price $/M: $0.06 / $0.12
+    Context: 32.8K
+  resolved_repo: google/gemma-3n-E4B-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 95
+  model: qwen-max-0919 Alibaba · Qwen
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '95'
+  - '236'
+  - qwen-max-0919 Alibaba · Qwen
+  - 1318 ±6
+  - 217 250
+  - 16,478
+  - $1.60 / $6.40
+  - 32.8K
+  by_header:
+    Rank: '95'
+    Overall Rank: '236'
+    Model: qwen-max-0919 Alibaba · Qwen
+    Score: 1318 ±6
+    Rank Spread: 217 250
+    Votes: 16,478
+    Price $/M: $1.60 / $6.40
+    Context: 32.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 96
+  model: gpt-oss-20b OpenAI · Apache 2.0
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: gpt-oss-20b OpenAI · Apache 2.0
+  raw:
+  - '96'
+  - '238'
+  - gpt-oss-20b OpenAI · Apache 2.0
+  - 1317 ±6
+  - 217 253
+  - 10,618
+  - $0.03 / $0.13
+  - 131.1K
+  by_header:
+    Rank: '96'
+    Overall Rank: '238'
+    Model: gpt-oss-20b OpenAI · Apache 2.0
+    Score: 1317 ±6
+    Rank Spread: 217 253
+    Votes: 10,618
+    Price $/M: $0.03 / $0.13
+    Context: 131.1K
+  resolved_repo: openai/gpt-oss-20b
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 97
+  model: nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
+  raw:
+  - '97'
+  - '239'
+  - nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
+  - 1315 ±6
+  - 221 255
+  - 15,489
+  - $0.06 / $0.24
+  - 262.1K
+  by_header:
+    Rank: '97'
+    Overall Rank: '239'
+    Model: nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
+    Score: 1315 ±6
+    Rank Spread: 221 255
+    Votes: 15,489
+    Price $/M: $0.06 / $0.24
+    Context: 262.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 98
+  model: athene-v2-chat NexusFlow
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '98'
+  - '241'
+  - athene-v2-chat NexusFlow
+  - 1314 ±5
+  - 224 255
+  - 24,739
+  - N/A
+  - N/A
+  by_header:
+    Rank: '98'
+    Overall Rank: '241'
+    Model: athene-v2-chat NexusFlow
+    Score: 1314 ±5
+    Rank Spread: 224 255
+    Votes: 24,739
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 99
+  model: mistral-large-2407 Mistral · Mistral Research
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '99'
+  - '242'
+  - mistral-large-2407 Mistral · Mistral Research
+  - 1314 ±4
+  - 226 254
+  - 45,459
+  - $2 / $6
+  - 131.1K
+  by_header:
+    Rank: '99'
+    Overall Rank: '242'
+    Model: mistral-large-2407 Mistral · Mistral Research
+    Score: 1314 ±4
+    Rank Spread: 226 254
+    Votes: 45,459
+    Price $/M: $2 / $6
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 100
+  model: deepseek-v2.5 DeepSeek · DeepSeek
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '100'
+  - '248'
+  - deepseek-v2.5 DeepSeek · DeepSeek
+  - 1307 ±5
+  - 237 259
+  - 24,572
+  - N/A
+  - N/A
+  by_header:
+    Rank: '100'
+    Overall Rank: '248'
+    Model: deepseek-v2.5 DeepSeek · DeepSeek
+    Score: 1307 ±5
+    Rank Spread: 237 259
+    Votes: 24,572
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: deepseek-ai/DeepSeek-V2.5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 101
+  model: athene-70b-0725 CC-BY-NC-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '101'
+  - '249'
+  - athene-70b-0725 CC-BY-NC-4.0
+  - 1307 ±6
+  - 237 259
+  - 19,621
+  - N/A
+  - N/A
+  by_header:
+    Rank: '101'
+    Overall Rank: '249'
+    Model: athene-70b-0725 CC-BY-NC-4.0
+    Score: 1307 ±6
+    Rank Spread: 237 259
+    Votes: 19,621
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 102
+  model: granite-4.1-8b IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '102'
+  - '251'
+  - granite-4.1-8b IBM · Apache 2.0
+  - 1306 ±10
+  - 227 264
+  - 3,995
+  - $0.05 / $0.10
+  - 131.1K
+  by_header:
+    Rank: '102'
+    Overall Rank: '251'
+    Model: granite-4.1-8b IBM · Apache 2.0
+    Score: 1306 ±10
+    Rank Spread: 227 264
+    Votes: 3,995
+    Price $/M: $0.05 / $0.10
+    Context: 131.1K
+  resolved_repo: ibm-granite/granite-4.1-8b
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 103
+  model: olmo-3-32b-think Ai2 · Apache 2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '103'
+  - '252'
+  - olmo-3-32b-think Ai2 · Apache 2.0
+  - 1305 ±8
+  - 233 259
+  - 5,930
+  - $0.15 / $0.50
+  - 65.5K
+  by_header:
+    Rank: '103'
+    Overall Rank: '252'
+    Model: olmo-3-32b-think Ai2 · Apache 2.0
+    Score: 1305 ±8
+    Rank Spread: 233 259
+    Votes: 5,930
+    Price $/M: $0.15 / $0.50
+    Context: 65.5K
+  resolved_repo: allenai/Olmo-3-32B-Think
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 104
+  model: mistral-large-2411 Mistral · MRL
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '104'
+  - '253'
+  - mistral-large-2411 Mistral · MRL
+  - 1305 ±4
+  - 239 259
+  - 28,073
+  - $2 / $6
+  - 128K
+  by_header:
+    Rank: '104'
+    Overall Rank: '253'
+    Model: mistral-large-2411 Mistral · MRL
+    Score: 1305 ±4
+    Rank Spread: 239 259
+    Votes: 28,073
+    Price $/M: $2 / $6
+    Context: 128K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 105
+  model: gemma-3-4b-it Google · Gemma
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '105'
+  - '255'
+  - gemma-3-4b-it Google · Gemma
+  - 1303 ±9
+  - 236 266
+  - 4,171
+  - $0.05 / $0.10
+  - 131.1K
+  by_header:
+    Rank: '105'
+    Overall Rank: '255'
+    Model: gemma-3-4b-it Google · Gemma
+    Score: 1303 ±9
+    Rank Spread: 236 266
+    Votes: 4,171
+    Price $/M: $0.05 / $0.10
+    Context: 131.1K
+  resolved_repo: google/gemma-3-4b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 106
+  model: mistral-small-3.1-24b-instruct-2503 Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '106'
+  - '256'
+  - mistral-small-3.1-24b-instruct-2503 Mistral · Apache 2.0
+  - 1303 ±5
+  - 244 259
+  - 33,180
+  - $0.10 / $0.30
+  - 32K
+  by_header:
+    Rank: '106'
+    Overall Rank: '256'
+    Model: mistral-small-3.1-24b-instruct-2503 Mistral · Apache 2.0
+    Score: 1303 ±5
+    Rank Spread: 244 259
+    Votes: 33,180
+    Price $/M: $0.10 / $0.30
+    Context: 32K
+  resolved_repo: mistralai/Mistral-Small-3.1-24B-Instruct-2503
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 107
+  model: qwen2.5-72b-instruct Alibaba · Qwen
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '107'
+  - '257'
+  - qwen2.5-72b-instruct Alibaba · Qwen
+  - 1303 ±4
+  - 245 259
+  - 39,406
+  - $1.20 / $1.20
+  - N/A
+  by_header:
+    Rank: '107'
+    Overall Rank: '257'
+    Model: qwen2.5-72b-instruct Alibaba · Qwen
+    Score: 1303 ±4
+    Rank Spread: 245 259
+    Votes: 39,406
+    Price $/M: $1.20 / $1.20
+    Context: N/A
+  resolved_repo: Qwen/Qwen2.5-72B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 108
+  model: llama-3.1-nemotron-70b-instruct Nvidia · Llama 3.1
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '108'
+  - '258'
+  - llama-3.1-nemotron-70b-instruct Nvidia · Llama 3.1
+  - 1299 ±8
+  - 245 269
+  - 7,140
+  - $1.20 / $1.20
+  - 131.1K
+  by_header:
+    Rank: '108'
+    Overall Rank: '258'
+    Model: llama-3.1-nemotron-70b-instruct Nvidia · Llama 3.1
+    Score: 1299 ±8
+    Rank Spread: 245 269
+    Votes: 7,140
+    Price $/M: $1.20 / $1.20
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 109
+  model: Meta llama-3.1-70b-instruct Meta · Llama 3.1 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '109'
+  - '260'
+  - Meta llama-3.1-70b-instruct Meta · Llama 3.1 Community
+  - 1293 ±4
+  - 255 270
+  - 55,240
+  - $0.40 / $0.40
+  - 131.1K
+  by_header:
+    Rank: '109'
+    Overall Rank: '260'
+    Model: Meta llama-3.1-70b-instruct Meta · Llama 3.1 Community
+    Score: 1293 ±4
+    Rank Spread: 255 270
+    Votes: 55,240
+    Price $/M: $0.40 / $0.40
+    Context: 131.1K
+  resolved_repo: meta-llama/Llama-3.1-70B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 110
+  model: jamba-1.5-large Jamba Open
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: jamba-1.5-large Jamba Open
+  raw:
+  - '110'
+  - '262'
+  - jamba-1.5-large Jamba Open
+  - 1289 ±7
+  - 255 274
+  - 8,662
+  - $2 / $8
+  - 256K
+  by_header:
+    Rank: '110'
+    Overall Rank: '262'
+    Model: jamba-1.5-large Jamba Open
+    Score: 1289 ±7
+    Rank Spread: 255 274
+    Votes: 8,662
+    Price $/M: $2 / $8
+    Context: 256K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 111
+  model: gemma-2-27b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '111'
+  - '263'
+  - gemma-2-27b-it Google · Gemma license
+  - 1289 ±3
+  - 257 271
+  - 75,754
+  - $0.65 / $0.65
+  - 8.2K
+  by_header:
+    Rank: '111'
+    Overall Rank: '263'
+    Model: gemma-2-27b-it Google · Gemma license
+    Score: 1289 ±3
+    Rank Spread: 257 271
+    Votes: 75,754
+    Price $/M: $0.65 / $0.65
+    Context: 8.2K
+  resolved_repo: google/gemma-2-27b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 112
+  model: ibm-granite-h-small IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '112'
+  - '265'
+  - ibm-granite-h-small IBM · Apache 2.0
+  - 1287 ±8
+  - 255 279
+  - 5,677
+  - N/A
+  - N/A
+  by_header:
+    Rank: '112'
+    Overall Rank: '265'
+    Model: ibm-granite-h-small IBM · Apache 2.0
+    Score: 1287 ±8
+    Rank Spread: 255 279
+    Votes: 5,677
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 113
+  model: llama-3.1-nemotron-51b-instruct Nvidia · Llama 3.1
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '113'
+  - '268'
+  - llama-3.1-nemotron-51b-instruct Nvidia · Llama 3.1
+  - 1286 ±10
+  - 255 280
+  - 3,749
+  - N/A
+  - N/A
+  by_header:
+    Rank: '113'
+    Overall Rank: '268'
+    Model: llama-3.1-nemotron-51b-instruct Nvidia · Llama 3.1
+    Score: 1286 ±10
+    Rank Spread: 255 280
+    Votes: 3,749
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 114
+  model: llama-3.1-tulu-3-70b Ai2 · Llama 3.1
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '114'
+  - '269'
+  - llama-3.1-tulu-3-70b Ai2 · Llama 3.1
+  - 1286 ±10
+  - 255 280
+  - 2,846
+  - N/A
+  - N/A
+  by_header:
+    Rank: '114'
+    Overall Rank: '269'
+    Model: llama-3.1-tulu-3-70b Ai2 · Llama 3.1
+    Score: 1286 ±10
+    Rank Spread: 255 280
+    Votes: 2,846
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 115
+  model: olmo-3.1-32b-think Ai2 · Apache 2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '115'
+  - '270'
+  - olmo-3.1-32b-think Ai2 · Apache 2.0
+  - 1285 ±7
+  - 257 280
+  - 8,485
+  - $0.15 / $0.50
+  - 65.5K
+  by_header:
+    Rank: '115'
+    Overall Rank: '270'
+    Model: olmo-3.1-32b-think Ai2 · Apache 2.0
+    Score: 1285 ±7
+    Rank Spread: 257 280
+    Votes: 8,485
+    Price $/M: $0.15 / $0.50
+    Context: 65.5K
+  resolved_repo: allenai/Olmo-3.1-32B-Think
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 116
+  model: gemma-2-9b-it-simpo MIT
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '116'
+  - '272'
+  - gemma-2-9b-it-simpo MIT
+  - 1280 ±7
+  - 260 280
+  - 10,072
+  - $0.03 / $0.09
+  - 8.2K
+  by_header:
+    Rank: '116'
+    Overall Rank: '272'
+    Model: gemma-2-9b-it-simpo MIT
+    Score: 1280 ±7
+    Rank Spread: 260 280
+    Votes: 10,072
+    Price $/M: $0.03 / $0.09
+    Context: 8.2K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 117
+  model: nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
+  raw:
+  - '117'
+  - '273'
+  - nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
+  - 1277 ±5
+  - 264 281
+  - 19,659
+  - N/A
+  - N/A
+  by_header:
+    Rank: '117'
+    Overall Rank: '273'
+    Model: nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
+    Score: 1277 ±5
+    Rank Spread: 264 281
+    Votes: 19,659
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: nvidia/Nemotron-4-340B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 118
+  model: Meta llama-3-70b-instruct Meta · Llama 3 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '118'
+  - '274'
+  - Meta llama-3-70b-instruct Meta · Llama 3 Community
+  - 1276 ±4
+  - 267 280
+  - 156,876
+  - $0.51 / $0.74
+  - 8.2K
+  by_header:
+    Rank: '118'
+    Overall Rank: '274'
+    Model: Meta llama-3-70b-instruct Meta · Llama 3 Community
+    Score: 1276 ±4
+    Rank Spread: 267 280
+    Votes: 156,876
+    Price $/M: $0.51 / $0.74
+    Context: 8.2K
+  resolved_repo: meta-llama/Meta-Llama-3-70B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 119
+  model: Cohere command-r-plus-08-2024 Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: command
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '119'
+  - '275'
+  - Cohere command-r-plus-08-2024 Cohere · CC-BY-NC-4.0
+  - 1276 ±7
+  - 263 283
+  - 9,866
+  - $2.50 / $10
+  - 128K
+  by_header:
+    Rank: '119'
+    Overall Rank: '275'
+    Model: Cohere command-r-plus-08-2024 Cohere · CC-BY-NC-4.0
+    Score: 1276 ±7
+    Rank Spread: 263 283
+    Votes: 9,866
+    Price $/M: $2.50 / $10
+    Context: 128K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 120
+  model: mistral-small-24b-instruct-2501 Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '120'
+  - '277'
+  - mistral-small-24b-instruct-2501 Mistral · Apache 2.0
+  - 1274 ±6
+  - 267 283
+  - 14,681
+  - $0.05 / $0.08
+  - 32.8K
+  by_header:
+    Rank: '120'
+    Overall Rank: '277'
+    Model: mistral-small-24b-instruct-2501 Mistral · Apache 2.0
+    Score: 1274 ±6
+    Rank Spread: 267 283
+    Votes: 14,681
+    Price $/M: $0.05 / $0.08
+    Context: 32.8K
+  resolved_repo: mistralai/Mistral-Small-24B-Instruct-2501
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 121
+  model: qwen2.5-coder-32b-instruct Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '121'
+  - '280'
+  - qwen2.5-coder-32b-instruct Alibaba · Apache 2.0
+  - 1271 ±8
+  - 268 288
+  - 5,432
+  - $0.87 / $0.87
+  - 32K
+  by_header:
+    Rank: '121'
+    Overall Rank: '280'
+    Model: qwen2.5-coder-32b-instruct Alibaba · Apache 2.0
+    Score: 1271 ±8
+    Rank Spread: 268 288
+    Votes: 5,432
+    Price $/M: $0.87 / $0.87
+    Context: 32K
+  resolved_repo: Qwen/Qwen2.5-Coder-32B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 122
+  model: Cohere c4ai-aya-expanse-32b Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: cohere
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '122'
+  - '281'
+  - Cohere c4ai-aya-expanse-32b Cohere · CC-BY-NC-4.0
+  - 1267 ±5
+  - 274 289
+  - 27,124
+  - N/A
+  - N/A
+  by_header:
+    Rank: '122'
+    Overall Rank: '281'
+    Model: Cohere c4ai-aya-expanse-32b Cohere · CC-BY-NC-4.0
+    Score: 1267 ±5
+    Rank Spread: 274 289
+    Votes: 27,124
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 123
+  model: gemma-2-9b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '123'
+  - '282'
+  - gemma-2-9b-it Google · Gemma license
+  - 1267 ±4
+  - 276 288
+  - 54,611
+  - $0.03 / $0.09
+  - 8.2K
+  by_header:
+    Rank: '123'
+    Overall Rank: '282'
+    Model: gemma-2-9b-it Google · Gemma license
+    Score: 1267 ±4
+    Rank Spread: 276 288
+    Votes: 54,611
+    Price $/M: $0.03 / $0.09
+    Context: 8.2K
+  resolved_repo: google/gemma-2-9b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 124
+  model: deepseek-coder-v2 DeepSeek · DeepSeek License
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '124'
+  - '283'
+  - deepseek-coder-v2 DeepSeek · DeepSeek License
+  - 1265 ±6
+  - 276 290
+  - 15,147
+  - $0.14 / $0.28
+  - 128K
+  by_header:
+    Rank: '124'
+    Overall Rank: '283'
+    Model: deepseek-coder-v2 DeepSeek · DeepSeek License
+    Score: 1265 ±6
+    Rank Spread: 276 290
+    Votes: 15,147
+    Price $/M: $0.14 / $0.28
+    Context: 128K
+  resolved_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 125
+  model: qwen2-72b-instruct Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '125'
+  - '284'
+  - qwen2-72b-instruct Alibaba · Qianwen LICENSE
+  - 1261 ±5
+  - 278 291
+  - 37,325
+  - $0.90 / $0.90
+  - 32.8K
+  by_header:
+    Rank: '125'
+    Overall Rank: '284'
+    Model: qwen2-72b-instruct Alibaba · Qianwen LICENSE
+    Score: 1261 ±5
+    Rank Spread: 278 291
+    Votes: 37,325
+    Price $/M: $0.90 / $0.90
+    Context: 32.8K
+  resolved_repo: Qwen/Qwen2-72B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 126
+  model: Cohere command-r-plus Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: command
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '126'
+  - '285'
+  - Cohere command-r-plus Cohere · CC-BY-NC-4.0
+  - 1261 ±4
+  - 279 290
+  - 77,554
+  - $2.50 / $10
+  - 128K
+  by_header:
+    Rank: '126'
+    Overall Rank: '285'
+    Model: Cohere command-r-plus Cohere · CC-BY-NC-4.0
+    Score: 1261 ±4
+    Rank Spread: 279 290
+    Votes: 77,554
+    Price $/M: $2.50 / $10
+    Context: 128K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 127
+  model: phi-4 Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '127'
+  - '289'
+  - phi-4 Microsoft · MIT
+  - 1256 ±5
+  - 283 291
+  - 24,126
+  - $0.07 / $0.14
+  - 16.4K
+  by_header:
+    Rank: '127'
+    Overall Rank: '289'
+    Model: phi-4 Microsoft · MIT
+    Score: 1256 ±5
+    Rank Spread: 283 291
+    Votes: 24,126
+    Price $/M: $0.07 / $0.14
+    Context: 16.4K
+  resolved_repo: microsoft/phi-4
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 128
+  model: olmo-2-0325-32b-instruct Ai2 · Apache-2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '128'
+  - '290'
+  - olmo-2-0325-32b-instruct Ai2 · Apache-2.0
+  - 1251 ±11
+  - 282 297
+  - 3,334
+  - $0.05 / $0.20
+  - 128K
+  by_header:
+    Rank: '128'
+    Overall Rank: '290'
+    Model: olmo-2-0325-32b-instruct Ai2 · Apache-2.0
+    Score: 1251 ±11
+    Rank Spread: 282 297
+    Votes: 3,334
+    Price $/M: $0.05 / $0.20
+    Context: 128K
+  resolved_repo: allenai/OLMo-2-0325-32B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 129
+  model: Cohere command-r-08-2024 Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: command
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '129'
+  - '291'
+  - Cohere command-r-08-2024 Cohere · CC-BY-NC-4.0
+  - 1250 ±7
+  - 286 297
+  - 10,140
+  - $0.15 / $0.60
+  - 128K
+  by_header:
+    Rank: '129'
+    Overall Rank: '291'
+    Model: Cohere command-r-08-2024 Cohere · CC-BY-NC-4.0
+    Score: 1250 ±7
+    Rank Spread: 286 297
+    Votes: 10,140
+    Price $/M: $0.15 / $0.60
+    Context: 128K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 130
+  model: jamba-1.5-mini Jamba Open
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: jamba-1.5-mini Jamba Open
+  raw:
+  - '130'
+  - '294'
+  - jamba-1.5-mini Jamba Open
+  - 1240 ±7
+  - 290 302
+  - 8,858
+  - $0.20 / $0.40
+  - 256K
+  by_header:
+    Rank: '130'
+    Overall Rank: '294'
+    Model: jamba-1.5-mini Jamba Open
+    Score: 1240 ±7
+    Rank Spread: 290 302
+    Votes: 8,858
+    Price $/M: $0.20 / $0.40
+    Context: 256K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 131
+  model: ministral-8b-2410 Mistral · MRL
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '131'
+  - '295'
+  - ministral-8b-2410 Mistral · MRL
+  - 1237 ±9
+  - 290 307
+  - 4,781
+  - $0.10 / $0.10
+  - 131.1K
+  by_header:
+    Rank: '131'
+    Overall Rank: '295'
+    Model: ministral-8b-2410 Mistral · MRL
+    Score: 1237 ±9
+    Rank Spread: 290 307
+    Votes: 4,781
+    Price $/M: $0.10 / $0.10
+    Context: 131.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 132
+  model: qwen1.5-110b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '132'
+  - '297'
+  - qwen1.5-110b-chat Alibaba · Qianwen LICENSE
+  - 1234 ±6
+  - 292 307
+  - 26,195
+  - N/A
+  - N/A
+  by_header:
+    Rank: '132'
+    Overall Rank: '297'
+    Model: qwen1.5-110b-chat Alibaba · Qianwen LICENSE
+    Score: 1234 ±6
+    Rank Spread: 292 307
+    Votes: 26,195
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-110B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 133
+  model: qwen1.5-72b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '133'
+  - '300'
+  - qwen1.5-72b-chat Alibaba · Qianwen LICENSE
+  - 1233 ±5
+  - 292 308
+  - 39,302
+  - N/A
+  - N/A
+  by_header:
+    Rank: '133'
+    Overall Rank: '300'
+    Model: qwen1.5-72b-chat Alibaba · Qianwen LICENSE
+    Score: 1233 ±5
+    Rank Spread: 292 308
+    Votes: 39,302
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-72B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 134
+  model: mixtral-8x22b-instruct-v0.1 Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '134'
+  - '301'
+  - mixtral-8x22b-instruct-v0.1 Mistral · Apache 2.0
+  - 1229 ±5
+  - 294 309
+  - 51,416
+  - $0.90 / $0.90
+  - 65.5K
+  by_header:
+    Rank: '134'
+    Overall Rank: '301'
+    Model: mixtral-8x22b-instruct-v0.1 Mistral · Apache 2.0
+    Score: 1229 ±5
+    Rank Spread: 294 309
+    Votes: 51,416
+    Price $/M: $0.90 / $0.90
+    Context: 65.5K
+  resolved_repo: mistralai/Mixtral-8x22B-Instruct-v0.1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 135
+  model: Cohere command-r Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: command
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '135'
+  - '303'
+  - Cohere command-r Cohere · CC-BY-NC-4.0
+  - 1226 ±5
+  - 295 310
+  - 54,036
+  - $0.15 / $0.60
+  - 128K
+  by_header:
+    Rank: '135'
+    Overall Rank: '303'
+    Model: Cohere command-r Cohere · CC-BY-NC-4.0
+    Score: 1226 ±5
+    Rank Spread: 295 310
+    Votes: 54,036
+    Price $/M: $0.15 / $0.60
+    Context: 128K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 136
+  model: Meta llama-3-8b-instruct Meta · Llama 3 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '136'
+  - '305'
+  - Meta llama-3-8b-instruct Meta · Llama 3 Community
+  - 1223 ±4
+  - 299 310
+  - 104,642
+  - $0.14 / $0.14
+  - 8.2K
+  by_header:
+    Rank: '136'
+    Overall Rank: '305'
+    Model: Meta llama-3-8b-instruct Meta · Llama 3 Community
+    Score: 1223 ±4
+    Rank Spread: 299 310
+    Votes: 104,642
+    Price $/M: $0.14 / $0.14
+    Context: 8.2K
+  resolved_repo: meta-llama/Meta-Llama-3-8B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 137
+  model: Cohere c4ai-aya-expanse-8b Cohere · CC-BY-NC-4.0
+  org: Cohere
+  matched_keyword: cohere
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '137'
+  - '306'
+  - Cohere c4ai-aya-expanse-8b Cohere · CC-BY-NC-4.0
+  - 1223 ±7
+  - 295 312
+  - 9,818
+  - N/A
+  - N/A
+  by_header:
+    Rank: '137'
+    Overall Rank: '306'
+    Model: Cohere c4ai-aya-expanse-8b Cohere · CC-BY-NC-4.0
+    Score: 1223 ±7
+    Rank Spread: 295 312
+    Votes: 9,818
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 138
+  model: llama-3.1-tulu-3-8b Ai2 · Llama 3.1
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '138'
+  - '309'
+  - llama-3.1-tulu-3-8b Ai2 · Llama 3.1
+  - 1221 ±11
+  - 295 314
+  - 2,896
+  - N/A
+  - N/A
+  by_header:
+    Rank: '138'
+    Overall Rank: '309'
+    Model: llama-3.1-tulu-3-8b Ai2 · Llama 3.1
+    Score: 1221 ±11
+    Rank Spread: 295 314
+    Votes: 2,896
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 139
+  model: yi-1.5-34b-chat Apache-2.0
+  org: 01.AI
+  matched_keyword: yi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '139'
+  - '310'
+  - yi-1.5-34b-chat Apache-2.0
+  - 1213 ±5
+  - 306 315
+  - 24,146
+  - N/A
+  - N/A
+  by_header:
+    Rank: '139'
+    Overall Rank: '310'
+    Model: yi-1.5-34b-chat Apache-2.0
+    Score: 1213 ±5
+    Rank Spread: 306 315
+    Votes: 24,146
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 140
+  model: zephyr-orpo-141b-A35b-v0.1 Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '140'
+  - '311'
+  - zephyr-orpo-141b-A35b-v0.1 Apache 2.0
+  - 1212 ±11
+  - 301 317
+  - 4,652
+  - N/A
+  - N/A
+  by_header:
+    Rank: '140'
+    Overall Rank: '311'
+    Model: zephyr-orpo-141b-A35b-v0.1 Apache 2.0
+    Score: 1212 ±11
+    Rank Spread: 301 317
+    Votes: 4,652
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 141
+  model: Meta llama-3.1-8b-instruct Meta · Llama 3.1 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '141'
+  - '312'
+  - Meta llama-3.1-8b-instruct Meta · Llama 3.1 Community
+  - 1211 ±4
+  - 308 315
+  - 49,605
+  - $0.05 / $0.08
+  - 131.1K
+  by_header:
+    Rank: '141'
+    Overall Rank: '312'
+    Model: Meta llama-3.1-8b-instruct Meta · Llama 3.1 Community
+    Score: 1211 ±4
+    Rank Spread: 308 315
+    Votes: 49,605
+    Price $/M: $0.05 / $0.08
+    Context: 131.1K
+  resolved_repo: meta-llama/Llama-3.1-8B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 142
+  model: granite-3.1-8b-instruct IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '142'
+  - '313'
+  - granite-3.1-8b-instruct IBM · Apache 2.0
+  - 1208 ±11
+  - 306 321
+  - 3,090
+  - N/A
+  - N/A
+  by_header:
+    Rank: '142'
+    Overall Rank: '313'
+    Model: granite-3.1-8b-instruct IBM · Apache 2.0
+    Score: 1208 ±11
+    Rank Spread: 306 321
+    Votes: 3,090
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: ibm-granite/granite-3.1-8b-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 143
+  model: qwen1.5-32b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '143'
+  - '314'
+  - qwen1.5-32b-chat Alibaba · Qianwen LICENSE
+  - 1203 ±6
+  - 310 321
+  - 21,741
+  - N/A
+  - N/A
+  by_header:
+    Rank: '143'
+    Overall Rank: '314'
+    Model: qwen1.5-32b-chat Alibaba · Qianwen LICENSE
+    Score: 1203 ±6
+    Rank Spread: 310 321
+    Votes: 21,741
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-32B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 144
+  model: gemma-2-2b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '144'
+  - '316'
+  - gemma-2-2b-it Google · Gemma license
+  - 1200 ±4
+  - 312 321
+  - 46,616
+  - N/A
+  - N/A
+  by_header:
+    Rank: '144'
+    Overall Rank: '316'
+    Model: gemma-2-2b-it Google · Gemma license
+    Score: 1200 ±4
+    Rank Spread: 312 321
+    Votes: 46,616
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: google/gemma-2-2b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 145
+  model: phi-3-medium-4k-instruct Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '145'
+  - '317'
+  - phi-3-medium-4k-instruct Microsoft · MIT
+  - 1197 ±5
+  - 312 323
+  - 25,055
+  - $0.17 / $0.68
+  - N/A
+  by_header:
+    Rank: '145'
+    Overall Rank: '317'
+    Model: phi-3-medium-4k-instruct Microsoft · MIT
+    Score: 1197 ±5
+    Rank Spread: 312 323
+    Votes: 25,055
+    Price $/M: $0.17 / $0.68
+    Context: N/A
+  resolved_repo: microsoft/Phi-3-medium-4k-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 146
+  model: mixtral-8x7b-instruct-v0.1 Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '146'
+  - '318'
+  - mixtral-8x7b-instruct-v0.1 Mistral · Apache 2.0
+  - 1197 ±4
+  - 313 323
+  - 73,503
+  - $0.63 / $0.63
+  - 32K
+  by_header:
+    Rank: '146'
+    Overall Rank: '318'
+    Model: mixtral-8x7b-instruct-v0.1 Mistral · Apache 2.0
+    Score: 1197 ±4
+    Rank Spread: 313 323
+    Votes: 73,503
+    Price $/M: $0.63 / $0.63
+    Context: 32K
+  resolved_repo: mistralai/Mixtral-8x7B-Instruct-v0.1
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 147
+  model: dbrx-instruct-preview DBRX LICENSE
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '147'
+  - '319'
+  - dbrx-instruct-preview DBRX LICENSE
+  - 1195 ±6
+  - 313 328
+  - 32,191
+  - $0.60 / $0.60
+  - 32.8K
+  by_header:
+    Rank: '147'
+    Overall Rank: '319'
+    Model: dbrx-instruct-preview DBRX LICENSE
+    Score: 1195 ±6
+    Rank Spread: 313 328
+    Votes: 32,191
+    Price $/M: $0.60 / $0.60
+    Context: 32.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 148
+  model: internlm2_5-20b-chat Other
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '148'
+  - '320'
+  - internlm2_5-20b-chat Other
+  - 1191 ±7
+  - 313 332
+  - 9,901
+  - $0 / $0
+  - 32.8K
+  by_header:
+    Rank: '148'
+    Overall Rank: '320'
+    Model: internlm2_5-20b-chat Other
+    Score: 1191 ±7
+    Rank Spread: 313 332
+    Votes: 9,901
+    Price $/M: $0 / $0
+    Context: 32.8K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 149
+  model: qwen1.5-14b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '149'
+  - '321'
+  - qwen1.5-14b-chat Alibaba · Qianwen LICENSE
+  - 1191 ±7
+  - 313 332
+  - 17,839
+  - $0.30 / $0.30
+  - N/A
+  by_header:
+    Rank: '149'
+    Overall Rank: '321'
+    Model: qwen1.5-14b-chat Alibaba · Qianwen LICENSE
+    Score: 1191 ±7
+    Rank Spread: 313 332
+    Votes: 17,839
+    Price $/M: $0.30 / $0.30
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-14B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 150
+  model: deepseek-llm-67b-chat DeepSeek · DeepSeek License
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '150'
+  - '322'
+  - deepseek-llm-67b-chat DeepSeek · DeepSeek License
+  - 1184 ±11
+  - 316 339
+  - 4,932
+  - N/A
+  - N/A
+  by_header:
+    Rank: '150'
+    Overall Rank: '322'
+    Model: deepseek-llm-67b-chat DeepSeek · DeepSeek License
+    Score: 1184 ±11
+    Rank Spread: 316 339
+    Votes: 4,932
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: deepseek-ai/deepseek-llm-67b-chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 151
+  model: wizardlm-70b Microsoft · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '151'
+  - '323'
+  - wizardlm-70b Microsoft · Llama 2 Community
+  - 1184 ±9
+  - 317 338
+  - 8,214
+  - N/A
+  - N/A
+  by_header:
+    Rank: '151'
+    Overall Rank: '323'
+    Model: wizardlm-70b Microsoft · Llama 2 Community
+    Score: 1184 ±9
+    Rank Spread: 317 338
+    Votes: 8,214
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 152
+  model: yi-34b-chat Yi License
+  org: 01.AI
+  matched_keyword: yi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '152'
+  - '324'
+  - yi-34b-chat Yi License
+  - 1183 ±7
+  - 319 334
+  - 15,483
+  - $0.90 / $0.90
+  - 4.1K
+  by_header:
+    Rank: '152'
+    Overall Rank: '324'
+    Model: yi-34b-chat Yi License
+    Score: 1183 ±7
+    Rank Spread: 319 334
+    Votes: 15,483
+    Price $/M: $0.90 / $0.90
+    Context: 4.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 153
+  model: granite-3.0-8b-instruct IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '153'
+  - '325'
+  - granite-3.0-8b-instruct IBM · Apache 2.0
+  - 1182 ±9
+  - 319 339
+  - 6,638
+  - N/A
+  - N/A
+  by_header:
+    Rank: '153'
+    Overall Rank: '325'
+    Model: granite-3.0-8b-instruct IBM · Apache 2.0
+    Score: 1182 ±9
+    Rank Spread: 319 339
+    Votes: 6,638
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: ibm-granite/granite-3.0-8b-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 154
+  model: openchat-3.5 Apache-2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: openchat-3.5 Apache-2.0
+  raw:
+  - '154'
+  - '326'
+  - openchat-3.5 Apache-2.0
+  - 1182 ±10
+  - 319 339
+  - 7,968
+  - $0.20 / $0.20
+  - N/A
+  by_header:
+    Rank: '154'
+    Overall Rank: '326'
+    Model: openchat-3.5 Apache-2.0
+    Score: 1182 ±10
+    Rank Spread: 319 339
+    Votes: 7,968
+    Price $/M: $0.20 / $0.20
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 155
+  model: openchat-3.5-0106 Apache-2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: openchat-3.5-0106 Apache-2.0
+  raw:
+  - '155'
+  - '327'
+  - openchat-3.5-0106 Apache-2.0
+  - 1182 ±8
+  - 319 339
+  - 12,637
+  - N/A
+  - N/A
+  by_header:
+    Rank: '155'
+    Overall Rank: '327'
+    Model: openchat-3.5-0106 Apache-2.0
+    Score: 1182 ±8
+    Rank Spread: 319 339
+    Votes: 12,637
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 156
+  model: gemma-1.1-7b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '156'
+  - '328'
+  - gemma-1.1-7b-it Google · Gemma license
+  - 1182 ±6
+  - 320 335
+  - 23,893
+  - $0.03 / $0.09
+  - 8.2K
+  by_header:
+    Rank: '156'
+    Overall Rank: '328'
+    Model: gemma-1.1-7b-it Google · Gemma license
+    Score: 1182 ±6
+    Rank Spread: 320 335
+    Votes: 23,893
+    Price $/M: $0.03 / $0.09
+    Context: 8.2K
+  resolved_repo: google/gemma-1.1-7b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 157
+  model: snowflake-arctic-instruct Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '157'
+  - '329'
+  - snowflake-arctic-instruct Apache 2.0
+  - 1179 ±6
+  - 320 339
+  - 32,832
+  - N/A
+  - N/A
+  by_header:
+    Rank: '157'
+    Overall Rank: '329'
+    Model: snowflake-arctic-instruct Apache 2.0
+    Score: 1179 ±6
+    Rank Spread: 320 339
+    Votes: 32,832
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 158
+  model: granite-3.1-2b-instruct IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '158'
+  - '330'
+  - granite-3.1-2b-instruct IBM · Apache 2.0
+  - 1179 ±11
+  - 319 339
+  - 3,188
+  - N/A
+  - N/A
+  by_header:
+    Rank: '158'
+    Overall Rank: '330'
+    Model: granite-3.1-2b-instruct IBM · Apache 2.0
+    Score: 1179 ±11
+    Rank Spread: 319 339
+    Votes: 3,188
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: ibm-granite/granite-3.1-2b-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 159
+  model: tulu-2-dpo-70b AI2 ImpACT Low-risk
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '159'
+  - '331'
+  - tulu-2-dpo-70b AI2 ImpACT Low-risk
+  - 1177 ±10
+  - 320 339
+  - 6,535
+  - N/A
+  - N/A
+  by_header:
+    Rank: '159'
+    Overall Rank: '331'
+    Model: tulu-2-dpo-70b AI2 ImpACT Low-risk
+    Score: 1177 ±10
+    Rank Spread: 320 339
+    Votes: 6,535
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 160
+  model: openhermes-2.5-mistral-7b Apache-2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: openhermes-2.5-mistral-7b Apache-2.0
+  raw:
+  - '160'
+  - '332'
+  - openhermes-2.5-mistral-7b Apache-2.0
+  - 1175 ±10
+  - 320 343
+  - 5,006
+  - $0.17 / $0.17
+  - N/A
+  by_header:
+    Rank: '160'
+    Overall Rank: '332'
+    Model: openhermes-2.5-mistral-7b Apache-2.0
+    Score: 1175 ±10
+    Rank Spread: 320 343
+    Votes: 5,006
+    Price $/M: $0.17 / $0.17
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 161
+  model: vicuna-33b Non-commercial
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '161'
+  - '333'
+  - vicuna-33b Non-commercial
+  - 1172 ±6
+  - 322 341
+  - 22,479
+  - $0 / $0
+  - 2K
+  by_header:
+    Rank: '161'
+    Overall Rank: '333'
+    Model: vicuna-33b Non-commercial
+    Score: 1172 ±6
+    Rank Spread: 322 341
+    Votes: 22,479
+    Price $/M: $0 / $0
+    Context: 2K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 162
+  model: starling-lm-7b-beta Apache-2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '162'
+  - '334'
+  - starling-lm-7b-beta Apache-2.0
+  - 1171 ±7
+  - 322 345
+  - 16,056
+  - N/A
+  - N/A
+  by_header:
+    Rank: '162'
+    Overall Rank: '334'
+    Model: starling-lm-7b-beta Apache-2.0
+    Score: 1171 ±7
+    Rank Spread: 322 345
+    Votes: 16,056
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 163
+  model: phi-3-small-8k-instruct Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '163'
+  - '335'
+  - phi-3-small-8k-instruct Microsoft · MIT
+  - 1171 ±6
+  - 323 343
+  - 17,766
+  - $0.15 / $0.60
+  - N/A
+  by_header:
+    Rank: '163'
+    Overall Rank: '335'
+    Model: phi-3-small-8k-instruct Microsoft · MIT
+    Score: 1171 ±6
+    Rank Spread: 323 343
+    Votes: 17,766
+    Price $/M: $0.15 / $0.60
+    Context: N/A
+  resolved_repo: microsoft/Phi-3-small-8k-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 164
+  model: Meta llama-2-70b-chat Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '164'
+  - '336'
+  - Meta llama-2-70b-chat Meta · Llama 2 Community
+  - 1170 ±5
+  - 324 343
+  - 38,492
+  - $0.70 / $2.80
+  - 4.1K
+  by_header:
+    Rank: '164'
+    Overall Rank: '336'
+    Model: Meta llama-2-70b-chat Meta · Llama 2 Community
+    Score: 1170 ±5
+    Rank Spread: 324 343
+    Votes: 38,492
+    Price $/M: $0.70 / $2.80
+    Context: 4.1K
+  resolved_repo: meta-llama/Llama-2-70b-chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 165
+  model: starling-lm-7b-alpha CC-BY-NC-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '165'
+  - '337'
+  - starling-lm-7b-alpha CC-BY-NC-4.0
+  - 1167 ±8
+  - 324 346
+  - 10,224
+  - N/A
+  - N/A
+  by_header:
+    Rank: '165'
+    Overall Rank: '337'
+    Model: starling-lm-7b-alpha CC-BY-NC-4.0
+    Score: 1167 ±8
+    Rank Spread: 324 346
+    Votes: 10,224
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 166
+  model: Meta llama-3.2-3b-instruct Meta · Llama 3.2
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '166'
+  - '338'
+  - Meta llama-3.2-3b-instruct Meta · Llama 3.2
+  - 1166 ±8
+  - 325 346
+  - 7,936
+  - $0.05 / $0.33
+  - 131.1K
+  by_header:
+    Rank: '166'
+    Overall Rank: '338'
+    Model: Meta llama-3.2-3b-instruct Meta · Llama 3.2
+    Score: 1166 ±8
+    Rank Spread: 325 346
+    Votes: 7,936
+    Price $/M: $0.05 / $0.33
+    Context: 131.1K
+  resolved_repo: meta-llama/Llama-3.2-3B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 167
+  model: nous-hermes-2-mixtral-8x7b-dpo Apache-2.0
+  org: Mistral AI
+  matched_keyword: mixtral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '167'
+  - '339'
+  - nous-hermes-2-mixtral-8x7b-dpo Apache-2.0
+  - 1164 ±12
+  - 324 349
+  - 3,777
+  - $0.90 / $0.90
+  - N/A
+  by_header:
+    Rank: '167'
+    Overall Rank: '339'
+    Model: nous-hermes-2-mixtral-8x7b-dpo Apache-2.0
+    Score: 1164 ±12
+    Rank Spread: 324 349
+    Votes: 3,777
+    Price $/M: $0.90 / $0.90
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 168
+  model: granite-3.0-2b-instruct IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '168'
+  - '340'
+  - granite-3.0-2b-instruct IBM · Apache 2.0
+  - 1156 ±8
+  - 336 352
+  - 6,837
+  - N/A
+  - N/A
+  by_header:
+    Rank: '168'
+    Overall Rank: '340'
+    Model: granite-3.0-2b-instruct IBM · Apache 2.0
+    Score: 1156 ±8
+    Rank Spread: 336 352
+    Votes: 6,837
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: ibm-granite/granite-3.0-2b-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 169
+  model: qwq-32b-preview Alibaba · Apache 2.0
+  org: Alibaba
+  matched_keyword: qwq
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '169'
+  - '341'
+  - qwq-32b-preview Alibaba · Apache 2.0
+  - 1155 ±11
+  - 333 356
+  - 3,231
+  - $0.50 / $1
+  - 16.4K
+  by_header:
+    Rank: '169'
+    Overall Rank: '341'
+    Model: qwq-32b-preview Alibaba · Apache 2.0
+    Score: 1155 ±11
+    Rank Spread: 333 356
+    Votes: 3,231
+    Price $/M: $0.50 / $1
+    Context: 16.4K
+  resolved_repo: Qwen/QwQ-32B-Preview
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 170
+  model: llama2-70b-steerlm-chat Nvidia · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '170'
+  - '342'
+  - llama2-70b-steerlm-chat Nvidia · Llama 2 Community
+  - 1154 ±13
+  - 332 357
+  - 3,585
+  - N/A
+  - N/A
+  by_header:
+    Rank: '170'
+    Overall Rank: '342'
+    Model: llama2-70b-steerlm-chat Nvidia · Llama 2 Community
+    Score: 1154 ±13
+    Rank Spread: 332 357
+    Votes: 3,585
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 171
+  model: solar-10.7b-instruct-v1.0 CC-BY-NC-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '171'
+  - '343'
+  - solar-10.7b-instruct-v1.0 CC-BY-NC-4.0
+  - 1152 ±13
+  - 333 359
+  - 4,155
+  - $0.30 / $0.30
+  - N/A
+  by_header:
+    Rank: '171'
+    Overall Rank: '343'
+    Model: solar-10.7b-instruct-v1.0 CC-BY-NC-4.0
+    Score: 1152 ±13
+    Rank Spread: 333 359
+    Votes: 4,155
+    Price $/M: $0.30 / $0.30
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 172
+  model: dolphin-2.2.1-mistral-7b Apache-2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '172'
+  - '344'
+  - dolphin-2.2.1-mistral-7b Apache-2.0
+  - 1152 ±15
+  - 332 361
+  - 1,679
+  - $0.50 / $0.50
+  - 16.4K
+  by_header:
+    Rank: '172'
+    Overall Rank: '344'
+    Model: dolphin-2.2.1-mistral-7b Apache-2.0
+    Score: 1152 ±15
+    Rank Spread: 332 361
+    Votes: 1,679
+    Price $/M: $0.50 / $0.50
+    Context: 16.4K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 173
+  model: mpt-30b-chat CC-BY-NC-SA-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '173'
+  - '345'
+  - mpt-30b-chat CC-BY-NC-SA-4.0
+  - 1150 ±12
+  - 337 359
+  - 2,572
+  - N/A
+  - N/A
+  by_header:
+    Rank: '173'
+    Overall Rank: '345'
+    Model: mpt-30b-chat CC-BY-NC-SA-4.0
+    Score: 1150 ±12
+    Rank Spread: 337 359
+    Votes: 2,572
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 174
+  model: wizardlm-13b Microsoft · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '174'
+  - '346'
+  - wizardlm-13b Microsoft · Llama 2 Community
+  - 1149 ±9
+  - 339 357
+  - 7,044
+  - $0.30 / $0.30
+  - N/A
+  by_header:
+    Rank: '174'
+    Overall Rank: '346'
+    Model: wizardlm-13b Microsoft · Llama 2 Community
+    Score: 1149 ±9
+    Rank Spread: 339 357
+    Votes: 7,044
+    Price $/M: $0.30 / $0.30
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 175
+  model: mistral-7b-instruct-v0.2 Mistral · Apache-2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '175'
+  - '347'
+  - mistral-7b-instruct-v0.2 Mistral · Apache-2.0
+  - 1149 ±7
+  - 339 356
+  - 19,402
+  - $0.20 / $0.20
+  - 32.8K
+  by_header:
+    Rank: '175'
+    Overall Rank: '347'
+    Model: mistral-7b-instruct-v0.2 Mistral · Apache-2.0
+    Score: 1149 ±7
+    Rank Spread: 339 356
+    Votes: 19,402
+    Price $/M: $0.20 / $0.20
+    Context: 32.8K
+  resolved_repo: mistralai/Mistral-7B-Instruct-v0.2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 176
+  model: falcon-180b-chat Falcon-180B TII License
+  org: TII
+  matched_keyword: falcon
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '176'
+  - '348'
+  - falcon-180b-chat Falcon-180B TII License
+  - 1147 ±17
+  - 336 363
+  - 1,295
+  - N/A
+  - N/A
+  by_header:
+    Rank: '176'
+    Overall Rank: '348'
+    Model: falcon-180b-chat Falcon-180B TII License
+    Score: 1147 ±17
+    Rank Spread: 336 363
+    Votes: 1,295
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 177
+  model: qwen1.5-7b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '177'
+  - '349'
+  - qwen1.5-7b-chat Alibaba · Qianwen LICENSE
+  - 1143 ±10
+  - 339 362
+  - 4,737
+  - $0.20 / $0.20
+  - N/A
+  by_header:
+    Rank: '177'
+    Overall Rank: '349'
+    Model: qwen1.5-7b-chat Alibaba · Qianwen LICENSE
+    Score: 1143 ±10
+    Rank Spread: 339 362
+    Votes: 4,737
+    Price $/M: $0.20 / $0.20
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-7B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 178
+  model: phi-3-mini-4k-instruct-june-2024 Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '178'
+  - '350'
+  - phi-3-mini-4k-instruct-june-2024 Microsoft · MIT
+  - 1143 ±6
+  - 340 361
+  - 12,297
+  - $0.13 / $0.52
+  - 4.1K
+  by_header:
+    Rank: '178'
+    Overall Rank: '350'
+    Model: phi-3-mini-4k-instruct-june-2024 Microsoft · MIT
+    Score: 1143 ±6
+    Rank Spread: 340 361
+    Votes: 12,297
+    Price $/M: $0.13 / $0.52
+    Context: 4.1K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 179
+  model: Meta llama-2-13b-chat Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '179'
+  - '351'
+  - Meta llama-2-13b-chat Meta · Llama 2 Community
+  - 1141 ±7
+  - 340 361
+  - 19,174
+  - $0.25 / $0.25
+  - 4.1K
+  by_header:
+    Rank: '179'
+    Overall Rank: '351'
+    Model: Meta llama-2-13b-chat Meta · Llama 2 Community
+    Score: 1141 ±7
+    Rank Spread: 340 361
+    Votes: 19,174
+    Price $/M: $0.25 / $0.25
+    Context: 4.1K
+  resolved_repo: meta-llama/Llama-2-13b-chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 180
+  model: vicuna-13b Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '180'
+  - '352'
+  - vicuna-13b Llama 2 Community
+  - 1141 ±7
+  - 341 361
+  - 19,367
+  - $0.30 / $0.30
+  - N/A
+  by_header:
+    Rank: '180'
+    Overall Rank: '352'
+    Model: vicuna-13b Llama 2 Community
+    Score: 1141 ±7
+    Rank Spread: 341 361
+    Votes: 19,367
+    Price $/M: $0.30 / $0.30
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 181
+  model: qwen-14b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '181'
+  - '353'
+  - qwen-14b-chat Alibaba · Qianwen LICENSE
+  - 1139 ±11
+  - 340 364
+  - 4,964
+  - N/A
+  - N/A
+  by_header:
+    Rank: '181'
+    Overall Rank: '353'
+    Model: qwen-14b-chat Alibaba · Qianwen LICENSE
+    Score: 1139 ±11
+    Rank Spread: 340 364
+    Votes: 4,964
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 182
+  model: gemma-7b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '182'
+  - '355'
+  - gemma-7b-it Google · Gemma license
+  - 1137 ±9
+  - 341 364
+  - 8,925
+  - $0.05 / $0.08
+  - 8.2K
+  by_header:
+    Rank: '182'
+    Overall Rank: '355'
+    Model: gemma-7b-it Google · Gemma license
+    Score: 1137 ±9
+    Rank Spread: 341 364
+    Votes: 8,925
+    Price $/M: $0.05 / $0.08
+    Context: 8.2K
+  resolved_repo: google/gemma-7b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 183
+  model: Meta codellama-34b-instruct Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '183'
+  - '356'
+  - Meta codellama-34b-instruct Meta · Llama 2 Community
+  - 1136 ±9
+  - 341 364
+  - 7,366
+  - $0.35 / $1.40
+  - 16.4K
+  by_header:
+    Rank: '183'
+    Overall Rank: '356'
+    Model: Meta codellama-34b-instruct Meta · Llama 2 Community
+    Score: 1136 ±9
+    Rank Spread: 341 364
+    Votes: 7,366
+    Price $/M: $0.35 / $1.40
+    Context: 16.4K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 184
+  model: zephyr-7b-beta MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '184'
+  - '357'
+  - zephyr-7b-beta MIT
+  - 1130 ±9
+  - 345 366
+  - 11,118
+  - $0.15 / $0.15
+  - 16.4K
+  by_header:
+    Rank: '184'
+    Overall Rank: '357'
+    Model: zephyr-7b-beta MIT
+    Score: 1130 ±9
+    Rank Spread: 345 366
+    Votes: 11,118
+    Price $/M: $0.15 / $0.15
+    Context: 16.4K
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 185
+  model: phi-3-mini-128k-instruct Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '185'
+  - '358'
+  - phi-3-mini-128k-instruct Microsoft · MIT
+  - 1129 ±7
+  - 347 366
+  - 20,685
+  - $0.13 / $0.52
+  - N/A
+  by_header:
+    Rank: '185'
+    Overall Rank: '358'
+    Model: phi-3-mini-128k-instruct Microsoft · MIT
+    Score: 1129 ±7
+    Rank Spread: 347 366
+    Votes: 20,685
+    Price $/M: $0.13 / $0.52
+    Context: N/A
+  resolved_repo: microsoft/Phi-3-mini-128k-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 186
+  model: phi-3-mini-4k-instruct Microsoft · MIT
+  org: Microsoft
+  matched_keyword: phi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '186'
+  - '359'
+  - phi-3-mini-4k-instruct Microsoft · MIT
+  - 1128 ±6
+  - 351 366
+  - 20,118
+  - $0.13 / $0.52
+  - N/A
+  by_header:
+    Rank: '186'
+    Overall Rank: '359'
+    Model: phi-3-mini-4k-instruct Microsoft · MIT
+    Score: 1128 ±6
+    Rank Spread: 351 366
+    Votes: 20,118
+    Price $/M: $0.13 / $0.52
+    Context: N/A
+  resolved_repo: microsoft/Phi-3-mini-4k-instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 187
+  model: guanaco-33b Non-commercial
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '187'
+  - '360'
+  - guanaco-33b Non-commercial
+  - 1127 ±12
+  - 345 368
+  - 2,921
+  - N/A
+  - N/A
+  by_header:
+    Rank: '187'
+    Overall Rank: '360'
+    Model: guanaco-33b Non-commercial
+    Score: 1127 ±12
+    Rank Spread: 345 368
+    Votes: 2,921
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 188
+  model: zephyr-7b-alpha MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '188'
+  - '361'
+  - zephyr-7b-alpha MIT
+  - 1126 ±16
+  - 343 369
+  - 1,785
+  - N/A
+  - N/A
+  by_header:
+    Rank: '188'
+    Overall Rank: '361'
+    Model: zephyr-7b-alpha MIT
+    Score: 1126 ±16
+    Rank Spread: 343 369
+    Votes: 1,785
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 189
+  model: stripedhyena-nous-7b Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '189'
+  - '362'
+  - stripedhyena-nous-7b Apache 2.0
+  - 1121 ±11
+  - 352 369
+  - 5,182
+  - $0.20 / $0.20
+  - N/A
+  by_header:
+    Rank: '189'
+    Overall Rank: '362'
+    Model: stripedhyena-nous-7b Apache 2.0
+    Score: 1121 ±11
+    Rank Spread: 352 369
+    Votes: 5,182
+    Price $/M: $0.20 / $0.20
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 190
+  model: Meta codellama-70b-instruct Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '190'
+  - '363'
+  - Meta codellama-70b-instruct Meta · Llama 2 Community
+  - 1119 ±18
+  - 347 370
+  - 1,143
+  - $0.70 / $2.80
+  - 16.4K
+  by_header:
+    Rank: '190'
+    Overall Rank: '363'
+    Model: Meta codellama-70b-instruct Meta · Llama 2 Community
+    Score: 1119 ±18
+    Rank Spread: 347 370
+    Votes: 1,143
+    Price $/M: $0.70 / $2.80
+    Context: 16.4K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 191
+  model: gemma-1.1-2b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '191'
+  - '364'
+  - gemma-1.1-2b-it Google · Gemma license
+  - 1116 ±8
+  - 357 369
+  - 10,854
+  - N/A
+  - N/A
+  by_header:
+    Rank: '191'
+    Overall Rank: '364'
+    Model: gemma-1.1-2b-it Google · Gemma license
+    Score: 1116 ±8
+    Rank Spread: 357 369
+    Votes: 10,854
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: google/gemma-1.1-2b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 192
+  model: vicuna-7b Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '192'
+  - '365'
+  - vicuna-7b Llama 2 Community
+  - 1115 ±9
+  - 357 369
+  - 6,923
+  - $0.20 / $0.20
+  - N/A
+  by_header:
+    Rank: '192'
+    Overall Rank: '365'
+    Model: vicuna-7b Llama 2 Community
+    Score: 1115 ±9
+    Rank Spread: 357 369
+    Votes: 6,923
+    Price $/M: $0.20 / $0.20
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 193
+  model: smollm2-1.7b-instruct Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '193'
+  - '366'
+  - smollm2-1.7b-instruct Apache 2.0
+  - 1114 ±14
+  - 354 370
+  - 2,199
+  - N/A
+  - N/A
+  by_header:
+    Rank: '193'
+    Overall Rank: '366'
+    Model: smollm2-1.7b-instruct Apache 2.0
+    Score: 1114 ±14
+    Rank Spread: 354 370
+    Votes: 2,199
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 194
+  model: Meta llama-3.2-1b-instruct Meta · Llama 3.2
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '194'
+  - '367'
+  - Meta llama-3.2-1b-instruct Meta · Llama 3.2
+  - 1111 ±8
+  - 360 370
+  - 8,045
+  - $0.03 / $0.20
+  - 60K
+  by_header:
+    Rank: '194'
+    Overall Rank: '367'
+    Model: Meta llama-3.2-1b-instruct Meta · Llama 3.2
+    Score: 1111 ±8
+    Rank Spread: 360 370
+    Votes: 8,045
+    Price $/M: $0.03 / $0.20
+    Context: 60K
+  resolved_repo: meta-llama/Llama-3.2-1B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 195
+  model: mistral-7b-instruct Mistral · Apache 2.0
+  org: Mistral AI
+  matched_keyword: mistral
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '195'
+  - '368'
+  - mistral-7b-instruct Mistral · Apache 2.0
+  - 1110 ±9
+  - 360 370
+  - 8,977
+  - $0.07 / $0.28
+  - 4.1K
+  by_header:
+    Rank: '195'
+    Overall Rank: '368'
+    Model: mistral-7b-instruct Mistral · Apache 2.0
+    Score: 1110 ±9
+    Rank Spread: 360 370
+    Votes: 8,977
+    Price $/M: $0.07 / $0.28
+    Context: 4.1K
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
+- rank: 196
+  model: Meta llama-2-7b-chat Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '196'
+  - '369'
+  - Meta llama-2-7b-chat Meta · Llama 2 Community
+  - 1107 ±7
+  - 361 370
+  - 14,148
+  - $0.15 / $0.15
+  - 4.1K
+  by_header:
+    Rank: '196'
+    Overall Rank: '369'
+    Model: Meta llama-2-7b-chat Meta · Llama 2 Community
+    Score: 1107 ±7
+    Rank Spread: 361 370
+    Votes: 14,148
+    Price $/M: $0.15 / $0.15
+    Context: 4.1K
+  resolved_repo: meta-llama/Llama-2-7b-chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 197
+  model: gemma-2b-it Google · Gemma license
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '197'
+  - '370'
+  - gemma-2b-it Google · Gemma license
+  - 1093 ±11
+  - 365 373
+  - 4,780
+  - $0.10 / $0.10
+  - N/A
+  by_header:
+    Rank: '197'
+    Overall Rank: '370'
+    Model: gemma-2b-it Google · Gemma license
+    Score: 1093 ±11
+    Rank Spread: 365 373
+    Votes: 4,780
+    Price $/M: $0.10 / $0.10
+    Context: N/A
+  resolved_repo: google/gemma-2b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 198
+  model: qwen1.5-4b-chat Alibaba · Qianwen LICENSE
+  org: Alibaba
+  matched_keyword: qwen
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '198'
+  - '371'
+  - qwen1.5-4b-chat Alibaba · Qianwen LICENSE
+  - 1090 ±9
+  - 370 373
+  - 7,597
+  - $0.10 / $0.10
+  - N/A
+  by_header:
+    Rank: '198'
+    Overall Rank: '371'
+    Model: qwen1.5-4b-chat Alibaba · Qianwen LICENSE
+    Score: 1090 ±9
+    Rank Spread: 370 373
+    Votes: 7,597
+    Price $/M: $0.10 / $0.10
+    Context: N/A
+  resolved_repo: Qwen/Qwen1.5-4B-Chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 199
+  model: olmo-7b-instruct Ai2 · Apache-2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '199'
+  - '372'
+  - olmo-7b-instruct Ai2 · Apache-2.0
+  - 1073 ±11
+  - 370 377
+  - 6,328
+  - $0.20 / $0.20
+  - N/A
+  by_header:
+    Rank: '199'
+    Overall Rank: '372'
+    Model: olmo-7b-instruct Ai2 · Apache-2.0
+    Score: 1073 ±11
+    Rank Spread: 370 377
+    Votes: 6,328
+    Price $/M: $0.20 / $0.20
+    Context: N/A
+  resolved_repo: allenai/OLMo-7B-Instruct
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 200
+  model: koala-13b Non-commercial
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '200'
+  - '373'
+  - koala-13b Non-commercial
+  - 1070 ±10
+  - 372 377
+  - 6,965
+  - N/A
+  - N/A
+  by_header:
+    Rank: '200'
+    Overall Rank: '373'
+    Model: koala-13b Non-commercial
+    Score: 1070 ±10
+    Rank Spread: 372 377
+    Votes: 6,965
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 201
+  model: alpaca-13b Non-commercial
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '201'
+  - '374'
+  - alpaca-13b Non-commercial
+  - 1069 ±11
+  - 372 377
+  - 5,745
+  - N/A
+  - N/A
+  by_header:
+    Rank: '201'
+    Overall Rank: '374'
+    Model: alpaca-13b Non-commercial
+    Score: 1069 ±11
+    Rank Spread: 372 377
+    Votes: 5,745
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 202
+  model: gpt4all-13b-snoozy Non-commercial
+  org: OpenAI
+  matched_keyword: gpt
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '202'
+  - '375'
+  - gpt4all-13b-snoozy Non-commercial
+  - 1067 ±15
+  - 370 378
+  - 1,743
+  - N/A
+  - N/A
+  by_header:
+    Rank: '202'
+    Overall Rank: '375'
+    Model: gpt4all-13b-snoozy Non-commercial
+    Score: 1067 ±15
+    Rank Spread: 370 378
+    Votes: 1,743
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 203
+  model: mpt-7b-chat CC-BY-NC-SA-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '203'
+  - '376'
+  - mpt-7b-chat CC-BY-NC-SA-4.0
+  - 1062 ±12
+  - 372 378
+  - 3,924
+  - N/A
+  - N/A
+  by_header:
+    Rank: '203'
+    Overall Rank: '376'
+    Model: mpt-7b-chat CC-BY-NC-SA-4.0
+    Score: 1062 ±12
+    Rank Spread: 372 378
+    Votes: 3,924
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 204
+  model: chatglm3-6b Apache-2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '204'
+  - '377'
+  - chatglm3-6b Apache-2.0
+  - 1056 ±12
+  - 372 378
+  - 4,658
+  - N/A
+  - N/A
+  by_header:
+    Rank: '204'
+    Overall Rank: '377'
+    Model: chatglm3-6b Apache-2.0
+    Score: 1056 ±12
+    Rank Spread: 372 378
+    Votes: 4,658
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 205
+  model: RWKV-4-Raven-14B Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '205'
+  - '378'
+  - RWKV-4-Raven-14B Apache 2.0
+  - 1041 ±11
+  - 375 380
+  - 4,845
+  - N/A
+  - N/A
+  by_header:
+    Rank: '205'
+    Overall Rank: '378'
+    Model: RWKV-4-Raven-14B Apache 2.0
+    Score: 1041 ±11
+    Rank Spread: 375 380
+    Votes: 4,845
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 206
+  model: chatglm2-6b Apache-2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '206'
+  - '379'
+  - chatglm2-6b Apache-2.0
+  - 1024 ±14
+  - 378 380
+  - 2,658
+  - N/A
+  - N/A
+  by_header:
+    Rank: '206'
+    Overall Rank: '379'
+    Model: chatglm2-6b Apache-2.0
+    Score: 1024 ±14
+    Rank Spread: 378 380
+    Votes: 2,658
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 207
+  model: oasst-pythia-12b Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '207'
+  - '380'
+  - oasst-pythia-12b Apache 2.0
+  - 1023 ±11
+  - 378 380
+  - 6,310
+  - N/A
+  - N/A
+  by_header:
+    Rank: '207'
+    Overall Rank: '380'
+    Model: oasst-pythia-12b Apache 2.0
+    Score: 1023 ±11
+    Rank Spread: 378 380
+    Votes: 6,310
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 208
+  model: chatglm-6b Non-commercial
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '208'
+  - '381'
+  - chatglm-6b Non-commercial
+  - 995 ±13
+  - 381 384
+  - 4,914
+  - N/A
+  - N/A
+  by_header:
+    Rank: '208'
+    Overall Rank: '381'
+    Model: chatglm-6b Non-commercial
+    Score: 995 ±13
+    Rank Spread: 381 384
+    Votes: 4,914
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 209
+  model: fastchat-t5-3b Apache 2.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '209'
+  - '382'
+  - fastchat-t5-3b Apache 2.0
+  - 992 ±12
+  - 381 384
+  - 4,203
+  - N/A
+  - N/A
+  by_header:
+    Rank: '209'
+    Overall Rank: '382'
+    Model: fastchat-t5-3b Apache 2.0
+    Score: 992 ±12
+    Rank Spread: 381 384
+    Votes: 4,203
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 210
+  model: dolly-v2-12b MIT
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '210'
+  - '383'
+  - dolly-v2-12b MIT
+  - 981 ±13
+  - 381 384
+  - 3,412
+  - N/A
+  - N/A
+  by_header:
+    Rank: '210'
+    Overall Rank: '383'
+    Model: dolly-v2-12b MIT
+    Score: 981 ±13
+    Rank Spread: 381 384
+    Votes: 3,412
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 211
+  model: Meta llama-13b Meta · Non-commercial
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '211'
+  - '384'
+  - Meta llama-13b Meta · Non-commercial
+  - 974 ±16
+  - 381 385
+  - 2,391
+  - $0.23 / $0.23
+  - N/A
+  by_header:
+    Rank: '211'
+    Overall Rank: '384'
+    Model: Meta llama-13b Meta · Non-commercial
+    Score: 974 ±16
+    Rank Spread: 381 385
+    Votes: 2,391
+    Price $/M: $0.23 / $0.23
+    Context: N/A
+  resolved_repo: meta-llama/Llama-2-13b
+  resolution_confidence: medium
+  open_weight: true
+  needs_hf_repo: true
+- rank: 212
+  model: stablelm-tuned-alpha-7b CC-BY-NC-SA-4.0
+  org: null
+  matched_keyword: null
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '212'
+  - '385'
+  - stablelm-tuned-alpha-7b CC-BY-NC-SA-4.0
+  - 952 ±13
+  - 384 385
+  - 3,287
+  - N/A
+  - N/A
+  by_header:
+    Rank: '212'
+    Overall Rank: '385'
+    Model: stablelm-tuned-alpha-7b CC-BY-NC-SA-4.0
+    Score: 952 ±13
+    Rank Spread: 384 385
+    Votes: 3,287
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
 new_orgs:
 - Tencent
