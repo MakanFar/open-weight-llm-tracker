@@ -359,3 +359,50 @@ models:
     license_notes: "VERIFY: repo tag says apache-2.0, unlike previous Gemma releases which used the Gemma licence."
     weights_url: https://huggingface.co/google/gemma-4-31B-it
     notes: "Only dense model in this batch."
+
+  - name: MiMo-V2.5
+    hf_repo: XiaomiMiMo/MiMo-V2.5
+    developer: XiaomiMiMo
+    release_date: 2026-04-27
+    params_total_b: 310.8
+    params_active_b: 15.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5
+    params_active_source: 15B activated param
+    commercial_use_verified: false
+
+  - name: granite-4.1-8b
+    hf_repo: ibm-granite/granite-4.1-8b
+    developer: ibm-granite
+    release_date: 2026-04-06
+    params_total_b: 8.8
+    params_active_b: 8.8
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/ibm-granite/granite-4.1-8b
+    commercial_use_verified: false
+
+  - name: Qwen3-Coder-Next
+    hf_repo: Qwen/Qwen3-Coder-Next
+    developer: Qwen
+    release_date: 2026-01-30
+    params_total_b: 79.7
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
+    params_active_source: 3B activated param
+    commercial_use_verified: false
