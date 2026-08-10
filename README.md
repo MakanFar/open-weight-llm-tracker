@@ -1,6 +1,6 @@
 # Open-Weight & Open-Source LLM Tracker
 
-A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **25 models**.
+A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **30 models**.
 
 Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
@@ -17,7 +17,12 @@ Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is 
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 6 | 45 | `mit` | Yes |
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 102 | — | `apache-2.0` | Yes? |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 10 | 30 | `apache-2.0` | Yes |
+| [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 43 | — | `apache-2.0` | Yes? |
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 21 | `apache-2.0` | Yes? |
+| [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 56 | 25 | `mit` | Yes? |
+| [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 86 | — | `apache-2.0` | Yes? |
+| [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 85 | — | `apache-2.0` | Yes? |
+| [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 103 | — | `apache-2.0` | Yes? |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 61 | — | `apache-2.0` | Yes |
 | [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 89 | 14 | `llama-4-community` | Conditional |
 | [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 91 | 10 | `llama-4-community` | Conditional |

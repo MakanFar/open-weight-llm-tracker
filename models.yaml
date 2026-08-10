@@ -406,3 +406,79 @@ models:
     weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
     params_active_source: 3B activated param
     commercial_use_verified: false
+
+  - name: Qwen3.5-27B
+    hf_repo: Qwen/Qwen3.5-27B
+    developer: Qwen
+    release_date: 2026-02-24
+    params_total_b: 27.8
+    params_active_b: 27.8
+    architecture: dense
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3.5-27B
+    commercial_use_verified: false
+
+  - name: MiMo-V2-Flash
+    hf_repo: XiaomiMiMo/MiMo-V2-Flash
+    developer: XiaomiMiMo
+    release_date: 2025-12-16
+    params_total_b: 309.8
+    params_active_b: 15.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash
+    params_active_source: 15B active param
+    commercial_use_verified: false
+
+  - name: Olmo-3.1-32B-Instruct
+    hf_repo: allenai/Olmo-3.1-32B-Instruct
+    developer: allenai
+    release_date: 2025-12-10
+    params_total_b: 32.2
+    params_active_b: 32.2
+    architecture: dense
+    context_window: 65536
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Instruct
+    commercial_use_verified: false
+
+  - name: Molmo2-8B
+    hf_repo: allenai/Molmo2-8B
+    developer: allenai
+    release_date: 2025-12-14
+    params_total_b: 8.7
+    params_active_b: 8.7
+    architecture: dense
+    context_window: 36864
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/allenai/Molmo2-8B
+    commercial_use_verified: false
+
+  - name: Olmo-3-32B-Think
+    hf_repo: allenai/Olmo-3-32B-Think
+    developer: allenai
+    release_date: 2025-11-19
+    params_total_b: 32.2
+    params_active_b: 32.2
+    architecture: dense
+    context_window: 65536
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/allenai/Olmo-3-32B-Think
+    commercial_use_verified: false
