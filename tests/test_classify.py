@@ -270,9 +270,12 @@ def test_aa_one_below_the_promotion_floor_does_not_promote():
 
 def test_weak_aa_with_arena_rank_still_promotes():
     """The arena rank is an independent strong signal — a weak AA score
-    alongside it must not block promotion."""
-    row = _row(aa_index=15, arena_rank=3)
-    assert classify.route(row, set()) == "promote"
+    alongside it must not block promotion. today is pinned to the row's
+    release_date so the (separate, newer) arena recency gate is cleared and
+    this test isolates the AA interaction it is actually about."""
+    today = date(2025, 6, 1)
+    row = _row(aa_index=15, arena_rank=3, release_date=today)
+    assert classify.route(row, set(), today=today) == "promote"
 
 
 def test_weak_aa_with_qualifying_recent_downloads_still_promotes():
@@ -293,10 +296,77 @@ def test_weak_aa_with_old_high_downloads_does_not_promote():
 
 
 def test_no_aa_with_arena_rank_still_promotes():
-    """Unchanged behavior: an arena rank alone, with no AA score at all,
-    still promotes a complete row."""
-    row = _row(arena_rank=3)
-    assert classify.route(row, set()) == "promote"
+    """An arena rank alone, with no AA score at all, still promotes a
+    complete row -- provided the release is recent (see the arena-recency
+    tests below). today is pinned to the row's release_date so this test
+    exercises "no AA needed", not the new recency gate."""
+    today = date(2025, 6, 1)
+    row = _row(arena_rank=3, release_date=today)
+    assert classify.route(row, set(), today=today) == "promote"
+
+
+def test_arena_rank_within_recency_window_promotes():
+    """A ranked row released inside NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of
+    today clears the promotion floor via arena_rank alone."""
+    today = date(2025, 6, 1)
+    row = _row(arena_rank=186, release_date=today)
+    assert classify.route(row, set(), today=today) == "promote"
+
+
+def test_arena_rank_outside_recency_window_reviews_not_drops():
+    """The regression this task exists to fix: arena.ai's scraper now reads
+    the historical text leaderboard (213 models back to 2023), not the
+    current-only Agent board the old exemption assumed. An arena rank is
+    still evidence the model is GOOD; it is no longer evidence the model is
+    CURRENT, so an old ranked row must not auto-publish. It must also not
+    be silently dropped -- an arena rank is still a real signal a human
+    should see, so it stays in the review queue.
+
+    microsoft/Phi-3-mini-4k-instruct is the actual regression: ranked #186,
+    released 2024-04-22, and one of 15 stale models a live discover.py run
+    auto-promoted before this fix.
+    """
+    old = date(2024, 4, 22)
+    today = date(2026, 8, 10)
+    row = _row(arena_rank=186, release_date=old)
+    assert classify.route(row, set(), today=today) == "review"
+
+
+def test_arena_rank_outside_recency_window_still_notable():
+    """Staging is unaffected by the recency gate -- only unattended
+    promotion is. An old ranked row must still surface in candidates.yaml
+    for a human to see (see test_arena_path_unaffected_by_downloads_recency_window
+    above, which covers is_notable directly; this confirms route agrees)."""
+    old = date(2024, 4, 22)
+    today = date(2026, 8, 10)
+    row = _row(arena_rank=186, release_date=old)
+    assert classify.is_notable(row, today=today) is True
+
+
+def test_aa_at_floor_outside_recency_window_still_promotes():
+    """AA keeps its recency exemption on the promotion floor: Artificial
+    Analysis genuinely delists models it no longer rates (verified), so an
+    aa_index at or above AA_PROMOTION_FLOOR is still evidence of CURRENT
+    relevance even for an old release -- unlike an arena rank, which is
+    now recency-gated (see test_arena_rank_outside_recency_window_reviews_not_drops)."""
+    old = date(2024, 4, 22)
+    today = date(2026, 8, 10)
+    row = _row(aa_index=classify.AA_PROMOTION_FLOOR, release_date=old)
+    assert classify.route(row, set(), today=today) == "promote"
+
+
+def test_arena_rank_with_unparseable_release_date_not_blocked():
+    """A hand-edited candidates.yaml row with a bad release_date is a schema
+    problem (see schema_errors), not evidence of staleness -- the arena-
+    recency check specifically must not treat it as stale. The row still
+    ends up in review (schema_errors catches the bad date), but not because
+    this check misread a string as "old": missing_vitals must not carry
+    "aa-below-promotion-floor" for it."""
+    today = date(2026, 8, 10)
+    row = _row(arena_rank=186, release_date="sometime in 2025")
+    assert "aa-below-promotion-floor" not in classify.missing_vitals(row, set(), today=today)
+    assert classify.schema_errors(row) != []
+    assert classify.route(row, set(), today=today) == "review"
 
 
 # --- routing ---------------------------------------------------------------
