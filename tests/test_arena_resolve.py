@@ -325,6 +325,32 @@ def test_inkling_resolves_after_the_vendor_strip():
     assert pa.score_match("Inkling", "thinkingmachines/Inkling") == "high"
 
 
+def test_new_board_trailing_max_resolves_kimi_k3():
+    """kimi-k3-max was rank #1 on the new text-leaderboard's open-source view
+    and failed to resolve before the trailing-effort strip was added (the old
+    code only stripped parenthetical effort tags, not this hyphen-glued
+    form).
+    """
+    query = pa.normalize_model_name("kimi-k3-max")
+    assert pa.score_match(query, "moonshotai/Kimi-K3") == "high"
+
+
+def test_new_board_trailing_max_resolves_glm_5_2():
+    """Same gap, rank #2 on the new board."""
+    query = pa.normalize_model_name("glm-5.2-max")
+    assert pa.score_match(query, "zai-org/GLM-5.2") == "high"
+
+
+def test_thinking_variant_does_not_silently_resolve_to_base_weights():
+    """A missing match sends a row to review; a WRONG match publishes the
+    wrong weights under the model's name. 'thinking' is deliberately not in
+    the stripped effort-token set (see names.EFFORT_TOKENS), so
+    kimi-k2.5-thinking must not collapse onto the non-thinking Kimi-K2.5 repo.
+    """
+    query = pa.normalize_model_name("kimi-k2.5-thinking")
+    assert pa.score_match(query, "moonshotai/Kimi-K2.5") != "high"
+
+
 def test_suffix_stripping_does_not_invent_matches():
     """Stripping must not collapse two genuinely different models together."""
     assert pa.score_match(
