@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Scrape the Arena Intelligence "Agent Arena" leaderboard (https://arena.ai)
+Scrape the Arena Intelligence text leaderboard, open-source view (https://arena.ai)
 and resolve each ranked model to a Hugging Face weights repo.
 
 WHAT THIS IS FOR:
@@ -70,7 +70,20 @@ normalize_model_name = names.normalize_display
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "arena_agent_rankings.yaml"
-DEFAULT_URL = "https://arena.ai/leaderboard/agent"
+# The TEXT leaderboard's open-source view, not the Agent one.
+#
+# ?license=open-source is a genuine SERVER-side filter (386 rows unfiltered,
+# 213 filtered; the unfiltered list opens with Claude, the filtered one with
+# kimi-k3-max), so ranks here are open-weight-relative — GLM-5.2 is #2, not
+# #12 among all models. That is the more useful number for this tracker.
+#
+# CAVEAT: the filter means we now only SEE what arena labels open-source, so a
+# genuinely open-weight model arena mislabels is invisible to us rather than
+# scraped-and-resolved. Open-weight status is still decided ONLY by whether a
+# public weights repo resolves on HF (see resolve_row) — the label never
+# decides it — but it now decides what we look at. Drop the query param to go
+# back to seeing everything.
+DEFAULT_URL = "https://arena.ai/leaderboard/text/overall?license=open-source"
 
 # keyword found in a model's display name -> canonical org. This is ONLY a
 # search hint for HF lookup. It deliberately makes NO claim about whether the
@@ -536,7 +549,7 @@ def main():
               "scripts/discover.py (so the sweep covers it).")
 
     out_rows = ow if args.open_weight_only else rows
-    header = ("# AUTO-SCRAPED from arena.ai Agent Arena by scripts/pull_arena.py\n"
+    header = ("# AUTO-SCRAPED from the arena.ai text leaderboard (open-source view)\n# by scripts/pull_arena.py. Ranks are open-weight-relative.\n"
               "# open_weight means: a public weights repo was FOUND on Hugging Face.\n"
               "# It is not arena's license label and not an org guess.\n"
               "# needs_hf_repo=true means the match was inexact — verify by hand.\n")
