@@ -22,6 +22,8 @@ Each list entry is one model. Fields:
 | `license_notes` | no | string | Any restriction worth flagging |
 | `weights_url` | no | url | Direct link to the weights |
 | `notes` | no | string | Free text (standout result, quantization tips, etc.) |
+| `commercial_use_verified` | no | bool | `false` (or absent) means the value was inferred from the licence tag, not read from the licence. The README marks these with `?`. |
+| `params_active_source` | no | string | For auto-promoted MoE rows: the sentence in the model card the activation figure came from. |
 
 ## Conventions
 
@@ -48,6 +50,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 | `downloads` | integer | HF download count at discovery time; a rough popularity signal |
 | `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
+| `needs_review` | list | Why the row was not auto-promoted, e.g. `moe-active-params-unknown`. Strip on promotion. |
 
 Candidates are ordered arena-ranked first (ascending), then unranked by release
 date descending — so the models people actually use lead the review queue.

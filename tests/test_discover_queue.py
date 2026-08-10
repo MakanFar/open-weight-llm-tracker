@@ -18,15 +18,24 @@ from test_discover_sweep import FakeApi
 from test_hf_meta import FakeInfo
 
 
+# downloads=600_000 clears classify.NOTABILITY_DOWNLOADS so these fixtures are
+# notable on their own — independent of whatever aa_scores.yaml happens to
+# contain — which is what keeps this file's carry-forward tests from silently
+# depending on production data.
 GLM = FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit",
-               created_at="2026-07-01T00:00:00+00:00")
+               created_at="2026-07-01T00:00:00+00:00", downloads=600_000)
 KIMI = FakeInfo("moonshotai/Kimi-K3", total=1_058_600_000_000, license="mit",
-                created_at="2026-07-20T00:00:00+00:00")
+                created_at="2026-07-20T00:00:00+00:00", downloads=600_000)
 
 TODAY = date(2026, 7, 30)
 
 
 def _refresh(api, tmp_path, **kw):
+    # aa_path defaults to a sidecar that does not exist, not the real
+    # aa_scores.yaml — these tests are about carry-forward mechanics, not
+    # about whatever AA currently rates zai-org/GLM-5.2.
+    kw.setdefault("aa_path", tmp_path / "nope.yaml")
+    kw.setdefault("get_text", lambda url: "")
     return discover.refresh(
         api, 3.0,
         data_path=tmp_path / "models.yaml",
@@ -40,35 +49,38 @@ def _seed(tmp_path, models="models: []\n", candidates="models: []\n"):
 
 
 def test_second_run_preserves_staged_candidates(tmp_path):
-    """The regression: run twice, the queue must not empty itself."""
+    """The regression: run twice, the queue must not empty itself.
+
+    GLM has no context_window in this fixture (the fake get_json/get_text
+    fetchers answer nothing), so it is notable-but-incomplete and lands in
+    the review queue rather than promoting — that incompleteness is
+    incidental to this test, which only cares that the row survives.
+    """
     _seed(tmp_path)
     api = FakeApi({"zai-org": [GLM]})
 
-    first, _, _ = _refresh(api, tmp_path)
-    assert [c["hf_repo"] for c in first] == ["zai-org/GLM-5.2"]
+    promoted, first_queue, _, _ = _refresh(api, tmp_path)
+    assert promoted == []
+    assert [c["hf_repo"] for c in first_queue] == ["zai-org/GLM-5.2"]
 
-    discover.write_candidates(tmp_path / "candidates.yaml", first)
+    discover.write_candidates(tmp_path / "candidates.yaml", first_queue)
 
-    second, _, _ = _refresh(api, tmp_path)
-    assert [c["hf_repo"] for c in second] == ["zai-org/GLM-5.2"]
+    _, second_queue, _, _ = _refresh(api, tmp_path)
+    assert [c["hf_repo"] for c in second_queue] == ["zai-org/GLM-5.2"]
 
 
 def test_second_run_appends_new_findings_to_the_queue(tmp_path):
     _seed(tmp_path)
     api = FakeApi({"zai-org": [GLM]})
 
-    first, _, _ = _refresh(api, tmp_path)
-    discover.write_candidates(tmp_path / "candidates.yaml", first)
+    _, first_queue, _, _ = _refresh(api, tmp_path)
+    discover.write_candidates(tmp_path / "candidates.yaml", first_queue)
 
     api = FakeApi({"zai-org": [GLM], "moonshotai": [KIMI]})
-    second, _, _ = discover.refresh(
-        api, 3.0,
-        data_path=tmp_path / "models.yaml",
-        candidates_path=tmp_path / "candidates.yaml",
-        orgs=["zai-org", "moonshotai"],
-        use_arena=False, get_json=lambda url: {}, today=TODAY)
+    _, second_queue, _, _ = _refresh(api, tmp_path,
+                                     orgs=["zai-org", "moonshotai"])
 
-    assert sorted(c["hf_repo"] for c in second) == [
+    assert sorted(c["hf_repo"] for c in second_queue) == [
         "moonshotai/Kimi-K3", "zai-org/GLM-5.2"]
 
 
@@ -81,21 +93,32 @@ def test_promoted_candidates_leave_the_queue(tmp_path):
                "release_date": date(2026, 7, 1)}]}))
     api = FakeApi({"zai-org": [GLM]})
 
-    candidates, _, _ = _refresh(api, tmp_path)
+    promoted, queue, _, _ = _refresh(api, tmp_path)
 
-    assert candidates == []
+    assert promoted == []
+    assert queue == []
 
 
 def test_staged_rows_are_kept_even_when_older_than_the_age_window(tmp_path):
-    """Carry-forward outranks recency: a pending review is not stale."""
+    """Carry-forward outranks the org-sweep age window: a pending review is
+    not stale merely because sweep_orgs' max_age_days would have filtered it
+    had it been freshly discovered today.
+
+    release_date is set older than the 180-day max_age_days used below (so
+    the point above is actually exercised) but still inside
+    classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS (365) of TODAY, so the row
+    stays notable via downloads — that separate, newer recency gate is not
+    what this test is about (see test_downloads_recency_* in
+    test_classify.py for that).
+    """
     _seed(tmp_path, candidates=yaml.safe_dump({"models": [
         {"name": "OLMo-2-13B", "hf_repo": "allenai/OLMo-2-13B",
-         "release_date": date(2023, 7, 11)}]}))
+         "release_date": date(2026, 1, 1), "downloads": 600_000}]}))
     api = FakeApi({"allenai": []})
 
-    candidates, _, _ = _refresh(api, tmp_path, max_age_days=180)
+    _, queue, _, _ = _refresh(api, tmp_path, max_age_days=180)
 
-    assert [c["hf_repo"] for c in candidates] == ["allenai/OLMo-2-13B"]
+    assert [c["hf_repo"] for c in queue] == ["allenai/OLMo-2-13B"]
 
 
 def test_staged_row_with_unusable_release_date_survives(tmp_path):
@@ -103,19 +126,154 @@ def test_staged_row_with_unusable_release_date_survives(tmp_path):
 
     Carrying staged rows forward feeds human-edited YAML into the ranking
     sort, which reads release_date; a missing or non-date value there would
-    otherwise take down the whole refresh.
+    otherwise take down the whole refresh. downloads is set on both rows so
+    the routing loop (added in this task) does not drop them before the
+    ranking sort ever runs — that gate is not what this test is about.
     """
     _seed(tmp_path, candidates=yaml.safe_dump({"models": [
-        {"name": "NoDate", "hf_repo": "org/no-date"},
+        {"name": "NoDate", "hf_repo": "org/no-date", "downloads": 600_000},
         {"name": "StrDate", "hf_repo": "org/str-date",
-         "release_date": "sometime in 2025"},
+         "release_date": "sometime in 2025", "downloads": 600_000},
     ]}))
     api = FakeApi({})
 
-    candidates, _, _ = _refresh(api, tmp_path)
+    _, queue, _, _ = _refresh(api, tmp_path)
 
-    assert sorted(c["hf_repo"] for c in candidates) == [
+    assert sorted(c["hf_repo"] for c in queue) == [
         "org/no-date", "org/str-date"]
+
+
+def test_schema_invalid_carried_forward_row_is_demoted_not_promoted(tmp_path):
+    """A hand-edited candidates.yaml row can clear every vitals check
+    (classify.missing_vitals) and still fail validate.py's own rules —
+    release_date: "sometime in 2025" is exactly the garbage
+    test_staged_row_with_unusable_release_date_survives proves a human can
+    type. missing_vitals alone would wave this row through to models.yaml,
+    where render_readme's date sort then raises TypeError comparing a
+    datetime.date to a str, killing the whole weekly PR. The promotion gate
+    must also run validate.py's per-row checks and demote a failure to
+    review — never append it — carrying the specific complaint so a human
+    can see what is wrong.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "BadDate", "hf_repo": "org/bad-date", "developer": "org",
+         "release_date": "sometime in 2025", "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = _refresh(api, tmp_path)
+
+    assert promoted == []
+    assert [c["hf_repo"] for c in queue] == ["org/bad-date"]
+    assert any("schema-invalid" in r for r in queue[0]["needs_review"]), \
+        queue[0]["needs_review"]
+
+
+def test_schema_valid_carried_forward_row_still_promotes(tmp_path):
+    """Same shape as the row above but with a real date: the new schema gate
+    must not reject a genuinely clean row, only a broken one.
+
+    release_date is within classify.NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of
+    TODAY so this row stays notable via downloads — the schema gate is what
+    this test is about, not the (separate, newer) downloads recency gate.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "GoodDate", "hf_repo": "org/good-date", "developer": "org",
+         "release_date": date(2026, 6, 1), "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = _refresh(api, tmp_path)
+
+    assert [c["hf_repo"] for c in promoted] == ["org/good-date"]
+    assert queue == []
+
+
+# --- re-enrichment of carried-forward rows ----------------------------------
+# enrich_row previously only ran inside sweep_orgs/arena_candidates, i.e. only
+# when a row was newly built. A row already staged in candidates.yaml goes
+# through surviving_staged() untouched, so every one of the 358 real staged
+# rows got exactly one enrichment attempt, at first discovery, and never
+# again — enrich.py was permanently inert against the existing queue.
+
+def test_refresh_reenriches_a_carried_forward_row_with_unmet_vitals(tmp_path):
+    """A carried-forward MoE row still missing its active-params figure must
+    get a fresh enrichment attempt on every refresh(), not just at the run
+    that first discovered it — a vendor can publish the activation figure on
+    the card later, and the row should unblock automatically once they do.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+    card = "It has ~700B parameters and ~35B activated parameters."
+
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {},
+        get_text=lambda url: card, today=TODAY)
+
+    assert [r["hf_repo"] for r in promoted] == ["org/gappy"]
+    assert promoted[0]["params_active_b"] == 35.0
+
+
+def test_refresh_does_not_reenrich_a_carried_forward_row_that_is_already_complete(tmp_path):
+    """Only rows classify.missing_vitals still flags should get a re-fetch
+    attempt — a fully complete row must not pay for a network round trip on
+    every single weekly run forever."""
+    def boom(url):
+        raise AssertionError(f"should not have fetched {url} for a complete row")
+
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Ready", "hf_repo": "org/ready", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {},
+        get_text=boom, today=TODAY)
+
+    assert [r["hf_repo"] for r in promoted] == ["org/ready"]
+
+
+def test_refresh_reenrichment_survives_a_carried_forward_row_having_no_model_info(tmp_path):
+    """Carried-forward rows have no ModelInfo (they were never fetched this
+    run) — enrich_row's licence half needs one for license_string. Passing
+    None must not raise; it just means the licence half is a no-op for a
+    carried row, honestly reflecting that no fresher licence data exists."""
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 0, "modality": "text", "license": "other",
+         "commercial_use": True, "downloads": 600_000}]}))
+    api = FakeApi({})
+
+    # Must not raise even though there is no ModelInfo to read a licence from.
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "nope.yaml",
+        use_arena=False, get_json=lambda url: {"model_max_length": 65536},
+        get_text=lambda url: "", today=TODAY)
+
+    assert queue[0]["context_window"] == 65536
+    assert queue[0]["license"] == "other"  # licence half is a no-op for carried rows
 
 
 def test_write_candidates_round_trips(tmp_path):
@@ -173,13 +331,80 @@ def test_refresh_annotates_carried_forward_candidates(tmp_path):
         "scores:\n  moonshotai/Kimi-K3:\n    intelligence_index: 57\n")
     api = FakeApi({})
 
-    candidates, _, _ = discover.refresh(
+    _, queue, _, _ = discover.refresh(
         api, 3.0, data_path=tmp_path / "models.yaml",
         candidates_path=tmp_path / "candidates.yaml",
         aa_path=tmp_path / "aa.yaml",
-        use_arena=False, get_json=lambda url: {}, today=TODAY)
+        use_arena=False, get_json=lambda url: {}, get_text=lambda url: "",
+        today=TODAY)
 
-    assert candidates[0]["aa_index"] == 57
+    assert queue[0]["aa_index"] == 57
+
+
+def test_refresh_splits_promotable_from_reviewable(tmp_path):
+    """The whole point: complete+notable leaves, incomplete+notable waits,
+    unremarkable never appears.
+
+    Ready's seeded aa_index (5) deliberately disagrees with the sidecar's (40):
+    annotate_aa refreshes every row from aa_scores.yaml before classify.route
+    ever sees it (see annotate_aa's docstring — AA delists models, so a stale
+    carried-forward score must not survive), so the row that reaches promotion
+    proves the sidecar decided it, not the stale seed.
+    """
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Ready", "hf_repo": "org/ready", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 70.0,
+         "params_active_b": 70.0, "architecture": "dense",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "aa_index": 5},
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 131072, "modality": "text", "license": "mit",
+         "commercial_use": True, "aa_index": 45},
+        {"name": "Noise", "hf_repo": "org/noise", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 7.0,
+         "params_active_b": 7.0, "architecture": "dense",
+         "context_window": 4096, "modality": "text", "license": "mit",
+         "commercial_use": True, "downloads": 12},
+    ]}))
+    (tmp_path / "aa.yaml").write_text(
+        "scores:\n"
+        "  org/ready:\n    intelligence_index: 40\n"
+        "  org/gappy:\n    intelligence_index: 45\n")
+    api = FakeApi({})
+
+    promoted, queue, _, _ = discover.refresh(
+        api, 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "aa.yaml",
+        use_arena=False, get_json=lambda url: {},
+        get_text=lambda url: "", today=TODAY)
+
+    assert [r["hf_repo"] for r in promoted] == ["org/ready"]
+    assert promoted[0]["aa_index"] == 40, \
+        "the sidecar is the source of truth, not the stale candidates.yaml seed"
+    assert [r["hf_repo"] for r in queue] == ["org/gappy"]
+
+
+def test_refresh_records_why_a_queued_row_is_queued(tmp_path):
+    _seed(tmp_path, candidates=yaml.safe_dump({"models": [
+        {"name": "Gappy", "hf_repo": "org/gappy", "developer": "org",
+         "release_date": date(2026, 7, 1), "params_total_b": 700.0,
+         "params_active_b": 700.0, "architecture": "moe",
+         "context_window": 0, "modality": "text", "license": "mit",
+         "commercial_use": True, "aa_index": 45}]}))
+    (tmp_path / "aa.yaml").write_text(
+        "scores:\n  org/gappy:\n    intelligence_index: 45\n")
+
+    _, queue, _, _ = discover.refresh(
+        FakeApi({}), 3.0, data_path=tmp_path / "models.yaml",
+        candidates_path=tmp_path / "candidates.yaml",
+        aa_path=tmp_path / "aa.yaml", use_arena=False,
+        get_json=lambda url: {}, get_text=lambda url: "", today=TODAY)
+
+    assert set(queue[0]["needs_review"]) >= {"moe-active-params-unknown",
+                                             "no-context-window"}
 
 
 def test_a_skipped_arena_repo_reports_the_rank_it_takes_with_it(capsys):

@@ -19,6 +19,7 @@ models:
     modality: text
     license: llama-3.1-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Free commercial use below 700M MAU; attribution + naming terms apply."
     weights_url: https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct
     notes: "Dense flagship; strong general reasoning."
@@ -34,6 +35,7 @@ models:
     modality: text
     license: llama-3.3-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "700M-MAU gate; near-405B quality at 70B size."
     weights_url: https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct
     notes: ""
@@ -49,6 +51,7 @@ models:
     modality: multimodal
     license: llama-4-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "700M-MAU gate. Native multimodal; very long context."
     weights_url: https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct
     notes: "Headline 10M-token context window."
@@ -64,6 +67,7 @@ models:
     modality: multimodal
     license: llama-4-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "700M-MAU gate."
     weights_url: https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct
     notes: "128-expert MoE."
@@ -79,6 +83,7 @@ models:
     modality: text
     license: qwen
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Qwen license (72B tier is not Apache-2.0; most smaller Qwen2.5 sizes are)."
     weights_url: https://huggingface.co/Qwen/Qwen2.5-72B-Instruct
     notes: ""
@@ -94,6 +99,7 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Fully permissive."
     weights_url: https://huggingface.co/Qwen/Qwen3-235B-A22B
     notes: "Hybrid thinking/non-thinking modes."
@@ -109,6 +115,7 @@ models:
     modality: text
     license: deepseek
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "DeepSeek Model License; commercial use permitted."
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3
     notes: "Large MoE; strong price/performance."
@@ -124,6 +131,7 @@ models:
     modality: text
     license: mit
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Weights released under MIT; distillation allowed."
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-R1
     notes: "Reasoning model; MATH-500 ~97."
@@ -139,6 +147,7 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Fully permissive."
     weights_url: https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501
     notes: ""
@@ -154,6 +163,7 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Fully permissive."
     weights_url: https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1
     notes: "Sparse MoE."
@@ -169,6 +179,7 @@ models:
     modality: text
     license: gemma
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Gemma Terms of Use; permissive but with use restrictions."
     weights_url: https://huggingface.co/google/gemma-2-27b-it
     notes: ""
@@ -184,6 +195,7 @@ models:
     modality: vision-language
     license: gemma
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Gemma Terms of Use. Adds vision + long context over Gemma 2."
     weights_url: https://huggingface.co/google/gemma-3-27b-it
     notes: ""
@@ -199,6 +211,7 @@ models:
     modality: text
     license: mit
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Fully permissive."
     weights_url: https://huggingface.co/microsoft/phi-4
     notes: "Small model, strong reasoning for size."
@@ -214,6 +227,7 @@ models:
     modality: text
     license: cc-by-nc-4.0
     commercial_use: false
+    commercial_use_verified: true
     license_notes: "Non-commercial only — good example of an open-weight but NON-commercial license."
     weights_url: https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024
     notes: "Strong RAG/tool-use; weights are research-only."
@@ -229,6 +243,7 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Fully permissive."
     weights_url: https://huggingface.co/Qwen/Qwen2.5-7B-Instruct
     notes: "Popular small-model workhorse."
@@ -244,6 +259,7 @@ models:
     modality: text
     license: llama-3.1-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "700M-MAU gate."
     weights_url: https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct
     notes: "Common edge/local baseline."
@@ -259,6 +275,7 @@ models:
     modality: text
     license: kimi-k3
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Modified MIT; extra obligations for products above 100M users."
     weights_url: https://huggingface.co/moonshotai/Kimi-K3
     notes: "Top open-weight model on both Agent Arena (#5) and AA Intelligence Index (57). Activates 16 of 896 experts."
@@ -274,6 +291,7 @@ models:
     modality: text
     license: mit
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "MIT; no additional use restrictions."
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro
     notes: "Card: 1.6T parameters, 49B activated."
@@ -289,6 +307,7 @@ models:
     modality: multimodal
     license: minimax-community
     commercial_use: conditional
+    commercial_use_verified: true
     license_notes: "Community licence: non-commercial by default; commercial use has separate conditions."
     weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M3
     notes: "Native multimodal, 1M context. Card: ~428B params, ~23B activated."
@@ -304,6 +323,7 @@ models:
     modality: text
     license: mit
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "MIT; no additional use restrictions."
     weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro
     notes: "Card: 1.02T total, 42B active. Hybrid attention."
@@ -319,6 +339,7 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "Apache-2.0 per the repo tag."
     weights_url: https://huggingface.co/tencent/Hy3
     notes: "Card: 295B params, 21B active, 192 experts top-8. Plus 3.8B MTP layer."
@@ -334,6 +355,54 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
+    commercial_use_verified: true
     license_notes: "VERIFY: repo tag says apache-2.0, unlike previous Gemma releases which used the Gemma licence."
     weights_url: https://huggingface.co/google/gemma-4-31B-it
     notes: "Only dense model in this batch."
+
+  - name: MiMo-V2.5
+    hf_repo: XiaomiMiMo/MiMo-V2.5
+    developer: XiaomiMiMo
+    release_date: 2026-04-27
+    params_total_b: 310.8
+    params_active_b: 15.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5
+    params_active_source: 15B activated param
+    commercial_use_verified: false
+
+  - name: granite-4.1-8b
+    hf_repo: ibm-granite/granite-4.1-8b
+    developer: ibm-granite
+    release_date: 2026-04-06
+    params_total_b: 8.8
+    params_active_b: 8.8
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/ibm-granite/granite-4.1-8b
+    commercial_use_verified: false
+
+  - name: Qwen3-Coder-Next
+    hf_repo: Qwen/Qwen3-Coder-Next
+    developer: Qwen
+    release_date: 2026-01-30
+    params_total_b: 79.7
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
+    params_active_source: 3B activated param
+    commercial_use_verified: false

@@ -43,6 +43,12 @@ EXCLUDE_PATTERNS = re.compile(
     re.IGNORECASE,
 )
 
+# The boilerplate stamped onto every auto-discovered row's `notes` field.
+# Named so discover.promotion_row can strip it by identity (candidate_from_repo
+# is the only writer of this exact sentence) rather than duplicating the
+# literal, which would silently drift the moment either string changed.
+AUTO_DISCOVERY_NOTE = "Auto-discovered candidate; review before merging into models.yaml."
+
 CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
 
 # Expert-count keys that mark a mixture-of-experts model. Vendors disagree on
@@ -131,19 +137,35 @@ def resolve_facts(info, get_json=_http_get_json):
 
     The API expand answers both fields for some repos; when it does not, one
     config.json body serves both rather than one request per field.
+
+    architecture comes back None when neither the API expand's config nor a
+    fetched config.json ever yielded a usable dict — i.e. we never saw a
+    config at all, as distinct from seeing one that genuinely declares no
+    experts (a legitimate "dense"). fetch_config swallows every exception
+    (gated repo, timeout, 404), so without this distinction a transient
+    network failure was indistinguishable from a confirmed-dense config and
+    both silently became "dense" — a genuinely MoE model could then promote
+    with architecture=dense and params_active_b force-equal to
+    params_total_b, which validate.py's dense-equality rule waves through
+    cleanly since it only checks the two figures agree, not that "dense" was
+    ever actually earned. validate.row_errors rejects architecture not in
+    ARCH, so a None here routes the row to review instead of promoting a
+    guess, with no new gate needed.
     """
     api_cfg = getattr(info, "config", None) or {}
+    saw_config = isinstance(api_cfg, dict) and bool(api_cfg)
     ctx = _ctx_from_config(api_cfg)
-    arch = architecture_from_config(api_cfg)
+    arch = architecture_from_config(api_cfg) if saw_config else None
     if ctx and arch == "moe":
         return ctx, arch
 
     cfg = fetch_config(info.id, get_json)
     if cfg is not None:
+        saw_config = True
         ctx = ctx or _ctx_from_config(cfg)
         if arch != "moe":
             arch = architecture_from_config(cfg)
-    return ctx or 0, arch
+    return ctx or 0, (arch if saw_config else None)
 
 
 def params_b_of(info):
@@ -216,7 +238,7 @@ def candidate_from_repo(info, discovered_via, arena_rank=None,
         "weights_url": f"https://huggingface.co/{repo}",
         "downloads": getattr(info, "downloads", None),
         "discovered_via": list(discovered_via),
-        "notes": "Auto-discovered candidate; review before merging into models.yaml.",
+        "notes": AUTO_DISCOVERY_NOTE,
     }
     if arena_rank is not None:
         candidate["arena_rank"] = arena_rank

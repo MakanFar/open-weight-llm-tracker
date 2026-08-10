@@ -1,8 +1,13 @@
 #!/usr/bin/env python3
 """
-Discover NEW open-weight LLMs and stage them as candidates for review. This
-does NOT touch models.yaml directly — it writes candidates.yaml so a human
-approves them (via PR) before they land.
+Discover NEW open-weight LLMs, classify each one, and route it accordingly.
+A row that clears the notability bar (classify.is_notable) with no missing
+vitals (classify.missing_vitals) is APPENDED to models.yaml; everything else
+that is notable waits in candidates.yaml with a `needs_review` list; anything
+unremarkable is dropped before either file sees it. This never edits, reorders
+or deletes a row already in models.yaml — only append_models() writes to it,
+and only by adding to the end — and it never commits to main: the Action opens
+a PR, which stays the human-in-the-loop approval step.
 
 WHY AN ORG SWEEP, NOT A GLOBAL SCAN:
     This script used to sort ALL of Hugging Face by created_at and take the
@@ -85,6 +90,7 @@ NOTES / deliberate choices (the "don'ts"):
 import argparse
 import os
 import sys
+import tempfile
 from datetime import date, timedelta
 from pathlib import Path
 
@@ -97,6 +103,9 @@ except ImportError:
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import hf_meta
+import enrich
+import names
+import classify
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
@@ -144,6 +153,154 @@ def tracked_repos(path=DATA):
     return {r["hf_repo"].lower() for r in _rows_of(path)}
 
 
+# Discovery-only fields. SCHEMA.md requires these stripped on promotion —
+# validate.py checks models.yaml only, so they would otherwise leak in.
+# needs_review is classify.route's own output (why a row waited rather than
+# promoted); a promoted row has already cleared that bar, so the reason it
+# once carried is stale and must not survive into models.yaml.
+PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
+                          "downloads", "needs_hf_repo", "resolution_confidence",
+                          "needs_review")
+
+
+def tracked_stems(path=DATA):
+    """Family stems already present in models.yaml."""
+    return {names.family_stem(r["hf_repo"]) for r in _rows_of(path)}
+
+
+def promotion_row(candidate):
+    """A candidate reshaped for models.yaml.
+
+    commercial_use_verified is force-stamped False (an unconditional
+    assignment, not a setdefault) because the value must reflect that no
+    human has read the licence — a candidate arriving with
+    commercial_use_verified already True (e.g. hand-edited in
+    candidates.yaml from a licence-tag guess) must NOT promote as verified.
+    render_readme.py marks an unverified value with a trailing `?` on the
+    Commercial column, so a reader can tell an inferred claim from a checked
+    one — this row just has to carry the correct value for it to key off.
+
+    The auto-discovery boilerplate note (stamped by every candidate at
+    creation, see hf_meta.AUTO_DISCOVERY_NOTE) is dropped rather than
+    promoted: it is a to-do for the reviewer, not a fact about the model, and
+    is false the instant the row is promoted. Matched by exact identity so a
+    human's own "notes" survives untouched — only that literal sentence is
+    ever removed. license_notes is a different field with a legitimate
+    standing marker ("AUTO-DISCOVERED — verify license terms.") and is left
+    alone.
+    """
+    row = {k: v for k, v in candidate.items() if k not in PROMOTION_STRIP_FIELDS}
+    row["commercial_use_verified"] = False
+    if row.get("notes") == hf_meta.AUTO_DISCOVERY_NOTE:
+        del row["notes"]
+    return row
+
+
+class ModelsYamlShapeError(Exception):
+    """models.yaml is not shaped the way append_models requires.
+
+    Raised instead of writing anything. append_models concatenates text at
+    EOF with no re-parse of what it wrote — that is deliberate (see its
+    docstring) — but that only works if the LAST top-level key in the file
+    really is `models:`. If the file ever ends with a different top-level
+    key (e.g. a hand-added `sources:` block), a naive text-append lands the
+    new row underneath that key instead: the file still parses, `models` is
+    unchanged, and the promoted model silently vanishes with no exception
+    and no change to validate.py's reported count. Refusing loudly here is
+    the only thing that turns that into a visible failure instead of a
+    silent data loss.
+    """
+
+
+def _assert_appendable_shape(text):
+    """Refuse to append unless models.yaml is a mapping ending in `models: [...]`.
+
+    append_models writes raw text onto the end of the file, so anything
+    after that point in the real file would end up appearing to belong to
+    whatever key trails it. Checking that `models` is LAST (not just
+    present) is what keeps the append landing in the right place.
+    """
+    try:
+        doc = yaml.safe_load(text)
+    except yaml.YAMLError as exc:
+        raise ModelsYamlShapeError(f"models.yaml is not valid YAML: {exc}") from exc
+
+    if not isinstance(doc, dict) or not doc:
+        raise ModelsYamlShapeError(
+            "models.yaml does not parse as a non-empty mapping; refusing to "
+            "append rather than risk corrupting it")
+
+    last_key = list(doc.keys())[-1]
+    if last_key != "models":
+        raise ModelsYamlShapeError(
+            f"models.yaml's last top-level key is {last_key!r}, not "
+            "'models'; an EOF append would land under that key instead and "
+            "silently vanish from the tracked list, so refusing to write")
+
+    if not isinstance(doc["models"], list):
+        raise ModelsYamlShapeError(
+            "models.yaml's 'models' key is not a list; refusing to append")
+
+
+def append_models(path, rows):
+    """Append rows to models.yaml. Returns the count appended.
+
+    APPEND-ONLY, and literally so: the existing file is not parsed and
+    re-dumped, it is read as text and added to. Round-tripping through
+    yaml.safe_dump would reflow every hand-curated row and drop the comment
+    header, which is precisely the human ownership this file exists to hold.
+    Before touching anything, _assert_appendable_shape checks (read-only)
+    that the file's last top-level key really is `models:` — see
+    ModelsYamlShapeError for why that precondition matters. This function
+    still never re-dumps the rows it writes; the check only reads.
+
+    Rows are dumped on their own (not wrapped in a {"models": rows} document)
+    because PyYAML's block-sequence indent is 0 by default — a top-level dump
+    would emit "- name: ..." flush against the margin, but every row already
+    in the file sits indented two spaces under the `models:` key. Dumping the
+    bare list and indenting each line by hand matches that existing
+    convention instead of fighting it. Each row is dumped separately (rather
+    than all at once) so a blank line can be inserted before every one of
+    them, not just before the first — every row pair already in the file is
+    separated by a blank line, including consecutive rows within a single
+    append batch, and this matches that existing hand-formatting.
+
+    The write itself is atomic: the new content is written to a temp file in
+    the same directory and moved into place with os.replace(), which is
+    atomic on POSIX. models.yaml is hand-curated source of truth with no
+    automated backup; a plain write_text() truncates in place, so a process
+    killed mid-write would leave it truncated with the appended rows (and
+    possibly existing ones) gone.
+    """
+    rows = list(rows)
+    if not rows:
+        return 0
+
+    existing = Path(path).read_text()
+    _assert_appendable_shape(existing)
+
+    blocks = []
+    for row in rows:
+        dumped = yaml.safe_dump([row], sort_keys=False, allow_unicode=True, width=100)
+        blocks.append("".join("  " + line if line.strip() else line
+                              for line in dumped.splitlines(keepends=True)))
+    body = "\n".join(blocks)  # blank line between consecutive appended rows too
+    if not existing.endswith("\n"):
+        existing += "\n"
+    new_text = existing + "\n" + body
+
+    directory = Path(path).resolve().parent
+    fd, tmp_name = tempfile.mkstemp(prefix=".models.yaml.", dir=directory)
+    try:
+        with os.fdopen(fd, "w") as f:
+            f.write(new_text)
+        os.replace(tmp_name, path)
+    except BaseException:
+        Path(tmp_name).unlink(missing_ok=True)
+        raise
+    return len(rows)
+
+
 def load_staged(path=CANDIDATES):
     """Candidate rows still sitting in the review queue."""
     return _rows_of(path)
@@ -155,7 +312,7 @@ def surviving_staged(staged, tracked):
 
 
 def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
-               max_age_days=None, today=None):
+               get_text=enrich._http_get_text, max_age_days=None, today=None):
     """One list_models call per org. Returns (candidates, skip_counts).
 
     A failure on one org is logged and skipped — it never aborts the sweep.
@@ -166,6 +323,11 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
     entire back-catalogue of every allowlisted org instead of what is new. A
     repo with no created_at is kept — an unknown date cannot prove staleness.
     Pass 0 or None to disable the window.
+
+    Each candidate is enriched (enrich_row) before it is returned. This must
+    happen here, not later in refresh(), because classify.route() judges
+    completeness on the row it is handed — an MoE row would look permanently
+    incomplete if the card-derived active-params figure were never fetched.
     """
     candidates = []
     skips = {"known": 0, "derivative": 0, "small": 0, "license": 0,
@@ -207,9 +369,10 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
                 skips[reason] += 1
                 continue
             ctx, arch = hf_meta.resolve_facts(info, get_json)
-            candidates.append(hf_meta.candidate_from_repo(
+            row = hf_meta.candidate_from_repo(
                 info, discovered_via=["org-sweep"], context_window=ctx,
-                architecture=arch))
+                architecture=arch)
+            candidates.append(enrich_row(row, info, get_text, get_json))
             seen.add(info.id.lower())
 
     return candidates, skips
@@ -259,8 +422,14 @@ def load_arena(path=ARENA):
     return rows, list(raw_new_orgs or [])
 
 
-def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_json):
-    """Build candidates from arena-resolved repos via the shared hf_meta path."""
+def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_json,
+                     get_text=enrich._http_get_text):
+    """Build candidates from arena-resolved repos via the shared hf_meta path.
+
+    Enriched the same way as sweep_orgs, and for the same reason: classify.py
+    must see the card-derived active-params figure, not just what the HF API
+    expand exposes.
+    """
     out = []
     for row in rows:
         repo = row["resolved_repo"]
@@ -281,12 +450,55 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
                   f"{row.get('rank')} dropped)")
             continue
         ctx, arch = hf_meta.resolve_facts(info, get_json)
-        out.append(hf_meta.candidate_from_repo(
+        candidate = hf_meta.candidate_from_repo(
             info, discovered_via=["arena"], arena_rank=row.get("rank"),
             needs_hf_repo=row.get("needs_hf_repo"),
             resolution_confidence=row.get("resolution_confidence"),
-            context_window=ctx, architecture=arch))
+            context_window=ctx, architecture=arch)
+        out.append(enrich_row(candidate, info, get_text, get_json))
     return out
+
+
+def enrich_row(row, info, get_text, get_json):
+    """Fill fields the HF API does not expose, in place. Never fabricates.
+
+    Enrichment must run before classify.py judges a row complete: the HF API
+    has no field for MoE active params, so without this step every MoE
+    candidate looks incomplete regardless of what its model card actually
+    states.
+
+    Only MoE rows get an activation lookup: a dense row's active params equal
+    its total by definition, and validate.py enforces that, so writing a
+    card-derived figure onto one could only break it. The guard checks the
+    row's OWN stated architecture — it does not re-derive one, so a model
+    upstream mislabelled "dense" is a pre-existing gap this function must not
+    try to paper over.
+
+    Every lookup is None-safe: enrich.* returns None rather than a guess when
+    it cannot find an answer, and None here means "leave the field alone",
+    never "write nothing over something". Overwriting a real value with
+    nothing would destroy information a human would otherwise have reviewed.
+
+    params_active_source records the exact sentence the number came from, so
+    a reviewer can check the claim without re-reading the card.
+    """
+    if row.get("architecture") == "moe" and \
+            row.get("params_active_b") == row.get("params_total_b"):
+        found = enrich.active_params_from_card(
+            enrich.fetch_card(row["hf_repo"], get_text))
+        if found is not None:
+            row["params_active_b"], row["params_active_source"] = found
+
+    if not row.get("context_window"):
+        ctx = enrich.context_from_tokenizer(row["hf_repo"], get_json)
+        if ctx:
+            row["context_window"] = ctx
+
+    lic = enrich.license_string(info)
+    if lic:
+        row["license"] = lic
+
+    return row
 
 
 def merge_candidates(org_rows, arena_rows):
@@ -377,9 +589,15 @@ def _release_ordinal(candidate):
 
 HEADER = (
     "# AUTO-GENERATED candidate models from scripts/discover.py\n"
-    "# Review each entry, fix the TODO fields (active params, architecture,\n"
-    "# context, commercial_use), then move approved rows into\n"
-    "# models.yaml and delete them here.\n"
+    "# A row that clears the notability bar with no missing vitals and no\n"
+    "# schema problems is promoted straight into models.yaml by discover.py\n"
+    "# itself -- these rows are the ones still waiting. Each carries a\n"
+    "# needs_review list saying exactly what is missing (a vitals gap, e.g.\n"
+    "# no-context-window/moe-active-params-unknown, or a schema-invalid: ...\n"
+    "# entry quoting validate.py's complaint). Fix the gap in place; the next\n"
+    "# run promotes the row automatically once nothing is left to flag. To\n"
+    "# promote a row yourself instead of waiting, move it into models.yaml and\n"
+    "# strip the discovery-only fields listed in SCHEMA.md.\n"
 )
 
 
@@ -392,23 +610,54 @@ def write_candidates(path, candidates):
 def refresh(api, min_params, *, orgs=None, data_path=DATA,
             candidates_path=CANDIDATES, arena_path=ARENA, aa_path=AA,
             use_arena=True, get_json=hf_meta._http_get_json,
+            get_text=enrich._http_get_text,
             max_age_days=DEFAULT_MAX_AGE_DAYS, today=None):
-    """Build the next review queue. Returns (candidates, skips, new_orgs).
+    """Build the next promotion batch and review queue.
+
+    Returns (promoted, queue, skips, new_orgs).
 
     The queue is cumulative: rows already staged are carried forward (minus
     any promoted into models.yaml) and newly discovered rows are added to
     them, because write_candidates() replaces the file wholesale and anything
-    not returned here is lost.
+    not returned here is lost. Carried-forward rows that still have unmet
+    vitals also get a fresh enrich_row() attempt here (see the comment at
+    that call site) — otherwise a staged row only ever gets enriched once,
+    at the run that first discovered it.
     """
     orgs = ORG_ALLOWLIST if orgs is None else orgs
     tracked = tracked_repos(data_path)
     staged = surviving_staged(load_staged(candidates_path), tracked)
     known = tracked | {r["hf_repo"].lower() for r in staged}
 
+    # Re-attempt enrichment on carried-forward rows. sweep_orgs/arena_candidates
+    # each call enrich_row exactly once, at construction time, because a row
+    # freshly built there is the only row they ever see. A row already sitting
+    # in candidates.yaml skips both of those paths entirely (it is "known"),
+    # so without this loop enrich.py never touches it again after the run
+    # that first discovered it — every one of the 358 real staged rows had
+    # gotten exactly one enrichment attempt, permanently. A vendor who
+    # publishes the missing activation figure a week later should unblock the
+    # row automatically instead of leaving it stuck in review forever.
+    #
+    # Gated on missing_vitals so a fully complete row is never re-fetched —
+    # tracked_stems(data_path) does not change within this call, so computing
+    # it once up front is enough to gate this loop.
+    #
+    # info=None: a carried-forward row has no ModelInfo (it was not fetched
+    # this run), and enrich_row's licence half needs one for
+    # enrich.license_string. Rather than fabricate an info object, pass None
+    # and let license_string's existing None-tolerant path make that half a
+    # documented no-op for carried rows — only the card-derived active-params
+    # and tokenizer-derived context-window halves can actually help them.
+    stems = tracked_stems(data_path)
+    for row in staged:
+        if classify.missing_vitals(row, stems, today=today):
+            enrich_row(row, None, get_text, get_json)
+
     print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
           f"max age {max_age_days or 'unlimited'} days)")
     org_rows, skips = sweep_orgs(api, orgs, min_params, known,
-                                 get_json=get_json,
+                                 get_json=get_json, get_text=get_text,
                                  max_age_days=max_age_days, today=today)
     print(f"  carried {len(staged)} staged candidate(s) forward")
     print(f"  org sweep found {len(org_rows)} new candidate(s); skipped: {skips}")
@@ -419,7 +668,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         if resolved:
             print(f"  arena contributed {len(resolved)} resolved repo(s)")
             arena_rows = arena_candidates(api, resolved, min_params, known,
-                                          get_json=get_json)
+                                          get_json=get_json, get_text=get_text)
         else:
             print("  no arena data (run scripts/pull_arena.py first)")
 
@@ -427,10 +676,36 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
 
     aa_index = load_aa_index(aa_path)
     annotate_aa(candidates, aa_index)
-    scored = sum(1 for c in candidates if "aa_index" in c)
-    print(f"  Artificial Analysis rates {scored} of {len(candidates)} candidate(s)")
 
-    return candidates, skips, new_orgs
+    # Reuses the `stems` computed above the re-enrichment loop rather than
+    # recomputing tracked_stems(data_path) — nothing in between mutates
+    # data_path, so the value is still current.
+    promoted, queue = [], []
+    for row in candidates:
+        verdict = classify.route(row, stems, today=today)
+        if verdict == "drop":
+            continue
+        if verdict == "promote":
+            promoted.append(row)
+            stems.add(names.family_stem(row["hf_repo"]))
+            continue
+        # route() can land here for two independent reasons: missing_vitals
+        # (worth a look but not complete) and/or schema_errors (would fail
+        # validate.py outright, e.g. a hand-edited candidates.yaml row with a
+        # release_date that is not a date). Both are surfaced so a reviewer
+        # sees everything wrong in one pass; the schema complaints are
+        # prefixed "schema-invalid:" so they read distinctly from the terse
+        # vitals tokens (e.g. "no-context-window") and still carry the exact
+        # validator message.
+        reasons = classify.missing_vitals(row, stems, today=today)
+        reasons += [f"schema-invalid: {e}" for e in classify.schema_errors(row)]
+        row["needs_review"] = reasons
+        queue.append(row)
+
+    print(f"  {len(promoted)} promotable, {len(queue)} need review, "
+          f"{len(candidates) - len(promoted) - len(queue)} below the bar")
+
+    return promoted, queue, skips, new_orgs
 
 
 def main():
@@ -447,18 +722,25 @@ def main():
     token = os.environ.get("HUGGINGFACE_TOKEN") or os.environ.get("HF_TOKEN")
     api = HfApi(token=token)
 
-    candidates, _, new_orgs = refresh(api, args.min_params,
-                                      use_arena=not args.no_arena,
-                                      max_age_days=args.max_age_days)
+    promoted, queue, _, new_orgs = refresh(api, args.min_params,
+                                           use_arena=not args.no_arena,
+                                           max_age_days=args.max_age_days)
 
     if new_orgs:
         print(f"\nNEW ORGS seen on the leaderboard but not in ORG_ALLOWLIST: "
               f"{', '.join(new_orgs)}")
         print("Add them to ORG_ALLOWLIST in this file to widen coverage.")
 
-    write_candidates(CANDIDATES, candidates)
-    print(f"\nWrote {len(candidates)} candidate(s) to {CANDIDATES.name}")
-    # exit 0 always; the Action decides whether the diff is non-empty
+    n = append_models(DATA, [promotion_row(r) for r in promoted])
+    write_candidates(CANDIDATES, queue)
+    print(f"\nPromoted {n} model(s) into {DATA.name}; "
+          f"{len(queue)} awaiting review in {CANDIDATES.name}")
+    # No explicit exit code: a normal run falls off the end and exits 0, and
+    # the Action decides whether the diff is non-empty. This is NOT a
+    # guarantee append_models() always succeeds — a models.yaml that fails
+    # _assert_appendable_shape() raises ModelsYamlShapeError here, which
+    # propagates uncaught and exits non-zero on purpose, so a shape problem
+    # fails the Action loudly instead of silently corrupting the file.
 
 
 if __name__ == "__main__":

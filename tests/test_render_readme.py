@@ -80,6 +80,26 @@ def test_load_aa_scores_skips_entries_with_no_numeric_index(tmp_path):
     assert rr.load_aa_scores(f) == {"repos": {}, "identities": {}}
 
 
+def test_commercial_badge_unmarked_when_verified():
+    m = _model(commercial_use=True, commercial_use_verified=True)
+    assert rr.commercial_badge(m) == "Yes"
+
+
+def test_commercial_badge_marked_with_a_trailing_question_mark_when_unverified():
+    """A row promoted automatically infers commercial_use from the licence
+    tag; nobody has read the licence. Rendering it identically to a checked
+    value would publish an unverified legal claim as a settled one."""
+    m = _model(commercial_use=True, commercial_use_verified=False)
+    assert rr.commercial_badge(m) == "Yes?"
+
+
+def test_commercial_badge_marked_when_verified_field_is_absent():
+    """Absent must behave like False — most rows predate this field."""
+    m = _model(commercial_use="conditional")
+    assert "commercial_use_verified" not in m
+    assert rr.commercial_badge(m) == "Conditional?"
+
+
 def test_table_has_an_aa_index_column_and_no_mmlu():
     table = rr.build_table(
         [_model(hf_repo="org/m")],

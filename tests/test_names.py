@@ -119,3 +119,39 @@ def test_precision_tokens_is_the_union_of_native_and_quant():
     assert "bf16" in names.NATIVE_FORMATS
     assert "nvfp4" in names.QUANT_FORMATS
     assert not names.NATIVE_FORMATS & names.QUANT_FORMATS
+
+
+# --- family_stem: the version-collapsing family key ---------------------------
+
+def test_family_stem_collapses_a_version_bump():
+    """GLM-5.1 and GLM-5.2 are the same family; promoting both breaks
+    one-row-per-model."""
+    assert names.family_stem("zai-org/GLM-5.2") == names.family_stem("zai-org/GLM-5.1")
+    assert names.family_stem("zai-org/GLM-5.2") == "glm"
+
+
+def test_family_stem_keeps_distinct_sizes_apart():
+    """Both are tracked today; collapsing them would send siblings to review."""
+    assert names.family_stem("meta-llama/Llama-3.1-405B-Instruct") == "llama405b"
+    assert names.family_stem("meta-llama/Llama-3.1-8B-Instruct") == "llama8b"
+
+
+def test_family_stem_keeps_distinct_product_lines_apart():
+    scout = names.family_stem("meta-llama/Llama-4-Scout-17B-16E-Instruct")
+    maverick = names.family_stem("meta-llama/Llama-4-Maverick-17B-128E-Instruct")
+    assert scout != maverick
+    assert scout == "llamascout17b16e"
+
+
+def test_family_stem_strips_letter_prefixed_versions():
+    assert names.family_stem("moonshotai/Kimi-K3") == "kimi"
+    assert names.family_stem("moonshotai/Kimi-K2.7-Code") == "kimicode"
+
+
+def test_family_stem_keeps_expert_and_size_tokens():
+    """A22B / 16E end in a letter — they are counts, not versions."""
+    assert names.family_stem("Qwen/Qwen3-235B-A22B") == "qwen235ba22b"
+
+
+def test_family_stem_of_an_empty_tail_is_empty():
+    assert names.family_stem("org/") == ""

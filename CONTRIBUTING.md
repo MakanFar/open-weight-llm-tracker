@@ -35,22 +35,35 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
 
 ## Reviewing auto-discovered candidates
 
-`scripts/discover.py` (run weekly by the `discover-models` Action) stages new models
-in `candidates.yaml`, never in `models.yaml`. Entries come from an org sweep, from the
-arena leaderboard, or both — `discovered_via` says which. When a discovery PR shows up:
+`scripts/discover.py` (run weekly by the `discover-models` Action) no longer only
+stages — it **classifies**. Each discovered model is routed one of three ways: an
+unremarkable one is dropped before either file sees it; a notable one with no missing
+vitals and no schema problems is **appended straight into `models.yaml`**; everything
+else notable waits in `candidates.yaml` with a `needs_review` list. `discover.py` never
+edits, reorders, or deletes an existing row — appending to `models.yaml` is the only
+write it makes there. Entries come from an org sweep, from the arena leaderboard, or
+both — `discovered_via` says which.
 
-1. Open `candidates.yaml` and check each entry is a real base model worth tracking
-   (not a fine-tune/merge the name filter missed).
-2. If a row has **`needs_hf_repo: true`**, the leaderboard name matched that repo
-   inexactly. Confirm the repo really is that model before promoting it — this is the
-   one field you cannot take on trust.
-3. Fix the `TODO` fields: `params_active_b` + `architecture` for MoE models, the
-   `context_window` if it came through as `0`, and confirm `commercial_use` by
-   reading the actual license. Don't add a `benchmark` field — `models.yaml`
-   doesn't have one; the AA Index is joined in from `aa_scores.yaml` instead.
-4. Move approved entries into `models.yaml`, delete them from `candidates.yaml`.
-   Strip the discovery-only fields listed in [SCHEMA.md](SCHEMA.md) as you go.
-5. Run `python scripts/render_readme.py`, commit, merge.
+The human gate is the weekly PR itself, not a hand-move step. When a discovery PR
+shows up:
+
+1. **In `models.yaml`'s diff** — the rows `discover.py` auto-promoted. Check each is a
+   real base model (not a fine-tune/merge the name filter missed), and check
+   `commercial_use` on any row the rendered README marks with a trailing `?` on
+   **Commercial** — that means `commercial_use_verified` is `false`, i.e. the value was
+   *inferred* from the licence tag, not read from the licence text. Fix it by hand if
+   the guess is wrong.
+2. **In `candidates.yaml`** — rows still waiting on a human. Each carries a
+   `needs_review` list saying exactly what is missing: a vitals gap (e.g.
+   `no-context-window`, `moe-active-params-unknown`) or a `schema-invalid: ...` entry
+   quoting the specific `validate.py` complaint (most often a hand-edited field, like a
+   `release_date` that isn't a real date). If a row has **`needs_hf_repo: true`**, the
+   leaderboard name matched that repo inexactly — confirm the repo really is that model
+   before promoting it, the one field you cannot take on trust. Fix the gap in place;
+   the next run promotes the row automatically once nothing is left to flag. To
+   promote a row yourself instead of waiting, move it into `models.yaml` and strip the
+   discovery-only fields listed in [SCHEMA.md](SCHEMA.md).
+3. Run `python scripts/render_readme.py`, commit, merge.
 
 ## Where the data comes from
 
