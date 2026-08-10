@@ -58,8 +58,14 @@ CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
 MOE_KEYS = ("num_local_experts", "n_routed_experts", "num_experts",
             "moe_num_experts")
 NESTED_CONFIG_KEYS = ("text_config", "llm_config")
+# pipeline_tag is requested explicitly: without it the API returns None for
+# that field, modality_of falls through to the `tags` fallback, and every
+# genuinely-text model resolves to None instead of "text" — which routes the
+# entire promotable set to review as schema-invalid. The sweep FILTERS on
+# pipeline_tag but that does not imply the value is returned.
 EXPAND = ["safetensors", "cardData", "config", "downloads",
-          "createdAt", "lastModified", "gated", "tags", "library_name"]
+          "createdAt", "lastModified", "gated", "tags", "library_name",
+          "pipeline_tag"]
 
 
 def is_derivative(repo_id):
