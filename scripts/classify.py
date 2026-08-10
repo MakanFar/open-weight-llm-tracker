@@ -43,20 +43,26 @@ NOTABILITY_DOWNLOADS = 500_000
 NOTABILITY_DOWNLOADS_MAX_AGE_DAYS = 365
 
 # Below this, Artificial Analysis has already rated the model and placed it
-# well short of the frontier — the rating is evidence AGAINST notability, not
-# for it. granite-4.1-3b-base at aa=5 is the case this exists to reject: "AA
-# rated it at all" was, before this floor, itself enough to auto-promote it.
+# well short of the frontier — evidence the row needs a human, not evidence
+# it should stay invisible. granite-4.1-3b-base at aa=5 is the case this
+# exists to reject: "AA rated it at all" must not, on its own, publish it
+# without anyone looking.
 #
-# The floor governs ONLY the aa_index-alone path (see is_notable below). It
-# must never weaken arena_rank or downloads: gpt-oss-20b (aa 15, 8.5M
-# downloads) has to stay notable via downloads even though its AA score alone
-# would not clear this bar.
+# THIS FLOOR DOES NOT GATE is_notable / STAGING. Any aa_index, however low,
+# is enough to queue a row in candidates.yaml for review — a low score is
+# evidence a model needs a second look, not evidence it is uninteresting.
+# The floor gates only missing_vitals's unattended-PROMOTION check: a row
+# whose sole claim to notability is an aa_index below this line is routed to
+# review, never auto-promoted into models.yaml, no matter how complete it
+# otherwise is. It must never weaken arena_rank or downloads as INDEPENDENT
+# promotion signals: gpt-oss-20b (aa 15, 8.5M downloads) still promotes via
+# downloads even though its AA score alone would not clear this bar.
 #
 # Several models this tracker ALREADY carries sit below 20 (Llama 3.3 70B,
 # Llama 4 Scout/Maverick: aa 9-14) — a human hand-curated those for reasons
 # other than their AA score, and this floor has no opinion on rows a human
 # already decided to keep. It governs unattended promotion only.
-AA_NOTABILITY_FLOOR = 20
+AA_PROMOTION_FLOOR = 20
 
 # A distill token anywhere in the repo id, case-insensitive. Deliberately a
 # substring match, not a whole-token match: every real-world example
@@ -117,11 +123,16 @@ def _within_downloads_recency_window(row, today):
 
 
 def is_notable(row, today=None):
-    """True if the model is worth publishing without a human asking for it.
+    """True if the row is worth STAGING in candidates.yaml for a human to
+    look at. This is a visibility question, not a publication question —
+    keeping those separate is the whole point of this function's shape.
+    Whether a notable row may PUBLISH unattended is a stricter, later
+    question that missing_vitals answers (see AA_PROMOTION_FLOOR there).
 
-    arena_rank and the aa_index-above-floor path confer notability with no
-    recency requirement: AA only counts a score it still rates today, and
-    arena only ranks the CURRENT leaderboard, so both are already
+    arena_rank and ANY aa_index (however low — a weak score is evidence the
+    model needs review, not evidence it is uninteresting) confer notability
+    with no recency requirement: AA only counts a score it still rates
+    today, and arena only ranks the CURRENT leaderboard, so both are already
     self-refreshing signals of present relevance. downloads is not — it is
     a cumulative lifetime count — so it additionally requires the release to
     fall within NOTABILITY_DOWNLOADS_MAX_AGE_DAYS of `today` (see that
@@ -131,15 +142,31 @@ def is_notable(row, today=None):
     """
     if row.get("arena_rank") is not None:
         return True
-    aa = row.get("aa_index")
-    if aa is not None and aa >= AA_NOTABILITY_FLOOR:
+    if row.get("aa_index") is not None:
         return True
     if (row.get("downloads") or 0) < NOTABILITY_DOWNLOADS:
         return False
     return _within_downloads_recency_window(row, today or date.today())
 
 
-def missing_vitals(row, tracked_stems):
+def _clears_promotion_floor(row, today):
+    """True if the row carries a signal strong enough to PUBLISH unattended:
+    an arena rank, qualifying recent downloads, or an aa_index at or above
+    AA_PROMOTION_FLOOR. Mirrors is_notable's three paths, except the AA leg
+    is stricter here on purpose — is_notable treats any aa_index as reason
+    enough to stage the row; this treats only a score clearing the floor as
+    reason enough to publish it without a human confirming it first.
+    """
+    if row.get("arena_rank") is not None:
+        return True
+    if (row.get("downloads") or 0) >= NOTABILITY_DOWNLOADS and \
+            _within_downloads_recency_window(row, today):
+        return True
+    aa = row.get("aa_index")
+    return aa is not None and aa >= AA_PROMOTION_FLOOR
+
+
+def missing_vitals(row, tracked_stems, today=None):
     """Every reason this row cannot be promoted unreviewed. [] means it can.
 
     Returns ALL reasons rather than the first, so one review pass shows a
@@ -147,11 +174,17 @@ def missing_vitals(row, tracked_stems):
 
     This only checks the fields worth an unassisted promotion (MoE active
     params, context window, licence allowlist, needs_hf_repo, family stem,
-    distill/base derivative status). It does NOT check release_date's type,
-    the modality/architecture/
+    distill/base derivative status, and — see below — whether the row's
+    only claim to notability is an AA score too weak to publish without a
+    human confirming it). It does NOT check release_date's type, the
+    modality/architecture/
     commercial_use enums, or the dense params_active_b == params_total_b
     rule — those are validate.py's job, and route() below also calls
     schema_errors() to cover them before deciding to promote.
+
+    `today` is injectable, defaulting to date.today(), purely because the
+    weak-aa-signal check below needs "today" for its downloads-recency leg —
+    same pattern as is_notable and route.
     """
     reasons = []
 
@@ -179,6 +212,18 @@ def missing_vitals(row, tracked_stems):
     stem = names.family_stem(row.get("hf_repo") or "")
     if stem and stem in tracked_stems:
         reasons.append("family-already-tracked")
+
+    # is_notable stages a row on ANY aa_index, however low; this is the
+    # stricter question of whether that (or another) signal is strong enough
+    # to publish unattended. Reached via route() this can only fire in the
+    # weak-aa-alone case — arena_rank and the downloads leg here are
+    # identical to is_notable's, so if either had made the row notable it
+    # already clears the floor too. Called directly (e.g. discover.py's
+    # re-enrichment gate) on a hand-edited candidates.yaml row with no
+    # signal at all, it fires as well — which is correct: such a row is not
+    # promotable unattended either.
+    if not _clears_promotion_floor(row, today or date.today()):
+        reasons.append("aa-below-promotion-floor")
 
     return reasons
 
@@ -211,10 +256,11 @@ def route(row, tracked_stems, today=None):
     failing sends the row to review instead — a schema failure is never
     promoted, no matter how complete the row otherwise looks.
 
-    today is threaded straight to is_notable (see there) so the downloads
-    path's recency window can be pinned for deterministic tests.
+    today is threaded straight to is_notable and missing_vitals (see there)
+    so the downloads path's recency window can be pinned for deterministic
+    tests.
     """
     if not is_notable(row, today):
         return "drop"
-    return "review" if missing_vitals(row, tracked_stems) or schema_errors(row) \
+    return "review" if missing_vitals(row, tracked_stems, today) or schema_errors(row) \
         else "promote"

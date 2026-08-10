@@ -46,37 +46,34 @@ def test_not_notable_with_no_signal_and_few_downloads():
     assert classify.is_notable(_row(downloads=1200)) is False
 
 
-def test_aa_index_zero_is_a_real_value_not_absent_but_still_below_the_floor():
+def test_aa_index_zero_is_a_real_value_not_absent_and_still_notable():
     """Artificial Analysis scores start at 0; a truthiness check would wrongly
-    treat a genuine 0 as absent (None). But 0 is also far below
-    AA_NOTABILITY_FLOOR, so — unlike before the floor existed — it must NOT
-    confer notability on its own. It still must not raise or be confused
-    with None: notability via another signal (downloads here) still works."""
-    assert classify.is_notable(_row(aa_index=0)) is False
-    assert classify.is_notable(_row(aa_index=0, downloads=600_000),
-                               today=date(2025, 6, 1)) is True
+    treat a genuine 0 as absent (None). is_notable no longer applies a floor
+    to the aa_index path at all — ANY aa_index, however low, is enough to
+    STAGE the row for a human to look at (see AA_PROMOTION_FLOOR's docstring
+    in classify.py for why that floor moved to missing_vitals instead)."""
+    assert classify.is_notable(_row(aa_index=0)) is True
 
 
-def test_low_aa_index_alone_is_not_notable():
-    """granite-4.1-3b-base at aa=5 is exactly the case the floor exists to
-    reject: AA rated it and placed it nowhere near the frontier."""
-    assert classify.is_notable(_row(aa_index=5)) is False
-
-
-def test_aa_index_at_the_floor_boundary():
-    assert classify.is_notable(_row(aa_index=classify.AA_NOTABILITY_FLOOR)) is True
-    assert classify.is_notable(_row(aa_index=classify.AA_NOTABILITY_FLOOR - 1)) is False
+def test_low_aa_index_alone_is_still_notable():
+    """granite-4.1-3b-base at aa=5 must still be STAGED — AA having rated it
+    at all is a reason a human should look, not a reason to hide the row.
+    Whether it PROMOTES unattended is missing_vitals's job (see the
+    'promotion floor' tests below), not is_notable's."""
+    assert classify.is_notable(_row(aa_index=5)) is True
 
 
 def test_low_aa_index_still_notable_via_downloads():
-    """gpt-oss-20b: aa 15, 8.5M downloads. The floor must gate the AA-alone
-    path only, never weaken the downloads path."""
+    """gpt-oss-20b: aa 15, 8.5M downloads. Any aa_index already confers
+    notability on its own now, but this also confirms the downloads path
+    keeps working alongside it."""
     assert classify.is_notable(_row(aa_index=15, downloads=8_500_000),
                                today=date(2025, 6, 1)) is True
 
 
 def test_low_aa_index_still_notable_via_arena_rank():
-    """The floor must not weaken the arena_rank path either."""
+    """A weak aa_index alongside an arena_rank is still notable via either
+    path independently."""
     assert classify.is_notable(_row(aa_index=5, arena_rank=12)) is True
 
 
@@ -157,7 +154,11 @@ def test_context_window_true_rejected():
 # --- vitals ----------------------------------------------------------------
 
 def test_complete_dense_row_has_no_missing_vitals():
-    assert classify.missing_vitals(_row(), set()) == []
+    # aa_index at the promotion floor: this test is about the OTHER vitals
+    # checks (moe/context/licence/etc), so it needs a signal that itself
+    # clears AA_PROMOTION_FLOOR, or the new weak-aa-signal reason would fire
+    # and make an otherwise-complete row look incomplete.
+    assert classify.missing_vitals(_row(aa_index=classify.AA_PROMOTION_FLOOR), set()) == []
 
 
 def test_moe_with_active_equal_to_total_is_incomplete():
@@ -167,7 +168,8 @@ def test_moe_with_active_equal_to_total_is_incomplete():
 
 
 def test_moe_with_a_real_active_figure_is_complete():
-    row = _row(architecture="moe", params_total_b=753.3, params_active_b=32.0)
+    row = _row(architecture="moe", params_total_b=753.3, params_active_b=32.0,
+               aa_index=classify.AA_PROMOTION_FLOOR)
     assert classify.missing_vitals(row, set()) == []
 
 
@@ -230,7 +232,7 @@ def test_base_mid_repo_id_is_not_flagged():
 
 
 def test_ordinary_repo_is_not_flagged_derivative_or_base():
-    assert classify.missing_vitals(_row(), set()) == []
+    assert classify.missing_vitals(_row(aa_index=classify.AA_PROMOTION_FLOOR), set()) == []
 
 
 def test_reports_every_reason_not_just_the_first():
@@ -239,6 +241,62 @@ def test_reports_every_reason_not_just_the_first():
     reasons = classify.missing_vitals(row, set())
     assert set(reasons) >= {"moe-active-params-unknown", "no-context-window",
                             "license-not-allowlisted"}
+
+
+# --- promotion floor (missing_vitals) ---------------------------------
+# AA_PROMOTION_FLOOR no longer lives in is_notable (staging) — it lives here
+# (unattended promotion). A weak aa_index stages the row but must never be
+# enough, on its own, to promote it.
+
+def test_weak_aa_alone_stages_but_does_not_auto_promote():
+    """aa=15 (gpt-oss-20b's actual score) with no other signal must be
+    STAGED (is_notable True) but never published unattended: route() sends
+    it to review, and missing_vitals names the reason."""
+    row = _row(aa_index=15)
+    assert classify.is_notable(row) is True
+    assert classify.route(row, set()) == "review"
+    assert "aa-below-promotion-floor" in classify.missing_vitals(row, set())
+
+
+def test_aa_at_the_promotion_floor_boundary_promotes():
+    row = _row(aa_index=classify.AA_PROMOTION_FLOOR)
+    assert classify.route(row, set()) == "promote"
+
+
+def test_aa_one_below_the_promotion_floor_does_not_promote():
+    row = _row(aa_index=classify.AA_PROMOTION_FLOOR - 1)
+    assert classify.route(row, set()) == "review"
+
+
+def test_weak_aa_with_arena_rank_still_promotes():
+    """The arena rank is an independent strong signal — a weak AA score
+    alongside it must not block promotion."""
+    row = _row(aa_index=15, arena_rank=3)
+    assert classify.route(row, set()) == "promote"
+
+
+def test_weak_aa_with_qualifying_recent_downloads_still_promotes():
+    today = date(2025, 6, 1)
+    row = _row(aa_index=15, downloads=600_000, release_date=today)
+    assert classify.route(row, set(), today=today) == "promote"
+
+
+def test_weak_aa_with_old_high_downloads_does_not_promote():
+    """Downloads that are high but stale don't count (see the recency
+    window); a weak AA score alongside them must send the row to review,
+    not promote it — is_notable is still True (aa_index is present), so the
+    row is not dropped, only held back from unattended promotion."""
+    today = date(2026, 1, 1)
+    row = _row(aa_index=15, downloads=8_500_000, release_date=date(2020, 1, 1))
+    assert classify.is_notable(row, today=today) is True
+    assert classify.route(row, set(), today=today) == "review"
+
+
+def test_no_aa_with_arena_rank_still_promotes():
+    """Unchanged behavior: an arena rank alone, with no AA score at all,
+    still promotes a complete row."""
+    row = _row(arena_rank=3)
+    assert classify.route(row, set()) == "promote"
 
 
 # --- routing ---------------------------------------------------------------
@@ -262,9 +320,9 @@ def test_not_notable_is_dropped_even_when_complete():
 
 def test_schema_errors_flags_a_row_missing_vitals_would_wave_through():
     """release_date is not one of missing_vitals's checks (moe/context/
-    licence/needs_hf_repo/family stem) but it IS one of validate.py's
-    REQUIRED fields — this is the gap Finding A closes."""
-    row = _row(release_date="sometime in 2025")
+    licence/needs_hf_repo/family stem/promotion-floor) but it IS one of
+    validate.py's REQUIRED fields — this is the gap Finding A closes."""
+    row = _row(release_date="sometime in 2025", aa_index=classify.AA_PROMOTION_FLOOR)
     assert classify.missing_vitals(row, set()) == []
     assert classify.schema_errors(row) != []
 

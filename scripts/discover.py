@@ -645,7 +645,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # and tokenizer-derived context-window halves can actually help them.
     stems = tracked_stems(data_path)
     for row in staged:
-        if classify.missing_vitals(row, stems):
+        if classify.missing_vitals(row, stems, today=today):
             enrich_row(row, None, get_text, get_json)
 
     print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
@@ -691,7 +691,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         # prefixed "schema-invalid:" so they read distinctly from the terse
         # vitals tokens (e.g. "no-context-window") and still carry the exact
         # validator message.
-        reasons = classify.missing_vitals(row, stems)
+        reasons = classify.missing_vitals(row, stems, today=today)
         reasons += [f"schema-invalid: {e}" for e in classify.schema_errors(row)]
         row["needs_review"] = reasons
         queue.append(row)
