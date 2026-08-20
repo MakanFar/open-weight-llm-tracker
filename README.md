@@ -9,36 +9,36 @@ Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is 
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
-| [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 9 | 42 | `apache-2.0` | Yes |
+| [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 8 | 42 | `apache-2.0` | Yes |
 | [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) | Moonshot AI | 2026-06-13 | 2779.9B (104B active) | 1M | text | 1 | 60 | `kimi-k3` | Conditional |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 12 | 45 | `minimax-community` | Conditional |
-| [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 4 | 43 | `mit` | Yes |
+| [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 3 | 43 | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 19 | 38 | `mit` | Yes? |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 6 | 45 | `mit` | Yes |
-| [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 102 | — | `apache-2.0` | Yes? |
+| [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 104 | — | `apache-2.0` | Yes? |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 10 | 30 | `apache-2.0` | Yes |
-| [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 43 | — | `apache-2.0` | Yes? |
+| [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 44 | — | `apache-2.0` | Yes? |
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 21 | `apache-2.0` | Yes? |
-| [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 56 | 25 | `mit` | Yes? |
-| [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 86 | — | `apache-2.0` | Yes? |
-| [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 85 | — | `apache-2.0` | Yes? |
-| [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 103 | — | `apache-2.0` | Yes? |
-| [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 61 | — | `apache-2.0` | Yes |
-| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 89 | 14 | `llama-4-community` | Conditional |
-| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 91 | 10 | `llama-4-community` | Conditional |
-| [Gemma 3 27B](https://huggingface.co/google/gemma-3-27b-it) | Google | 2025-03-12 | 27B | 128K | vision-language | 66 | — | `gemma` | Conditional |
-| [Mistral Small 3](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501) | Mistral AI | 2025-01-30 | 24B | 32K | text | 120 | — | `apache-2.0` | Yes |
-| [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) | DeepSeek | 2025-01-20 | 671B (37B active) | 128K | text | 48 | — | `mit` | Yes |
-| [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) | DeepSeek | 2024-12-26 | 671B (37B active) | 128K | text | 69 | — | `deepseek` | Yes |
-| [Phi-4](https://huggingface.co/microsoft/phi-4) | Microsoft | 2024-12-12 | 14B | 16K | text | 127 | — | `mit` | Yes |
-| [Llama 3.3 70B Instruct](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | Meta | 2024-12-06 | 70B | 128K | text | 93 | 9 | `llama-3.3-community` | Conditional |
-| [Qwen2.5 72B Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) | Alibaba | 2024-09-19 | 72.7B | 131K | text | 107 | — | `qwen` | Conditional |
+| [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 57 | — | `mit` | Yes? |
+| [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 88 | — | `apache-2.0` | Yes? |
+| [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 87 | — | `apache-2.0` | Yes? |
+| [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 105 | — | `apache-2.0` | Yes? |
+| [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 62 | — | `apache-2.0` | Yes |
+| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 91 | 14 | `llama-4-community` | Conditional |
+| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 93 | 10 | `llama-4-community` | Conditional |
+| [Gemma 3 27B](https://huggingface.co/google/gemma-3-27b-it) | Google | 2025-03-12 | 27B | 128K | vision-language | 67 | — | `gemma` | Conditional |
+| [Mistral Small 3](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501) | Mistral AI | 2025-01-30 | 24B | 32K | text | 122 | — | `apache-2.0` | Yes |
+| [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) | DeepSeek | 2025-01-20 | 671B (37B active) | 128K | text | 49 | — | `mit` | Yes |
+| [DeepSeek-V3](https://huggingface.co/deepseek-ai/DeepSeek-V3) | DeepSeek | 2024-12-26 | 671B (37B active) | 128K | text | 70 | — | `deepseek` | Yes |
+| [Phi-4](https://huggingface.co/microsoft/phi-4) | Microsoft | 2024-12-12 | 14B | 16K | text | 129 | — | `mit` | Yes |
+| [Llama 3.3 70B Instruct](https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct) | Meta | 2024-12-06 | 70B | 128K | text | 95 | — | `llama-3.3-community` | Conditional |
+| [Qwen2.5 72B Instruct](https://huggingface.co/Qwen/Qwen2.5-72B-Instruct) | Alibaba | 2024-09-19 | 72.7B | 131K | text | 109 | — | `qwen` | Conditional |
 | [Qwen2.5 7B Instruct](https://huggingface.co/Qwen/Qwen2.5-7B-Instruct) | Alibaba | 2024-09-19 | 7.6B | 131K | text | — | — | `apache-2.0` | Yes |
-| [Command R+ (08-2024)](https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024) | Cohere | 2024-08-30 | 104B | 128K | text | 135 | — | `cc-by-nc-4.0` | No |
-| [Llama 3.1 405B Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct) | Meta | 2024-07-23 | 405B | 128K | text | 84 | — | `llama-3.1-community` | Conditional |
-| [Llama 3.1 8B Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) | Meta | 2024-07-23 | 8B | 128K | text | 141 | — | `llama-3.1-community` | Conditional |
-| [Gemma 2 27B](https://huggingface.co/google/gemma-2-27b-it) | Google | 2024-06-27 | 27B | 8K | text | 111 | — | `gemma` | Conditional |
-| [Mixtral 8x22B Instruct](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1) | Mistral AI | 2024-04-17 | 141B (39B active) | 65K | text | 134 | — | `apache-2.0` | Yes |
+| [Command R+ (08-2024)](https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024) | Cohere | 2024-08-30 | 104B | 128K | text | 137 | — | `cc-by-nc-4.0` | No |
+| [Llama 3.1 405B Instruct](https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct) | Meta | 2024-07-23 | 405B | 128K | text | 86 | — | `llama-3.1-community` | Conditional |
+| [Llama 3.1 8B Instruct](https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct) | Meta | 2024-07-23 | 8B | 128K | text | 143 | — | `llama-3.1-community` | Conditional |
+| [Gemma 2 27B](https://huggingface.co/google/gemma-2-27b-it) | Google | 2024-06-27 | 27B | 8K | text | 113 | — | `gemma` | Conditional |
+| [Mixtral 8x22B Instruct](https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1) | Mistral AI | 2024-04-17 | 141B (39B active) | 65K | text | 136 | — | `apache-2.0` | Yes |
 <!-- MODELS_TABLE_END -->
 
 ## Regenerate
