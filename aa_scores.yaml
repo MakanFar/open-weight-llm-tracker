@@ -126,6 +126,8 @@ unmatched:
 - DeepSeek V4 Pro 0813 (max)
 - Devstral 2
 - Devstral Small 2
+- G9v3-39A5B
+- GLM-5.3 (max)
 - GPT-5.5 Instant (June 2026)
 - GPT-5.6 Luna (max)
 - GPT-5.6 Sol (max)
@@ -140,6 +142,7 @@ unmatched:
 - HyperNova 60B 2605
 - K-EXAONE 2.0
 - KAT-Coder-Pro V2
+- LFM2.5-2.6B
 - Ling 3.0 Flash
 - Ling 3.0 Tiny
 - LongCat 2.0
@@ -166,6 +169,7 @@ unmatched:
 - Qwen3.6 35B A3B
 - Qwen3.7 Plus
 - Qwen3.8 2.4T A95B
+- Qwen3.8 27B (xhigh)
 - Qwen3.8 Max
 - Ring-2.6-1T
 - Solar Open2 250B
