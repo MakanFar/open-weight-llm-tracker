@@ -258,7 +258,6 @@ def main():
         "index is re-weighted between versions, so values are not comparable "
         "across time. **Arena** is the rank on arena.ai's text leaderboard among "
         "open-weight models (`—` = not currently ranked). "
-        "ranked). "
         "A trailing `?` on **Commercial** marks a value inferred from the "
         "licence tag and not yet checked against the licence text.\n\n"
         f"{START}\n{table}\n{END}\n\n"
