@@ -369,10 +369,39 @@ made yet.
   12 × `no-context-window`), so the row carries both the terse reason and a
   `schema-invalid: …` echo of it. The layer is correct and necessary; it should
   suppress errors already named.
-- **Enrichment shipped narrower than specified.** The design promised
-  `context_window` from `tokenizer_config.json` **and the model card**. Only
-  `enrich.context_from_tokenizer` exists; there is no card path. 12 rows are
-  still parked on `no-context-window`.
+- **Enrichment shipped narrower than specified — and should stay that way.**
+  The design promised `context_window` from `tokenizer_config.json` **and the
+  model card**. Only `enrich.context_from_tokenizer` shipped. Investigating the
+  12 rows parked on `no-context-window` on 2026-08-24 showed the card half was
+  a bad instruction, and the gap was never really about the card at all:
+
+  - **The card is not a reliable source for this field.** Scored against 26
+    cards whose true window is known: **8 correct, 3 wrong, 15 no-answer**. The
+    failures are semantic, not pattern bugs. `gemma-4-26B-A4B` (really 262144)
+    says *"the small models feature a 128K context window, while the medium
+    models support 256K"* — an extractor picks 128K, silently, for a 256K
+    model. `Qwen2-72B-Instruct` advertises *"up to 131,072"* and ships 32768.
+    Both NVIDIA Nemotron cards claim *"up to 1M"* against a real 262144.
+    `validate.py` only checks the value is a positive int, so a wrong figure
+    passes silently and renders as fact — the exact failure mode this module's
+    NEVER FABRICATE contract exists to prevent. The card remains the right
+    source for `params_active_b`, which vendors state precisely and once.
+  - **10 of the 12 were a gating problem, not a parsing problem.** Every
+    `meta-llama/*` and `google/gemma-*` repo serves `README.md` publicly but
+    answers **401** for `config.json` and `tokenizer_config.json`, and the API's
+    `config` expand carries no context field for them either. There was no
+    source the pipeline could legally read. `hf_meta.auth_headers()` now sends a
+    bearer token when one is configured, which turns each of them into an
+    ordinary authoritative `config.json` read. The token must belong to an
+    account that has accepted the Llama and Gemma terms; with no token the
+    header is omitted and the rows stay in review, exactly as before.
+  - **The other 2 were a missing config key.** `thinkingmachines/Inkling` and
+    `Inkling-Small` state their window only as `text_config.model_max_length`
+    (1048576), which was absent from `hf_meta.CTX_KEYS`, while their
+    `tokenizer_config.json` carries the 1e30 sentinel that
+    `context_from_tokenizer` correctly refuses. Adding the key needed a
+    plausibility bound (`MAX_PLAUSIBLE_CTX`) because it is the same key
+    transformers fills with that sentinel.
 - **`enrich.py`'s shape differs, benignly.** The design specified
   `active_params_from_card(repo, get_text)`; it shipped split into
   `fetch_card(repo, get_text)` + `active_params_from_card(text)`, which is

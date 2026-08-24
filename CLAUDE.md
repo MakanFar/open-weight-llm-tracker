@@ -25,6 +25,8 @@ python scripts/pull_arena.py      # scrape arena leaderboard -> arena_agent_rank
 
 Note: `pytest` is not on the base interpreter here — use the repo's `.venv` (`.venv/bin/python -m pytest ...`) or a venv where `requirements.txt` is installed.
 
+Gated repos: every `meta-llama/*` and `google/gemma-*` repo serves `README.md` publicly but returns **401** for `config.json` and `tokenizer_config.json`, and the HF API's `config` expand carries no context field for them either — so without a token there is no readable source for their `context_window` and the rows park on `no-context-window`. `hf_meta.auth_headers()` sends a bearer token when `HF_TOKEN`, `HUGGING_FACE_HUB_TOKEN` or `HUGGINGFACE_TOKEN` is set, and both urllib fetchers use it. The token must belong to an account that has **accepted the Llama and Gemma terms** — a valid token that has not is still 401. It is entirely optional: with no token the header is omitted and those rows stay in the review queue.
+
 Network caveat: `pull_hf.py`, `discover.py`, and `pull_arena.py` all reach out to `huggingface.co` / `arena.ai`, which some sandboxes block. They are designed to run on a normal machine or in CI. `pull_arena.py --no-resolve` parses without any HF calls; `pull_arena.py --html page.html` runs fully offline from a saved page.
 
 ## Two-file data model
@@ -66,3 +68,4 @@ The point of the pipeline is to surface frontier releases without a human hand-w
 - **One row per model** — a family flagship or distinct sizes, never both.
 - **MoE**: total params in `params_total_b`, routed/active in `params_active_b`; for dense models the two are equal (validated).
 - New license strings must be added to the allowlist in `validate.py` in the same change.
+- **The model card is not a source for `context_window`.** It is the right source for `params_active_b` (vendors state activation figures precisely and once), but measured against 26 cards whose true window is known, a card-derived context window was **8 correct, 3 wrong, 15 no-answer** — and the failures are semantic, not fixable by better patterns. `gemma-4-26B-A4B` (really 262144) says "the small models feature a 128K context window, while the medium models support 256K"; `Qwen2-72B-Instruct` advertises "up to 131,072" and ships 32768; both NVIDIA Nemotron cards claim "up to 1M" against a real 262144. `validate.py` only checks the value is a positive int, so a wrong figure passes silently and renders as fact. Read the window from `config.json` (authenticated if gated) or leave it at 0 for a human.

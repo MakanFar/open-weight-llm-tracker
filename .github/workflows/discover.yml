@@ -23,6 +23,7 @@ jobs:
       - name: Pull arena leaderboard
         continue-on-error: true    # arena must never block discovery
         env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/pull_arena.py
       - name: Pull Artificial Analysis scores
@@ -30,7 +31,25 @@ jobs:
         run: python scripts/pull_aa.py
       - name: Discover new models
         env:
-          # Optional: add an HF token as a repo secret for higher rate limits.
+          # HF_TOKEN unlocks GATED repos, which is the whole point: every
+          # meta-llama/* and google/gemma-* repo serves README.md publicly but
+          # answers 401 for config.json and tokenizer_config.json, and the
+          # API's `config` expand carries no context field for them either.
+          # Ten discovered rows sat at context_window: 0 for exactly that
+          # reason. The token must belong to an account that has ACCEPTED the
+          # Llama and Gemma licence terms — a valid token that has not is
+          # still 401 on those repos.
+          #
+          # It is optional. With no secret set, hf_meta.auth_headers sends no
+          # Authorization header at all and those rows simply stay in the
+          # review queue, exactly as they do today.
+          #
+          # HUGGINGFACE_TOKEN is kept because this workflow has passed it for
+          # a long time; until hf_meta.auth_headers learned to read it, that
+          # secret reached nothing — huggingface_hub only ever looks at
+          # HF_TOKEN / HUGGING_FACE_HUB_TOKEN, and the urllib fetchers read no
+          # token at all. Either name works now.
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/discover.py --min-params 3
       - name: Validate models.yaml

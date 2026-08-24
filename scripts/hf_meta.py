@@ -7,9 +7,18 @@ in pull_arena.py) build candidate rows through this module, so a candidate has
 exactly one construction path and one set of filter rules.
 """
 import json
+import os
 import re
 import urllib.request
 from datetime import date, datetime
+
+# Env vars that may carry a Hugging Face access token, in priority order.
+# HF_TOKEN and HUGGING_FACE_HUB_TOKEN are what huggingface_hub itself reads,
+# so HfApi is already authenticated when either is set. HUGGINGFACE_TOKEN is
+# here because discover.yml has been passing the repo secret under that name
+# since before any code read a token — it reached neither HfApi nor the
+# urllib fetchers below, so the secret was doing nothing at all.
+_TOKEN_ENV_VARS = ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN")
 
 # License tags we accept (HF's vocabulary, NOT clean SPDX). Named open-weight
 # licenses are included on purpose so we don't miss Llama/Gemma/Qwen.
@@ -49,7 +58,19 @@ EXCLUDE_PATTERNS = re.compile(
 # literal, which would silently drift the moment either string changed.
 AUTO_DISCOVERY_NOTE = "Auto-discovered candidate; review before merging into models.yaml."
 
-CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions")
+CTX_KEYS = ("max_position_embeddings", "max_sequence_length", "n_positions",
+            "model_max_length")
+
+# Upper bound on a believable context window, guarding the model_max_length
+# key above. transformers writes model_max_length = 1e30 when the length is
+# unset, and that sentinel reaches config.json as well as the
+# tokenizer_config.json enrich.context_from_tokenizer already screens (see
+# _SENTINEL_MAX_LENGTH there). Nothing downstream would catch it:
+# validate.py only checks context_window is a positive int, so a sentinel
+# would render as a 1e30-token window in the README. The bound is deliberately
+# far above any real model (DeepSeek-V4 ships 1M) — it rejects sentinels and
+# unit mix-ups, not ambitious context windows.
+MAX_PLAUSIBLE_CTX = 64 * 1024 * 1024
 
 # Expert-count keys that mark a mixture-of-experts model. Vendors disagree on
 # the name, so we accept all the ones in circulation. A count of 1 is not a
@@ -142,23 +163,61 @@ def context_of(info):
 _CONFIG_URL = "https://huggingface.co/{repo}/resolve/main/config.json"
 
 
+def auth_headers(user_agent):
+    """Request headers, carrying a bearer token when one is configured.
+
+    WHY THIS EXISTS: gated repos — every meta-llama/* and google/gemma-* row
+    this tracker carries — serve README.md publicly but answer 401 for
+    config.json and tokenizer_config.json, and the API's `config` expand
+    returns no context field for them either. Ten discovered rows sat at
+    context_window: 0 with no source the pipeline could legally read. A token
+    belonging to an account that has accepted those licences turns each of
+    them into an ordinary authoritative config.json read.
+
+    A blank token is treated as absent. An unset GitHub secret interpolates
+    to the empty string, and sending `Authorization: Bearer ` on every
+    request is strictly worse than sending nothing: it can turn a public 200
+    into a 401 on repos that never needed auth.
+
+    Everything degrades to today's behaviour when no token is set — the
+    gated rows simply stay in the review queue, exactly as they do now.
+    """
+    headers = {"User-Agent": user_agent}
+    for var in _TOKEN_ENV_VARS:
+        token = (os.environ.get(var) or "").strip()
+        if token:
+            headers["Authorization"] = f"Bearer {token}"
+            break
+    return headers
+
+
 def _http_get_json(url):
-    req = urllib.request.Request(url, headers={"User-Agent": "owlt-puller/1.0"})
+    req = urllib.request.Request(url, headers=auth_headers("owlt-puller/1.0"))
     with urllib.request.urlopen(req, timeout=30) as r:
         return json.load(r)
+
+
+def _plausible_ctx(value):
+    """True for an int that could really be a context window.
+
+    bool is excluded because it is a subclass of int; MAX_PLAUSIBLE_CTX
+    screens the 1e30 model_max_length sentinel (see that constant).
+    """
+    return (isinstance(value, int) and not isinstance(value, bool)
+            and 0 < value <= MAX_PLAUSIBLE_CTX)
 
 
 def _ctx_from_config(cfg):
     if not isinstance(cfg, dict):
         return None
     for k in CTX_KEYS:
-        if isinstance(cfg.get(k), int):
+        if _plausible_ctx(cfg.get(k)):
             return cfg[k]
     for sub in ("text_config", "llm_config"):
         inner = cfg.get(sub) or {}
         if isinstance(inner, dict):
             for k in CTX_KEYS:
-                if isinstance(inner.get(k), int):
+                if _plausible_ctx(inner.get(k)):
                     return inner[k]
     return None
 

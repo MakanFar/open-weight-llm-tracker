@@ -21,14 +21,25 @@ NEVER FABRICATE:
     indistinguishable from a vendor-published one.
 """
 import re
+import sys
 import urllib.request
+from pathlib import Path
+
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import hf_meta  # noqa: E402  (for auth_headers — see _http_get_text)
 
 CARD_URL = "https://huggingface.co/{repo}/resolve/main/README.md"
 
 
 def _http_get_text(url):
-    """Default fetcher. Injected in tests so no test touches the network."""
-    req = urllib.request.Request(url, headers={"User-Agent": "owlt-enrich/1.0"})
+    """Default fetcher. Injected in tests so no test touches the network.
+
+    Shares hf_meta.auth_headers so a configured token reaches model cards
+    too. Cards on gated repos happen to be public today, but that is the
+    vendor's choice and not a guarantee — and one header builder means the
+    two fetchers cannot drift on how a token is read.
+    """
+    req = urllib.request.Request(url, headers=hf_meta.auth_headers("owlt-enrich/1.0"))
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", "replace")
 

@@ -7,6 +7,7 @@ import pytest
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 import classify
+import enrich
 import hf_meta
 import names
 
@@ -167,6 +168,31 @@ def test_resolve_facts_reads_nested_context_from_config_json():
     info = FakeInfo("org/m")
     cfg = {"text_config": {"max_sequence_length": 8192}}
     assert hf_meta.resolve_facts(info, get_json=lambda url: cfg) == (8192, "dense")
+
+
+def test_resolve_facts_reads_model_max_length_from_config():
+    """thinkingmachines/Inkling states its window ONLY as
+    text_config.model_max_length (1048576) — no max_position_embeddings
+    anywhere — and its tokenizer_config.json carries the 1e30 sentinel, so
+    enrich.context_from_tokenizer correctly refuses it. Without this key the
+    row sits at context_window: 0 with an authoritative, publicly readable
+    figure sitting unread in its config.json.
+    """
+    info = FakeInfo("thinkingmachines/Inkling")
+    cfg = {"text_config": {"model_max_length": 1048576}}
+    assert hf_meta.resolve_facts(info, get_json=lambda url: cfg) == (1048576, "dense")
+
+
+def test_resolve_facts_refuses_the_sentinel_model_max_length():
+    """model_max_length is the SAME key transformers fills with 1e30 when the
+    length is unset. enrich.context_from_tokenizer already guards it for
+    tokenizer_config.json; reading the key here without the same guard would
+    publish a 1e30-token context window, which validate.py cannot catch (it
+    only checks the value is a positive int).
+    """
+    info = FakeInfo("org/m")
+    cfg = {"model_max_length": 1_000_000_000_000_000}
+    assert hf_meta.resolve_facts(info, get_json=lambda url: cfg) == (0, "dense")
 
 
 def test_resolve_facts_zero_when_config_has_no_context_key():
@@ -426,3 +452,96 @@ def test_native_formats_are_deliberately_not_excluded():
     for fmt in names.NATIVE_FORMATS:
         assert not hf_meta.EXCLUDE_PATTERNS.search(f"model-{fmt}"), (
             f"{fmt} is a primary release format and must stay excludable-free")
+
+
+# --- gated repos need an auth token ---------------------------------------
+#
+# meta-llama/* and google/gemma-* serve README.md publicly but return 401 for
+# config.json and tokenizer_config.json, and the API's `config` expand carries
+# no context field for them either. Ten discovered rows sat at
+# context_window: 0 for exactly this reason, with no source the pipeline could
+# legally read. A token that has accepted those licences turns every one of
+# them into an authoritative config.json read.
+
+_TOKEN_VARS = ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN")
+
+
+def _clear_tokens(monkeypatch):
+    for var in _TOKEN_VARS:
+        monkeypatch.delenv(var, raising=False)
+
+
+def test_auth_headers_has_no_authorization_without_a_token(monkeypatch):
+    _clear_tokens(monkeypatch)
+    assert "Authorization" not in hf_meta.auth_headers("ua/1.0")
+
+
+def test_auth_headers_always_carries_the_user_agent(monkeypatch):
+    _clear_tokens(monkeypatch)
+    assert hf_meta.auth_headers("ua/1.0")["User-Agent"] == "ua/1.0"
+
+
+@pytest.mark.parametrize("var", _TOKEN_VARS)
+def test_auth_headers_reads_every_supported_token_var(monkeypatch, var):
+    """HUGGINGFACE_TOKEN is included because discover.yml already sets it.
+
+    huggingface_hub itself reads HF_TOKEN / HUGGING_FACE_HUB_TOKEN, so the
+    secret the workflow has been passing under the third name reached nothing
+    at all — neither HfApi nor these urllib fetchers.
+    """
+    _clear_tokens(monkeypatch)
+    monkeypatch.setenv(var, "sekrit")
+    assert hf_meta.auth_headers("ua/1.0")["Authorization"] == "Bearer sekrit"
+
+
+def test_auth_headers_ignores_a_blank_token(monkeypatch):
+    """An unset GitHub secret interpolates to an empty string, not to nothing.
+
+    `Authorization: Bearer ` on every request is worse than no header: it can
+    turn a public 200 into a 401 on a repo that needed no auth at all.
+    """
+    _clear_tokens(monkeypatch)
+    monkeypatch.setenv("HF_TOKEN", "   ")
+    assert "Authorization" not in hf_meta.auth_headers("ua/1.0")
+
+
+def _captured_request(monkeypatch, module, call):
+    """Run `call`, returning the urllib Request it built (no network)."""
+    captured = {}
+
+    class _Resp:
+        def __enter__(self): return self
+        def __exit__(self, *a): return False
+        def read(self): return b"{}"
+
+    def fake_urlopen(req, *a, **kw):
+        captured["req"] = req
+        return _Resp()
+
+    monkeypatch.setattr(module.urllib.request, "urlopen", fake_urlopen)
+    call()
+    return captured["req"]
+
+
+def test_http_get_json_sends_the_bearer_token(monkeypatch):
+    """The header builder is useless if the fetcher does not use it."""
+    _clear_tokens(monkeypatch)
+    monkeypatch.setenv("HF_TOKEN", "sekrit")
+    req = _captured_request(monkeypatch, hf_meta,
+                            lambda: hf_meta._http_get_json("https://x/y.json"))
+    assert req.get_header("Authorization") == "Bearer sekrit"
+
+
+def test_http_get_text_sends_the_bearer_token(monkeypatch):
+    _clear_tokens(monkeypatch)
+    monkeypatch.setenv("HF_TOKEN", "sekrit")
+    req = _captured_request(monkeypatch, enrich,
+                            lambda: enrich._http_get_text("https://x/README.md"))
+    assert req.get_header("Authorization") == "Bearer sekrit"
+
+
+def test_fetchers_send_no_authorization_when_no_token_is_set(monkeypatch):
+    _clear_tokens(monkeypatch)
+    req = _captured_request(monkeypatch, hf_meta,
+                            lambda: hf_meta._http_get_json("https://x/y.json"))
+    assert req.get_header("Authorization") is None
