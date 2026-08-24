@@ -256,8 +256,29 @@ def missing_vitals(row, tracked_stems, today=None):
     # family_stem cannot tell a version bump from a distinct product line (see
     # its docstring — DeepSeek-V3 and DeepSeek-R1 both collapse to "deepseek").
     # Routing to review is the entire intended response to a collision.
+    #
+    # family_collision_reviewed is that human's answer coming back. Without
+    # it the collision is unresolvable by construction: candidates.yaml is
+    # rebuilt every run and models.yaml is append-only, so a reviewer who
+    # decides "coexist" has nowhere to record it and the row regenerates
+    # identically forever (22 of 85 staged rows sat here, one of them —
+    # allenai/Olmo-3.1-32B-Think — notable, complete and schema-clean with
+    # this as its ONLY blocker). Setting the field promotes the row on the
+    # next run, and discover.PROMOTION_STRIP_FIELDS drops the marker on the
+    # way into models.yaml, so it exists only for as long as the question does.
+    #
+    # `is True`, not a truthiness test: candidates.yaml is hand-edited and
+    # validate.py never reads it, so this is the only place a typo can be
+    # caught. `family_collision_reviewed: no` parses to the string "no" under
+    # a quoted spelling and is truthy — a bare `if` would read a reviewer's
+    # explicit "no" as "yes" and publish the row. Same reasoning as
+    # validate.row_errors's isinstance guard on commercial_use_verified.
+    #
+    # It clears the collision ONLY. Every other reason still applies, so the
+    # marker can never become a blanket promote override.
     stem = names.family_stem(row.get("hf_repo") or "")
-    if stem and stem in tracked_stems:
+    if stem and stem in tracked_stems and \
+            row.get("family_collision_reviewed") is not True:
         reasons.append("family-already-tracked")
 
     # is_notable stages a row on ANY aa_index or arena_rank, however low or

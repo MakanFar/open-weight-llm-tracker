@@ -158,9 +158,13 @@ def tracked_repos(path=DATA):
 # needs_review is classify.route's own output (why a row waited rather than
 # promoted); a promoted row has already cleared that bar, so the reason it
 # once carried is stale and must not survive into models.yaml.
+# family_collision_reviewed records a REVIEWER'S DECISION about a
+# candidates.yaml collision, not a fact about the model. Once the row is in
+# models.yaml the collision it answered is resolved and the marker is
+# meaningless there, so it is stripped like needs_review.
 PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
                           "downloads", "needs_hf_repo", "resolution_confidence",
-                          "needs_review")
+                          "needs_review", "family_collision_reviewed")
 
 
 def tracked_stems(path=DATA):
@@ -664,6 +668,15 @@ HEADER = (
     "# run promotes the row automatically once nothing is left to flag. To\n"
     "# promote a row yourself instead of waiting, move it into models.yaml and\n"
     "# strip the discovery-only fields listed in SCHEMA.md.\n"
+    "#\n"
+    "# family-already-tracked is the one reason you cannot fix by filling a\n"
+    "# gap -- it means this release collides with a family already in\n"
+    "# models.yaml and someone has to decide supersede-or-coexist. To answer\n"
+    "# COEXIST, add `family_collision_reviewed: true` to the row and the next\n"
+    "# run promotes it. It must be a real YAML bool -- `true`, not \"true\" or\n"
+    "# yes -- and it clears ONLY the collision, never any other reason. To\n"
+    "# answer SUPERSEDE, edit models.yaml by hand; discover.py only ever\n"
+    "# appends and will never retire a row for you.\n"
 )
 
 

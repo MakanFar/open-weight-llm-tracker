@@ -191,6 +191,41 @@ def test_family_already_tracked_is_incomplete():
     assert "family-already-tracked" in classify.missing_vitals(row, {"glm"})
 
 
+def test_family_collision_reviewed_clears_the_collision():
+    """A human who reviewed the collision and chose coexist unblocks the row.
+
+    Without this, a notable, complete, schema-clean row whose ONLY blocker is
+    a family collision regenerates identically on every run forever —
+    candidates.yaml is rebuilt each run and models.yaml is append-only, so
+    the reviewer's decision has nowhere to live. allenai/Olmo-3.1-32B-Think
+    is the real row this exists for.
+    """
+    row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=True)
+    assert "family-already-tracked" not in classify.missing_vitals(row, {"glm"})
+
+
+def test_family_collision_reviewed_only_honours_a_real_bool():
+    """A non-bool truthy value must NOT clear the collision.
+
+    candidates.yaml is hand-edited and validate.py never sees it, so this is
+    the only place a typo can be caught. A string like "yes" (or "no" — also
+    truthy) would otherwise silently publish a row no human actually cleared,
+    which is exactly the failure validate.row_errors guards against for
+    commercial_use_verified.
+    """
+    for value in ("yes", "no", 1, "true"):
+        row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=value)
+        assert "family-already-tracked" in classify.missing_vitals(row, {"glm"}), \
+            f"{value!r} must not clear the collision"
+
+
+def test_family_collision_reviewed_does_not_clear_other_gaps():
+    """The marker is scoped to the collision, not a blanket promote override."""
+    row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=True,
+               context_window=0)
+    assert "no-context-window" in classify.missing_vitals(row, {"glm"})
+
+
 def test_distill_repo_is_flagged_derivative_or_base():
     """Four of the 12 wrong auto-promotions were DeepSeek-R1 distills — a
     derivative of an already-tracked model, not a primary release."""

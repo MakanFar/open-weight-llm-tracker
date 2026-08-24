@@ -67,6 +67,18 @@ def test_promotion_row_strips_needs_review():
     assert "needs_review" not in row
 
 
+def test_promotion_row_strips_the_family_collision_marker():
+    """family_collision_reviewed is a review-workflow field, not a model fact.
+
+    It records that a human cleared a candidates.yaml collision; once the row
+    is in models.yaml the collision is resolved and the marker is meaningless
+    there. validate.py checks models.yaml only, so it would otherwise leak in
+    the way arena_rank and needs_review must not.
+    """
+    row = discover.promotion_row(_candidate(family_collision_reviewed=True))
+    assert "family_collision_reviewed" not in row
+
+
 def test_promotion_row_keeps_the_activation_provenance():
     """A reviewer must be able to check where 32B came from."""
     assert discover.promotion_row(_candidate())["params_active_source"] == "32B activated"

@@ -541,3 +541,86 @@ def test_a_skipped_arena_repo_reports_the_rank_it_takes_with_it(capsys):
     out = capsys.readouterr().out
     assert "nvidia/Some-Model-NVFP4" in out
     assert "42" in out
+
+
+# --- reviewed family collisions -------------------------------------------
+
+TRACKED_GLM51 = """\
+models:
+  - name: GLM-5.1
+    hf_repo: zai-org/GLM-5.1
+    developer: zai-org
+    release_date: 2026-03-01
+    params_total_b: 744
+    params_active_b: 32
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+"""
+
+# Complete, notable, schema-clean. Its ONLY blocker is that family_stem
+# collapses it onto the tracked GLM-5.1 — the shape of allenai/
+# Olmo-3.1-32B-Think, the real row that motivated the marker.
+STAGED_GLM52 = """\
+models:
+  - name: GLM-5.2
+    hf_repo: zai-org/GLM-5.2
+    developer: zai-org
+    release_date: 2026-07-01
+    params_total_b: 753.3
+    params_active_b: 32.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    discovered_via: [org-sweep]
+    downloads: 600000
+{marker}"""
+
+
+def test_collision_row_without_the_marker_stays_queued_forever(tmp_path):
+    """The defect the marker exists to fix, pinned as a test.
+
+    candidates.yaml is rebuilt each run and models.yaml is append-only, so
+    without a way to record the reviewer's decision this row regenerates
+    identically on every run with nothing a human can do about it.
+    """
+    _seed(tmp_path, models=TRACKED_GLM51,
+          candidates=STAGED_GLM52.format(marker=""))
+    promoted, queue, _, _ = _refresh(FakeApi({}), tmp_path)
+
+    assert promoted == []
+    assert [c["hf_repo"] for c in queue] == ["zai-org/GLM-5.2"]
+    assert queue[0]["needs_review"] == ["family-already-tracked"]
+
+
+def test_reviewed_collision_promotes_and_leaves_the_queue(tmp_path):
+    """A human sets the marker; the next run publishes the row and it is gone.
+
+    This is the whole point of the field — it must work end to end through
+    carry-forward, not just in missing_vitals.
+    """
+    _seed(tmp_path, models=TRACKED_GLM51,
+          candidates=STAGED_GLM52.format(
+              marker="    family_collision_reviewed: true\n"))
+    promoted, queue, _, _ = _refresh(FakeApi({}), tmp_path)
+
+    assert [c["hf_repo"] for c in promoted] == ["zai-org/GLM-5.2"]
+    assert queue == []
+
+
+def test_promoted_reviewed_collision_carries_no_marker_into_models_yaml(tmp_path):
+    """The marker answers a candidates.yaml question and must not be published."""
+    _seed(tmp_path, models=TRACKED_GLM51,
+          candidates=STAGED_GLM52.format(
+              marker="    family_collision_reviewed: true\n"))
+    promoted, _, _, _ = _refresh(FakeApi({}), tmp_path)
+
+    discover.append_models(tmp_path / "models.yaml",
+                           [discover.promotion_row(r) for r in promoted])
+    rows = yaml.safe_load((tmp_path / "models.yaml").read_text())["models"]
+    published = [r for r in rows if r["hf_repo"] == "zai-org/GLM-5.2"]
+    assert published and "family_collision_reviewed" not in published[0]

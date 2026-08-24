@@ -51,6 +51,7 @@ below. **Strip all of these fields when promoting a row into `models.yaml`** —
 | `needs_hf_repo` | bool | Arena-only. `true` means either the leaderboard name matched the repo inexactly, or no repo resolved at all — **confirm the `hf_repo` really is that model (or find one) before promoting**. `false` means an exact match. |
 | `resolution_confidence` | enum | Arena-only. `high` (exact name match) or `medium` (inexact, hence `needs_hf_repo: true`). Tells the reviewer *why* a row was flagged. |
 | `needs_review` | list | Why the row was not auto-promoted, e.g. `moe-active-params-unknown`. Strip on promotion. |
+| `family_collision_reviewed` | bool | Set by a **human** to answer a `family-already-tracked` flag with *coexist*: this release collides with a family already in `models.yaml`, and a reviewer has confirmed both rows should stand. Must be a real YAML bool (`true`) — a quoted `"true"` or `no` is ignored on purpose, so a typo can never publish a row nobody cleared. Clears the collision reason **only**; every other gap still blocks promotion. To answer *supersede* instead, edit `models.yaml` by hand — `discover.py` only appends. Strip on promotion. |
 
 Candidates are ordered arena-ranked first (ascending), then unranked by release
 date descending — so the models people actually use lead the review queue.
