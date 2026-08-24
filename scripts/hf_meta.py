@@ -183,12 +183,38 @@ def auth_headers(user_agent):
     gated rows simply stay in the review queue, exactly as they do now.
     """
     headers = {"User-Agent": user_agent}
+    token = _configured_token()
+    if token:
+        headers["Authorization"] = f"Bearer {token}"
+    return headers
+
+
+def _configured_token():
+    """The configured HF token, or None. Env vars beat the cached login.
+
+    An explicit environment variable is a deliberate override, so it is
+    checked first. huggingface_hub's own get_token() is consulted second: it
+    reads HF_TOKEN / HUGGING_FACE_HUB_TOKEN *and* the token file that
+    `hf auth login` writes (~/.cache/huggingface/token), which is how a
+    maintainer authenticates on their own machine — no environment variable
+    is involved. Without it this whole mechanism would work in CI and
+    silently do nothing locally.
+
+    HUGGINGFACE_TOKEN is ours alone; huggingface_hub has never read it.
+
+    get_token() touches the filesystem, so its failure is swallowed: a
+    permission error reading a token file must not abort a discovery run
+    that needed no token to begin with.
+    """
     for var in _TOKEN_ENV_VARS:
         token = (os.environ.get(var) or "").strip()
         if token:
-            headers["Authorization"] = f"Bearer {token}"
-            break
-    return headers
+            return token
+    try:
+        from huggingface_hub.utils import get_token
+        return (get_token() or "").strip() or None
+    except Exception:
+        return None
 
 
 def _http_get_json(url):

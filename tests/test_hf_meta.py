@@ -545,3 +545,47 @@ def test_fetchers_send_no_authorization_when_no_token_is_set(monkeypatch):
     req = _captured_request(monkeypatch, hf_meta,
                             lambda: hf_meta._http_get_json("https://x/y.json"))
     assert req.get_header("Authorization") is None
+
+
+# --- the token cached by `hf auth login` ----------------------------------
+
+def _fake_get_token(monkeypatch, value):
+    import huggingface_hub.utils as hub_utils
+    monkeypatch.setattr(hub_utils, "get_token", lambda: value)
+
+
+def test_auth_headers_uses_the_token_cached_by_hf_auth_login(monkeypatch):
+    """A developer running this locally authenticates with `hf auth login`,
+    which writes ~/.cache/huggingface/token and sets no environment variable
+    at all. Reading only env vars means the gated-repo fix works in CI and
+    silently does nothing on a maintainer's own machine.
+    """
+    _clear_tokens(monkeypatch)
+    _fake_get_token(monkeypatch, "cached-token")
+    assert hf_meta.auth_headers("ua/1.0")["Authorization"] == "Bearer cached-token"
+
+
+def test_env_token_wins_over_the_cached_token(monkeypatch):
+    """An explicit env var is a deliberate override of whatever is cached."""
+    _clear_tokens(monkeypatch)
+    _fake_get_token(monkeypatch, "cached-token")
+    monkeypatch.setenv("HF_TOKEN", "env-token")
+    assert hf_meta.auth_headers("ua/1.0")["Authorization"] == "Bearer env-token"
+
+
+def test_auth_headers_ignores_a_blank_cached_token(monkeypatch):
+    _clear_tokens(monkeypatch)
+    _fake_get_token(monkeypatch, "  ")
+    assert "Authorization" not in hf_meta.auth_headers("ua/1.0")
+
+
+def test_auth_headers_survives_huggingface_hub_raising(monkeypatch):
+    """get_token() touches the filesystem; a permission error there must not
+    take down a discovery run that never needed a token in the first place.
+    """
+    _clear_tokens(monkeypatch)
+    import huggingface_hub.utils as hub_utils
+    def boom(): raise OSError("no")
+    monkeypatch.setattr(hub_utils, "get_token", boom)
+    monkeypatch.setenv("HUGGINGFACE_TOKEN", "env-token")
+    assert hf_meta.auth_headers("ua/1.0")["Authorization"] == "Bearer env-token"
