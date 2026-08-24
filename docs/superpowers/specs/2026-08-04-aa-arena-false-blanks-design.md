@@ -1,7 +1,7 @@
 # Close the three false-blank paths in the AA / Arena render-time join
 
 **Date:** 2026-08-04
-**Status:** approved design, not yet implemented
+**Status:** implemented 2026-08-04 (PR #6)
 
 ## Problem
 

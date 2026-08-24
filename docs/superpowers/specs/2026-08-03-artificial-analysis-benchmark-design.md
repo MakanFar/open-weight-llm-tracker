@@ -1,7 +1,7 @@
 # Replace HF-sourced MMLU with the Artificial Analysis Intelligence Index
 
 **Date:** 2026-08-03
-**Status:** approved design, not yet implemented
+**Status:** implemented 2026-08-04 (PR #6)
 
 ## Problem
 

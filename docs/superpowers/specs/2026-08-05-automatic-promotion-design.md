@@ -1,7 +1,7 @@
 # Automatic promotion: enrich, classify, and keep the queue small
 
 **Date:** 2026-08-05
-**Status:** approved design, not yet implemented
+**Status:** implemented on `feat/auto-promotion` (2026-08-05 → 2026-08-10). **The design below is as-approved; it was revised during implementation — see [Amendment](#amendment-2026-08-24) at the end before relying on any section.**
 
 ## Problem
 
@@ -208,3 +208,177 @@ Fixture-driven, no network:
 - Verifying `commercial_use` automatically by parsing licence text.
 - Backfilling `params_active_b` for the currently held rows (GLM-5.2,
   DeepSeek-V4-Flash-0731) — enrichment may resolve them; if not they stay in review.
+
+---
+
+## Amendment 2026-08-24
+
+Written after reviewing the shipped implementation on `feat/auto-promotion`
+against the approved design above. Everything above this line is preserved
+as-approved. This section records what changed, what the design got wrong, and
+what is still open.
+
+### The premise that broke: a signal is not a currency signal
+
+The design treats an arena rank as self-refreshing evidence that a model is
+current — the same way an AA score is. That was true when it was written: the
+scraper read arena.ai's **Agent** board, 46 live models. Commit `797815a`
+switched it to arena's **text** leaderboard, which is a *historical* ranking of
+213 models going back to 2023 (#211 is `meta-llama/Llama-2-13b`).
+
+An arena rank became evidence a model is **good**, not evidence it is
+**current**. The design never separated those claims, and the gap was not
+theoretical: a live `discover.py` run auto-promoted
+`microsoft/Phi-3-mini-4k-instruct` (arena #186, released 2024-04-22) — ranked,
+complete, schema-clean, and two years stale — along with 14 other 2023-2024
+models. Downloads had the same defect for the same reason: it is a cumulative
+lifetime count, so `Mistral-7B-v0.1` (2023, a *base* checkpoint) outranked
+GLM-5.2 on raw downloads.
+
+The correction splits one question into two, which the design had conflated:
+
+| | question | function |
+|---|---|---|
+| **staging** | is this worth a human's attention in `candidates.yaml`? | `is_notable()` |
+| **publication** | is this worth publishing to `models.yaml` with nobody looking? | `_clears_promotion_floor()` |
+
+`is_notable` stays permissive — an old ranked model surfacing in the review
+queue is the correct, harmless outcome. `_clears_promotion_floor` is strict.
+Three gates that appear nowhere in the design above now do most of the real
+work:
+
+- **`NOTABILITY_DOWNLOADS_MAX_AGE_DAYS = 365`** — the downloads leg of
+  *both* functions, and the arena leg of `_clears_promotion_floor` only
+  (`2b4ecef`, `ac1dea1`). AA is exempt on both: Artificial Analysis genuinely
+  delists models it no longer rates, so an `aa_index` being present at all is
+  still evidence of currency.
+- **`AA_PROMOTION_FLOOR = 20`** — an AA score below this stages the row but
+  never publishes it (`5159bab`, moved from the notability bar to the promotion
+  gate in `13133ea`). `granite-4.1-3b-base` at aa=5 is the case it exists to
+  reject; the design had explicitly noted that row as one of only two complete
+  signalled rows, without noticing that "AA rated it at all" is a weak reason to
+  publish it.
+- **`is_derivative_or_base()`** — distills and base checkpoints (`5159bab`).
+  Four of the wrong auto-promotions were DeepSeek-R1 distills of an
+  already-tracked model; three more were base checkpoints.
+
+### `missing_vitals` has seven reasons, not five
+
+The list in **Classification** above is stale. As shipped, in order:
+
+1. `moe-active-params-unknown`
+2. `no-context-window`
+3. `license-not-allowlisted`
+4. `inexact-repo-match`
+5. `derivative-or-base` *(new — not in the design)*
+6. `family-already-tracked`
+7. `aa-below-promotion-floor` *(new — not in the design)*
+
+A second gate the design also lacks: **`classify.schema_errors()`** (`a4a279e`)
+runs `validate.row_errors()` — the exact per-row checks CI applies to
+`models.yaml` — on a candidate before `route()` will promote it. The design
+assumed candidate rows are machine-built and therefore well-formed. They are
+not: `candidates.yaml` is hand-edited and carries forward, so a row can clear
+every vitals check while holding `release_date: "sometime in 2025"`. Promoting
+that appends it to `models.yaml` and then crashes `render_readme.py`'s date sort
+with `TypeError` — and the render step in `discover.yml` has no
+`continue-on-error`, so it kills the whole weekly PR with no PR ever opening.
+
+### The queue-shrink prediction was wrong by 7×
+
+> "The queue collapses 358 → ~12."
+
+Actual, as of this amendment: **`models.yaml` 30 rows** (16 at design time),
+**`candidates.yaml` 85 rows**. Reason counts across those 85 (a row can carry
+several):
+
+| reason | rows |
+|---|---|
+| `aa-below-promotion-floor` | 49 |
+| `moe-active-params-unknown` | 47 |
+| `schema-invalid: …` | 32 |
+| `family-already-tracked` | 22 |
+| `license-not-allowlisted` | 16 |
+| `no-context-window` | 12 |
+| `derivative-or-base` | 5 |
+| `inexact-repo-match` | 1 |
+
+The estimate assumed a 46-model arena board; the 213-model historical
+leaderboard admits far more rows to staging, and the two new promotion gates
+hold back rows the design would have published. The **direction** is right —
+the flagships promoted, and no MoE row in `models.yaml` has
+`params_active_b == params_total_b`, which was the design's central goal. The
+magnitude is not, and the "first run is a step change, then it settles" framing
+does not describe what happened.
+
+### Fixed 2026-08-24: the queue-only-grows failure had re-emerged
+
+The **Problem** section diagnoses this precisely — *"there is no representation
+for 'no'"* — and the chosen fix, rebuilding the queue each run, only evicts rows
+that **lose notability**. It does nothing for rows that are notable and
+permanently blocked, and those are now the entire queue.
+
+`family-already-tracked` is the clearest case: **22 of 85 rows**.
+`allenai/Olmo-3.1-32B-Think` is notable, complete, schema-clean, and blocked
+*solely* on colliding with the tracked `Olmo-3-32B-Think`. A human who reviews
+it and decides "coexist" has nowhere to record that decision — `candidates.yaml`
+is rebuilt each run and `models.yaml` is append-only — so the row regenerates
+identically, forever, on every run.
+
+The design put "deduplicating the families already tracked" out of scope. That
+exclusion does not cover this: a **new release colliding with a tracked one** is
+the pipeline's normal steady state, not a backlog item.
+
+**The fix, shipped 2026-08-24.** `family_collision_reviewed: true`, set by a
+human on the candidate row, is the reviewer's *coexist* answer coming back.
+`classify.missing_vitals()` skips the collision check when it is set, so the
+next run promotes the row and it leaves the queue;
+`discover.PROMOTION_STRIP_FIELDS` drops the marker on the way into
+`models.yaml`, so the field exists only for as long as the question does. No
+new file, and carry-forward needed no change — `merge_candidates` already
+copies staged rows whole, and a staged row is `known`, so nothing rebuilds
+over it.
+
+Two constraints the implementation is deliberate about:
+
+- **`is True`, not truthiness.** `candidates.yaml` is hand-edited and
+  `validate.py` never reads it, so this is the only place a typo can be caught.
+  `family_collision_reviewed: "no"` is a truthy *string* — a bare `if` would
+  read a reviewer's explicit rejection as approval and publish the row. A test
+  pins this against the naive implementation.
+- **It clears the collision only.** Every other reason still blocks promotion,
+  so the marker can never become a blanket promote override.
+
+*Supersede* remains out of scope and stays a hand edit: retiring a row would
+break append-only, which the design correctly treats as load-bearing for
+keeping `models.yaml` human-owned. `discover.py` only ever appends.
+
+The 22 rows currently carrying `family-already-tracked` are unchanged — the
+mechanism is now available, but each one is an editorial judgement nobody has
+made yet.
+
+### Smaller defects found in review, not yet fixed
+
+- **`aa-below-promotion-floor` is misnamed** and it is the queue's top reason
+  (49/85). It also fires on a stale arena rank and on stale downloads —
+  `classify.py:266` concedes this in a comment. On a row with no AA score at
+  all it points a reviewer at the wrong field. Splitting it into
+  `signal-too-weak` / `signal-too-stale` would cost nothing.
+- **`schema_errors()` double-reports.** 28 of its 32 entries restate a reason
+  `missing_vitals` already gave (16 × `license-not-allowlisted`,
+  12 × `no-context-window`), so the row carries both the terse reason and a
+  `schema-invalid: …` echo of it. The layer is correct and necessary; it should
+  suppress errors already named.
+- **Enrichment shipped narrower than specified.** The design promised
+  `context_window` from `tokenizer_config.json` **and the model card**. Only
+  `enrich.context_from_tokenizer` exists; there is no card path. 12 rows are
+  still parked on `no-context-window`.
+- **`enrich.py`'s shape differs, benignly.** The design specified
+  `active_params_from_card(repo, get_text)`; it shipped split into
+  `fetch_card(repo, get_text)` + `active_params_from_card(text)`, which is
+  easier to test and does not change behaviour. Multi-variant cards yielding
+  two distinct figures correctly return `None` (`3106d54`).
+- **`commercial_use_verified` defaulting lives in the renderer**, not in
+  `validate.py` as the design suggested. `validate.row_errors` type-checks the
+  field; `render_readme.commercial_badge` treats absent as unverified and
+  appends `?`. Functionally what the design asked for.
