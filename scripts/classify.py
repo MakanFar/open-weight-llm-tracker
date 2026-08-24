@@ -355,6 +355,38 @@ def schema_errors(row):
     return validate.row_errors(row)
 
 
+# Which validator FIELD each vitals reason already accounts for. A row
+# missing its context window collected both "no-context-window" and
+# "schema-invalid: context_window must be a positive integer" -- 28 of 32
+# schema-invalid entries in the real queue were echoes like this, and the ten
+# gated rows each carried one. Keyed on field rather than message text so
+# rewording a validator message cannot silently re-introduce the duplication.
+_VITALS_COVERS_FIELD = {
+    "license-not-allowlisted": "license",
+    "no-context-window": "context_window",
+    "gated-repo-no-access": "context_window",
+}
+
+
+def review_reasons(row, tracked_stems, today=None):
+    """Everything a reviewer needs to know about this row, each thing once.
+
+    missing_vitals's terse tokens first, then any validator complaint it did
+    not already account for, prefixed "schema-invalid:" so the two read
+    distinctly. This is what discover.py writes to needs_review.
+
+    Returns plain `str`, never validate.SchemaError: the list goes straight
+    into yaml.safe_dump, which raises RepresenterError on a str subclass and
+    would take down the whole weekly run.
+    """
+    vitals = missing_vitals(row, tracked_stems, today)
+    covered = {_VITALS_COVERS_FIELD[r] for r in vitals
+               if r in _VITALS_COVERS_FIELD}
+    return list(vitals) + [
+        f"schema-invalid: {e}" for e in schema_errors(row)
+        if getattr(e, "field", None) not in covered]
+
+
 def route(row, tracked_stems, today=None):
     """'promote' | 'review' | 'drop'.
 

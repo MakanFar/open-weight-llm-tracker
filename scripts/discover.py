@@ -691,8 +691,9 @@ HEADER = (
     "# schema problems is promoted straight into models.yaml by discover.py\n"
     "# itself -- these rows are the ones still waiting. Each carries a\n"
     "# needs_review list saying exactly what is missing (a vitals gap, e.g.\n"
-    "# no-context-window/moe-active-params-unknown, or a schema-invalid: ...\n"
-    "# entry quoting validate.py's complaint). Fix the gap in place; the next\n"
+    "# gated-repo-no-access/moe-active-params-unknown, or a schema-invalid:\n"
+    "# ... entry quoting validate.py's complaint about something a vitals\n"
+    "# reason did not already cover). Fix the gap in place; the next\n"
     "# run promotes the row automatically once nothing is left to flag. To\n"
     "# promote a row yourself instead of waiting, move it into models.yaml and\n"
     "# strip the discovery-only fields listed in SCHEMA.md.\n"
@@ -811,14 +812,10 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         # route() can land here for two independent reasons: missing_vitals
         # (worth a look but not complete) and/or schema_errors (would fail
         # validate.py outright, e.g. a hand-edited candidates.yaml row with a
-        # release_date that is not a date). Both are surfaced so a reviewer
-        # sees everything wrong in one pass; the schema complaints are
-        # prefixed "schema-invalid:" so they read distinctly from the terse
-        # vitals tokens (e.g. "no-context-window") and still carry the exact
-        # validator message.
-        reasons = classify.missing_vitals(row, stems, today=today)
-        reasons += [f"schema-invalid: {e}" for e in classify.schema_errors(row)]
-        row["needs_review"] = reasons
+        # release_date that is not a date). review_reasons surfaces both so a
+        # reviewer sees everything wrong in one pass, without reporting the
+        # same gap twice — see it for how the overlap is suppressed.
+        row["needs_review"] = classify.review_reasons(row, stems, today=today)
         queue.append(row)
 
     print(f"  {len(promoted)} promotable, {len(queue)} need review, "

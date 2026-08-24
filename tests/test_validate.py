@@ -123,3 +123,65 @@ def test_the_committed_models_file_has_no_identity_collisions():
     import yaml
     doc = yaml.safe_load(validate.DATA.read_text())
     assert validate.identity_errors(doc["models"]) == []
+
+
+# --- errors remember which field they are about ---------------------------
+
+def test_row_errors_tag_the_field_they_concern():
+    """classify suppresses validator complaints that duplicate a reason it
+    already gave. Matching on message text would break the moment a message
+    is reworded, so each error carries its field instead."""
+    errors = validate.row_errors(_valid_row(context_window=0))
+    assert any(getattr(e, "field", None) == "context_window" for e in errors)
+
+
+def test_row_errors_are_still_plain_strings():
+    """Everything downstream treats these as strings -- substring checks,
+    f-strings, main()'s print loop -- so the field tag must ride along
+    without changing that."""
+    errors = validate.row_errors(_valid_row(license="not-a-real-licence"))
+    assert all(isinstance(e, str) for e in errors)
+    assert any("not in allowlist" in e for e in errors)
+
+
+def test_missing_required_field_is_tagged_with_that_field():
+    errors = validate.row_errors(_valid_row(developer=None))
+    assert any(getattr(e, "field", None) == "developer" for e in errors)
+
+
+# --- a missing field is reported once, not twice --------------------------
+
+def test_missing_enum_field_is_not_also_reported_as_a_bad_value():
+    """A null modality produced BOTH "missing required field: modality" and
+    "modality must be one of {...}". The second adds nothing: you cannot
+    choose a valid value for a field you have not set. Two real rows in the
+    queue carried both.
+    """
+    errors = validate.row_errors(_valid_row(modality=None))
+    assert any("missing required field: modality" in e for e in errors)
+    assert not any("must be one of" in e for e in errors)
+
+
+def test_missing_licence_is_not_also_reported_as_not_allowlisted():
+    errors = validate.row_errors(_valid_row(license=None))
+    assert any("missing required field: license" in e for e in errors)
+    assert not any("not in allowlist" in e for e in errors)
+
+
+def test_missing_release_date_is_reported_once():
+    errors = validate.row_errors(_valid_row(release_date=None))
+    assert any("missing required field: release_date" in e for e in errors)
+    assert not any("must be YYYY-MM-DD" in e for e in errors)
+
+
+def test_a_present_but_wrong_enum_value_is_still_reported():
+    """Suppression must key on ABSENCE, never on the field being interesting.
+    A row that actually says modality: sound must still be rejected."""
+    errors = validate.row_errors(_valid_row(modality="sound"))
+    assert any("modality must be one of" in e for e in errors)
+
+
+def test_commercial_use_false_is_not_treated_as_missing():
+    """`false` is a legitimate value and must not trip the missing check --
+    it is falsy, which is exactly how this kind of guard goes wrong."""
+    assert validate.row_errors(_valid_row(commercial_use=False)) == []

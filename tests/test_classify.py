@@ -547,3 +547,51 @@ def test_gated_flag_is_ignored_once_the_context_window_is_known():
 def test_missing_context_without_the_gate_still_reports_no_context_window():
     row = _row(context_window=0)
     assert "no-context-window" in classify.missing_vitals(row, set())
+
+
+# --- review_reasons: no reason reported twice ------------------------------
+
+def test_review_reasons_does_not_repeat_a_gap_it_already_named():
+    """A row missing its context window collected the terse vitals reason AND
+    a schema-invalid echo of the same thing. Ten gated rows carried both."""
+    row = _row(context_window=0)
+    reasons = classify.review_reasons(row, set())
+    assert "no-context-window" in reasons
+    assert not [r for r in reasons if "context_window" in r and
+                r.startswith("schema-invalid")]
+
+
+def test_review_reasons_suppresses_the_echo_for_a_gated_row():
+    row = _row(context_window=0, gated_no_access=True)
+    reasons = classify.review_reasons(row, set())
+    assert "gated-repo-no-access" in reasons
+    assert not [r for r in reasons if r.startswith("schema-invalid")
+                and "context_window" in r]
+
+
+def test_review_reasons_suppresses_the_licence_echo():
+    row = _row(license="not-a-real-licence")
+    reasons = classify.review_reasons(row, set())
+    assert "license-not-allowlisted" in reasons
+    assert not [r for r in reasons if r.startswith("schema-invalid")
+                and "allowlist" in r]
+
+
+def test_review_reasons_keeps_schema_errors_with_no_vitals_counterpart():
+    """The whole point of the schema gate: a hand-edited release_date that
+    missing_vitals has no opinion on must still be reported."""
+    row = _row(release_date="sometime in 2025")
+    reasons = classify.review_reasons(row, set())
+    assert any(r.startswith("schema-invalid") and "release_date" in r
+               for r in reasons)
+
+
+def test_review_reasons_returns_plain_yaml_safe_strings():
+    """needs_review is written straight to candidates.yaml. A str SUBCLASS
+    leaking through here makes yaml.safe_dump raise RepresenterError and
+    takes the whole weekly run down with it."""
+    import yaml
+    row = _row(context_window=0, license="nope", release_date="whenever")
+    reasons = classify.review_reasons(row, set())
+    assert all(type(r) is str for r in reasons)
+    yaml.safe_dump({"needs_review": reasons})

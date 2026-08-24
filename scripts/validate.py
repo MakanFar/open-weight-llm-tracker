@@ -37,6 +37,32 @@ MODALITY = {"text", "vision-language", "multimodal"}
 COMMERCIAL = {True, False, "conditional"}
 
 
+class SchemaError(str):
+    """A validator complaint that remembers which field it is about.
+
+    A plain `str` subclass on purpose: every consumer treats these as
+    strings — main()'s print loop, the `any("release_date" in e ...)` checks
+    in tests, classify's f-string prefix — and subclassing keeps all of that
+    working untouched while adding one attribute.
+
+    The attribute exists so classify.review_reasons can suppress a validator
+    complaint that duplicates a reason missing_vitals already gave, WITHOUT
+    matching on message text. Ten gated rows carried both
+    "gated-repo-no-access" and "schema-invalid: context_window must be a
+    positive integer"; message matching would have re-broken the moment
+    anyone reworded a message.
+
+    Do not let one of these reach yaml.safe_dump — a str subclass raises
+    RepresenterError. review_reasons returns plain strs for exactly that
+    reason.
+    """
+
+    def __new__(cls, field, message):
+        obj = super().__new__(cls, message)
+        obj.field = field
+        return obj
+
+
 def identity_errors(models):
     """Reject two rows whose hf_repos name the same weights.
 
@@ -80,16 +106,29 @@ def row_errors(m, tag=None):
         tag = m.get("name") or m.get("hf_repo") or "<unnamed>"
     errors = []
 
+    # Absent fields are reported ONCE. Every check below this loop asks
+    # "is the value acceptable", which is a question with no meaning for a
+    # field nobody set: a null modality used to collect both "missing
+    # required field: modality" and "modality must be one of {...}", and the
+    # second told a reviewer nothing. `in (None, "")` rather than a
+    # truthiness test on purpose — commercial_use: false and
+    # params_total_b: 0 are falsy but present, and must still be judged on
+    # their merits below.
+    missing = {f for f in REQUIRED if m.get(f) in (None, "")}
     for f in REQUIRED:
-        if m.get(f) in (None, ""):
-            errors.append(f"[{tag}] missing required field: {f}")
+        if f in missing:
+            errors.append(SchemaError(f, f"[{tag}] missing required field: {f}"))
 
-    if m.get("architecture") not in ARCH:
-        errors.append(f"[{tag}] architecture must be one of {ARCH}")
-    if m.get("modality") not in MODALITY:
-        errors.append(f"[{tag}] modality must be one of {MODALITY}")
-    if m.get("commercial_use") not in COMMERCIAL:
-        errors.append(f"[{tag}] commercial_use must be true/false/conditional")
+    if "architecture" not in missing and m.get("architecture") not in ARCH:
+        errors.append(SchemaError(
+            "architecture", f"[{tag}] architecture must be one of {ARCH}"))
+    if "modality" not in missing and m.get("modality") not in MODALITY:
+        errors.append(SchemaError(
+            "modality", f"[{tag}] modality must be one of {MODALITY}"))
+    if "commercial_use" not in missing and m.get("commercial_use") not in COMMERCIAL:
+        errors.append(SchemaError(
+            "commercial_use",
+            f"[{tag}] commercial_use must be true/false/conditional"))
 
     # Optional (not in REQUIRED — plenty of legitimate rows omit it), but
     # when present it gates render_readme.commercial_badge's trailing `?`
@@ -99,11 +138,14 @@ def row_errors(m, tag=None):
     # as verified — publishing an unverified legal claim as a checked one.
     cuv = m.get("commercial_use_verified")
     if cuv is not None and not isinstance(cuv, bool):
-        errors.append(f"[{tag}] commercial_use_verified must be true/false, "
-                      f"got {cuv!r}")
-    if m.get("license") not in LICENSES:
-        errors.append(f"[{tag}] license '{m.get('license')}' not in allowlist "
-                      f"(add it to validate.py if intentional)")
+        errors.append(SchemaError(
+            "commercial_use_verified",
+            f"[{tag}] commercial_use_verified must be true/false, got {cuv!r}"))
+    if "license" not in missing and m.get("license") not in LICENSES:
+        errors.append(SchemaError(
+            "license",
+            f"[{tag}] license '{m.get('license')}' not in allowlist "
+            f"(add it to validate.py if intentional)"))
 
     # Numeric fields must actually BE numbers, not merely present. Presence
     # is covered by the REQUIRED loop above; a hand-edited candidates.yaml
@@ -119,26 +161,35 @@ def row_errors(m, tag=None):
     for field, val in (("params_total_b", pt), ("params_active_b", pa)):
         if val not in (None, "") and (isinstance(val, bool)
                                        or not isinstance(val, (int, float))):
-            errors.append(f"[{tag}] {field} must be a number, got {val!r}")
+            errors.append(SchemaError(
+                field, f"[{tag}] {field} must be a number, got {val!r}"))
 
     # MoE sanity: active <= total
     if isinstance(pt, (int, float)) and isinstance(pa, (int, float)) and pa > pt:
-        errors.append(f"[{tag}] params_active_b ({pa}) > params_total_b ({pt})")
+        errors.append(SchemaError(
+            "params_active_b",
+            f"[{tag}] params_active_b ({pa}) > params_total_b ({pt})"))
 
     # dense models: active should equal total
     if m.get("architecture") == "dense" and pt != pa:
-        errors.append(f"[{tag}] dense model should have params_active_b == params_total_b")
+        errors.append(SchemaError(
+            "params_active_b",
+            f"[{tag}] dense model should have params_active_b == params_total_b"))
 
     # date format + not in the future
     rd = m.get("release_date")
-    if not isinstance(rd, date):
-        errors.append(f"[{tag}] release_date must be YYYY-MM-DD")
-    elif rd > date.today():
-        errors.append(f"[{tag}] release_date is in the future: {rd}")
+    if "release_date" not in missing:
+        if not isinstance(rd, date):
+            errors.append(SchemaError(
+                "release_date", f"[{tag}] release_date must be YYYY-MM-DD"))
+        elif rd > date.today():
+            errors.append(SchemaError(
+                "release_date", f"[{tag}] release_date is in the future: {rd}"))
 
     ctx = m.get("context_window")
-    if not isinstance(ctx, int) or ctx <= 0:
-        errors.append(f"[{tag}] context_window must be a positive integer")
+    if "context_window" not in missing and (not isinstance(ctx, int) or ctx <= 0):
+        errors.append(SchemaError(
+            "context_window", f"[{tag}] context_window must be a positive integer"))
 
     return errors
 

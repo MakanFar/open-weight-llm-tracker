@@ -3,8 +3,9 @@
 # schema problems is promoted straight into models.yaml by discover.py
 # itself -- these rows are the ones still waiting. Each carries a
 # needs_review list saying exactly what is missing (a vitals gap, e.g.
-# no-context-window/moe-active-params-unknown, or a schema-invalid: ...
-# entry quoting validate.py's complaint). Fix the gap in place; the next
+# gated-repo-no-access/moe-active-params-unknown, or a schema-invalid:
+# ... entry quoting validate.py's complaint about something a vitals
+# reason did not already cover). Fix the gap in place; the next
 # run promotes the row automatically once nothing is left to flag. To
 # promote a row yourself instead of waiting, move it into models.yaml and
 # strip the discovery-only fields listed in SCHEMA.md.
@@ -208,7 +209,6 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - 'schema-invalid: [Kimi-K2.7-Code] license ''other'' not in allowlist (add it to validate.py if intentional)'
 - name: GLM-4.6
   hf_repo: zai-org/GLM-4.6
   developer: zai-org
@@ -279,7 +279,6 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
-  - 'schema-invalid: [Kimi-K2.6] license ''other'' not in allowlist (add it to validate.py if intentional)'
 - name: DeepSeek-V3.2-Exp
   hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
   developer: deepseek-ai
@@ -441,8 +440,6 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - 'schema-invalid: [Mistral-Medium-3.5-128B] license ''other'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: Qwen3-VL-235B-A22B-Instruct
   hf_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
   developer: Qwen
@@ -512,7 +509,6 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
-  - 'schema-invalid: [MiniMax-M2.7] license ''other'' not in allowlist (add it to validate.py if intentional)'
 - name: GLM-4.5
   hf_repo: zai-org/GLM-4.5
   developer: zai-org
@@ -833,8 +829,6 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
-  - 'schema-invalid: [MiniMax-M2] license ''modified-mit'' not in allowlist (add it to validate.py if
-    intentional)'
 - name: gemma-3-12b-it
   hf_repo: google/gemma-3-12b-it
   developer: google
@@ -858,7 +852,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-3-12b-it] context_window must be a positive integer'
   gated_no_access: true
 - name: QwQ-32B
   hf_repo: Qwen/QwQ-32B
@@ -952,7 +945,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-3n-E4B-it] context_window must be a positive integer'
   gated_no_access: true
 - name: DeepSeek-V2.5
   hf_repo: deepseek-ai/DeepSeek-V2.5
@@ -1001,7 +993,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-3-4b-it] context_window must be a positive integer'
   gated_no_access: true
 - name: Mistral-Small-3.1-24B-Instruct-2503
   hf_repo: mistralai/Mistral-Small-3.1-24B-Instruct-2503
@@ -1027,8 +1018,6 @@ models:
   - family-already-tracked
   - signal-too-stale
   - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] missing required field: modality'
-  - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] modality must be one of {''multimodal'', ''vision-language'',
-    ''text''}'
 - name: Llama-3.1-70B-Instruct
   hf_repo: meta-llama/Llama-3.1-70B-Instruct
   developer: meta-llama
@@ -1053,7 +1042,6 @@ models:
   - gated-repo-no-access
   - family-already-tracked
   - signal-too-stale
-  - 'schema-invalid: [Llama-3.1-70B-Instruct] context_window must be a positive integer'
   gated_no_access: true
 - name: Olmo-3.1-32B-Think
   hf_repo: allenai/Olmo-3.1-32B-Think
@@ -1100,7 +1088,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [Meta-Llama-3-70B-Instruct] context_window must be a positive integer'
   gated_no_access: true
 - name: Qwen2.5-Coder-32B-Instruct
   hf_repo: Qwen/Qwen2.5-Coder-32B-Instruct
@@ -1147,7 +1134,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-2-9b-it] context_window must be a positive integer'
   gated_no_access: true
 - name: DeepSeek-Coder-V2-Instruct
   hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
@@ -1173,8 +1159,6 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - signal-too-stale
-  - 'schema-invalid: [DeepSeek-Coder-V2-Instruct] license ''deepseek-license'' not in allowlist (add it
-    to validate.py if intentional)'
 - name: Qwen2-72B-Instruct
   hf_repo: Qwen/Qwen2-72B-Instruct
   developer: Qwen
@@ -1199,8 +1183,6 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - signal-too-stale
-  - 'schema-invalid: [Qwen2-72B-Instruct] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: OLMo-2-0325-32B-Instruct
   hf_repo: allenai/OLMo-2-0325-32B-Instruct
   developer: allenai
@@ -1247,8 +1229,6 @@ models:
   needs_review:
   - license-not-allowlisted
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-110B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: Qwen1.5-72B-Chat
   hf_repo: Qwen/Qwen1.5-72B-Chat
   developer: Qwen
@@ -1273,8 +1253,6 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-72B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: Meta-Llama-3-8B-Instruct
   hf_repo: meta-llama/Meta-Llama-3-8B-Instruct
   developer: meta-llama
@@ -1298,7 +1276,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [Meta-Llama-3-8B-Instruct] context_window must be a positive integer'
   gated_no_access: true
 - name: granite-3.1-8b-instruct
   hf_repo: ibm-granite/granite-3.1-8b-instruct
@@ -1346,8 +1323,6 @@ models:
   needs_review:
   - license-not-allowlisted
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-32B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: Phi-3-medium-4k-instruct
   hf_repo: microsoft/Phi-3-medium-4k-instruct
   developer: microsoft
@@ -1394,8 +1369,6 @@ models:
   - moe-active-params-unknown
   - signal-too-stale
   - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] missing required field: modality'
-  - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] modality must be one of {''multimodal'', ''vision-language'',
-    ''text''}'
 - name: Qwen1.5-14B-Chat
   hf_repo: Qwen/Qwen1.5-14B-Chat
   developer: Qwen
@@ -1419,8 +1392,6 @@ models:
   needs_review:
   - license-not-allowlisted
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-14B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: granite-3.0-8b-instruct
   hf_repo: ibm-granite/granite-3.0-8b-instruct
   developer: ibm-granite
@@ -1467,7 +1438,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-1.1-7b-it] context_window must be a positive integer'
   gated_no_access: true
 - name: Phi-3-small-8k-instruct
   hf_repo: microsoft/Phi-3-small-8k-instruct
@@ -1514,7 +1484,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [Llama-3.2-3B-Instruct] context_window must be a positive integer'
   gated_no_access: true
 - name: QwQ-32B-Preview
   hf_repo: Qwen/QwQ-32B-Preview
@@ -1584,8 +1553,6 @@ models:
   - license-not-allowlisted
   - family-already-tracked
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-7B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: gemma-7b-it
   hf_repo: google/gemma-7b-it
   developer: google
@@ -1609,7 +1576,6 @@ models:
   needs_review:
   - gated-repo-no-access
   - signal-too-stale
-  - 'schema-invalid: [gemma-7b-it] context_window must be a positive integer'
   gated_no_access: true
 - name: Phi-3-mini-128k-instruct
   hf_repo: microsoft/Phi-3-mini-128k-instruct
@@ -1678,8 +1644,6 @@ models:
   needs_review:
   - license-not-allowlisted
   - signal-too-stale
-  - 'schema-invalid: [Qwen1.5-4B-Chat] license ''tongyi-qianwen-research'' not in allowlist (add it to
-    validate.py if intentional)'
 - name: OLMo-7B-Instruct
   hf_repo: allenai/OLMo-7B-Instruct
   developer: allenai
@@ -1805,8 +1769,6 @@ models:
   needs_review:
   - license-not-allowlisted
   - signal-too-weak
-  - 'schema-invalid: [Nemotron-Cascade-2-30B-A3B] license ''other'' not in allowlist (add it to validate.py
-    if intentional)'
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   developer: nvidia
@@ -1827,8 +1789,6 @@ models:
   params_active_source: 12B active param
   needs_review:
   - license-not-allowlisted
-  - 'schema-invalid: [NVIDIA-Nemotron-3-Super-120B-A12B-BF16] license ''other'' not in allowlist (add
-    it to validate.py if intentional)'
 - name: MiniMax-M2.5
   hf_repo: MiniMaxAI/MiniMax-M2.5
   developer: MiniMaxAI
@@ -1850,7 +1810,6 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
-  - 'schema-invalid: [MiniMax-M2.5] license ''other'' not in allowlist (add it to validate.py if intentional)'
   arena_rank: 54
 - name: Qwen3-Coder-Next-Base
   hf_repo: Qwen/Qwen3-Coder-Next-Base
