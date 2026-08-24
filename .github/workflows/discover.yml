@@ -23,7 +23,7 @@ jobs:
       - name: Pull arena leaderboard
         continue-on-error: true    # arena must never block discovery
         env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_TOKEN: ${{ secrets.HF_TOKEN || secrets.HUGGINGFACE_TOKEN }}
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/pull_arena.py
       - name: Pull Artificial Analysis scores
@@ -49,7 +49,15 @@ jobs:
           # secret reached nothing — huggingface_hub only ever looks at
           # HF_TOKEN / HUGGING_FACE_HUB_TOKEN, and the urllib fetchers read no
           # token at all. Either name works now.
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          #
+          # The `||` fallback matters: huggingface_hub's own get_token() reads
+          # ONLY HF_TOKEN / HUGGING_FACE_HUB_TOKEN, so a token supplied under
+          # the HUGGINGFACE_TOKEN name would authenticate our urllib fetchers
+          # (via auth_headers) but leave HfApi anonymous. Feeding whichever
+          # secret exists into HF_TOKEN authenticates both. An absent secret
+          # interpolates to "", which get_token() cleans to None and
+          # auth_headers skips, so the fallback is safe when neither is set.
+          HF_TOKEN: ${{ secrets.HF_TOKEN || secrets.HUGGINGFACE_TOKEN }}
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/discover.py --min-params 3
       - name: Validate models.yaml
