@@ -290,7 +290,7 @@ def test_weak_aa_alone_stages_but_does_not_auto_promote():
     row = _row(aa_index=15)
     assert classify.is_notable(row) is True
     assert classify.route(row, set()) == "review"
-    assert "aa-below-promotion-floor" in classify.missing_vitals(row, set())
+    assert "signal-too-weak" in classify.missing_vitals(row, set())
 
 
 def test_aa_at_the_promotion_floor_boundary_promotes():
@@ -396,10 +396,10 @@ def test_arena_rank_with_unparseable_release_date_not_blocked():
     recency check specifically must not treat it as stale. The row still
     ends up in review (schema_errors catches the bad date), but not because
     this check misread a string as "old": missing_vitals must not carry
-    "aa-below-promotion-floor" for it."""
+    "signal-too-stale" for it."""
     today = date(2026, 8, 10)
     row = _row(arena_rank=186, release_date="sometime in 2025")
-    assert "aa-below-promotion-floor" not in classify.missing_vitals(row, set(), today=today)
+    assert "signal-too-stale" not in classify.missing_vitals(row, set(), today=today)
     assert classify.schema_errors(row) != []
     assert classify.route(row, set(), today=today) == "review"
 
@@ -461,3 +461,89 @@ def test_notable_but_schema_invalid_goes_to_review_not_promote():
 
 def test_notable_and_schema_valid_still_promotes():
     assert classify.route(_row(aa_index=29), set()) == "promote"
+
+
+# --- the promotion-signal gap, named honestly ------------------------------
+#
+# "aa-below-promotion-floor" was the queue's single most common reason (49 of
+# 85 staged rows) and it lied about most of them: it fired for a stale arena
+# rank and for stale downloads just as readily as for a weak AA score, so a
+# reviewer opening a row with no AA score at all was pointed at the AA floor.
+# The two failures need different actions -- a weak signal wants a judgement
+# call, a stale one wants confirming the model is still worth carrying -- so
+# they are now two reasons.
+
+def test_weak_aa_score_reports_signal_too_weak():
+    row = _row(aa_index=15)
+    assert "signal-too-weak" in classify.missing_vitals(row, set())
+
+
+def test_no_signal_at_all_reports_signal_too_weak():
+    row = _row(downloads=0)
+    assert "signal-too-weak" in classify.missing_vitals(row, set())
+
+
+def test_stale_arena_rank_reports_signal_too_stale():
+    """microsoft/Phi-3-mini-4k-instruct: arena #186, released 2024-04-22.
+
+    The rank is a real signal -- the row is genuinely good -- it is just no
+    longer current. Calling that "aa-below-promotion-floor" was actively
+    misleading; the row has no AA score at all.
+    """
+    row = _row(arena_rank=186, release_date=date(2024, 4, 22))
+    reasons = classify.missing_vitals(row, set(), today=date(2026, 8, 10))
+    assert "signal-too-stale" in reasons
+    assert "signal-too-weak" not in reasons
+
+
+def test_stale_downloads_report_signal_too_stale():
+    """Mistral-7B-v0.1: real adoption, accumulated over years."""
+    row = _row(downloads=5_000_000, release_date=date(2023, 9, 27))
+    reasons = classify.missing_vitals(row, set(), today=date(2026, 8, 10))
+    assert "signal-too-stale" in reasons
+    assert "signal-too-weak" not in reasons
+
+
+def test_a_strong_aa_score_rescues_a_stale_arena_rank():
+    """AA is exempt from the recency window, so a current AA score above the
+    floor still clears the gate no matter how old the arena rank is. Neither
+    reason may fire."""
+    row = _row(arena_rank=186, aa_index=57, release_date=date(2024, 4, 22))
+    reasons = classify.missing_vitals(row, set(), today=date(2026, 8, 10))
+    assert "signal-too-stale" not in reasons
+    assert "signal-too-weak" not in reasons
+
+
+def test_the_old_reason_string_is_gone():
+    """Nothing may still emit the misnamed reason."""
+    for row in (_row(aa_index=15), _row(downloads=0),
+                _row(arena_rank=186, release_date=date(2024, 4, 22))):
+        assert "aa-below-promotion-floor" not in classify.missing_vitals(
+            row, set(), today=date(2026, 8, 10))
+
+
+# --- gated repos ----------------------------------------------------------
+
+def test_gated_repo_replaces_the_no_context_window_reason():
+    """"no-context-window" reads as "the vendor never published one". For a
+    gated repo the opposite is true: the figure exists and is one access
+    grant away. Reporting both would be noise; the specific one is the
+    actionable one."""
+    row = _row(context_window=0, gated_no_access=True)
+    reasons = classify.missing_vitals(row, set())
+    assert "gated-repo-no-access" in reasons
+    assert "no-context-window" not in reasons
+
+
+def test_gated_flag_is_ignored_once_the_context_window_is_known():
+    """Access can be granted for the config while the API expand already
+    answered. A complete row must not be flagged for a gate it cleared."""
+    row = _row(context_window=131072, gated_no_access=True)
+    reasons = classify.missing_vitals(row, set())
+    assert "gated-repo-no-access" not in reasons
+    assert "no-context-window" not in reasons
+
+
+def test_missing_context_without_the_gate_still_reports_no_context_window():
+    row = _row(context_window=0)
+    assert "no-context-window" in classify.missing_vitals(row, set())

@@ -8,6 +8,24 @@
 # run promotes the row automatically once nothing is left to flag. To
 # promote a row yourself instead of waiting, move it into models.yaml and
 # strip the discovery-only fields listed in SCHEMA.md.
+#
+# family-already-tracked is the one reason you cannot fix by filling a
+# gap -- it means this release collides with a family already in
+# models.yaml and someone has to decide supersede-or-coexist. To answer
+# COEXIST, add `family_collision_reviewed: true` to the row and the next
+# run promotes it. It must be a real YAML bool -- `true`, not "true" or
+# yes -- and it clears ONLY the collision, never any other reason. To
+# answer SUPERSEDE, edit models.yaml by hand; discover.py only ever
+# appends and will never retire a row for you.
+#
+# gated-repo-no-access means the repo's config.json answered 401/403:
+# the context window exists, we are just not allowed to read it. Accept
+# the licence terms on the model page with the account whose token CI
+# uses, and the next run fills the field and clears the flag by itself.
+#
+# signal-too-weak means nothing about the row reaches the promotion bar.
+# signal-too-stale means it does, but the release is old enough that a
+# human should confirm it is still worth carrying.
 models:
 - name: GLM-5
   hf_repo: zai-org/GLM-5
@@ -129,7 +147,7 @@ models:
   params_total_b: 266.0
   params_active_b: 266.0
   architecture: moe
-  context_window: 0
+  context_window: 1048576
   modality: multimodal
   license: apache-2.0
   commercial_use: true
@@ -144,8 +162,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - no-context-window
-  - 'schema-invalid: [Inkling-Small] context_window must be a positive integer'
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -238,7 +254,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -309,7 +325,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: DeepSeek-V3.1-Base
   hf_repo: deepseek-ai/DeepSeek-V3.1-Base
   developer: deepseek-ai
@@ -334,6 +350,7 @@ models:
   - moe-active-params-unknown
   - derivative-or-base
   - family-already-tracked
+  - signal-too-stale
 - name: DeepSeek-V4-Flash
   hf_repo: deepseek-ai/DeepSeek-V4-Flash
   developer: deepseek-ai
@@ -386,7 +403,7 @@ models:
   params_total_b: 952.4
   params_active_b: 952.4
   architecture: moe
-  context_window: 0
+  context_window: 1048576
   modality: text
   license: apache-2.0
   commercial_use: true
@@ -402,8 +419,6 @@ models:
   aa_index: 42
   needs_review:
   - moe-active-params-unknown
-  - no-context-window
-  - 'schema-invalid: [Inkling] context_window must be a positive integer'
 - name: Mistral-Medium-3.5-128B
   hf_repo: mistralai/Mistral-Medium-3.5-128B
   developer: mistralai
@@ -520,7 +535,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen3-235B-A22B-Thinking-2507
   hf_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
   developer: Qwen
@@ -543,7 +558,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: DeepSeek-V3-0324
   hf_repo: deepseek-ai/DeepSeek-V3-0324
   developer: deepseek-ai
@@ -567,7 +582,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen3-VL-235B-A22B-Thinking
   hf_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
   developer: Qwen
@@ -634,7 +649,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen3-30B-A3B-Instruct-2507
   hf_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
   developer: Qwen
@@ -657,7 +672,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: GLM-4.6V
   hf_repo: zai-org/GLM-4.6V
   developer: zai-org
@@ -702,7 +717,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen3-Next-80B-A3B-Thinking
   hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
   developer: Qwen
@@ -748,7 +763,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - inexact-repo-match
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: GLM-4.5V
   hf_repo: zai-org/GLM-4.5V
   developer: zai-org
@@ -771,6 +786,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
+  - signal-too-stale
 - name: Qwen3-32B
   hf_repo: Qwen/Qwen3-32B
   developer: Qwen
@@ -792,7 +808,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: MiniMax-M2
   hf_repo: MiniMaxAI/MiniMax-M2
   developer: MiniMaxAI
@@ -840,9 +856,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-3-12b-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: QwQ-32B
   hf_repo: Qwen/QwQ-32B
   developer: Qwen
@@ -864,7 +881,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen3-30B-A3B
   hf_repo: Qwen/Qwen3-30B-A3B
   developer: Qwen
@@ -887,7 +904,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: DeepSeek-V2.5-1210
   hf_repo: deepseek-ai/DeepSeek-V2.5-1210
   developer: deepseek-ai
@@ -911,7 +928,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
   developer: google
@@ -933,9 +950,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-3n-E4B-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: DeepSeek-V2.5
   hf_repo: deepseek-ai/DeepSeek-V2.5
   developer: deepseek-ai
@@ -959,7 +977,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: gemma-3-4b-it
   hf_repo: google/gemma-3-4b-it
   developer: google
@@ -981,9 +999,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-3-4b-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: Mistral-Small-3.1-24B-Instruct-2503
   hf_repo: mistralai/Mistral-Small-3.1-24B-Instruct-2503
   developer: mistralai
@@ -1006,7 +1025,7 @@ models:
   resolution_confidence: high
   needs_review:
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] missing required field: modality'
   - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] modality must be one of {''multimodal'', ''vision-language'',
     ''text''}'
@@ -1031,10 +1050,11 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
+  - gated-repo-no-access
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Llama-3.1-70B-Instruct] context_window must be a positive integer'
+  gated_no_access: true
 - name: Olmo-3.1-32B-Think
   hf_repo: allenai/Olmo-3.1-32B-Think
   developer: allenai
@@ -1078,9 +1098,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [Meta-Llama-3-70B-Instruct] context_window must be a positive integer'
+  gated_no_access: true
 - name: Qwen2.5-Coder-32B-Instruct
   hf_repo: Qwen/Qwen2.5-Coder-32B-Instruct
   developer: Qwen
@@ -1102,7 +1123,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: gemma-2-9b-it
   hf_repo: google/gemma-2-9b-it
   developer: google
@@ -1124,9 +1145,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-2-9b-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: DeepSeek-Coder-V2-Instruct
   hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
   developer: deepseek-ai
@@ -1150,7 +1172,7 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [DeepSeek-Coder-V2-Instruct] license ''deepseek-license'' not in allowlist (add it
     to validate.py if intentional)'
 - name: Qwen2-72B-Instruct
@@ -1176,7 +1198,7 @@ models:
   needs_review:
   - license-not-allowlisted
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen2-72B-Instruct] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: OLMo-2-0325-32B-Instruct
@@ -1201,7 +1223,7 @@ models:
   resolution_confidence: high
   needs_review:
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen1.5-110B-Chat
   hf_repo: Qwen/Qwen1.5-110B-Chat
   developer: Qwen
@@ -1224,7 +1246,7 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-110B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: Qwen1.5-72B-Chat
@@ -1250,7 +1272,7 @@ models:
   needs_review:
   - license-not-allowlisted
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-72B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: Meta-Llama-3-8B-Instruct
@@ -1274,9 +1296,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [Meta-Llama-3-8B-Instruct] context_window must be a positive integer'
+  gated_no_access: true
 - name: granite-3.1-8b-instruct
   hf_repo: ibm-granite/granite-3.1-8b-instruct
   developer: ibm-granite
@@ -1299,7 +1322,7 @@ models:
   resolution_confidence: high
   needs_review:
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen1.5-32B-Chat
   hf_repo: Qwen/Qwen1.5-32B-Chat
   developer: Qwen
@@ -1322,7 +1345,7 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-32B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: Phi-3-medium-4k-instruct
@@ -1346,7 +1369,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Mixtral-8x7B-Instruct-v0.1
   hf_repo: mistralai/Mixtral-8x7B-Instruct-v0.1
   developer: mistralai
@@ -1369,7 +1392,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] missing required field: modality'
   - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] modality must be one of {''multimodal'', ''vision-language'',
     ''text''}'
@@ -1395,7 +1418,7 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-14B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: granite-3.0-8b-instruct
@@ -1420,7 +1443,7 @@ models:
   resolution_confidence: high
   needs_review:
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: gemma-1.1-7b-it
   hf_repo: google/gemma-1.1-7b-it
   developer: google
@@ -1442,9 +1465,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-1.1-7b-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: Phi-3-small-8k-instruct
   hf_repo: microsoft/Phi-3-small-8k-instruct
   developer: microsoft
@@ -1466,7 +1490,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Llama-3.2-3B-Instruct
   hf_repo: meta-llama/Llama-3.2-3B-Instruct
   developer: meta-llama
@@ -1488,9 +1512,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [Llama-3.2-3B-Instruct] context_window must be a positive integer'
+  gated_no_access: true
 - name: QwQ-32B-Preview
   hf_repo: Qwen/QwQ-32B-Preview
   developer: Qwen
@@ -1512,7 +1537,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Mistral-7B-Instruct-v0.2
   hf_repo: mistralai/Mistral-7B-Instruct-v0.2
   developer: mistralai
@@ -1534,7 +1559,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen1.5-7B-Chat
   hf_repo: Qwen/Qwen1.5-7B-Chat
   developer: Qwen
@@ -1558,7 +1583,7 @@ models:
   needs_review:
   - license-not-allowlisted
   - family-already-tracked
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-7B-Chat] license ''tongyi-qianwen'' not in allowlist (add it to validate.py
     if intentional)'
 - name: gemma-7b-it
@@ -1582,9 +1607,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - no-context-window
-  - aa-below-promotion-floor
+  - gated-repo-no-access
+  - signal-too-stale
   - 'schema-invalid: [gemma-7b-it] context_window must be a positive integer'
+  gated_no_access: true
 - name: Phi-3-mini-128k-instruct
   hf_repo: microsoft/Phi-3-mini-128k-instruct
   developer: microsoft
@@ -1606,7 +1632,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Phi-3-mini-4k-instruct
   hf_repo: microsoft/Phi-3-mini-4k-instruct
   developer: microsoft
@@ -1628,7 +1654,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: Qwen1.5-4B-Chat
   hf_repo: Qwen/Qwen1.5-4B-Chat
   developer: Qwen
@@ -1651,7 +1677,7 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-stale
   - 'schema-invalid: [Qwen1.5-4B-Chat] license ''tongyi-qianwen-research'' not in allowlist (add it to
     validate.py if intentional)'
 - name: OLMo-7B-Instruct
@@ -1675,7 +1701,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - aa-below-promotion-floor
+  - signal-too-stale
 - name: DeepSeek-V4-Flash-0731
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
   developer: deepseek-ai
@@ -1735,7 +1761,7 @@ models:
   aa_index: 9
   needs_review:
   - derivative-or-base
-  - aa-below-promotion-floor
+  - signal-too-weak
 - name: granite-4.1-3b-base
   hf_repo: ibm-granite/granite-4.1-3b-base
   developer: ibm-granite
@@ -1756,7 +1782,7 @@ models:
   aa_index: 5
   needs_review:
   - derivative-or-base
-  - aa-below-promotion-floor
+  - signal-too-weak
 - name: Nemotron-Cascade-2-30B-A3B
   hf_repo: nvidia/Nemotron-Cascade-2-30B-A3B
   developer: nvidia
@@ -1778,7 +1804,7 @@ models:
   params_active_source: 3B activated param
   needs_review:
   - license-not-allowlisted
-  - aa-below-promotion-floor
+  - signal-too-weak
   - 'schema-invalid: [Nemotron-Cascade-2-30B-A3B] license ''other'' not in allowlist (add it to validate.py
     if intentional)'
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
@@ -1952,7 +1978,7 @@ models:
   aa_index: 15
   needs_review:
   - moe-active-params-unknown
-  - aa-below-promotion-floor
+  - signal-too-stale
   arena_rank: 96
 - name: gpt-oss-120b
   hf_repo: openai/gpt-oss-120b

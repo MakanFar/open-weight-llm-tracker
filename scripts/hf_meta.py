@@ -248,11 +248,34 @@ def _ctx_from_config(cfg):
     return None
 
 
-def fetch_config(repo, get_json=_http_get_json):
-    """The repo's config.json as a dict. None on any failure (gated, 404, timeout)."""
+# HTTP statuses that mean "you cannot read this repo": 401 when no token was
+# sent, 403 (x-error-code: GatedRepo) when a valid token belongs to an account
+# that is not on the authorized list. To a maintainer both mean the same
+# thing — go accept the licence terms and request access.
+_GATED_STATUSES = (401, 403)
+
+
+def is_gated_error(exc):
+    """True if this fetch failure is an access problem rather than a real one."""
+    return getattr(exc, "code", None) in _GATED_STATUSES
+
+
+def fetch_config(repo, get_json=_http_get_json, notes=None):
+    """The repo's config.json as a dict. None on any failure (gated, 404, timeout).
+
+    `notes`, when given, is a dict this fills in with what went wrong —
+    currently only notes["gated"] = True for an access failure. It exists
+    because "no context window" and "a context window we are not allowed to
+    read" are indistinguishable in the return value and need completely
+    different responses: the first waits on a vendor, the second is a link a
+    maintainer clicks. Ten discovered rows were the second wearing the first's
+    label. Optional so existing callers are unaffected.
+    """
     try:
         cfg = get_json(_CONFIG_URL.format(repo=repo))
-    except Exception:
+    except Exception as exc:
+        if notes is not None and is_gated_error(exc):
+            notes["gated"] = True
         return None
     return cfg if isinstance(cfg, dict) else None
 
@@ -276,7 +299,22 @@ def architecture_from_config(cfg):
     return "dense"
 
 
-def resolve_facts(info, get_json=_http_get_json):
+def context_from_config(repo, get_json=_http_get_json, notes=None):
+    """Context window from the repo's config.json, or None.
+
+    resolve_facts covers this for a row being BUILT, but a row already in
+    candidates.yaml never passes through it again — it is "known", so no
+    sweep rebuilds it — and enrich_row only ever retried the tokenizer.
+    thinkingmachines/Inkling states its window solely as
+    text_config.model_max_length and puts the 1e30 sentinel in
+    tokenizer_config.json, so the one file holding the answer was the one
+    file a carried row never re-read.
+    """
+    cfg = fetch_config(repo, get_json, notes=notes)
+    return _ctx_from_config(cfg) if cfg else None
+
+
+def resolve_facts(info, get_json=_http_get_json, notes=None):
     """(context_window, architecture), fetching config.json at most once.
 
     The API expand answers both fields for some repos; when it does not, one
@@ -303,7 +341,7 @@ def resolve_facts(info, get_json=_http_get_json):
     if ctx and arch == "moe":
         return ctx, arch
 
-    cfg = fetch_config(info.id, get_json)
+    cfg = fetch_config(info.id, get_json, notes=notes)
     if cfg is not None:
         saw_config = True
         ctx = ctx or _ctx_from_config(cfg)

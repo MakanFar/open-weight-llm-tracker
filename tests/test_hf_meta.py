@@ -467,8 +467,18 @@ _TOKEN_VARS = ("HF_TOKEN", "HUGGING_FACE_HUB_TOKEN", "HUGGINGFACE_TOKEN")
 
 
 def _clear_tokens(monkeypatch):
+    """Put the process in a genuinely token-free state.
+
+    Clearing the environment is not enough: _configured_token also falls back
+    to huggingface_hub's get_token(), which reads the token file written by
+    `hf auth login`. Without stubbing that too, every "no token" assertion
+    here passes in CI and fails on a maintainer's own logged-in machine --
+    the exact machine the cached-token fallback exists for.
+    """
     for var in _TOKEN_VARS:
         monkeypatch.delenv(var, raising=False)
+    import huggingface_hub.utils as hub_utils
+    monkeypatch.setattr(hub_utils, "get_token", lambda: None)
 
 
 def test_auth_headers_has_no_authorization_without_a_token(monkeypatch):
@@ -589,3 +599,60 @@ def test_auth_headers_survives_huggingface_hub_raising(monkeypatch):
     monkeypatch.setattr(hub_utils, "get_token", boom)
     monkeypatch.setenv("HUGGINGFACE_TOKEN", "env-token")
     assert hf_meta.auth_headers("ua/1.0")["Authorization"] == "Bearer env-token"
+
+
+# --- gated repos are a distinct, actionable failure ------------------------
+#
+# Ten rows sat on "no-context-window", which reads as "the vendor never
+# published one". The truth was the opposite: the figure exists and is simply
+# behind an access grant. Those need different actions -- one waits for a
+# vendor, the other is a link a maintainer clicks -- so the pipeline has to
+# tell them apart.
+
+def _http_error(code):
+    import urllib.error
+    return urllib.error.HTTPError("https://x/config.json", code, "no", {}, None)
+
+
+def test_is_gated_error_recognises_403_and_401():
+    """401 is the unauthenticated case and 403 the authenticated-but-not-
+    authorized one. Both mean the same thing to a maintainer: no access."""
+    assert hf_meta.is_gated_error(_http_error(403)) is True
+    assert hf_meta.is_gated_error(_http_error(401)) is True
+
+
+def test_is_gated_error_ignores_other_failures():
+    assert hf_meta.is_gated_error(_http_error(404)) is False
+    assert hf_meta.is_gated_error(TimeoutError("slow")) is False
+
+
+def test_fetch_config_records_a_gated_failure_in_notes():
+    notes = {}
+    def boom(url): raise _http_error(403)
+    assert hf_meta.fetch_config("google/gemma-3-12b-it", get_json=boom,
+                                notes=notes) is None
+    assert notes.get("gated") is True
+
+
+def test_fetch_config_leaves_notes_alone_for_other_failures():
+    """A 404 or a timeout is not an access problem and must not be reported
+    as one -- that would send a maintainer to click a link that fixes
+    nothing."""
+    notes = {}
+    def boom(url): raise _http_error(404)
+    assert hf_meta.fetch_config("org/m", get_json=boom, notes=notes) is None
+    assert notes == {}
+
+
+def test_fetch_config_still_works_with_no_notes():
+    """notes is optional; existing callers pass nothing."""
+    def boom(url): raise _http_error(403)
+    assert hf_meta.fetch_config("org/m", get_json=boom) is None
+
+
+def test_resolve_facts_threads_notes_through():
+    info = FakeInfo("google/gemma-3-12b-it")
+    notes = {}
+    def boom(url): raise _http_error(403)
+    assert hf_meta.resolve_facts(info, get_json=boom, notes=notes) == (0, None)
+    assert notes.get("gated") is True

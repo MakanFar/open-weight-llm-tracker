@@ -139,3 +139,22 @@ def test_context_returns_none_when_absent_or_unfetchable():
     def boom(url):
         raise RuntimeError("404")
     assert enrich.context_from_tokenizer("org/m", get_json=boom) is None
+
+
+def test_context_from_tokenizer_records_a_gated_failure():
+    """The tokenizer fetch 403s on a gated repo just as config.json does, so
+    it can report the access problem without costing an extra request."""
+    import urllib.error
+    notes = {}
+    def boom(url):
+        raise urllib.error.HTTPError(url, 403, "no", {}, None)
+    assert enrich.context_from_tokenizer("google/gemma-3-12b-it", boom,
+                                         notes=notes) is None
+    assert notes.get("gated") is True
+
+
+def test_context_from_tokenizer_ignores_other_failures():
+    notes = {}
+    def boom(url): raise TimeoutError("slow")
+    assert enrich.context_from_tokenizer("org/m", boom, notes=notes) is None
+    assert notes == {}

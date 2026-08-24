@@ -246,3 +246,14 @@ def test_append_writes_atomically(tmp_path, monkeypatch):
     assert called, "os.replace was never called — write is not atomic"
     assert called["dst"] == p
     assert called["src"].parent == p.parent
+
+
+def test_promotion_row_strips_the_gated_flag():
+    """gated_no_access is a discovery diagnostic, not a fact about the model.
+
+    A row can carry it and still promote — the API expand can answer the
+    context window while config.json stays locked — so it must be stripped
+    like every other discovery-only field.
+    """
+    row = discover.promotion_row(_candidate(gated_no_access=True))
+    assert "gated_no_access" not in row

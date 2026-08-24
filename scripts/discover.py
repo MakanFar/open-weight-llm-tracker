@@ -164,7 +164,8 @@ def tracked_repos(path=DATA):
 # meaningless there, so it is stripped like needs_review.
 PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
                           "downloads", "needs_hf_repo", "resolution_confidence",
-                          "needs_review", "family_collision_reviewed")
+                          "needs_review", "family_collision_reviewed",
+                          "gated_no_access")
 
 
 def tracked_stems(path=DATA):
@@ -372,10 +373,13 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
             if not keep:
                 skips[reason] += 1
                 continue
-            ctx, arch = hf_meta.resolve_facts(info, get_json)
+            notes = {}
+            ctx, arch = hf_meta.resolve_facts(info, get_json, notes=notes)
             row = hf_meta.candidate_from_repo(
                 info, discovered_via=["org-sweep"], context_window=ctx,
                 architecture=arch)
+            if not ctx and notes.get("gated"):
+                row["gated_no_access"] = True
             candidates.append(enrich_row(row, info, get_text, get_json))
             seen.add(info.id.lower())
 
@@ -453,12 +457,15 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
             print(f"  - {repo} skipped ({reason}; arena rank "
                   f"{row.get('rank')} dropped)")
             continue
-        ctx, arch = hf_meta.resolve_facts(info, get_json)
+        notes = {}
+        ctx, arch = hf_meta.resolve_facts(info, get_json, notes=notes)
         candidate = hf_meta.candidate_from_repo(
             info, discovered_via=["arena"], arena_rank=row.get("rank"),
             needs_hf_repo=row.get("needs_hf_repo"),
             resolution_confidence=row.get("resolution_confidence"),
             context_window=ctx, architecture=arch)
+        if not ctx and notes.get("gated"):
+            candidate["gated_no_access"] = True
         out.append(enrich_row(candidate, info, get_text, get_json))
     return out
 
@@ -493,10 +500,31 @@ def enrich_row(row, info, get_text, get_json):
         if found is not None:
             row["params_active_b"], row["params_active_source"] = found
 
+    # gated_no_access is RE-DERIVED here on every run, never carried forward.
+    # candidates.yaml rows persist between runs, so a stale True would outlive
+    # the access grant that fixed it and the row would claim to be locked
+    # forever — exactly the freezing bug arena_rank had before it was
+    # re-stamped each run. The flag is therefore always popped first and only
+    # re-set if this run actually hit an access failure.
+    row.pop("gated_no_access", None)
     if not row.get("context_window"):
-        ctx = enrich.context_from_tokenizer(row["hf_repo"], get_json)
+        notes = {}
+        # config.json is the authoritative source and is retried only for a
+        # CARRIED row (info is None — see refresh's call site). A row built
+        # this run already went through resolve_facts, which fetched
+        # config.json; re-reading it here would double the requests on every
+        # incomplete row of an org sweep for no new information.
+        ctx = None
+        if info is None:
+            ctx = hf_meta.context_from_config(row["hf_repo"], get_json,
+                                              notes=notes)
+        if not ctx:
+            ctx = enrich.context_from_tokenizer(row["hf_repo"], get_json,
+                                                notes=notes)
         if ctx:
             row["context_window"] = ctx
+        elif notes.get("gated"):
+            row["gated_no_access"] = True
 
     lic = enrich.license_string(info)
     if lic:
@@ -677,6 +705,15 @@ HEADER = (
     "# yes -- and it clears ONLY the collision, never any other reason. To\n"
     "# answer SUPERSEDE, edit models.yaml by hand; discover.py only ever\n"
     "# appends and will never retire a row for you.\n"
+    "#\n"
+    "# gated-repo-no-access means the repo's config.json answered 401/403:\n"
+    "# the context window exists, we are just not allowed to read it. Accept\n"
+    "# the licence terms on the model page with the account whose token CI\n"
+    "# uses, and the next run fills the field and clears the flag by itself.\n"
+    "#\n"
+    "# signal-too-weak means nothing about the row reaches the promotion bar.\n"
+    "# signal-too-stale means it does, but the release is old enough that a\n"
+    "# human should confirm it is still worth carrying.\n"
 )
 
 

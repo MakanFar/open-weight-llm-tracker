@@ -213,6 +213,41 @@ def _clears_promotion_floor(row, today):
     return aa is not None and aa >= AA_PROMOTION_FLOOR
 
 
+def promotion_signal_gap(row, today):
+    """Why this row's notability is not enough to publish unattended, or None.
+
+    'signal-too-stale' — the row carries a signal that WOULD qualify (an
+    arena rank, or downloads at the bar) but the release falls outside
+    NOTABILITY_DOWNLOADS_MAX_AGE_DAYS. The model is good; it is just not
+    current. microsoft/Phi-3-mini-4k-instruct (arena #186, 2024-04-22) is
+    the case.
+
+    'signal-too-weak' — nothing reaches the bar at all: an aa_index below
+    AA_PROMOTION_FLOOR, downloads under NOTABILITY_DOWNLOADS, or no signal
+    whatsoever.
+
+    Split out of one reason called "aa-below-promotion-floor", which was the
+    review queue's most common entry (49 of 85 rows) and named the wrong
+    thing for most of them — it fired on a stale arena rank and on stale
+    downloads too, pointing a reviewer at an AA floor on rows carrying no AA
+    score at all. The two want different actions: a weak signal is a
+    judgement call about whether the model belongs here, a stale one is a
+    check that an older model is still worth carrying.
+
+    Staleness is only reported when a recency-gated signal is actually
+    present; a row whose aa_index simply sits below the floor is weak, not
+    stale, because the AA leg is exempt from the recency window entirely.
+    """
+    if _clears_promotion_floor(row, today):
+        return None
+    has_recency_gated_signal = (
+        row.get("arena_rank") is not None
+        or (row.get("downloads") or 0) >= NOTABILITY_DOWNLOADS)
+    if has_recency_gated_signal and not _within_recency_window(row, today):
+        return "signal-too-stale"
+    return "signal-too-weak"
+
+
 def missing_vitals(row, tracked_stems, today=None):
     """Every reason this row cannot be promoted unreviewed. [] means it can.
 
@@ -239,9 +274,16 @@ def missing_vitals(row, tracked_stems, today=None):
             row.get("params_active_b") == row.get("params_total_b"):
         reasons.append("moe-active-params-unknown")
 
+    # A gated repo replaces, rather than joins, the generic reason:
+    # "no-context-window" reads as "the vendor never published one", and for
+    # these repos the opposite is true — every meta-llama/* and google/gemma-*
+    # config.json states the window and answers 401/403 to anyone without an
+    # access grant. The two need different actions (wait on a vendor vs click
+    # a link and accept terms), and reporting both would just be noise.
     ctx = row.get("context_window")
     if not isinstance(ctx, int) or isinstance(ctx, bool) or ctx <= 0:
-        reasons.append("no-context-window")
+        reasons.append("gated-repo-no-access" if row.get("gated_no_access")
+                       else "no-context-window")
 
     if row.get("license") not in validate.LICENSES:
         reasons.append("license-not-allowlisted")
@@ -283,22 +325,15 @@ def missing_vitals(row, tracked_stems, today=None):
 
     # is_notable stages a row on ANY aa_index or arena_rank, however low or
     # stale; this is the stricter question of whether that (or another)
-    # signal is strong enough to publish unattended. The reason string kept
-    # its original name ("aa-below-promotion-floor") even though it now
-    # also covers a stale arena rank — both are the same shape of failure
-    # (a real signal that doesn't clear the unattended-publish bar), and a
-    # human reading candidates.yaml only needs to know the row needs a
-    # second look, not which leg tripped. Reached via route() this fires
-    # when: the row's only signal is a weak aa_index, OR its arena_rank is
-    # present but the release is outside NOTABILITY_DOWNLOADS_MAX_AGE_DAYS
-    # (see _clears_promotion_floor — is_notable's arena leg is deliberately
-    # more permissive than this one now), OR its downloads are high but
-    # stale. Called directly (e.g. discover.py's re-enrichment gate) on a
-    # hand-edited candidates.yaml row with no signal at all, it fires as
-    # well — which is correct: such a row is not promotable unattended
+    # signal is strong enough to publish unattended. See
+    # promotion_signal_gap for why this is two reasons rather than one.
+    # Called directly (e.g. discover.py's re-enrichment gate) on a
+    # hand-edited candidates.yaml row with no signal at all, it reports
+    # signal-too-weak — correct: such a row is not promotable unattended
     # either.
-    if not _clears_promotion_floor(row, today or date.today()):
-        reasons.append("aa-below-promotion-floor")
+    gap = promotion_signal_gap(row, today or date.today())
+    if gap:
+        reasons.append(gap)
 
     return reasons
 

@@ -148,16 +148,22 @@ TOKENIZER_URL = "https://huggingface.co/{repo}/resolve/main/tokenizer_config.jso
 _SENTINEL_MAX_LENGTH = 1_000_000_000_000_000
 
 
-def context_from_tokenizer(repo, get_json):
+def context_from_tokenizer(repo, get_json, notes=None):
     """Context length from tokenizer_config.json, or None.
 
     Tried only after config.json has already failed — 80 discovered rows had
     no length in either the API expand or config.json, and this is where the
     remainder publish it.
+
+    `notes` works exactly as in hf_meta.fetch_config: an access failure sets
+    notes["gated"] = True. A gated repo 403s here for the same reason it does
+    on config.json, so this reports the access problem at no extra request.
     """
     try:
         cfg = get_json(TOKENIZER_URL.format(repo=repo))
-    except Exception:
+    except Exception as exc:
+        if notes is not None and hf_meta.is_gated_error(exc):
+            notes["gated"] = True
         return None
     if not isinstance(cfg, dict):
         return None
