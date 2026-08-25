@@ -16,12 +16,18 @@ def test_unmapped_orgs_reports_unresolved_rows():
     An org with no HF_AUTHOR_HINTS entry searches HF unscoped and so is less
     likely to resolve. Keying this off resolved rows (as an earlier version
     did) reported orgs we already handle and stayed silent about the gaps.
+
+    The unmapped org here is deliberately FICTIONAL. This test used to name
+    Tencent, and adding Tencent to HF_AUTHOR_HINTS -- the exact success this
+    reporting exists to produce -- broke it. Naming a real vendor guarantees
+    the fixture rots the moment someone acts on what it reports; the same
+    trap discover.py's ORG_ALLOWLIST docstring warns about.
     """
     rows = [
-        {"org": "Tencent", "open_weight": False},   # untracked, did not resolve
-        {"org": "Zhipu AI", "open_weight": True},   # already mapped
+        {"org": "Fictional Labs", "open_weight": False},  # unmapped, unresolved
+        {"org": "Zhipu AI", "open_weight": True},         # already mapped
     ]
-    assert pull_arena.unmapped_orgs(rows) == ["Tencent"]
+    assert pull_arena.unmapped_orgs(rows) == ["Fictional Labs"]
 
 
 def test_unmapped_orgs_ignores_vendors_deliberately_mapped_to_none():

@@ -189,3 +189,34 @@ def test_dead_code_is_gone():
     for name in ("get_org_overview", "is_organization", "build_query",
                  "AUTHOR_BLOCKLIST"):
         assert not hasattr(discover, name), f"{name} should have been deleted"
+
+
+def test_sweep_reports_an_org_that_returns_nothing(capsys):
+    """An allowlist entry HF does not recognise must not fail silently.
+
+    ORG_ALLOWLIST carried "Tencent" for a long time while HF's namespace is
+    lowercase "tencent"; list_models(author="Tencent") returns an empty list
+    rather than raising, so the org_error path never fired and the sweep
+    reported a perfectly normal run while covering nothing. Three more
+    entries -- CohereForAI, THUDM, databricks -- were dead the same way.
+    An org with zero repos is always a configuration bug: allowlisted orgs
+    publish models, that is why they are on the list.
+    """
+    api = FakeApi({"zai-org": [
+        FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
+    ]})
+    candidates, skips = discover.sweep_orgs(
+        api, ["zai-org", "Tencent"], 3.0, set(), get_json=lambda url: {})
+
+    assert skips["empty_org"] == 1
+    assert "Tencent" in capsys.readouterr().out
+    assert len(candidates) == 1
+
+
+def test_sweep_does_not_report_an_org_whose_models_were_all_filtered():
+    """Zero CANDIDATES is normal -- everything was known, small or a quant.
+    Zero REPOS is the bug. Only the second is worth a warning."""
+    api = FakeApi({"zai-org": [FakeInfo("zai-org/GLM-5.2-GGUF", license="mit")]})
+    _, skips = discover.sweep_orgs(api, ["zai-org"], 3.0, set(),
+                                   get_json=lambda url: {})
+    assert skips["empty_org"] == 0

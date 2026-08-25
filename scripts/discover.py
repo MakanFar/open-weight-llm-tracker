@@ -124,7 +124,13 @@ ORG_ALLOWLIST = [
     "CohereForAI", "CohereLabs", "ai21labs", "allenai", "nvidia", "01-ai",
     "tiiuae", "databricks", "HuggingFaceTB", "ibm-granite", "internlm",
     "THUDM", "zai-org", "moonshotai", "openai", "xai-org", "stabilityai",
-    "MiniMaxAI", "XiaomiMiMo", "poolside", "thinkingmachines", "baidu", "Tencent"
+    "MiniMaxAI", "XiaomiMiMo", "poolside", "thinkingmachines", "baidu",
+    # Lowercase: HF namespaces are case-sensitive here and list_models(
+    # author="Tencent") returns an EMPTY LIST rather than raising, so the
+    # miscased entry that sat here swept nothing and reported nothing. The
+    # empty_org warning in sweep_orgs exists to make that class of typo
+    # visible instead of silent.
+    "tencent",
 ]
 
 
@@ -336,7 +342,7 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
     """
     candidates = []
     skips = {"known": 0, "derivative": 0, "small": 0, "license": 0,
-             "no_params": 0, "org_error": 0, "stale": 0}
+             "no_params": 0, "org_error": 0, "stale": 0, "empty_org": 0}
     seen = set(known)
     cutoff = None
     if max_age_days:
@@ -358,6 +364,19 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
         except Exception as exc:
             print(f"  ! {org}: {exc}")
             skips["org_error"] += 1
+            continue
+
+        # An allowlisted org that returns NO repos at all is a configuration
+        # bug, not a quiet week: orgs are on the list precisely because they
+        # publish. HF answers an unknown or miscased author with an empty
+        # list rather than an error, so without this the sweep reports a
+        # normal run while covering nothing — which is exactly what
+        # "Tencent" (vs "tencent"), CohereForAI, THUDM and databricks did.
+        # Distinct from zero CANDIDATES, which is ordinary: everything the
+        # org published may be known, too small, or a quantization.
+        if not models:
+            print(f"  ! {org}: no repos on HF — dead or misspelled org?")
+            skips["empty_org"] += 1
             continue
 
         for info in models:

@@ -225,7 +225,7 @@ HF_AUTHOR_HINTS = {
     "Microsoft": "microsoft", "Cohere": "CohereLabs", "Mistral AI": "mistralai",
     "01.AI": "01-ai", "TII": "tiiuae", "IBM": "ibm-granite", "Ai2": "allenai",
     "Baidu": "baidu", "Xiaomi": "XiaomiMiMo",
-    "Thinking Machines": "thinkingmachines",
+    "Thinking Machines": "thinkingmachines", "Tencent": "tencent",
     "OpenAI": "openai", "xAI": "xai-org",
     "Anthropic": None,
 }

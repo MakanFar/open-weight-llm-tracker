@@ -6326,5 +6326,4 @@ arena_agent:
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-new_orgs:
-- Tencent
+new_orgs: []
