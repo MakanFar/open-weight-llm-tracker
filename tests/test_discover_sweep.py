@@ -11,9 +11,14 @@ from test_hf_meta import FakeInfo
 class FakeApi:
     """Returns a canned model list per author; raises for authors in `errors`."""
 
-    def __init__(self, by_author, errors=()):
+    def __init__(self, by_author, errors=(), non_text=()):
         self.by_author = by_author
         self.errors = set(errors)
+        # Authors whose repos exist but carry no text-generation tag, so a
+        # filtered query returns nothing and an unfiltered one does not.
+        # thinkingmachines is the real case: six repos, none tagged
+        # text-generation, because Inkling is multimodal.
+        self.non_text = set(non_text)
         self.calls = []
 
     def list_models(self, **kwargs):
@@ -26,11 +31,26 @@ class FakeApi:
         self.calls.append(author)
         if author in self.errors:
             raise RuntimeError("HF 429")
+        if author in self.non_text and kwargs.get("pipeline_tag"):
+            return
         yield from self.by_author.get(author, [])
 
 
 def test_sweep_queries_each_org_once():
-    api = FakeApi({"zai-org": [], "moonshotai": []})
+    """One list_models call per org — the sweep must not paginate or retry.
+
+    Both orgs return a model on purpose. An org that returns NOTHING is
+    re-queried once, unfiltered, to tell a dead org from a live one with no
+    text-generation repos (see sweep_orgs); that second call is deliberate
+    and is covered by its own tests, so this one uses non-empty orgs to keep
+    testing the ordinary path it was written for.
+    """
+    api = FakeApi({
+        "zai-org": [FakeInfo("zai-org/GLM-5.2", total=753_300_000_000,
+                             license="mit")],
+        "moonshotai": [FakeInfo("moonshotai/Kimi-K3", total=1_000_000_000_000,
+                                license="mit")],
+    })
     discover.sweep_orgs(api, ["zai-org", "moonshotai"], 3.0, set(),
                         get_json=lambda url: {})
     assert sorted(api.calls) == ["moonshotai", "zai-org"]
@@ -211,6 +231,35 @@ def test_sweep_reports_an_org_that_returns_nothing(capsys):
     assert skips["empty_org"] == 1
     assert "Tencent" in capsys.readouterr().out
     assert len(candidates) == 1
+
+
+def test_sweep_distinguishes_a_live_org_with_no_text_generation_repos(capsys):
+    """thinkingmachines publishes six repos and none are tagged
+    text-generation -- Inkling is multimodal -- so the sweep's filtered query
+    returns nothing while the org is very much alive. Reporting that as "dead
+    or misspelled" sends a maintainer to look for a typo that is not there,
+    and hides the real finding: the sweep cannot see this vendor's models at
+    all.
+    """
+    api = FakeApi({"thinkingmachines": [
+        FakeInfo("thinkingmachines/Inkling", total=1_000_000_000_000,
+                 license="apache-2.0"),
+    ]}, non_text=["thinkingmachines"])
+    _, skips = discover.sweep_orgs(api, ["thinkingmachines"], 3.0, set(),
+                                   get_json=lambda url: {})
+
+    out = capsys.readouterr().out
+    assert skips["empty_org"] == 1
+    assert "no text-generation repos" in out
+    assert "dead or misspelled" not in out
+
+
+def test_sweep_still_calls_a_dead_org_dead(capsys):
+    api = FakeApi({})
+    _, skips = discover.sweep_orgs(api, ["CohereForAI"], 3.0, set(),
+                                   get_json=lambda url: {})
+    assert skips["empty_org"] == 1
+    assert "no repos on HF" in capsys.readouterr().out
 
 
 def test_sweep_does_not_report_an_org_whose_models_were_all_filtered():

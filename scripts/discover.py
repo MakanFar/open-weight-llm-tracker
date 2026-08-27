@@ -374,9 +374,25 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
         # "Tencent" (vs "tencent"), CohereForAI, THUDM and databricks did.
         # Distinct from zero CANDIDATES, which is ordinary: everything the
         # org published may be known, too small, or a quantization.
+        #
+        # The unfiltered re-query separates two very different findings that
+        # look identical from here. thinkingmachines publishes six repos and
+        # none carry a text-generation tag (Inkling is multimodal), so the
+        # org is alive and the SWEEP is what cannot see it; calling that
+        # "dead or misspelled" sends a maintainer hunting a typo that does
+        # not exist. Costs one extra request per empty org, and only ever
+        # for an org that already returned nothing.
         if not models:
-            print(f"  ! {org}: no repos on HF — dead or misspelled org?")
             skips["empty_org"] += 1
+            try:
+                any_repo = list(api.list_models(author=org, limit=1))
+            except Exception:
+                any_repo = []
+            if any_repo:
+                print(f"  ! {org}: no text-generation repos, though the org "
+                      f"publishes others — this sweep cannot see its models")
+            else:
+                print(f"  ! {org}: no repos on HF — dead or misspelled org?")
             continue
 
         for info in models:
