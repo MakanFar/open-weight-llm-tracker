@@ -624,3 +624,42 @@ def test_promoted_reviewed_collision_carries_no_marker_into_models_yaml(tmp_path
     rows = yaml.safe_load((tmp_path / "models.yaml").read_text())["models"]
     published = [r for r in rows if r["hf_repo"] == "zai-org/GLM-5.2"]
     assert published and "family_collision_reviewed" not in published[0]
+
+
+def test_refresh_re_derives_modality_on_carried_rows(tmp_path):
+    """The correction is worthless unless refresh actually calls it.
+
+    Gating it on missing_vitals (as the re-enrichment loop is) would miss the
+    dangerous case exactly: a row with NO gaps is promotable, so a frozen
+    wrong modality on it is the one that reaches models.yaml.
+    """
+    _seed(tmp_path, candidates="""\
+models:
+- name: Inkling
+  hf_repo: thinkingmachines/Inkling
+  developer: thinkingmachines
+  release_date: 2026-07-01
+  params_total_b: 952.4
+  params_active_b: 52.0
+  architecture: moe
+  context_window: 1048576
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  discovered_via: [arena]
+  downloads: 600000
+""")
+
+    class Api(FakeApi):
+        def model_info(self, repo, **kw):
+            class I:
+                pipeline_tag = "image-text-to-text"
+                tags = []
+            return I()
+
+    promoted, _, _, _ = _refresh(Api({}), tmp_path)
+    # This row has no gaps, so it PROMOTES -- which is the dangerous case:
+    # the corrected modality has to be in place before it reaches
+    # models.yaml, where validate.py would wave "text" through as legal.
+    row = [r for r in promoted if r["hf_repo"] == "thinkingmachines/Inkling"]
+    assert row and row[0]["modality"] == "multimodal"

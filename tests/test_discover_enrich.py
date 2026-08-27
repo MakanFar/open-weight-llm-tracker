@@ -177,3 +177,63 @@ def test_fresh_row_does_not_refetch_config_json():
     discover.enrich_row(row, FakeInfo({"license": "mit"}),
                         get_text=lambda u: "", get_json=get_json)
     assert not any(u.endswith("/config.json") for u in seen), seen
+
+
+# --- carried rows must not freeze a wrong modality -------------------------
+
+class _ModalityInfo:
+    """Only the two attributes hf_meta.modality_of reads."""
+
+    def __init__(self, pipeline_tag=None, tags=None):
+        self.pipeline_tag = pipeline_tag
+        self.tags = tags or []
+
+
+class _ModalityApi:
+    """model_info stub: maps repo -> pipeline_tag, or raises."""
+
+    def __init__(self, tags, errors=()):
+        self.tags = tags
+        self.errors = set(errors)
+        self.calls = []
+
+    def model_info(self, repo, **kw):
+        self.calls.append(repo)
+        if repo in self.errors:
+            raise RuntimeError("HF 429")
+        return _ModalityInfo(pipeline_tag=self.tags.get(repo))
+
+
+def test_refresh_modality_corrects_a_stale_value():
+    """thinkingmachines/Inkling sits in the queue as modality: text and is
+    multimodal. It was staged before the pipeline requested pipeline_tag, and
+    nothing re-derives modality on a carried row -- so the wrong value would
+    ride into models.yaml on promotion. Same freezing bug arena_rank and
+    gated_no_access each had.
+    """
+    rows = [{"hf_repo": "thinkingmachines/Inkling", "modality": "text"}]
+    api = _ModalityApi({"thinkingmachines/Inkling": "image-text-to-text"})
+    discover.refresh_modality(api, rows)
+    assert rows[0]["modality"] == "multimodal"
+
+
+def test_refresh_modality_leaves_a_row_alone_when_hf_is_silent():
+    """modality_of returns None when HF publishes no usable signal. That is
+    'we do not know', not 'text' -- overwriting a real value with a guess is
+    exactly what enrich.py's contract forbids."""
+    rows = [{"hf_repo": "org/m", "modality": "vision-language"}]
+    discover.refresh_modality(_ModalityApi({"org/m": None}), rows)
+    assert rows[0]["modality"] == "vision-language"
+
+
+def test_refresh_modality_survives_a_fetch_failure():
+    rows = [{"hf_repo": "org/m", "modality": "text"}]
+    discover.refresh_modality(_ModalityApi({}, errors=["org/m"]), rows)
+    assert rows[0]["modality"] == "text"
+
+
+def test_refresh_modality_is_quiet_when_nothing_changes(capsys):
+    rows = [{"hf_repo": "org/m", "modality": "text"}]
+    discover.refresh_modality(_ModalityApi({"org/m": "text-generation"}), rows)
+    assert rows[0]["modality"] == "text"
+    assert capsys.readouterr().out == ""

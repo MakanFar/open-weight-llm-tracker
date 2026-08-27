@@ -537,6 +537,46 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
     return out
 
 
+def refresh_modality(api, rows):
+    """Re-derive modality on carried rows from HF's CURRENT signals.
+
+    A staged row is never rebuilt — it is "known", so no sweep touches it —
+    which means every HF-derived field it was born with is frozen. modality
+    is the one where that actually publishes something false:
+    thinkingmachines/Inkling sat in the queue as `text` and is multimodal,
+    staged before the pipeline requested pipeline_tag (57bee32). Promote it
+    and models.yaml gets a wrong modality that validate.py cannot catch,
+    because "text" is a perfectly legal value. The same freezing bug
+    arena_rank had before it was re-stamped each run, and gated_no_access
+    was built to avoid.
+
+    Only ever overwrites when modality_of gives a DEFINITE answer that
+    differs. A None means HF publishes no usable signal — "we do not know",
+    not "text" — and replacing a real value with that would be the guess
+    enrich.py's contract forbids.
+
+    This does overrule a hand-edited modality, unlike other candidates.yaml
+    edits which carry forward. That is deliberate and narrow: modality is
+    machine-derived from pipeline_tag, HF is the authority on it, and the
+    row this exists for proves the stored value can simply be wrong. Every
+    change is printed so a reviewer sees it happen.
+
+    Cheap on purpose — pipeline_tag and tags are all modality_of reads.
+    """
+    for row in rows:
+        repo = row.get("hf_repo")
+        if not repo:
+            continue
+        try:
+            info = api.model_info(repo, expand=["pipeline_tag", "tags"])
+        except Exception:
+            continue
+        current = hf_meta.modality_of(info)
+        if current and current != row.get("modality"):
+            print(f"  ~ {repo}: modality {row.get('modality')!r} -> {current!r}")
+            row["modality"] = current
+
+
 def enrich_row(row, info, get_text, get_json):
     """Fill fields the HF API does not expose, in place. Never fabricates.
 
@@ -833,6 +873,11 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # and let license_string's existing None-tolerant path make that half a
     # documented no-op for carried rows — only the card-derived active-params
     # and tokenizer-derived context-window halves can actually help them.
+    # Deliberately NOT gated on missing_vitals, unlike the enrichment below:
+    # a row with no gaps is promotable, so a frozen wrong modality on it is
+    # precisely the one that reaches models.yaml. See refresh_modality.
+    refresh_modality(api, staged)
+
     stems = tracked_stems(data_path)
     for row in staged:
         if classify.missing_vitals(row, stems, today=today):
