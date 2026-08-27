@@ -59,7 +59,7 @@ arena_agent:
     Price $/M: $1.40 / $4.40
     Context: 1M
   resolved_repo: null
-  resolution_confidence: null
+  resolution_confidence: low
   open_weight: false
   needs_hf_repo: true
 - rank: 3
@@ -251,7 +251,7 @@ arena_agent:
   - 43 67
   - 27,850
   - $1 / $3.20
-  - 202.8K
+  - 204.8K
   by_header:
     Rank: '9'
     Overall Rank: '55'
@@ -260,7 +260,7 @@ arena_agent:
     Rank Spread: 43 67
     Votes: 27,850
     Price $/M: $1 / $3.20
-    Context: 202.8K
+    Context: 204.8K
   resolved_repo: zai-org/GLM-5
   resolution_confidence: high
   open_weight: true
@@ -511,8 +511,8 @@ arena_agent:
   - 1440 ±10
   - 60 106
   - 3,205
-  - $0.50 / $3
-  - N/A
+  - $0.40 / $3
+  - 262.1K
   by_header:
     Rank: '18'
     Overall Rank: '81'
@@ -520,8 +520,8 @@ arena_agent:
     Score: 1440 ±10
     Rank Spread: 60 106
     Votes: 3,205
-    Price $/M: $0.50 / $3
-    Context: N/A
+    Price $/M: $0.40 / $3
+    Context: 262.1K
   resolved_repo: Qwen/Qwen3.8-27B
   resolution_confidence: high
   open_weight: true
@@ -3770,7 +3770,7 @@ arena_agent:
     Votes: 15,147
     Price $/M: $0.14 / $0.28
     Context: 128K
-  resolved_repo: deepseek-ai/DeepSeek-Coder-V2-Base
+  resolved_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false

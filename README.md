@@ -1,6 +1,6 @@
 # Open-Weight & Open-Source LLM Tracker
 
-A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **30 models**.
+A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **33 models**.
 
 Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
@@ -12,11 +12,14 @@ Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is 
 | [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 10 | 42 | `apache-2.0` | Yes |
 | [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) | Moonshot AI | 2026-06-13 | 2779.9B (104B active) | 1M | text | 1 | 60 | `kimi-k3` | Conditional |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 14 | 45 | `minimax-community` | Conditional |
+| [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes? |
 | [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 5 | 43 | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 22 | 38 | `mit` | Yes? |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 8 | 45 | `mit` | Yes |
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 108 | — | `apache-2.0` | Yes? |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 12 | 30 | `apache-2.0` | Yes |
+| [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
+| [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
 | [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 47 | — | `apache-2.0` | Yes? |
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 21 | `apache-2.0` | Yes? |
 | [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 61 | — | `mit` | Yes? |
