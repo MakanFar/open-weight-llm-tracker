@@ -322,6 +322,20 @@ def surviving_staged(staged, tracked):
     return [r for r in staged if r["hf_repo"].lower() not in tracked]
 
 
+# Pipeline tags the sweep asks each org for. models.yaml carries text,
+# vision-language AND multimodal rows, so asking only for text-generation
+# indexed one third of what this tracker claims to cover. thinkingmachines
+# is the proof: six repos, none tagged text-generation (Inkling is
+# multimodal), so the sweep saw the org as empty. Inkling is in the queue
+# only because arena ranked it and arena resolves repos by name, bypassing
+# tags entirely — an unranked multimodal flagship had nothing to find it.
+#
+# One request per tag per org. HF's pipeline_tag filter takes a single
+# value, so there is no way to ask for the union in one call.
+SWEEP_PIPELINE_TAGS = ("text-generation",) + tuple(
+    sorted(hf_meta.MULTIMODAL_PIPELINE_TAGS))
+
+
 def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
                get_text=enrich._http_get_text, max_age_days=None, today=None):
     """One list_models call per org. Returns (candidates, skip_counts).
@@ -349,20 +363,38 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
         cutoff = (today or date.today()) - timedelta(days=max_age_days)
 
     for org in orgs:
-        try:
-            # list_models() is a generator — it does not make the HTTP
-            # request until iterated. Force it here with list(...) so the
-            # request (and any rate-limit/5xx exception) happens inside the
-            # try, not in the unguarded loop below.
-            models = list(api.list_models(
-                author=org,
-                pipeline_tag="text-generation",
-                sort="created_at",
-                limit=50,
-                expand=hf_meta.EXPAND,
-            ))
-        except Exception as exc:
-            print(f"  ! {org}: {exc}")
+        # One query per pipeline tag (see SWEEP_PIPELINE_TAGS), deduped by
+        # repo id: a repo can legitimately answer more than one tag, and it
+        # is still one model.
+        models, by_id, failures = [], set(), 0
+        for tag in SWEEP_PIPELINE_TAGS:
+            try:
+                # list_models() is a generator — it does not make the HTTP
+                # request until iterated. Force it here with list(...) so the
+                # request (and any rate-limit/5xx exception) happens inside
+                # the try, not in the unguarded loop below.
+                got = list(api.list_models(
+                    author=org,
+                    pipeline_tag=tag,
+                    sort="created_at",
+                    limit=50,
+                    expand=hf_meta.EXPAND,
+                ))
+            except Exception as exc:
+                # One tag failing is not the org failing. A 429 on the
+                # image-text-to-text query must not discard the
+                # text-generation results already in hand — that would make
+                # the sweep five times more fragile than when it made one
+                # request per org.
+                print(f"  ! {org} ({tag}): {exc}")
+                failures += 1
+                continue
+            for info in got:
+                if info.id not in by_id:
+                    by_id.add(info.id)
+                    models.append(info)
+
+        if failures == len(SWEEP_PIPELINE_TAGS):
             skips["org_error"] += 1
             continue
 
@@ -389,8 +421,8 @@ def sweep_orgs(api, orgs, min_params, known, get_json=hf_meta._http_get_json,
             except Exception:
                 any_repo = []
             if any_repo:
-                print(f"  ! {org}: no text-generation repos, though the org "
-                      f"publishes others — this sweep cannot see its models")
+                print(f"  ! {org}: publishes repos, but none under the "
+                      f"pipeline tags this sweep indexes")
             else:
                 print(f"  ! {org}: no repos on HF — dead or misspelled org?")
             continue

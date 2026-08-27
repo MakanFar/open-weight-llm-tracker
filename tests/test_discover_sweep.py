@@ -5,20 +5,16 @@ from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "scripts"))
 
 import discover
+import hf_meta
 from test_hf_meta import FakeInfo
 
 
 class FakeApi:
     """Returns a canned model list per author; raises for authors in `errors`."""
 
-    def __init__(self, by_author, errors=(), non_text=()):
+    def __init__(self, by_author, errors=()):
         self.by_author = by_author
         self.errors = set(errors)
-        # Authors whose repos exist but carry no text-generation tag, so a
-        # filtered query returns nothing and an unfiltered one does not.
-        # thinkingmachines is the real case: six repos, none tagged
-        # text-generation, because Inkling is multimodal.
-        self.non_text = set(non_text)
         self.calls = []
 
     def list_models(self, **kwargs):
@@ -28,12 +24,23 @@ class FakeApi:
         # tests fail if discover.py stops forcing the generator inside its
         # try/except.
         author = kwargs.get("author")
-        self.calls.append(author)
+        self.calls.append((author, kwargs.get("pipeline_tag")))
         if author in self.errors:
             raise RuntimeError("HF 429")
-        if author in self.non_text and kwargs.get("pipeline_tag"):
-            return
-        yield from self.by_author.get(author, [])
+        tag = kwargs.get("pipeline_tag")
+        for m in self.by_author.get(author, []):
+            # A fake with no pipeline_tag of its own is tag-agnostic and
+            # matches any query, so the many existing fixtures that never
+            # cared about modality keep working. One that DOES declare a tag
+            # is matched strictly, which is what lets a test model an org
+            # whose repos are multimodal-only.
+            own = getattr(m, "pipeline_tag", None)
+            if tag is None or own is None or own == tag:
+                yield m
+
+    @property
+    def authors_called(self):
+        return [a for a, _ in self.calls]
 
 
 def test_sweep_queries_each_org_once():
@@ -53,7 +60,7 @@ def test_sweep_queries_each_org_once():
     })
     discover.sweep_orgs(api, ["zai-org", "moonshotai"], 3.0, set(),
                         get_json=lambda url: {})
-    assert sorted(api.calls) == ["moonshotai", "zai-org"]
+    assert sorted(set(api.authors_called)) == ["moonshotai", "zai-org"]
 
 
 def test_sweep_collects_real_models():
@@ -233,24 +240,58 @@ def test_sweep_reports_an_org_that_returns_nothing(capsys):
     assert len(candidates) == 1
 
 
-def test_sweep_distinguishes_a_live_org_with_no_text_generation_repos(capsys):
-    """thinkingmachines publishes six repos and none are tagged
-    text-generation -- Inkling is multimodal -- so the sweep's filtered query
-    returns nothing while the org is very much alive. Reporting that as "dead
-    or misspelled" sends a maintainer to look for a typo that is not there,
-    and hides the real finding: the sweep cannot see this vendor's models at
-    all.
+def test_sweep_finds_a_multimodal_only_org(capsys):
+    """thinkingmachines publishes six repos and NONE are tagged
+    text-generation -- Inkling is multimodal -- so a sweep that asks only for
+    text-generation cannot see this vendor at all. Inkling reached the queue
+    solely because arena ranked it and arena fetches repos by name; nothing
+    would have found it otherwise, and nothing would find an unranked
+    multimodal flagship at all.
     """
     api = FakeApi({"thinkingmachines": [
         FakeInfo("thinkingmachines/Inkling", total=1_000_000_000_000,
-                 license="apache-2.0"),
-    ]}, non_text=["thinkingmachines"])
-    _, skips = discover.sweep_orgs(api, ["thinkingmachines"], 3.0, set(),
-                                   get_json=lambda url: {})
+                 license="apache-2.0", pipeline_tag="image-text-to-text"),
+    ]})
+    candidates, skips = discover.sweep_orgs(api, ["thinkingmachines"], 3.0, set(),
+                                            get_json=lambda url: {})
 
+    assert [c["hf_repo"] for c in candidates] == ["thinkingmachines/Inkling"]
+    assert skips["empty_org"] == 0
+
+
+def test_sweep_asks_for_every_modality_it_indexes():
+    """models.yaml carries text, vision-language and multimodal rows, so the
+    sweep must ask for the pipeline tags that produce them -- not just one."""
+    api = FakeApi({"thinkingmachines": []})
+    discover.sweep_orgs(api, ["thinkingmachines"], 3.0, set(),
+                        get_json=lambda url: {})
+    asked = {tag for _, tag in api.calls if tag}
+    assert "text-generation" in asked
+    assert hf_meta.MULTIMODAL_PIPELINE_TAGS <= asked
+
+
+def test_sweep_returns_a_repo_once_even_if_several_tags_match(capsys):
+    """A tag-agnostic repo comes back from every query; it is one model."""
+    api = FakeApi({"zai-org": [
+        FakeInfo("zai-org/GLM-5.2", total=753_300_000_000, license="mit"),
+    ]})
+    candidates, _ = discover.sweep_orgs(api, ["zai-org"], 3.0, set(),
+                                        get_json=lambda url: {})
+    assert [c["hf_repo"] for c in candidates] == ["zai-org/GLM-5.2"]
+
+
+def test_sweep_reports_a_live_org_with_nothing_it_can_use(capsys):
+    """An org publishing only non-generative heads is alive but useless to
+    this sweep. Saying "dead or misspelled" would send a maintainer hunting
+    a typo that is not there."""
+    api = FakeApi({"someorg": [
+        FakeInfo("someorg/embedder", total=1_000_000_000,
+                 license="mit", pipeline_tag="sentence-similarity"),
+    ]})
+    _, skips = discover.sweep_orgs(api, ["someorg"], 3.0, set(),
+                                   get_json=lambda url: {})
     out = capsys.readouterr().out
     assert skips["empty_org"] == 1
-    assert "no text-generation repos" in out
     assert "dead or misspelled" not in out
 
 
