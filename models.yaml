@@ -482,3 +482,48 @@ models:
     license_notes: AUTO-DISCOVERED — verify license terms.
     weights_url: https://huggingface.co/allenai/Olmo-3-32B-Think
     commercial_use_verified: false
+
+  - name: gemma-4-12B-it
+    hf_repo: google/gemma-4-12B-it
+    developer: google
+    release_date: 2026-05-23
+    params_total_b: 12.0
+    params_active_b: 12.0
+    architecture: dense
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/google/gemma-4-12B-it
+    commercial_use_verified: false
+
+  - name: gemma-4-E2B-it
+    hf_repo: google/gemma-4-E2B-it
+    developer: google
+    release_date: 2026-03-02
+    params_total_b: 5.1
+    params_active_b: 5.1
+    architecture: dense
+    context_window: 131072
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/google/gemma-4-E2B-it
+    commercial_use_verified: false
+
+  - name: gemma-4-E4B-it
+    hf_repo: google/gemma-4-E4B-it
+    developer: google
+    release_date: 2026-03-02
+    params_total_b: 8.0
+    params_active_b: 8.0
+    architecture: dense
+    context_window: 131072
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/google/gemma-4-E4B-it
+    commercial_use_verified: false

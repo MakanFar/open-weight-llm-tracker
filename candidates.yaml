@@ -83,7 +83,7 @@ models:
   params_active_b: 1058.6
   architecture: moe
   context_window: 262144
-  modality: text
+  modality: multimodal
   license: other
   commercial_use: conditional
   license_notes: AUTO-DISCOVERED — verify license terms.
@@ -175,7 +175,7 @@ models:
   params_active_b: 952.4
   architecture: moe
   context_window: 1048576
-  modality: text
+  modality: multimodal
   license: apache-2.0
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
@@ -190,6 +190,29 @@ models:
   aa_index: 42
   needs_review:
   - moe-active-params-unknown
+- name: Qwen3.8-27B
+  hf_repo: Qwen/Qwen3.8-27B
+  developer: Qwen
+  release_date: 2026-08-05
+  params_total_b: 27.8
+  params_active_b: 27.8
+  architecture: dense
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.8-27B
+  downloads: 3298569
+  discovered_via:
+  - arena
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 18
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
 - name: gemma-4-26B-A4B-it
   hf_repo: google/gemma-4-26B-A4B-it
   developer: google
@@ -1790,6 +1813,25 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
+- name: Unlimited-OCR
+  hf_repo: baidu/Unlimited-OCR
+  developer: baidu
+  release_date: 2026-06-19
+  params_total_b: 3.3
+  params_active_b: 3.3
+  architecture: moe
+  context_window: 32768
+  modality: multimodal
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/Unlimited-OCR
+  downloads: 2932554
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - moe-active-params-unknown
 - name: Kimi-K2.7-Code
   hf_repo: moonshotai/Kimi-K2.7-Code
   developer: moonshotai
@@ -1798,7 +1840,7 @@ models:
   params_active_b: 1058.6
   architecture: moe
   context_window: 262144
-  modality: text
+  modality: multimodal
   license: other
   commercial_use: conditional
   license_notes: AUTO-DISCOVERED — verify license terms.
@@ -1813,67 +1855,82 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-- name: granite-4.1-30b-base
-  hf_repo: ibm-granite/granite-4.1-30b-base
-  developer: ibm-granite
-  release_date: 2026-04-06
-  params_total_b: 28.9
-  params_active_b: 28.9
-  architecture: dense
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/ibm-granite/granite-4.1-30b-base
-  downloads: 1559
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - derivative-or-base
-  - signal-too-weak
-- name: granite-4.1-3b-base
-  hf_repo: ibm-granite/granite-4.1-3b-base
-  developer: ibm-granite
-  release_date: 2026-04-06
-  params_total_b: 3.4
-  params_active_b: 3.4
-  architecture: dense
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/ibm-granite/granite-4.1-3b-base
-  downloads: 6921
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - derivative-or-base
-  - signal-too-weak
-- name: Nemotron-Cascade-2-30B-A3B
-  hf_repo: nvidia/Nemotron-Cascade-2-30B-A3B
-  developer: nvidia
-  release_date: 2026-03-18
-  params_total_b: 31.6
-  params_active_b: 3.0
+- name: diffusiongemma-26B-A4B-it
+  hf_repo: google/diffusiongemma-26B-A4B-it
+  developer: google
+  release_date: 2026-06-09
+  params_total_b: 25.8
+  params_active_b: 25.8
   architecture: moe
   context_window: 262144
-  modality: text
-  license: other
-  commercial_use: conditional
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/nvidia/Nemotron-Cascade-2-30B-A3B
-  downloads: 51870
+  weights_url: https://huggingface.co/google/diffusiongemma-26B-A4B-it
+  downloads: 1645974
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  params_active_source: 3B activated param
   needs_review:
-  - license-not-allowlisted
-  - signal-too-weak
+  - moe-active-params-unknown
+- name: Qwen3.6-27B
+  hf_repo: Qwen/Qwen3.6-27B
+  developer: Qwen
+  release_date: 2026-04-21
+  params_total_b: 27.8
+  params_active_b: 27.8
+  architecture: dense
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.6-27B
+  downloads: 6205057
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - family-already-tracked
+- name: Qwen3.6-35B-A3B
+  hf_repo: Qwen/Qwen3.6-35B-A3B
+  developer: Qwen
+  release_date: 2026-04-15
+  params_total_b: 36.0
+  params_active_b: 36.0
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.6-35B-A3B
+  downloads: 5368034
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - moe-active-params-unknown
+- name: gemma-4-31B
+  hf_repo: google/gemma-4-31B
+  developer: google
+  release_date: 2026-03-12
+  params_total_b: 32.7
+  params_active_b: 32.7
+  architecture: dense
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-4-31B
+  downloads: 720352
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - family-already-tracked
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   developer: nvidia
@@ -1894,73 +1951,6 @@ models:
   params_active_source: 12B active param
   needs_review:
   - license-not-allowlisted
-- name: Qwen3-Coder-Next-Base
-  hf_repo: Qwen/Qwen3-Coder-Next-Base
-  developer: Qwen
-  release_date: 2026-02-01
-  params_total_b: 79.7
-  params_active_b: 79.7
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next-Base
-  downloads: 1493
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - moe-active-params-unknown
-  - derivative-or-base
-  - family-already-tracked
-  - signal-too-weak
-- name: MiMo-V2-Flash-Base
-  hf_repo: XiaomiMiMo/MiMo-V2-Flash-Base
-  developer: XiaomiMiMo
-  release_date: 2025-12-16
-  params_total_b: 309.8
-  params_active_b: 15.0
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash-Base
-  downloads: 9429
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  params_active_source: 15B active param
-  needs_review:
-  - derivative-or-base
-  - family-already-tracked
-  - signal-too-weak
-- name: DeepSeek-V3.1
-  hf_repo: deepseek-ai/DeepSeek-V3.1
-  developer: deepseek-ai
-  release_date: 2025-08-21
-  params_total_b: 684.5
-  params_active_b: 684.5
-  architecture: moe
-  context_window: 163840
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1
-  downloads: 231639
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  - family-already-tracked
-  - signal-too-weak
 - name: DeepSeek-Coder-V2-Instruct
   hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
   developer: deepseek-ai
@@ -1983,4 +1973,5 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - signal-too-weak
+  - signal-too-stale
+  arena_rank: 130

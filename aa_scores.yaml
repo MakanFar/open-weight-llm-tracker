@@ -129,6 +129,7 @@ unmatched:
 - Devstral Small 2
 - G9v3-39A5B
 - GLM-5.3 (max)
+- GLM-5.3-Flash
 - GPT-5.5 Instant (June 2026)
 - GPT-5.6 Luna (max)
 - GPT-5.6 Sol (max)
@@ -137,6 +138,8 @@ unmatched:
 - Gemini 3.5 Flash-Lite
 - Gemini 3.6 Flash
 - Gemini 3.7 Flash (high)
+- Granite 4.2 3B
+- Granite 4.2 8B
 - Grok 4.3 (Non-reasoning)
 - Grok 4.5 (high)
 - Grok 4.6 (high)
