@@ -12,3 +12,5 @@ __pycache__/
 # claude
 .claude/
 
+# SDD design docs (local only)
+docs/superpowers/
