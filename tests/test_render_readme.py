@@ -216,3 +216,44 @@ def test_arena_ambiguous_identity_is_dropped_rather_than_guessed(capsys):
     ranks = rr.load_arena_ranks_from_rows(rows)
     assert ranks["identities"] == {}
     assert "deepseekv4flash" in capsys.readouterr().out
+
+
+# --- freshness stamp and badges --------------------------------------------
+
+def test_load_generated_reads_the_discovery_stamp(tmp_path):
+    f = tmp_path / "candidates.yaml"
+    f.write_text("generated: '2026-08-28'\nmodels: []\n")
+    assert rr.load_generated(f) == "2026-08-28"
+
+
+def test_load_generated_accepts_an_unquoted_yaml_date(tmp_path):
+    """YAML parses a bare 2026-08-28 into a date object, not a string."""
+    f = tmp_path / "candidates.yaml"
+    f.write_text("generated: 2026-08-28\nmodels: []\n")
+    assert rr.load_generated(f) == "2026-08-28"
+
+
+def test_load_generated_returns_none_when_missing_or_malformed(tmp_path):
+    """Same contract as the arena and AA loaders: never raise, so the render
+    always completes and the badge is simply omitted."""
+    assert rr.load_generated(tmp_path / "nope.yaml") is None
+    bad = tmp_path / "bad.yaml"
+    bad.write_text("generated: '   '\nmodels: []\n")
+    assert rr.load_generated(bad) is None
+    worse = tmp_path / "worse.yaml"
+    worse.write_text("[not, a, mapping]\n")
+    assert rr.load_generated(worse) is None
+
+
+def test_badges_double_the_hyphens_in_a_date():
+    """A single hyphen is shields.io's field separator; an ISO date rendered
+    raw would silently produce a badge reading '2026' with colour '08'."""
+    out = rr.badges(33, "2026-08-28")
+    assert "2026--08--28" in out
+
+
+def test_badges_omit_the_freshness_one_when_nothing_is_stamped():
+    """Better no claim than a badge implying a run that never happened."""
+    out = rr.badges(33, None)
+    assert "last%20discovery%20run" not in out
+    assert "models-33-" in out

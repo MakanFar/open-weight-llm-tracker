@@ -27,6 +27,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
+generated: '2026-08-28'
 models:
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
@@ -80,7 +81,7 @@ models:
   developer: moonshotai
   release_date: 2026-04-14
   params_total_b: 1058.6
-  params_active_b: 1058.6
+  params_active_b: 32.0
   architecture: moe
   context_window: 262144
   modality: multimodal
@@ -96,55 +97,9 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
-- name: GLM-5
-  hf_repo: zai-org/GLM-5
-  developer: zai-org
-  release_date: 2026-02-11
-  params_total_b: 753.9
-  params_active_b: 753.9
-  architecture: moe
-  context_window: 202752
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/zai-org/GLM-5
-  downloads: 155036
-  discovered_via:
-  - arena
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 9
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-- name: Qwen3.5-397B-A17B
-  hf_repo: Qwen/Qwen3.5-397B-A17B
-  developer: Qwen
-  release_date: 2026-02-16
-  params_total_b: 403.4
-  params_active_b: 403.4
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3.5-397B-A17B
-  downloads: 317525
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 15
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  aa_index: 34
+  params_active_source: Activated Parameters** | 32B
 - name: GLM-4.7
   hf_repo: zai-org/GLM-4.7
   developer: zai-org
@@ -167,29 +122,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-- name: Inkling
-  hf_repo: thinkingmachines/Inkling
-  developer: thinkingmachines
-  release_date: 2026-07-14
-  params_total_b: 952.4
-  params_active_b: 952.4
-  architecture: moe
-  context_window: 1048576
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/thinkingmachines/Inkling
-  downloads: 57259
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 17
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 42
-  needs_review:
-  - moe-active-params-unknown
+  - family-already-tracked
 - name: Qwen3.8-27B
   hf_repo: Qwen/Qwen3.8-27B
   developer: Qwen
@@ -213,52 +146,6 @@ models:
   resolution_confidence: high
   needs_review:
   - family-already-tracked
-- name: gemma-4-26B-A4B-it
-  hf_repo: google/gemma-4-26B-A4B-it
-  developer: google
-  release_date: 2026-03-11
-  params_total_b: 26.5
-  params_active_b: 26.5
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/google/gemma-4-26B-A4B-it
-  downloads: 10188506
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 20
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  aa_index: 26
-- name: DeepSeek-V4-Flash
-  hf_repo: deepseek-ai/DeepSeek-V4-Flash
-  developer: deepseek-ai
-  release_date: 2026-04-22
-  params_total_b: 290.9
-  params_active_b: 290.9
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash
-  downloads: 2923499
-  discovered_via:
-  - arena
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 21
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
 - name: Mistral-Medium-3.5-128B
   hf_repo: mistralai/Mistral-Medium-3.5-128B
   developer: mistralai
@@ -324,12 +211,13 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
+  - family-already-tracked
 - name: Qwen3-235B-A22B-Instruct-2507
   hf_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
   developer: Qwen
   release_date: 2025-07-21
   params_total_b: 235.1
-  params_active_b: 235.1
+  params_active_b: 22.0
   architecture: moe
   context_window: 262144
   modality: text
@@ -345,9 +233,9 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - family-already-tracked
   - signal-too-stale
+  params_active_source: 235B in total and 22B activated
 - name: DeepSeek-V3.2-Exp
   hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
   developer: deepseek-ai
@@ -375,7 +263,7 @@ models:
   developer: deepseek-ai
   release_date: 2025-05-28
   params_total_b: 684.5
-  params_active_b: 684.5
+  params_active_b: 22.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -391,9 +279,9 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - family-already-tracked
   - signal-too-stale
+  params_active_source: 235B-A22B
 - name: DeepSeek-V3.1-Base
   hf_repo: deepseek-ai/DeepSeek-V3.1-Base
   developer: deepseek-ai
@@ -419,29 +307,6 @@ models:
   - derivative-or-base
   - family-already-tracked
   - signal-too-stale
-- name: Qwen3.5-122B-A10B
-  hf_repo: Qwen/Qwen3.5-122B-A10B
-  developer: Qwen
-  release_date: 2026-02-24
-  params_total_b: 125.1
-  params_active_b: 125.1
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3.5-122B-A10B
-  downloads: 2139496
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 39
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  aa_index: 33
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
   developer: MiniMaxAI
@@ -489,34 +354,12 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-- name: Qwen3-VL-235B-A22B-Instruct
-  hf_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
-  developer: Qwen
-  release_date: 2025-09-22
-  params_total_b: 235.7
-  params_active_b: 235.7
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct
-  downloads: 1610304
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 43
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
 - name: GLM-4.5
   hf_repo: zai-org/GLM-4.5
   developer: zai-org
   release_date: 2025-07-20
   params_total_b: 358.3
-  params_active_b: 358.3
+  params_active_b: 32.0
   architecture: moe
   context_window: 131072
   modality: text
@@ -532,58 +375,15 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
+  - family-already-tracked
   - signal-too-stale
-- name: Inkling-Small
-  hf_repo: thinkingmachines/Inkling-Small
-  developer: thinkingmachines
-  release_date: 2026-07-27
-  params_total_b: 266.0
-  params_active_b: 266.0
-  architecture: moe
-  context_window: 1048576
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/thinkingmachines/Inkling-Small
-  downloads: 32829
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 48
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  aa_index: 41
-- name: Qwen3-Next-80B-A3B-Instruct
-  hf_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
-  developer: Qwen
-  release_date: 2025-09-09
-  params_total_b: 81.3
-  params_active_b: 81.3
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct
-  downloads: 285987
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 17
-  needs_review:
-  - moe-active-params-unknown
-  arena_rank: 51
+  params_active_source: 355B-A32B
 - name: Qwen3-235B-A22B-Thinking-2507
   hf_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
   developer: Qwen
   release_date: 2025-07-25
   params_total_b: 235.1
-  params_active_b: 235.1
+  params_active_b: 22.0
   architecture: moe
   context_window: 262144
   modality: text
@@ -599,8 +399,8 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: 235B in total and 22B activated
 - name: DeepSeek-V3-0324
   hf_repo: deepseek-ai/DeepSeek-V3-0324
   developer: deepseek-ai
@@ -625,51 +425,6 @@ models:
   - moe-active-params-unknown
   - family-already-tracked
   - signal-too-stale
-- name: Qwen3.5-35B-A3B
-  hf_repo: Qwen/Qwen3.5-35B-A3B
-  developer: Qwen
-  release_date: 2026-02-24
-  params_total_b: 36.0
-  params_active_b: 36.0
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3.5-35B-A3B
-  downloads: 2111823
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 55
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  aa_index: 24
-- name: Qwen3-VL-235B-A22B-Thinking
-  hf_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
-  developer: Qwen
-  release_date: 2025-09-22
-  params_total_b: 235.7
-  params_active_b: 235.7
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking
-  downloads: 12417
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 56
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
 - name: MiniMax-M2.5
   hf_repo: MiniMaxAI/MiniMax-M2.5
   developer: MiniMaxAI
@@ -697,7 +452,7 @@ models:
   developer: Qwen
   release_date: 2025-07-22
   params_total_b: 480.2
-  params_active_b: 480.2
+  params_active_b: 35.0
   architecture: moe
   context_window: 262144
   modality: text
@@ -713,14 +468,14 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: 480B in total and 35B activated
 - name: Qwen3-30B-A3B-Instruct-2507
   hf_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
   developer: Qwen
   release_date: 2025-07-28
   params_total_b: 30.5
-  params_active_b: 30.5
+  params_active_b: 3.3
   architecture: moe
   context_window: 262144
   modality: text
@@ -736,8 +491,8 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: 30.5B in total and 3.3B activated
 - name: GLM-4.6V
   hf_repo: zai-org/GLM-4.6V
   developer: zai-org
@@ -783,54 +538,12 @@ models:
   needs_review:
   - moe-active-params-unknown
   - signal-too-stale
-- name: Qwen3-Next-80B-A3B-Thinking
-  hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
-  developer: Qwen
-  release_date: 2025-09-09
-  params_total_b: 81.3
-  params_active_b: 81.3
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking
-  downloads: 31310
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 69
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-- name: GLM-4.7-Flash
-  hf_repo: zai-org/GLM-4.7-Flash
-  developer: zai-org
-  release_date: 2026-01-19
-  params_total_b: 31.2
-  params_active_b: 31.2
-  architecture: moe
-  context_window: 202752
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/zai-org/GLM-4.7-Flash
-  downloads: 2074814
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - moe-active-params-unknown
-  arena_rank: 70
 - name: MiniMax-M1-40k
   hf_repo: MiniMaxAI/MiniMax-M1-40k
   developer: MiniMaxAI
   release_date: 2025-06-05
   params_total_b: 456.1
-  params_active_b: 456.1
+  params_active_b: 22.0
   architecture: moe
   context_window: 10240000
   modality: text
@@ -846,15 +559,15 @@ models:
   needs_hf_repo: true
   resolution_confidence: medium
   needs_review:
-  - moe-active-params-unknown
   - inexact-repo-match
   - signal-too-stale
+  params_active_source: 235B-A22B
 - name: GLM-4.5V
   hf_repo: zai-org/GLM-4.5V
   developer: zai-org
   release_date: 2025-08-10
   params_total_b: 107.7
-  params_active_b: 107.7
+  params_active_b: 12.0
   architecture: moe
   context_window: 65536
   modality: multimodal
@@ -870,29 +583,8 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
-- name: gpt-oss-120b
-  hf_repo: openai/gpt-oss-120b
-  developer: openai
-  release_date: 2025-08-04
-  params_total_b: 120.4
-  params_active_b: 120.4
-  architecture: moe
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/openai/gpt-oss-120b
-  downloads: 4197649
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 24
-  needs_review:
-  - moe-active-params-unknown
-  arena_rank: 79
+  params_active_source: 12B active
 - name: Qwen3-32B
   hf_repo: Qwen/Qwen3-32B
   developer: Qwen
@@ -961,6 +653,7 @@ models:
   resolution_confidence: high
   needs_review:
   - gated-repo-no-access
+  - family-already-tracked
   - signal-too-stale
   gated_no_access: true
 - name: QwQ-32B
@@ -990,7 +683,7 @@ models:
   developer: Qwen
   release_date: 2025-04-27
   params_total_b: 30.5
-  params_active_b: 30.5
+  params_active_b: 3.3
   architecture: moe
   context_window: 40960
   modality: text
@@ -1006,8 +699,8 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: 30.5B in total and 3.3B activated
 - name: DeepSeek-V2.5-1210
   hf_repo: deepseek-ai/DeepSeek-V2.5-1210
   developer: deepseek-ai
@@ -1061,7 +754,7 @@ models:
   developer: openai
   release_date: 2025-08-04
   params_total_b: 21.5
-  params_active_b: 21.5
+  params_active_b: 3.6
   architecture: moe
   context_window: 131072
   modality: text
@@ -1075,9 +768,9 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   aa_index: 15
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
   arena_rank: 102
+  params_active_source: 21B parameters with 3.6B active
 - name: DeepSeek-V2.5
   hf_repo: deepseek-ai/DeepSeek-V2.5
   developer: deepseek-ai
@@ -1267,6 +960,30 @@ models:
   - gated-repo-no-access
   - signal-too-stale
   gated_no_access: true
+- name: DeepSeek-Coder-V2-Instruct
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+  developer: deepseek-ai
+  release_date: 2024-06-14
+  params_total_b: 235.7
+  params_active_b: 235.7
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: deepseek-license
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
+  downloads: 7261
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - license-not-allowlisted
+  - signal-too-stale
+  arena_rank: 130
 - name: Qwen2-72B-Instruct
   hf_repo: Qwen/Qwen2-72B-Instruct
   developer: Qwen
@@ -1794,6 +1511,7 @@ models:
   aa_index: 52
   needs_review:
   - moe-active-params-unknown
+  - family-already-tracked
 - name: DeepSeek-V4-Flash-DSpark
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
   developer: deepseek-ai
@@ -1837,7 +1555,7 @@ models:
   developer: moonshotai
   release_date: 2026-06-11
   params_total_b: 1058.6
-  params_active_b: 1058.6
+  params_active_b: 32.0
   architecture: moe
   context_window: 262144
   modality: multimodal
@@ -1853,27 +1571,8 @@ models:
   resolution_confidence: high
   aa_index: 43
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
-- name: diffusiongemma-26B-A4B-it
-  hf_repo: google/diffusiongemma-26B-A4B-it
-  developer: google
-  release_date: 2026-06-09
-  params_total_b: 25.8
-  params_active_b: 25.8
-  architecture: moe
-  context_window: 262144
-  modality: multimodal
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/google/diffusiongemma-26B-A4B-it
-  downloads: 1645974
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: Activated Parameters** | 32B
 - name: Qwen3.6-27B
   hf_repo: Qwen/Qwen3.6-27B
   developer: Qwen
@@ -1898,7 +1597,7 @@ models:
   developer: Qwen
   release_date: 2026-04-15
   params_total_b: 36.0
-  params_active_b: 36.0
+  params_active_b: 3.0
   architecture: moe
   context_window: 262144
   modality: multimodal
@@ -1911,7 +1610,8 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
-  - moe-active-params-unknown
+  - family-already-tracked
+  params_active_source: 35B in total and 3B activated
 - name: gemma-4-31B
   hf_repo: google/gemma-4-31B
   developer: google
@@ -1951,27 +1651,3 @@ models:
   params_active_source: 12B active param
   needs_review:
   - license-not-allowlisted
-- name: DeepSeek-Coder-V2-Instruct
-  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
-  developer: deepseek-ai
-  release_date: 2024-06-14
-  params_total_b: 235.7
-  params_active_b: 235.7
-  architecture: moe
-  context_window: 163840
-  modality: text
-  license: deepseek-license
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
-  downloads: 7261
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
-  - license-not-allowlisted
-  - signal-too-stale
-  arena_rank: 130

@@ -24,9 +24,55 @@ DATA = ROOT / "models.yaml"
 README = ROOT / "README.md"
 ARENA = ROOT / "arena_agent_rankings.yaml"
 AA = ROOT / "aa_scores.yaml"
+CANDIDATES = ROOT / "candidates.yaml"
 
 START = "<!-- MODELS_TABLE_START -->"
 END = "<!-- MODELS_TABLE_END -->"
+
+REPO_URL = "https://github.com/MakanFar/open-weight-llm-tracker"
+RAW_URL = "https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main"
+
+
+def load_generated(path=CANDIDATES):
+    """ISO date of the last discovery run, or None if unstamped.
+
+    Read from candidates.yaml (discover.write_candidates puts it there), never
+    from the clock. validate.yml re-renders this README and fails on any diff
+    against the committed one, so a date.today() in the rendered prose would
+    turn green CI red on the first day nobody ran discovery — the badge would
+    be claiming freshness it does not have, and breaking the build to do it.
+
+    Returns None on a missing, empty or malformed file, exactly like the arena
+    and AA loaders: the badge is then omitted and the render still completes.
+    """
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError):
+        return None
+    stamp = doc.get("generated") if isinstance(doc, dict) else None
+    if isinstance(stamp, date):
+        return stamp.isoformat()
+    return stamp.strip() if isinstance(stamp, str) and stamp.strip() else None
+
+
+def badges(n, generated):
+    """Shields for CI, size and freshness. Hyphens in a shields label must be
+    doubled, so a date renders as 2026--08--28."""
+    out = [
+        f"[![validate]({REPO_URL}/actions/workflows/validate.yml/badge.svg)]"
+        f"({REPO_URL}/actions/workflows/validate.yml)",
+        f"[![models](https://img.shields.io/badge/models-{n}-1f6feb)](models.yaml)",
+    ]
+    if generated:
+        stamp = generated.replace("-", "--")
+        out.append(
+            f"[![last discovery run](https://img.shields.io/badge/"
+            f"last%20discovery%20run-{stamp}-1f6feb)]"
+            f"({REPO_URL}/actions/workflows/discover.yml)")
+    out.append("[![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)")
+    out.append("[![data: CC BY 4.0](https://img.shields.io/badge/"
+               "data-CC--BY--4.0-3fb950)](LICENSE-DATA)")
+    return "\n".join(out)
 
 
 def human_params(total, active, arch):
@@ -244,11 +290,23 @@ def main():
 
     body = (
         "# Open-Weight & Open-Source LLM Tracker\n\n"
-        f"A curated, machine-readable index of open-weight LLMs — parameter count, "
-        f"context window, an anchor benchmark, and license clarity. "
-        f"Currently tracking **{n} models**.\n\n"
-        "Data lives in [`models.yaml`](models.yaml) (the source of truth). This table "
-        "is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
+        f"{badges(n, load_generated())}\n\n"
+        f"**What it is** — a curated, machine-readable index of **{n} open-weight "
+        "LLMs**: parameter count, context window, modality, licence, and an anchor "
+        "benchmark. One row per model, newest first.\n\n"
+        "**Why it's different** — a model is listed as open-weight only if a public "
+        "weights repo actually resolves on Hugging Face. Never from the vendor's "
+        "name, never from a leaderboard's licence label. New releases are found "
+        "automatically every week, but each one arrives as a **pull request**: "
+        "nothing reaches the table without a human merging it.\n\n"
+        "**How to consume it** — fetch the data, don't scrape the table:\n\n"
+        "```bash\n"
+        f"curl -sL {RAW_URL}/models.json    # generated, with arena + AA joined in\n"
+        f"curl -sL {RAW_URL}/models.yaml    # the source of truth\n"
+        "```\n\n"
+        "[`models.yaml`](models.yaml) is the source of truth; "
+        "[`models.json`](models.json) and this table are generated from it — do not "
+        "edit either by hand. See [SCHEMA.md](SCHEMA.md) for fields and "
         "[CONTRIBUTING.md](CONTRIBUTING.md) to add a model.\n\n"
         "> **Columns:** **AA Index** is the [Artificial Analysis Intelligence "
         "Index](https://artificialanalysis.ai/leaderboards/models?weights=open) — a 0–100 "
@@ -267,6 +325,7 @@ def main():
         "python scripts/validate.py        # check the data\n"
         "python scripts/pull_hf.py         # (optional) auto-fill fields from Hugging Face\n"
         "python scripts/render_readme.py   # rebuild this table\n"
+        "python scripts/render_json.py     # rebuild models.json\n"
         "```\n\n"
         "## Staying current (automatic discovery)\n\n"
         "Discovery runs weekly and classifies what it finds. A model that clears "
@@ -302,7 +361,18 @@ def main():
         "`commercial_use` inferred from the licence tag: check it against the "
         "licence text before merging. For a row left in `candidates.yaml`, fill "
         "the gap named in its `needs_review` list and the next run promotes it "
-        "automatically.\n"
+        "automatically.\n\n"
+        "## License\n\n"
+        "Split by what the thing is. The code — `scripts/`, `tests/`, the "
+        "workflows — is [MIT](LICENSE). The data — `models.yaml`, "
+        "`models.json`, `candidates.yaml`, `aa_scores.yaml`, "
+        "`arena_agent_rankings.yaml` and the table above — is "
+        "[CC BY 4.0](LICENSE-DATA): reuse it freely, credit this repository, "
+        "and say if you changed it.\n\n"
+        "That covers this compilation — the selection, verification and "
+        "arrangement of the facts. **It grants nothing over the model weights "
+        "themselves**, which stay under their vendors' own terms; the `license` "
+        "column names those, and is the whole point of the index.\n"
     )
     README.write_text(body)
     print(f"Rendered README.md with {n} models.")

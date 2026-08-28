@@ -1,31 +1,61 @@
 # Open-Weight & Open-Source LLM Tracker
 
-A curated, machine-readable index of open-weight LLMs — parameter count, context window, an anchor benchmark, and license clarity. Currently tracking **33 models**.
+[![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
+[![models](https://img.shields.io/badge/models-48-1f6feb)](models.yaml)
+[![last discovery run](https://img.shields.io/badge/last%20discovery%20run-2026--08--28-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
+[![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
-Data lives in [`models.yaml`](models.yaml) (the source of truth). This table is generated — do not edit it by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
+**What it is** — a curated, machine-readable index of **48 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
+
+**Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every week, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
+
+**How to consume it** — fetch the data, don't scrape the table:
+
+```bash
+curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main/models.json    # generated, with arena + AA joined in
+curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main/models.yaml    # the source of truth
+```
+
+[`models.yaml`](models.yaml) is the source of truth; [`models.json`](models.json) and this table are generated from it — do not edit either by hand. See [SCHEMA.md](SCHEMA.md) for fields and [CONTRIBUTING.md](CONTRIBUTING.md) to add a model.
 
 > **Columns:** **AA Index** is the [Artificial Analysis Intelligence Index](https://artificialanalysis.ai/leaderboards/models?weights=open) — a 0–100 composite of agentic, coding, scientific-reasoning and general evaluations. `—` means Artificial Analysis does not currently rate that model; it drops older models, so coverage skews to recent releases. The index is re-weighted between versions, so values are not comparable across time. **Arena** is the rank on arena.ai's text leaderboard among open-weight models (`—` = not currently ranked). A trailing `?` on **Commercial** marks a value inferred from the licence tag and not yet checked against the licence text.
 
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
+| [Inkling-Small](https://huggingface.co/thinkingmachines/Inkling-Small) | thinkingmachines | 2026-07-27 | 266B (12B active) | 1M | multimodal | 48 | 41 | `apache-2.0` | Yes? |
+| [Inkling](https://huggingface.co/thinkingmachines/Inkling) | thinkingmachines | 2026-07-14 | 952.4B (41B active) | 1M | multimodal | 17 | 42 | `apache-2.0` | Yes? |
 | [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 10 | 42 | `apache-2.0` | Yes |
 | [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) | Moonshot AI | 2026-06-13 | 2779.9B (104B active) | 1M | text | 1 | 60 | `kimi-k3` | Conditional |
+| [diffusiongemma-26B-A4B-it](https://huggingface.co/google/diffusiongemma-26B-A4B-it) | google | 2026-06-09 | 25.8B (3.8B active) | 262K | multimodal | — | — | `apache-2.0` | Yes? |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 14 | 45 | `minimax-community` | Conditional |
 | [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes? |
 | [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 5 | 43 | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 22 | 38 | `mit` | Yes? |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 8 | 45 | `mit` | Yes |
+| [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 290.9B (13B active) | 1M | text | 21 | 52 | `mit` | Yes? |
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 108 | — | `apache-2.0` | Yes? |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 12 | 30 | `apache-2.0` | Yes |
+| [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 26.5B (3.8B active) | 262K | multimodal | 20 | 26 | `apache-2.0` | Yes? |
 | [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
 | [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
+| [Qwen3.5-122B-A10B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | Qwen | 2026-02-24 | 125.1B (10B active) | 262K | multimodal | 39 | 33 | `apache-2.0` | Yes? |
+| [Qwen3.5-35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) | Qwen | 2026-02-24 | 36B (3B active) | 262K | multimodal | 55 | 24 | `apache-2.0` | Yes? |
 | [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 47 | — | `apache-2.0` | Yes? |
+| [Qwen3.5-397B-A17B](https://huggingface.co/Qwen/Qwen3.5-397B-A17B) | Qwen | 2026-02-16 | 403.4B (17B active) | 262K | multimodal | 15 | 34 | `apache-2.0` | Yes? |
+| [GLM-5](https://huggingface.co/zai-org/GLM-5) | zai-org | 2026-02-11 | 753.9B (40B active) | 202K | text | 9 | — | `mit` | Yes? |
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 21 | `apache-2.0` | Yes? |
+| [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash) | zai-org | 2026-01-19 | 31.2B (3B active) | 202K | text | 70 | — | `mit` | Yes? |
 | [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 61 | — | `mit` | Yes? |
 | [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 91 | — | `apache-2.0` | Yes? |
 | [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 92 | — | `apache-2.0` | Yes? |
 | [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 110 | — | `apache-2.0` | Yes? |
+| [Qwen3-VL-235B-A22B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) | Qwen | 2025-09-22 | 235.7B (22B active) | 262K | multimodal | 43 | — | `apache-2.0` | Yes? |
+| [Qwen3-VL-235B-A22B-Thinking](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking) | Qwen | 2025-09-22 | 235.7B (22B active) | 262K | multimodal | 56 | — | `apache-2.0` | Yes? |
+| [Qwen3-Next-80B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct) | Qwen | 2025-09-09 | 81.3B (3B active) | 262K | text | 51 | 17 | `apache-2.0` | Yes? |
+| [Qwen3-Next-80B-A3B-Thinking](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking) | Qwen | 2025-09-09 | 81.3B (3B active) | 262K | text | 69 | — | `apache-2.0` | Yes? |
+| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 120.4B (5.1B active) | 131K | text | 79 | 24 | `apache-2.0` | Yes? |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 66 | — | `apache-2.0` | Yes |
 | [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 94 | 14 | `llama-4-community` | Conditional |
 | [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 97 | 10 | `llama-4-community` | Conditional |
@@ -51,6 +81,7 @@ pip install -r requirements.txt
 python scripts/validate.py        # check the data
 python scripts/pull_hf.py         # (optional) auto-fill fields from Hugging Face
 python scripts/render_readme.py   # rebuild this table
+python scripts/render_json.py     # rebuild models.json
 ```
 
 ## Staying current (automatic discovery)
@@ -64,3 +95,9 @@ Discovery runs weekly and classifies what it finds. A model that clears the nota
 **Open-weight status comes from whether weights actually resolve on Hugging Face** — not from a vendor's name and not from a leaderboard's license label. A model is open-weight if and only if a public weights repo was found for it. See [SCHEMA.md](SCHEMA.md) for the discovery-only fields, including `needs_hf_repo`, which flags an inexact name match for a human to confirm.
 
 The `discover-models` GitHub Action runs this weekly and opens a **pull request** — nothing it does ever commits straight to `main`, and that PR is the human-in-the-loop approval step. A row in the table above marked with a trailing `?` on **Commercial** was auto-promoted with `commercial_use` inferred from the licence tag: check it against the licence text before merging. For a row left in `candidates.yaml`, fill the gap named in its `needs_review` list and the next run promotes it automatically.
+
+## License
+
+Split by what the thing is. The code — `scripts/`, `tests/`, the workflows — is [MIT](LICENSE). The data — `models.yaml`, `models.json`, `candidates.yaml`, `aa_scores.yaml`, `arena_agent_rankings.yaml` and the table above — is [CC BY 4.0](LICENSE-DATA): reuse it freely, credit this repository, and say if you changed it.
+
+That covers this compilation — the selection, verification and arrangement of the facts. **It grants nothing over the model weights themselves**, which stay under their vendors' own terms; the `license` column names those, and is the whole point of the index.

@@ -16,8 +16,9 @@ jobs:
         run: python -m pytest tests/ -v
       - name: Validate models.yaml
         run: python scripts/validate.py
-      - name: Ensure README is up to date
+      - name: Ensure generated files are up to date
         run: |
           python scripts/render_readme.py
-          git diff --exit-code README.md \
-            || (echo "README.md is stale — run scripts/render_readme.py and commit." && exit 1)
+          python scripts/render_json.py
+          git diff --exit-code README.md models.json \
+            || (echo "README.md/models.json are stale — run scripts/render_readme.py and scripts/render_json.py, then commit." && exit 1)

@@ -527,3 +527,243 @@ models:
     license_notes: AUTO-DISCOVERED — verify license terms.
     weights_url: https://huggingface.co/google/gemma-4-E4B-it
     commercial_use_verified: false
+
+  - name: GLM-5
+    hf_repo: zai-org/GLM-5
+    developer: zai-org
+    release_date: 2026-02-11
+    params_total_b: 753.9
+    params_active_b: 40.0
+    architecture: moe
+    context_window: 202752
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-5
+    params_active_source: 744B parameters (40B active
+    commercial_use_verified: false
+
+  - name: Qwen3.5-397B-A17B
+    hf_repo: Qwen/Qwen3.5-397B-A17B
+    developer: Qwen
+    release_date: 2026-02-16
+    params_total_b: 403.4
+    params_active_b: 17.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3.5-397B-A17B
+    params_active_source: 397B in total and 17B activated
+    commercial_use_verified: false
+
+  - name: Inkling
+    hf_repo: thinkingmachines/Inkling
+    developer: thinkingmachines
+    release_date: 2026-07-14
+    params_total_b: 952.4
+    params_active_b: 41.0
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/thinkingmachines/Inkling
+    params_active_source: 975B total, 41B active
+    commercial_use_verified: false
+
+  - name: gemma-4-26B-A4B-it
+    hf_repo: google/gemma-4-26B-A4B-it
+    developer: google
+    release_date: 2026-03-11
+    params_total_b: 26.5
+    params_active_b: 3.8
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/google/gemma-4-26B-A4B-it
+    params_active_source: Active Parameters** | 3.8B
+    commercial_use_verified: false
+
+  - name: DeepSeek-V4-Flash
+    hf_repo: deepseek-ai/DeepSeek-V4-Flash
+    developer: deepseek-ai
+    release_date: 2026-04-22
+    params_total_b: 290.9
+    params_active_b: 13.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash
+    params_active_source: 284B parameters (13B activated
+    commercial_use_verified: false
+
+  - name: Qwen3.5-122B-A10B
+    hf_repo: Qwen/Qwen3.5-122B-A10B
+    developer: Qwen
+    release_date: 2026-02-24
+    params_total_b: 125.1
+    params_active_b: 10.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3.5-122B-A10B
+    params_active_source: 122B in total and 10B activated
+    commercial_use_verified: false
+
+  - name: Qwen3-VL-235B-A22B-Instruct
+    hf_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
+    developer: Qwen
+    release_date: 2025-09-22
+    params_total_b: 235.7
+    params_active_b: 22.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct
+    params_active_source: 235B-A22B
+    commercial_use_verified: false
+
+  - name: Inkling-Small
+    hf_repo: thinkingmachines/Inkling-Small
+    developer: thinkingmachines
+    release_date: 2026-07-27
+    params_total_b: 266.0
+    params_active_b: 12.0
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/thinkingmachines/Inkling-Small
+    params_active_source: 276B total, 12B active
+    commercial_use_verified: false
+
+  - name: Qwen3-Next-80B-A3B-Instruct
+    hf_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
+    developer: Qwen
+    release_date: 2025-09-09
+    params_total_b: 81.3
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct
+    params_active_source: 80B in total and 3B activated
+    commercial_use_verified: false
+
+  - name: Qwen3.5-35B-A3B
+    hf_repo: Qwen/Qwen3.5-35B-A3B
+    developer: Qwen
+    release_date: 2026-02-24
+    params_total_b: 36.0
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3.5-35B-A3B
+    params_active_source: 35B in total and 3B activated
+    commercial_use_verified: false
+
+  - name: Qwen3-VL-235B-A22B-Thinking
+    hf_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
+    developer: Qwen
+    release_date: 2025-09-22
+    params_total_b: 235.7
+    params_active_b: 22.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking
+    params_active_source: 235B-A22B
+    commercial_use_verified: false
+
+  - name: Qwen3-Next-80B-A3B-Thinking
+    hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
+    developer: Qwen
+    release_date: 2025-09-09
+    params_total_b: 81.3
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking
+    params_active_source: 80B in total and 3B activated
+    commercial_use_verified: false
+
+  - name: GLM-4.7-Flash
+    hf_repo: zai-org/GLM-4.7-Flash
+    developer: zai-org
+    release_date: 2026-01-19
+    params_total_b: 31.2
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 202752
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-4.7-Flash
+    params_active_source: 30B-A3B
+    commercial_use_verified: false
+
+  - name: gpt-oss-120b
+    hf_repo: openai/gpt-oss-120b
+    developer: openai
+    release_date: 2025-08-04
+    params_total_b: 120.4
+    params_active_b: 5.1
+    architecture: moe
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/openai/gpt-oss-120b
+    params_active_source: 117B parameters with 5.1B active
+    commercial_use_verified: false
+
+  - name: diffusiongemma-26B-A4B-it
+    hf_repo: google/diffusiongemma-26B-A4B-it
+    developer: google
+    release_date: 2026-06-09
+    params_total_b: 25.8
+    params_active_b: 3.8
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/google/diffusiongemma-26B-A4B-it
+    params_active_source: Active Parameters** | 3.8B
+    commercial_use_verified: false

@@ -836,10 +836,20 @@ HEADER = (
 )
 
 
-def write_candidates(path, candidates):
-    Path(path).write_text(HEADER + yaml.safe_dump({"models": candidates},
-                                                  sort_keys=False,
-                                                  allow_unicode=True, width=100))
+def write_candidates(path, candidates, generated=None):
+    """Replace the queue file wholesale, stamped with the run date.
+
+    The stamp is what the README's "last discovery run" line reads. It has to
+    live in the data rather than be computed at render time: validate.yml
+    re-renders the README and fails on any diff, so a date.today() baked into
+    the rendered prose would break CI on the first day nobody ran discovery.
+    Stored as an ISO string so a YAML round-trip cannot turn it back into a
+    date object the renderer would then have to format.
+    """
+    stamp = (generated or date.today()).isoformat()
+    Path(path).write_text(HEADER + yaml.safe_dump(
+        {"generated": stamp, "models": candidates},
+        sort_keys=False, allow_unicode=True, width=100))
 
 
 def refresh(api, min_params, *, orgs=None, data_path=DATA,

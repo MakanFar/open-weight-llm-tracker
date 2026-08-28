@@ -663,3 +663,21 @@ models:
     # models.yaml, where validate.py would wave "text" through as legal.
     row = [r for r in promoted if r["hf_repo"] == "thinkingmachines/Inkling"]
     assert row and row[0]["modality"] == "multimodal"
+
+
+def test_write_candidates_stamps_the_run_date(tmp_path):
+    """The README's 'last discovery run' line reads this stamp.
+
+    It has to come from the data, not from date.today() at render time:
+    validate.yml re-renders the README and fails on any diff, so a rendered
+    today() would break CI on the first day nobody ran discovery.
+    """
+    path = tmp_path / "candidates.yaml"
+    discover.write_candidates(path, [], generated=date(2026, 8, 28))
+    assert yaml.safe_load(path.read_text())["generated"] == "2026-08-28"
+
+
+def test_write_candidates_defaults_the_stamp_to_today(tmp_path):
+    path = tmp_path / "candidates.yaml"
+    discover.write_candidates(path, [])
+    assert yaml.safe_load(path.read_text())["generated"] == date.today().isoformat()

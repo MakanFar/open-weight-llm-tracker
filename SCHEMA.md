@@ -1,8 +1,15 @@
 # Data schema
 
-`models.yaml` is the **single source of truth**. Everything else (the README table,
-any HTML page) is generated from it. Edit the YAML, then run the render script — never
-hand-edit the generated table.
+`models.yaml` is the **single source of truth**. Everything else — the README table,
+`models.json`, any HTML page — is generated from it. Edit the YAML, then run the render
+scripts (`render_readme.py`, `render_json.py`) — never hand-edit a generated file; CI
+re-renders both and fails on any diff.
+
+`models.json` publishes the same index in the format consumers actually fetch, with
+`arena_rank` and `aa_index` joined in as numbers or `null` (never the table's em dash).
+Its envelope carries `source`, `license`, `generated` and `count`. Only the published
+fields below are included — the candidates-only fields are never republished — and it
+is licensed CC-BY-4.0 along with the rest of the data (see `LICENSE-DATA`).
 
 Each list entry is one model. Fields:
 
@@ -38,8 +45,11 @@ Each list entry is one model. Fields:
 ## `candidates.yaml` (staging only)
 
 `candidates.yaml` is written by `scripts/discover.py` and holds *unreviewed*
-models. Rows use the `models.yaml` fields above plus the discovery-only fields
-below. **Strip all of these fields when promoting a row into `models.yaml`** —
+models. The file carries one top-level key besides `models:` — `generated`, the
+ISO date of the last discovery run, which is what the README's "last discovery
+run" badge reads (rendered output must never call `date.today()`, or CI's
+re-render diff fails the day after). Rows use the `models.yaml` fields above
+plus the discovery-only fields below. **Strip all of these fields when promoting a row into `models.yaml`** —
 `validate.py` checks `models.yaml` only, so they would otherwise leak through.
 
 | Field | Type | Notes |
