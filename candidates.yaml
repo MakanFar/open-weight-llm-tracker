@@ -240,8 +240,8 @@ models:
   hf_repo: deepseek-ai/DeepSeek-V4-Flash
   developer: deepseek-ai
   release_date: 2026-04-22
-  params_total_b: 158.1
-  params_active_b: 158.1
+  params_total_b: 290.9
+  params_active_b: 290.9
   architecture: moe
   context_window: 1048576
   modality: text

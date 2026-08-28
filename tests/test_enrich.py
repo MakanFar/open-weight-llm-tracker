@@ -158,3 +158,121 @@ def test_context_from_tokenizer_ignores_other_failures():
     def boom(url): raise TimeoutError("slow")
     assert enrich.context_from_tokenizer("org/m", boom, notes=notes) is None
     assert notes == {}
+
+
+# --- phrasings the parser did not recognise, each from a real card ---------
+
+def test_reads_a_bare_activated_figure_with_no_following_noun():
+    """Qwen states 'N in total and M activated' with no 'parameters' after it.
+
+    The pattern required activ* to be followed by 'param', so every Qwen MoE
+    card fell through and six flagship rows parked on
+    moe-active-params-unknown.
+    """
+    text = "- Number of Parameters: 397B in total and 17B activated"
+    value, quote = enrich.active_params_from_card(text)
+    assert value == 17.0
+    assert "17B activated" in quote
+
+
+def test_reads_the_total_comma_active_phrasing():
+    """thinkingmachines/Inkling: '975B total, 41B active'."""
+    value, _ = enrich.active_params_from_card("975B total, 41B active")
+    assert value == 41.0
+
+
+def test_reads_a_table_cell_wrapped_in_markdown_emphasis():
+    """Gemma 4 writes '| **Active Parameters** | 3.8B |'. The old table
+    pattern demanded the pipe immediately after 'Parameters', so the bold
+    markers defeated it and the 10M-download row stayed unfilled."""
+    value, _ = enrich.active_params_from_card("| **Active Parameters** | 3.8B |")
+    assert value == 3.8
+
+
+def test_reads_the_a_notation_written_in_prose():
+    """GLM-4.7-Flash states its size only as '30B-A3B'."""
+    value, quote = enrich.active_params_from_card(
+        "GLM-4.7-Flash is a 30B-A3B MoE model.")
+    assert value == 3.0
+    assert "30B-A3B" in quote
+
+
+# --- disambiguating a card that documents a whole family -------------------
+
+def test_a_family_card_resolves_when_the_row_total_names_one_variant():
+    """two_variants.md documents Pro (1.6T/49B) and Flash (284B/13B).
+
+    Given the row's own total, only one variant is a plausible match, so the
+    figure is no longer a guess — it is the one the card pairs with this
+    model's size.
+    """
+    value, quote = enrich.active_params_from_card(
+        _card("two_variants.md"), total_b=290.9)
+    assert value == 13.0
+    assert "284B" in quote
+
+
+def test_a_family_card_still_abstains_when_no_variant_matches_the_total():
+    """A total matching neither variant means we still do not know which row
+    the card is describing — the tie-break must not fall back to guessing."""
+    assert enrich.active_params_from_card(
+        _card("two_variants.md"), total_b=50.0) is None
+
+
+def test_a_family_card_still_abstains_when_two_variants_are_both_plausible():
+    text = ("Model-A with 100B parameters (10B activated) and "
+            "Model-B with 104B parameters (12B activated).")
+    assert enrich.active_params_from_card(text, total_b=102.0) is None
+
+
+def test_the_total_tiebreak_never_overrides_an_unambiguous_card():
+    """A card stating one figure resolves to it regardless of the total —
+    the tie-break exists only to break ties."""
+    value, _ = enrich.active_params_from_card("Model-X (23B activated)",
+                                              total_b=999.0)
+    assert value == 23.0
+
+
+# --- the vendor's own A-notation in the repo id ----------------------------
+
+def test_repo_name_yields_the_a_notation_figure():
+    """Qwen3-VL-235B-A22B states its activation nowhere in the card; the
+    vendor put it in the repo name, which is as authoritative a statement."""
+    value, quote = enrich.active_params_from_repo_name(
+        "Qwen/Qwen3-VL-235B-A22B-Instruct")
+    assert value == 22.0
+    assert "235B-A22B" in quote
+
+
+def test_repo_name_requires_the_paired_total_and_active_shape():
+    """A bare 'A<n>' is not the notation and must not be read as one, or an
+    accelerator name or revision tag becomes an activation figure."""
+    assert enrich.active_params_from_repo_name("openai/gpt-oss-120b") is None
+    assert enrich.active_params_from_repo_name(
+        "meta-llama/Llama-4-Maverick-17B-128E-Instruct") is None
+    assert enrich.active_params_from_repo_name("org/model-A100-tuned") is None
+    assert enrich.active_params_from_repo_name("") is None
+    assert enrich.active_params_from_repo_name(None) is None
+
+
+def test_repo_name_abstains_when_its_total_contradicts_the_row():
+    """The name encodes a total too. If that disagrees with the measured
+    total the name is describing a different model (a distill, a mirror), so
+    its activation figure cannot be trusted onto this row."""
+    assert enrich.active_params_from_repo_name(
+        "google/gemma-4-26B-A4B-it", total_b=250.0) is None
+    value, _ = enrich.active_params_from_repo_name(
+        "google/gemma-4-26B-A4B-it", total_b=26.5)
+    assert value == 4.0
+
+
+def test_a_precise_figure_beats_the_rounded_a_notation_on_the_same_page():
+    """Gemma 4's card prints its own repo id ('26B-A4B') beside a table cell
+    reading 3.8B. Those are the same fact at two precisions, not two rival
+    claims -- so the rounded one must not win the tie-break and publish 4.0
+    for a 3.8B model."""
+    text = ("- google/gemma-4-26B-A4B\n"
+            "| Property | 26B A4B MoE |\n"
+            "| **Active Parameters** | 3.8B |")
+    value, _ = enrich.active_params_from_card(text, total_b=26.5)
+    assert value == 3.8

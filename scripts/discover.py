@@ -602,8 +602,19 @@ def enrich_row(row, info, get_text, get_json):
     """
     if row.get("architecture") == "moe" and \
             row.get("params_active_b") == row.get("params_total_b"):
+        total = row.get("params_total_b")
+        # The row's own total is passed in so a card documenting a whole
+        # family ("Pro with 1.6T (49B activated) and Flash with 284B (13B
+        # activated)") can be resolved to the variant this row measures,
+        # instead of being abandoned as ambiguous.
         found = enrich.active_params_from_card(
-            enrich.fetch_card(row["hf_repo"], get_text))
+            enrich.fetch_card(row["hf_repo"], get_text), total_b=total)
+        if found is None:
+            # Last resort: the vendor's A-notation in the repo id. Tried only
+            # after the card, which is the more precise of the two -- Gemma 4
+            # is "26B-A4B" in its name and 3.8B in its table.
+            found = enrich.active_params_from_repo_name(row["hf_repo"],
+                                                        total_b=total)
         if found is not None:
             row["params_active_b"], row["params_active_source"] = found
 

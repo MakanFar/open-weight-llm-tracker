@@ -43,24 +43,114 @@ def _http_get_text(url):
     with urllib.request.urlopen(req, timeout=30) as r:
         return r.read().decode("utf-8", "replace")
 
-# Vendor phrasings observed in real cards, most specific first. Each must
-# capture the number in group 1 and its unit in group 2.
+# Vendor phrasings observed in real cards, most specific first.
+#
+# Two families. _PAIRED_PATTERNS capture a total AND its matching activation
+# figure stated in one breath ("284B parameters (13B activated)"); they are
+# what lets a card describing a whole model family be resolved against the
+# row's own size instead of abandoned as ambiguous. _ACTIVE_PATTERNS capture
+# an activation figure alone, for the cards that never restate the total
+# beside it. Both are searched; a paired match also counts as an active one.
+#
+# Every pattern ends on the whole word activ(e|ated) so the quoted source
+# reads as a sentence a reviewer can check, not a fragment cut mid-word.
+
+_NUM = r"(\d+(?:\.\d+)?)\s*([BTM])"
+
+_PAIRED_PATTERNS = (
+    # "1.6T parameters (49B activated)" / "284B\nparameters (13B active)"
+    re.compile(_NUM + r"\s*param\w*\s*\(\s*~?" + _NUM + r"\s*activ(?:e|ated)\b",
+               re.I | re.S),
+    # "117B parameters with 5.1B active parameters"
+    re.compile(_NUM + r"\s*param\w*\s+with\s+~?" + _NUM + r"\s*activ(?:e|ated)\b",
+               re.I | re.S),
+    # "975B total, 41B active" / "397B in total and 17B activated"
+    re.compile(_NUM + r"\s*(?:in\s+)?total[,\s]+(?:and\s+)?~?" + _NUM
+               + r"\s*activ(?:e|ated)\b", re.I | re.S),
+)
+
+# The vendor's A-notation, written in prose ("a 30B-A3B MoE model") or simply
+# echoed as the repo id inside the card. Kept in its own tier because the
+# notation ROUNDS: Gemma 4 is "26B-A4B" in its name and 3.8B in its table, and
+# both strings appear on the same page. Treating the two as rival claims made
+# the rounded one win the tie-break and publish 4.0 for a 3.8B model, so a
+# precise figure is always resolved first and this tier is consulted only when
+# that yields nothing. Units are literal, so the groups still read
+# (num, unit, num, unit).
+_ROUNDED_PATTERNS = (
+    re.compile(r"(\d+(?:\.\d+)?)\s*(B)[-_]A(\d+(?:\.\d+)?)\s*(B)\b"),
+)
+
 _ACTIVE_PATTERNS = (
     # "1.6T parameters (49B activated)"
-    re.compile(r"\(\s*~?\s*(\d+(?:\.\d+)?)\s*([BTM])\s*activated\s*\)", re.I),
+    re.compile(r"\(\s*~?\s*" + _NUM + r"\s*activated\s*\)", re.I),
     # "~23B activated parameters" / "21B active parameters"
-    re.compile(r"~?\s*(\d+(?:\.\d+)?)\s*([BTM])\s*activ(?:e|ated)\s+param", re.I),
+    re.compile(r"~?\s*" + _NUM + r"\s*activ(?:e|ated)\s+param", re.I),
     # "Activated Parameters</td><td>104B"
-    re.compile(r"Activ(?:e|ated)\s+Parameters?.{0,120}?>\s*~?(\d+(?:\.\d+)?)\s*([BTM])",
+    re.compile(r"Activ(?:e|ated)\s+Parameters?.{0,120}?>\s*~?" + _NUM,
                re.I | re.S),
-    # "| Activated Parameters | 104B |"
-    re.compile(r"Activ(?:e|ated)\s+Parameters?\s*\|\s*~?(\d+(?:\.\d+)?)\s*([BTM])", re.I),
+    # "| Activated Parameters | 104B |", and the same cell wrapped in markdown
+    # emphasis: "| **Active Parameters** | 3.8B |". The stars are why Gemma 4
+    # fell through for so long, so both \** are deliberate, not decoration.
+    re.compile(r"Activ(?:e|ated)\s+Parameters?\**\s*\|\s*\**\s*~?" + _NUM, re.I),
+    # "17B activated" / "41B active" with no noun following -- the phrasing
+    # every Qwen card uses ("397B in total and 17B activated") and the one
+    # thinkingmachines uses ("975B total, 41B active"). Last because it is the
+    # loosest; the patterns above quote more context.
+    re.compile(r"~?" + _NUM + r"\s*activ(?:e|ated)\b", re.I),
 )
 
 _UNIT_TO_B = {"b": 1.0, "t": 1000.0, "m": 0.001}
 
+# How far a card's stated total may sit from the row's measured total and
+# still be taken as describing the same model. Cards round and quote the
+# headline figure ("744B") while safetensors counts every tensor (753.9B), so
+# the gap is normally a few percent; a different variant of the same family is
+# off by an order of magnitude. 15% separates those two cases with room to
+# spare and is nowhere near tight enough to need tuning per vendor.
+_TOTAL_MATCH_TOLERANCE = 0.15
 
-def active_params_from_card(text):
+
+def _to_b(value, unit):
+    return round(float(value) * _UNIT_TO_B[unit.lower()], 1)
+
+
+def _matches_total(stated, total_b):
+    """Is a card's stated total the same model as one measuring total_b?"""
+    if not total_b or stated <= 0:
+        return False
+    return abs(stated - total_b) / float(total_b) <= _TOTAL_MATCH_TOLERANCE
+
+
+def _paired(patterns, text):
+    return [(_to_b(m.group(3), m.group(4)), _to_b(m.group(1), m.group(2)),
+             " ".join(m.group(0).split()))
+            for pattern in patterns for m in pattern.finditer(text)]
+
+
+def _card_claims(text):
+    """(precise, rounded) claim lists of (active_b, total_b_or_None, quote)."""
+    precise = _paired(_PAIRED_PATTERNS, text)
+    for pattern in _ACTIVE_PATTERNS:
+        for m in pattern.finditer(text):
+            precise.append((_to_b(m.group(1), m.group(2)), None,
+                            " ".join(m.group(0).split())))
+    return precise, _paired(_ROUNDED_PATTERNS, text)
+
+
+def _resolve(claims, total_b):
+    """One figure from a tier of claims, or None if the tier is ambiguous."""
+    if not claims:
+        return None
+    if len({active for active, _, _ in claims}) == 1:
+        return claims[0][0], claims[0][2]
+    plausible = [c for c in claims if _matches_total(c[1] or 0, total_b)]
+    if len({active for active, _, _ in plausible}) == 1:
+        return plausible[0][0], plausible[0][2]
+    return None
+
+
+def active_params_from_card(text, total_b=None):
     """(billions, quoted_source) from a model card, or None if not stated.
 
     None is the important case: it routes the row to human review. Returning 0
@@ -68,28 +158,57 @@ def active_params_from_card(text):
     downstream can tell an invented number from a published one.
 
     A card can document several variants in one README (e.g. a "Pro" and a
-    "Flash" size, each with its own activated-parameter figure). This function
-    only ever sees text, never which variant the caller means, so if the card
-    yields more than one DISTINCT figure it is ambiguous and the only safe
-    answer is None — guessing which mention belongs to the requested repo
-    would silently attribute the wrong model's number. Repeated mentions of
-    the SAME figure are not a conflict and must still resolve normally, so
-    every pattern is searched across the WHOLE text (not just its first hit)
-    before any decision is made.
+    "Flash" size, each with its own activated-parameter figure). If the card
+    yields more than one DISTINCT figure it is ambiguous, and the fallback is
+    the row's own measured total: a claim that also states a total within
+    _TOTAL_MATCH_TOLERANCE of it is describing THIS model, and if exactly one
+    variant qualifies the figure is no longer a guess. Two plausible variants,
+    none plausible, or no total to compare against all stay None -- guessing
+    which mention belongs to the requested repo would silently attribute the
+    wrong model's number.
+
+    Repeated mentions of the SAME figure are not a conflict and must still
+    resolve normally, so every pattern is searched across the WHOLE text (not
+    just its first hit) before any decision is made.
     """
     if not text:
         return None
-    matches = []
-    for pattern in _ACTIVE_PATTERNS:
-        for m in pattern.finditer(text):
-            value = round(float(m.group(1)) * _UNIT_TO_B[m.group(2).lower()], 1)
-            quote = " ".join(m.group(0).split())
-            matches.append((value, quote))
-    if not matches:
+    precise, rounded = _card_claims(text)
+    found = _resolve(precise, total_b)
+    return found if found is not None else _resolve(rounded, total_b)
+
+
+# "Qwen3-VL-235B-A22B-Instruct", "gemma-4-26B-A4B-it": the vendor states the
+# split in the repo id itself. Both halves are required -- a bare "A22" would
+# match an accelerator name or a revision tag, and "17B-128E" (Llama 4's expert
+# count) must not be read as an activation figure.
+_REPO_A_NOTATION = re.compile(r"(\d+(?:\.\d+)?)B[-_]A(\d+(?:\.\d+)?)B\b", re.I)
+
+
+def active_params_from_repo_name(repo, total_b=None):
+    """(billions, quoted_source) from the repo id's A-notation, or None.
+
+    A last resort, tried only after the card. Qwen3-VL-235B-A22B states its
+    activation figure nowhere in its card, and the naming convention is the
+    vendor's own published statement about the model -- not an inference from
+    architecture, which this module must never make.
+
+    The name encodes the TOTAL as well, which is the safety check: if that
+    disagrees with the row's measured total the name is describing a different
+    model (a distill, a mirror, a renamed re-release) and its activation
+    figure cannot be carried onto this row. The card is preferred wherever it
+    speaks, because the name rounds and the card does not -- Gemma 4 is
+    "26B-A4B" in its id and 3.8B in its table.
+    """
+    if not repo:
         return None
-    if len({value for value, _ in matches}) > 1:
+    m = _REPO_A_NOTATION.search(str(repo))
+    if not m:
         return None
-    return matches[0]
+    stated_total = _to_b(m.group(1), "b")
+    if total_b and not _matches_total(stated_total, total_b):
+        return None
+    return _to_b(m.group(2), "b"), f"repo name: {m.group(0)}"
 
 
 def fetch_card(repo, get_text=_http_get_text):

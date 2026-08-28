@@ -237,3 +237,36 @@ def test_refresh_modality_is_quiet_when_nothing_changes(capsys):
     discover.refresh_modality(_ModalityApi({"org/m": "text-generation"}), rows)
     assert rows[0]["modality"] == "text"
     assert capsys.readouterr().out == ""
+
+
+def test_enrich_disambiguates_a_family_card_with_the_row_total():
+    """The card documents Pro and Flash; the row's own total says which."""
+    card = ("**DeepSeek-V4-Pro** with 1.6T parameters (49B activated) and "
+            "**DeepSeek-V4-Flash** with 284B parameters (13B activated).")
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash",
+               params_total_b=290.9, params_active_b=290.9)
+    discover.enrich_row(row, FakeInfo({"license": "mit"}),
+                        get_text=lambda u: card, get_json=lambda u: {})
+    assert row["params_active_b"] == 13.0
+
+
+def test_enrich_falls_back_to_the_repo_name_when_the_card_is_silent():
+    """Qwen3-VL-235B-A22B states its activation figure only in its repo id."""
+    row = _row(hf_repo="Qwen/Qwen3-VL-235B-A22B-Instruct",
+               params_total_b=235.7, params_active_b=235.7)
+    discover.enrich_row(row, FakeInfo({"license": "apache-2.0"}),
+                        get_text=lambda u: "no figure here",
+                        get_json=lambda u: {})
+    assert row["params_active_b"] == 22.0
+    assert row["params_active_source"] == "repo name: 235B-A22B"
+
+
+def test_enrich_prefers_the_card_over_the_repo_name():
+    """Gemma 4 rounds to A4B in its id and states 3.8B in its table. The
+    card is the precise figure, so the name must not win."""
+    row = _row(hf_repo="google/gemma-4-26B-A4B-it",
+               params_total_b=26.5, params_active_b=26.5)
+    discover.enrich_row(row, FakeInfo({"license": "apache-2.0"}),
+                        get_text=lambda u: "| **Active Parameters** | 3.8B |",
+                        get_json=lambda u: {})
+    assert row["params_active_b"] == 3.8
