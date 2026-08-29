@@ -148,6 +148,28 @@ def row_errors(m, tag=None):
         errors.append(SchemaError(
             "commercial_use_verified",
             f"[{tag}] commercial_use_verified must be true/false, got {cuv!r}"))
+    # Provenance for the commercial_use determination: what was actually read
+    # and where. Optional, because the rows a human verified before this field
+    # existed carry no citation and are not thereby wrong. A blank string is
+    # rejected rather than treated as absent -- it reads as "someone checked"
+    # while citing nothing, which is worse than an honest gap.
+    # Whether the vendor publishes a licence FILE, as distinct from an HF
+    # licence tag. False earns the README's trailing † and must be a real
+    # bool: a truthy string like "no" would read as "yes, published" and drop
+    # the marker from a row that earned it. Absent means nobody looked.
+    ltp = m.get("license_text_published")
+    if ltp is not None and not isinstance(ltp, bool):
+        errors.append(SchemaError(
+            "license_text_published",
+            f"[{tag}] license_text_published must be true/false, got {ltp!r}"))
+
+    cus = m.get("commercial_use_source")
+    if cus is not None and (not isinstance(cus, str) or not cus.strip()):
+        errors.append(SchemaError(
+            "commercial_use_source",
+            f"[{tag}] commercial_use_source must be a non-empty string, "
+            f"got {cus!r}"))
+
     if "license" not in missing and m.get("license") not in LICENSES:
         errors.append(SchemaError(
             "license",

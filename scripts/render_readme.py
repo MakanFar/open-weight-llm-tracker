@@ -117,16 +117,37 @@ def human_ctx(n):
 
 
 def commercial_badge(model):
-    """Commercial-use badge. Unverified values carry a trailing ?.
+    """Commercial-use badge, in three states.
 
-    A row promoted automatically carries a value inferred from the licence
-    TAG, not from anyone reading the licence. Rendering it identically to a
-    checked value would publish an unverified legal claim as a settled one.
+    bare      a human read the licence and settled it.
+    trailing ?  the value was inferred from the Hugging Face licence TAG,
+                which is uploader-supplied metadata nobody checked. Rendering
+                it identically to a checked value would publish an unverified
+                legal claim as a settled one.
+    trailing †  the vendor publishes NO licence file at all, so there is
+                nothing to read and the tag is the only claim there has ever
+                been.
+
+    The third state exists because `?` was carrying two unrelated meanings.
+    "Nobody has checked yet" is a backlog someone can work through; "the
+    vendor never published the instrument" is a permanent fact about the
+    release that no amount of checking will change — and it is arguably more
+    useful to a reader than either. 18 of the 26 `?` rows were the second
+    kind, which made the marker read as neglect rather than as information.
+
+    `is False` rather than truthiness: absent means nobody looked, False means
+    someone looked and found nothing published. Only the second earns the
+    marker. commercial_use_verified still wins — a human who settled it some
+    other way outranks "no file on HF".
     """
     label = {True: "Yes", False: "No",
              "conditional": "Conditional"}.get(model.get("commercial_use"),
                                                str(model.get("commercial_use")))
-    return label if model.get("commercial_use_verified") else f"{label}?"
+    if model.get("commercial_use_verified"):
+        return label
+    if model.get("license_text_published") is False:
+        return f"{label}†"
+    return f"{label}?"
 
 
 def _index_by_identity(pairs, identity_of=names.repo_identity):
@@ -344,7 +365,10 @@ def main():
         "across time. **Arena** is the rank on arena.ai's text leaderboard among "
         "open-weight models (`—` = not currently ranked). "
         "A trailing `?` on **Commercial** marks a value inferred from the "
-        "licence tag and not yet checked against the licence text. "
+        "licence tag and not yet checked against the licence text; a trailing "
+        "`†` marks one whose vendor publishes no licence file at all, so "
+        "the tag is the only claim there has ever been and there is "
+        "nothing to check. "
         "**Params** is the figure the vendor publishes where there is one "
         "(`params_total_stated_b`), otherwise the measured tensor count "
         "(`params_total_b`) — the two differ by a few percent because a "

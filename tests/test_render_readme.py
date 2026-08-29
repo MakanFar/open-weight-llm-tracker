@@ -282,3 +282,36 @@ def test_display_total_ignores_a_junk_stated_value():
                                    params_total_stated_b="70B")) == 70.0
     assert rr.display_total(_model(params_total_b=70.0,
                                    params_total_stated_b=0)) == 70.0
+
+
+# --- three states of commercial_use, not two -------------------------------
+
+def test_commercial_badge_verified_is_bare():
+    assert rr.commercial_badge(_model(commercial_use=True,
+                                      commercial_use_verified=True)) == "Yes"
+
+
+def test_commercial_badge_unverified_keeps_the_question_mark():
+    assert rr.commercial_badge(_model(commercial_use=True)) == "Yes?"
+
+
+def test_commercial_badge_marks_a_licence_the_vendor_never_published():
+    """18 of 26 unverified rows ship no licence file at all. `?` reads as a
+    backlog someone will work through; these can never be worked through, and
+    conflating the two makes the `?` mean nothing."""
+    m = _model(commercial_use=True, license_text_published=False)
+    assert rr.commercial_badge(m) == "Yes†"
+
+
+def test_verified_beats_the_unpublished_marker():
+    """If a human settled it some other way, that wins over 'no file on HF'."""
+    m = _model(commercial_use=True, commercial_use_verified=True,
+               license_text_published=False)
+    assert rr.commercial_badge(m) == "Yes"
+
+
+def test_absent_flag_is_not_the_same_as_false():
+    """Absent means nobody checked; False means someone checked and there is
+    no licence text. Only the second earns the marker."""
+    assert rr.commercial_badge(_model(commercial_use=True,
+                                      license_text_published=None)) == "Yes?"

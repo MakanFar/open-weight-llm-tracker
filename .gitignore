@@ -9,8 +9,14 @@ __pycache__/
 # SDD scratch
 .superpowers/
 
-# claude
-.claude/
+# claude — everything here is local EXCEPT the one skill that belongs to this
+# repo. Written as .claude/* rather than .claude/, because git cannot
+# re-include a path whose parent directory is excluded: `!` on a child of an
+# ignored directory does nothing at all.
+.claude/*
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/verify-commercial-use/
 
 # local secrets, never committed
 .secret

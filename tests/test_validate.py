@@ -220,3 +220,23 @@ def test_stated_total_wildly_apart_from_the_measured_one_is_rejected():
     to reintroduce it silently."""
     errs = validate.row_errors(_row_with_stated(params_total_stated_b=13.0))
     assert any("params_total_stated_b" in str(e) for e in errs)
+
+
+def test_commercial_use_source_must_be_a_non_empty_string():
+    """Provenance for a legal determination. A blank one is worse than none:
+    it looks like someone checked."""
+    assert any("commercial_use_source" in str(e) for e in
+               validate.row_errors(_valid_row(commercial_use_source=123)))
+    assert any("commercial_use_source" in str(e) for e in
+               validate.row_errors(_valid_row(commercial_use_source="   ")))
+    assert validate.row_errors(
+        _valid_row(commercial_use_source="LICENSE matches apache-2.0")) == []
+
+
+def test_license_text_published_must_be_a_bool():
+    """It gates a rendered marker. A truthy string like "no" would read as
+    "yes, published" and silently drop the marker from a row that earned it."""
+    assert any("license_text_published" in str(e) for e in
+               validate.row_errors(_valid_row(license_text_published="no")))
+    assert validate.row_errors(_valid_row(license_text_published=False)) == []
+    assert validate.row_errors(_valid_row(license_text_published=True)) == []

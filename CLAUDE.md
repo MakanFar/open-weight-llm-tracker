@@ -18,6 +18,7 @@ python -m pytest tests/test_arena_resolve.py::test_name  # a single test
 python scripts/validate.py        # schema-check models.yaml (CI gate; exits non-zero on any problem)
 python scripts/render_readme.py   # regenerate README.md from models.yaml
 python scripts/render_json.py     # regenerate models.json from models.yaml
+python scripts/check_license.py --unverified   # licence evidence for rows still `?`
 python scripts/pull_hf.py         # dry-run: auto-fill fields from HF (--write to apply)
 python scripts/pull_aa.py         # scrape AA Intelligence Index -> aa_scores.yaml
 python scripts/discover.py        # org sweep + arena merge -> candidates.yaml
@@ -85,6 +86,16 @@ This exists because the record was contradicting itself. `params_active_source` 
 **The table prints the stated figure, falling back to measured** (`render_readme.display_total`). The vendor's number is what a reader arrives with; printing 684.5 for DeepSeek-V3 would make a correct table look wrong to more people than it informed. `models.json` carries both.
 
 Before this split the column meant two different things depending on how a row got in: 13 hand-curated rows held vendor figures, 18 auto-promoted rows held tensor counts. The migration moved every curated value into `params_total_stated_b` and put the measured count in `params_total_b`, so the column now means one thing everywhere. **Rendered output for those rows did not change** — DeepSeek-V3 still prints 671.
+
+## Verifying commercial_use
+
+`commercial_use` on an auto-promoted row is inferred from the HF licence **tag** — uploader-supplied metadata nobody read — and `render_readme.commercial_badge` marks it with a trailing `?`. `scripts/check_license.py` gathers the evidence to clear that: what licence files the repo actually serves, whether the text matches a canonical licence (`LICENSE_MARKERS`, all markers required — a card *mentioning* Apache is not Apache), any restriction language in it, and the card's licence section. `.claude/skills/verify-commercial-use/` is the agent workflow over it.
+
+**The failure it hunts is not a wrong tag** — it is a standard licence with use restrictions bolted on, which still tags `apache-2.0` and is not Apache-2.0. Hence `added_terms`. That scanner must skip `CANONICAL_BOILERPLATE`: Apache-2.0's own text says "you may not use this file except in compliance with the License" and (§5) "without any additional terms or conditions", and those two lines flagged **every clean Apache repo** on the first live run. Add a new false positive there **with a test**; never loosen `RESTRICTION_PATTERNS`, which costs real detections.
+
+`--apply` writes only the two outcomes needing no judgement — `confirmed` clears the `?`, `tag-only` sets `license_text_published: false` — and refuses `added-terms`, `tag-mismatch`, `unrecognised-text` and `fetch-failed`, which are a person's call. It never touches a row a human already verified, and replaces `license_notes` only while it is still the `AUTO-DISCOVERED` placeholder. `plan_edits` will not confirm a licence `COMMERCIAL_USE` has no entry for: identifying the text is not the same as knowing its consequence, and inventing one is the single thing this must never do.
+
+**Three states, not two.** `?` was carrying two unrelated meanings, and 18 of the 26 unverified rows were the second: the vendor publishes no licence file at all. `†` now says that — a permanent fact about the release, not a backlog item. `apply_edits` does line surgery on `models.yaml` a row block at a time; an earlier version appended new fields when it saw the *next* row's `hf_repo` and silently attached them to the following model, so the block buffering is load-bearing and tested.
 
 ## Licensing
 

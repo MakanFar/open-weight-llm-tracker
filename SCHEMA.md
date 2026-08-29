@@ -31,6 +31,8 @@ Each list entry is one model. Fields:
 | `weights_url` | no | url | Direct link to the weights |
 | `notes` | no | string | Free text (standout result, quantization tips, etc.) |
 | `commercial_use_verified` | no | bool | `false` (or absent) means the value was inferred from the licence tag, not read from the licence. The README marks these with `?`. |
+| `commercial_use_source` | no | string | Provenance for the `commercial_use` determination: what was read and where, precise enough to re-check without repeating the search. Written by `scripts/check_license.py --apply`. Optional — rows verified before this field existed carry no citation and are not thereby wrong. |
+| `license_text_published` | no | bool | `false` means someone looked and the vendor publishes **no licence file** — the HF licence tag is the only claim there has ever been. Renders as a trailing `†` on **Commercial**, distinct from `?`: `?` is "nobody has checked yet" (a backlog), `†` is "there is nothing to check" (a fact about the release). Absent means nobody looked. Must be a real bool — a truthy `"no"` would read as "yes, published" and drop the marker. |
 | `params_active_source` | no | string | For auto-promoted MoE rows: the sentence in the model card the activation figure came from. Where that sentence also names a total, it is recorded in `params_total_stated_b`, so the quote and the row agree. |
 
 ## Conventions

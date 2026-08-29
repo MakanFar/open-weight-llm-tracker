@@ -41,7 +41,9 @@ FIELDS = ("name", "hf_repo", "developer", "release_date", "params_total_b",
           "params_total_stated_b", "params_active_b", "params_active_source",
           "architecture",
           "context_window", "modality", "license", "commercial_use",
-          "commercial_use_verified", "license_notes", "weights_url", "notes")
+          "commercial_use_verified", "commercial_use_source",
+          "license_text_published", "license_notes",
+          "weights_url", "notes")
 
 
 def _jsonable(value):

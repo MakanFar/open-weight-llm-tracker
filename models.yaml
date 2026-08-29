@@ -384,10 +384,11 @@ models:
     modality: text
     license: mit
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'mit' is the only claim."
     weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.5
     params_active_source: 15B activated param
     commercial_use_verified: false
+    license_text_published: false
 
   - name: granite-4.1-8b
     hf_repo: ibm-granite/granite-4.1-8b
@@ -400,9 +401,10 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/ibm-granite/granite-4.1-8b
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Qwen3-Coder-Next
     hf_repo: Qwen/Qwen3-Coder-Next
@@ -415,10 +417,11 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
     params_active_source: 3B activated param
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Qwen3.5-27B
     hf_repo: Qwen/Qwen3.5-27B
@@ -431,9 +434,10 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3.5-27B
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: MiMo-V2-Flash
     hf_repo: XiaomiMiMo/MiMo-V2-Flash
@@ -446,10 +450,11 @@ models:
     modality: text
     license: mit
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'mit' is the only claim."
     weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash
     params_active_source: 15B active param
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Olmo-3.1-32B-Instruct
     hf_repo: allenai/Olmo-3.1-32B-Instruct
@@ -462,9 +467,10 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Instruct
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Molmo2-8B
     hf_repo: allenai/Molmo2-8B
@@ -477,9 +483,10 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/allenai/Molmo2-8B
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Olmo-3-32B-Think
     hf_repo: allenai/Olmo-3-32B-Think
@@ -492,9 +499,10 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/allenai/Olmo-3-32B-Think
     commercial_use_verified: false
+    license_text_published: false
 
   - name: gemma-4-12B-it
     hf_repo: google/gemma-4-12B-it
@@ -507,9 +515,10 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/google/gemma-4-12B-it
     commercial_use_verified: false
+    license_text_published: false
 
   - name: gemma-4-E2B-it
     hf_repo: google/gemma-4-E2B-it
@@ -522,9 +531,10 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/google/gemma-4-E2B-it
     commercial_use_verified: false
+    license_text_published: false
 
   - name: gemma-4-E4B-it
     hf_repo: google/gemma-4-E4B-it
@@ -537,9 +547,10 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/google/gemma-4-E4B-it
     commercial_use_verified: false
+    license_text_published: false
 
   - name: GLM-5
     hf_repo: zai-org/GLM-5
@@ -553,10 +564,11 @@ models:
     modality: text
     license: mit
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'mit' is the only claim."
     weights_url: https://huggingface.co/zai-org/GLM-5
     params_active_source: 744B parameters (40B active
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Qwen3.5-397B-A17B
     hf_repo: Qwen/Qwen3.5-397B-A17B
@@ -570,10 +582,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3.5-397B-A17B
     params_active_source: 397B in total and 17B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-397B-A17B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: Inkling
     hf_repo: thinkingmachines/Inkling
@@ -587,10 +600,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/thinkingmachines/Inkling
     params_active_source: 975B total, 41B active
     commercial_use_verified: false
+    license_text_published: false
 
   - name: gemma-4-26B-A4B-it
     hf_repo: google/gemma-4-26B-A4B-it
@@ -603,10 +617,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/google/gemma-4-26B-A4B-it
     params_active_source: Active Parameters** | 3.8B
     commercial_use_verified: false
+    license_text_published: false
 
   - name: DeepSeek-V4-Flash
     hf_repo: deepseek-ai/DeepSeek-V4-Flash
@@ -620,10 +635,11 @@ models:
     modality: text
     license: mit
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "mit, unmodified."
     weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash
     params_active_source: 284B parameters (13B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions"
 
   - name: Qwen3.5-122B-A10B
     hf_repo: Qwen/Qwen3.5-122B-A10B
@@ -637,10 +653,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3.5-122B-A10B
     params_active_source: 122B in total and 10B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: Qwen3-VL-235B-A22B-Instruct
     hf_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
@@ -654,10 +671,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct
     params_active_source: 235B-A22B
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Inkling-Small
     hf_repo: thinkingmachines/Inkling-Small
@@ -671,10 +689,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/thinkingmachines/Inkling-Small
     params_active_source: 276B total, 12B active
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Qwen3-Next-80B-A3B-Instruct
     hf_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
@@ -688,10 +707,11 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct
     params_active_source: 80B in total and 3B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: Qwen3.5-35B-A3B
     hf_repo: Qwen/Qwen3.5-35B-A3B
@@ -705,10 +725,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3.5-35B-A3B
     params_active_source: 35B in total and 3B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-35B-A3B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: Qwen3-VL-235B-A22B-Thinking
     hf_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
@@ -722,10 +743,11 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking
     params_active_source: 235B-A22B
     commercial_use_verified: false
+    license_text_published: false
 
   - name: Qwen3-Next-80B-A3B-Thinking
     hf_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
@@ -739,10 +761,11 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "apache-2.0, unmodified."
     weights_url: https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking
     params_active_source: 80B in total and 3B activated
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
 
   - name: GLM-4.7-Flash
     hf_repo: zai-org/GLM-4.7-Flash
@@ -756,10 +779,11 @@ models:
     modality: text
     license: mit
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'mit' is the only claim."
     weights_url: https://huggingface.co/zai-org/GLM-4.7-Flash
     params_active_source: 30B-A3B
     commercial_use_verified: false
+    license_text_published: false
 
   - name: gpt-oss-120b
     hf_repo: openai/gpt-oss-120b
@@ -773,10 +797,11 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Apache-2.0, unmodified."
     weights_url: https://huggingface.co/openai/gpt-oss-120b
     params_active_source: 117B parameters with 5.1B active
-    commercial_use_verified: false
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE — Apache-2.0 verbatim, no added use restrictions"
 
   - name: diffusiongemma-26B-A4B-it
     hf_repo: google/diffusiongemma-26B-A4B-it
@@ -789,7 +814,8 @@ models:
     modality: multimodal
     license: apache-2.0
     commercial_use: true
-    license_notes: AUTO-DISCOVERED — verify license terms.
+    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
     weights_url: https://huggingface.co/google/diffusiongemma-26B-A4B-it
     params_active_source: Active Parameters** | 3.8B
     commercial_use_verified: false
+    license_text_published: false
