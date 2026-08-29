@@ -134,8 +134,15 @@ python -m pytest tests/ -q
    licences** — and equally, do not assume the history still holds. Gemma 1–3
    used the custom Gemma Terms of Use; Gemma 4 genuinely moved to Apache-2.0.
    Both the tag *and* the prior assumption needed checking.
-5. **Do not touch rows already `commercial_use_verified: true`.**
-6. **One licence, one determination, many rows.** Never re-derive what
+5. **Accepting a tag as the licence is a maintainer decision, never yours.**
+   Where the only evidence is the HF tag — or where two found documents
+   disagree about which governs the weights — you may not resolve it by
+   picking one. Present the conflict and let the maintainer choose. When they
+   do, say so in `commercial_use_source` in those words ("maintainer
+   decision"), so the row is never later mistaken for one where somebody read
+   the instrument. Four rows in `models.yaml` carry exactly that wording.
+6. **Do not touch rows already `commercial_use_verified: true`.**
+7. **One licence, one determination, many rows.** Never re-derive what
    Apache-2.0 means per model. The per-row question is only ever *which*
    licence this release is under.
 
