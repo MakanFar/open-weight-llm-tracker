@@ -96,6 +96,40 @@ CARD_LICENCE_HEADING = re.compile(
     r"^#{1,4}\s*.*licen[cs]e.*$", re.I | re.M)
 
 
+# Hosts that serve a canonical licence text. A license_link pointing here
+# corroborates a permissive tag; anywhere else, the vendor is hosting its own
+# terms, which is a different licence whatever the tag says.
+CANONICAL_LICENCE_HOSTS = ("apache.org", "opensource.org", "gnu.org",
+                           "mit-license.org", "spdx.org",
+                           "creativecommons.org")
+
+# Tags whose meaning is fixed by a standard body. Only these can be
+# CONTRADICTED by a vendor licence page -- a row already claiming a bespoke
+# licence and linking to it agrees with itself.
+PERMISSIVE_TAGS = ("apache-2.0", "mit", "bsd-3-clause")
+
+
+def link_contradicts_tag(link, tag, repo):
+    """Does the card's own license_link point away from the tag it claims?
+
+    Every Gemma 4 row tags `apache-2.0` while linking to
+    ai.google.dev/gemma/docs/gemma_4_license. Google hosting its own licence
+    page is not Google publishing Apache-2.0, and the tracker was carrying
+    `license: apache-2.0, commercial_use: true` for five of them on the
+    strength of the tag alone.
+
+    A link into the repo itself is not a contradiction -- that is just the
+    licence file, handled elsewhere. Nor is a link to apache.org, which is a
+    vendor corroborating the tag rather than replacing it.
+    """
+    if not link or tag not in PERMISSIVE_TAGS:
+        return False
+    lowered = str(link).lower()
+    if repo and repo.lower() in lowered:
+        return False
+    return not any(host in lowered for host in CANONICAL_LICENCE_HOSTS)
+
+
 def _get(url, headers=None):
     req = urllib.request.Request(url, headers=headers or hf_meta.auth_headers(
         "owlt-license/1.0"))
@@ -222,6 +256,11 @@ def verdict(report, row_license):
     """
     if report["errors"] and not report["licence_files"]:
         return "fetch-failed"
+    # Checked before tag-only: "publishes no licence file" badly understates a
+    # row whose own metadata points at a different licence entirely.
+    if link_contradicts_tag(report.get("license_link"), report.get("tag"),
+                            report.get("repo")):
+        return "link-contradicts-tag"
     if not report["licence_files"]:
         return "tag-only"
     if report["identified"] is None:
@@ -403,6 +442,8 @@ def main():
                   + (f"  name={report['license_name']!r}"
                      if report["license_name"] else ""))
             print(f"  licence files  {report['licence_files'] or '(none)'}")
+            if report.get("license_link"):
+                print(f"  license_link   {report['license_link']}")
             print(f"  text matches   {report['identified'] or '(no match)'}")
             if report["implies_commercial_use"] is not None:
                 print(f"  => licence permits commercial use: "

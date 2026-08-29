@@ -24,22 +24,22 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
-| [Inkling-Small](https://huggingface.co/thinkingmachines/Inkling-Small) | thinkingmachines | 2026-07-27 | 276B (12B active) | 1M | multimodal | 48 | 41 | `apache-2.0` | Yes† |
-| [Inkling](https://huggingface.co/thinkingmachines/Inkling) | thinkingmachines | 2026-07-14 | 975B (41B active) | 1M | multimodal | 17 | 42 | `apache-2.0` | Yes† |
+| [Inkling-Small](https://huggingface.co/thinkingmachines/Inkling-Small) | thinkingmachines | 2026-07-27 | 276B (12B active) | 1M | multimodal | 48 | 41 | `apache-2.0` | Yes |
+| [Inkling](https://huggingface.co/thinkingmachines/Inkling) | thinkingmachines | 2026-07-14 | 975B (41B active) | 1M | multimodal | 17 | 42 | `apache-2.0` | Yes |
 | [Hy3](https://huggingface.co/tencent/Hy3) | Tencent | 2026-07-02 | 298.8B (21B active) | 262K | text | 10 | 42 | `apache-2.0` | Yes |
 | [Kimi K3](https://huggingface.co/moonshotai/Kimi-K3) | Moonshot AI | 2026-06-13 | 2779.9B (104B active) | 1M | text | 1 | 60 | `kimi-k3` | Conditional |
-| [diffusiongemma-26B-A4B-it](https://huggingface.co/google/diffusiongemma-26B-A4B-it) | google | 2026-06-09 | 25.8B (3.8B active) | 262K | multimodal | — | — | `apache-2.0` | Yes† |
+| [diffusiongemma-26B-A4B-it](https://huggingface.co/google/diffusiongemma-26B-A4B-it) | google | 2026-06-09 | 25.8B (3.8B active) | 262K | multimodal | — | — | `apache-2.0` | Yes |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 14 | 45 | `minimax-community` | Conditional |
-| [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes† |
+| [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes |
 | [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 5 | 43 | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 22 | 38 | `mit` | Yes† |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 8 | 45 | `mit` | Yes |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 284B (13B active) | 1M | text | 21 | 52 | `mit` | Yes |
-| [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 108 | — | `apache-2.0` | Yes† |
+| [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 108 | — | `apache-2.0` | Yes |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 12 | 30 | `apache-2.0` | Yes |
-| [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 20 | 26 | `apache-2.0` | Yes† |
-| [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes† |
-| [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes† |
+| [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 20 | 26 | `apache-2.0` | Yes |
+| [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes |
+| [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes |
 | [Qwen3.5-122B-A10B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | Qwen | 2026-02-24 | 122B (10B active) | 262K | multimodal | 39 | 33 | `apache-2.0` | Yes |
 | [Qwen3.5-35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) | Qwen | 2026-02-24 | 35B (3B active) | 262K | multimodal | 55 | 24 | `apache-2.0` | Yes |
 | [Qwen3.5-27B](https://huggingface.co/Qwen/Qwen3.5-27B) | Qwen | 2026-02-24 | 27.8B | 262K | multimodal | 47 | — | `apache-2.0` | Yes |
@@ -48,11 +48,11 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 21 | `apache-2.0` | Yes† |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash) | zai-org | 2026-01-19 | 30B (3B active) | 202K | text | 70 | — | `mit` | Yes† |
 | [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 61 | — | `mit` | Yes† |
-| [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 91 | — | `apache-2.0` | Yes† |
-| [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 92 | — | `apache-2.0` | Yes† |
-| [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 110 | — | `apache-2.0` | Yes† |
-| [Qwen3-VL-235B-A22B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) | Qwen | 2025-09-22 | 235B (22B active) | 262K | multimodal | 43 | — | `apache-2.0` | Yes† |
-| [Qwen3-VL-235B-A22B-Thinking](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking) | Qwen | 2025-09-22 | 235B (22B active) | 262K | multimodal | 56 | — | `apache-2.0` | Yes† |
+| [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 91 | — | `apache-2.0` | Yes |
+| [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 92 | — | `apache-2.0` | Yes |
+| [Olmo-3-32B-Think](https://huggingface.co/allenai/Olmo-3-32B-Think) | allenai | 2025-11-19 | 32.2B | 65K | text | 110 | — | `apache-2.0` | Yes |
+| [Qwen3-VL-235B-A22B-Instruct](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct) | Qwen | 2025-09-22 | 235B (22B active) | 262K | multimodal | 43 | — | `apache-2.0` | Yes |
+| [Qwen3-VL-235B-A22B-Thinking](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking) | Qwen | 2025-09-22 | 235B (22B active) | 262K | multimodal | 56 | — | `apache-2.0` | Yes |
 | [Qwen3-Next-80B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct) | Qwen | 2025-09-09 | 80B (3B active) | 262K | text | 51 | 17 | `apache-2.0` | Yes |
 | [Qwen3-Next-80B-A3B-Thinking](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking) | Qwen | 2025-09-09 | 80B (3B active) | 262K | text | 69 | — | `apache-2.0` | Yes |
 | [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 117B (5.1B active) | 131K | text | 79 | 24 | `apache-2.0` | Yes |

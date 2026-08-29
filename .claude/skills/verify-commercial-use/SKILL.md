@@ -1,93 +1,116 @@
 ---
 name: verify-commercial-use
-description: Use when clearing the trailing `?` on the README's Commercial column — verifying a models.yaml row's commercial_use against the licence the vendor actually published, rather than the Hugging Face licence tag it was inferred from.
+description: Use when clearing the trailing `?` or `†` on the README's Commercial column — establishing a models.yaml row's licence and commercial_use from what the vendor actually published, including licence pages, vendor repos and announcements found by web search, rather than the Hugging Face licence tag it was inferred from.
 ---
 
 # Verify commercial_use
 
-## What the `?` means
+**You are the reviewer.** Not a triage step that hands work to someone else —
+you do the research, read the licence, and make the determination. The trailing
+`?` and `†` in the README exist because nobody had done that yet. Your job is to
+do it.
 
-`commercial_use` on an auto-promoted row was **inferred from the Hugging Face
-licence tag**. That tag is uploader-supplied metadata typed into a form — it is
-not a licence, nobody checked it, and `render_readme.commercial_badge` marks
-every such row with a trailing `?`.
+## What the markers mean
 
-Your job is to replace an inference with a reading. **The `?` is honest. A
-wrongly cleared `?` is a false legal claim published as settled fact**, so
-leaving a row unverified is always an acceptable outcome and is often the
-correct one.
+- **`?`** — `commercial_use` was inferred from the Hugging Face licence tag.
+  That tag is uploader-supplied metadata typed into a form. Nobody read a
+  licence.
+- **`†`** — someone looked and the repo publishes no licence file. The tag is
+  the only claim *in the repo*. It does not mean the licence is unpublished —
+  it usually is, elsewhere, and finding it is your job.
 
-## The failure this is actually looking for
+## The one rule that matters
 
-Not a tag that is simply wrong — those are rare. The one that matters is a repo
-shipping a **standard licence with extra use restrictions appended**. That still
-tags as `apache-2.0`, still looks permissive, and is not Apache-2.0. Reading the
-file is the only way to see it.
+**Your knowledge directs the search. It is never the evidence.**
+
+You may know Apache-2.0 permits commercial use — that part is settled and you
+should not re-litigate it. You may *believe* Qwen ships Apache-2.0. But
+"Qwen ships Apache-2.0" is a claim about a specific release, and the only thing
+that settles it is a document you fetched. Every determination you write must
+cite a URL you actually retrieved and quote the operative text.
+
+A confident answer with no fetched source is the single worst output here: it is
+indistinguishable in the data from a checked one, and it poisons the field the
+whole tracker exists to be trusted on. **If research fails, leave the marker.**
+That is a finished, correct outcome.
 
 ## Workflow
 
-### 1. Gather evidence
+### 1. Gather what the repo itself publishes
 
 ```bash
-python scripts/check_license.py --unverified          # every row still `?`
+python scripts/check_license.py --unverified          # every unsettled row
 python scripts/check_license.py Qwen/Qwen3.5-27B      # one repo
 python scripts/check_license.py --unverified --json   # machine-readable
 ```
 
-The script **decides nothing**. It fetches what the vendor published — the
-repo's own licence files, whether the text matches a canonical licence, any
-restriction language in it, and the model card's licence section — and gives
-each row a routing verdict. You make the call.
-
-### 2. Route on the verdict
-
-| verdict | what it means | what to do |
-|---|---|---|
-| `confirmed` | The repo's own licence file **is** the licence the row claims, with no restriction language anywhere in it. | Set `commercial_use` from the licence, `commercial_use_verified: true`, and cite the file. |
-| `tag-only` | The repo publishes **no licence file at all**. The tag is the only claim there has ever been. | **Do not verify.** Mark `license_text_published: false` — the table renders a trailing `†`, meaning "cannot be checked" rather than "not checked yet". |
-| `added-terms` | Text matches, but carries restriction language. | Read the quoted clause. Usually `conditional`. Never `true` without reading it. Ask a human if it is not obvious. |
-| `tag-mismatch` | The licence text is a **different licence** from the tag. | Fix `license` first, then re-run. Needs a human. |
-| `unrecognised-text` | A licence file exists but matches nothing canonical — a bespoke vendor licence. | Read it in full. Add the licence to `validate.LICENSES` if adopting it. Human decision. |
-| `fetch-failed` | Could not look. | Not evidence of anything. Retry later. |
-
-### 3. Write the result
+Then let the script settle everything mechanical:
 
 ```bash
 python scripts/check_license.py --unverified --apply
 ```
 
-`--apply` writes **only the two outcomes that need no judgement** and prints
-everything it refused. A `confirmed` row gets verified; a `tag-only` row gets
-marked unpublishable. `added-terms`, `tag-mismatch`, `unrecognised-text` and
-`fetch-failed` are always left untouched for you.
+`--apply` writes only the two outcomes needing no judgement — a `confirmed`
+licence file clears the marker, a `tag-only` row is marked
+`license_text_published: false`. It never touches a row a human already
+verified. Everything else it prints and leaves for you.
 
-It never touches a row already `commercial_use_verified: true`, and it replaces
-`license_notes` only while that note is still the `AUTO-DISCOVERED` placeholder
-— a reviewer's own words are not the script's to overwrite.
+### 2. Research what is left, per vendor — not per row
 
-For a verdict `--apply` refuses, write it by hand. For `confirmed` that shape is:
+Nine Qwen rows share one licensing decision. Do it once, apply it to all of
+them, and cite the same source. Group the queue by org and family first; the
+18 rows in the first real run were 7 decisions.
+
+Look in this order, and stop at the first tier that actually answers:
+
+| tier | source | strength |
+|---|---|---|
+| 1 | The repo's own `LICENSE` file | Definitive. `check_license.py` already checked this. |
+| 2 | `license_link` in the card's frontmatter — the script prints it | The vendor naming its own instrument. Follow it with WebFetch. |
+| 3 | The vendor's official licence page or GitHub `LICENSE` for the same release | Strong. Confirm it names *this* release. |
+| 4 | The model card's licence section | Evidence, not the instrument. Can raise a doubt; cannot settle one alone. |
+| 5 | Release announcement, tech report, press coverage (WebSearch) | Corroboration only. Never the sole basis. |
+
+Then read for the two things that actually decide it:
+
+1. **Is the text a standard licence, unmodified?** If so its commercial terms
+   are settled and you are done.
+2. **Is anything incorporated by reference?** A prohibited-use or acceptable-use
+   policy *inside* the licence makes it `conditional`. The same policy merely
+   *linked from the same website* does not. This distinction is the whole job —
+   check whether the licence text itself conditions the grant on it.
+
+### 3. Decide
+
+| finding | `commercial_use` |
+|---|---|
+| Standard permissive licence (Apache-2.0, MIT, BSD), unmodified | `true` |
+| Permissive licence + use restrictions incorporated into the grant | `conditional` |
+| Custom vendor licence permitting commercial use with conditions (MAU caps, naming, use policy) | `conditional` |
+| Licence forbids commercial use | `false` |
+| You could not find the instrument | **leave it — change nothing** |
+
+If the licence turns out not to be the one the row claims, fix `license` too,
+and add the new string to `validate.LICENSES` in the same change.
+
+### 4. Write it
 
 ```yaml
+    license: apache-2.0
     commercial_use: true
     commercial_use_verified: true
-    commercial_use_source: "LICENSE @ https://huggingface.co/<repo>/blob/main/LICENSE — Apache-2.0 verbatim, no added use restrictions"
+    commercial_use_source: "https://ai.google.dev/gemma/docs/gemma_4_license — unmodified Apache-2.0; the Gemma Prohibited Use Policy is a separately linked document, not incorporated into the grant"
 ```
 
-and for a repo that publishes no licence file:
+`commercial_use_source` must contain **the URL you fetched** and **what it
+said** — enough that the next person re-checks it without repeating your search.
+Not "verified via web search". Drop `license_text_published` if you found the
+licence elsewhere; keep it if the repo still ships no file but you verified from
+the vendor's site — the two facts are independent.
 
-```yaml
-    license_text_published: false
-    license_notes: "Vendor publishes no licence file; the Hugging Face tag 'apache-2.0' is the only claim."
-```
+Replace any `AUTO-DISCOVERED` placeholder in `license_notes` with what you found.
 
-Replace any `license_notes: "AUTO-DISCOVERED — verify license terms."` with
-what you found, or drop it.
-
-`commercial_use_source` is the citation: **what you read and where**, precise
-enough that the next person can re-check it without repeating the search. Not
-"checked the licence".
-
-### 4. Confirm nothing broke
+### 5. Confirm
 
 ```bash
 python scripts/validate.py
@@ -95,46 +118,39 @@ python scripts/render_readme.py && python scripts/render_json.py
 python -m pytest tests/ -q
 ```
 
-The `?` should be gone from exactly the rows you verified.
-
 ## Rules
 
-1. **Never set `commercial_use_verified: true` without licence text you read.**
-   A tag, a card sentence, a blog post and "everyone knows Apache is
-   permissive" are all insufficient. The point of the field is that someone
-   read the instrument.
-2. **`tag-only` cannot be verified.** 18 of the 26 rows were this. It is not a
-   gap to be filled by trying harder — the vendor published no licence file, so
-   there is nothing to confirm and no amount of searching changes that. Mark it
-   `license_text_published: false` and move on. That is a finished outcome, not
-   a deferral: `†` in the table says the vendor never published the instrument,
-   which is a fact about the release and useful to a reader.
-3. **A model card is evidence, not proof.** It is prose the vendor wrote
-   alongside the weights; it is not the instrument granting the licence. It can
-   raise a doubt (worth acting on) but cannot settle one.
-4. **Abstain loudly.** Say which rows you could not verify and why. A run that
-   verifies 8 of 26 and marks the other 18 unpublishable is a success. A run
-   that verifies 26 is a bug.
-5. **One licence, one determination.** `apache-2.0` and `mit` are OSI-approved
-   and neither restricts field of use, so both imply `commercial_use: true` —
-   *once the text really is that licence and carries nothing extra*. The
-   per-repo work is confirming that, never re-litigating what Apache-2.0 means.
-6. **Do not touch rows already `commercial_use_verified: true`.** A human
-   settled those.
+1. **Never write `commercial_use_verified: true` without a URL you fetched and
+   a clause you read.** Not from memory, not from a tag, not from "everyone
+   knows".
+2. **Report what you could not settle, explicitly and by name.** A run that
+   verifies 12 of 18 and names the other 6 is a success. A run that verifies 18
+   is a claim you should be suspicious of.
+3. **A separate policy page is not a licence term** unless the licence text
+   incorporates it. Getting this backwards turns every permissively-licensed
+   model into `conditional`, and getting it the other way publishes a
+   restricted model as free.
+4. **Distrust a permissive tag from a vendor with a history of custom
+   licences** — and equally, do not assume the history still holds. Gemma 1–3
+   used the custom Gemma Terms of Use; Gemma 4 genuinely moved to Apache-2.0.
+   Both the tag *and* the prior assumption needed checking.
+5. **Do not touch rows already `commercial_use_verified: true`.**
+6. **One licence, one determination, many rows.** Never re-derive what
+   Apache-2.0 means per model. The per-row question is only ever *which*
+   licence this release is under.
 
 ## Watch out
 
 - `check_license.py`'s restriction scanner skips `CANONICAL_BOILERPLATE`,
-  because Apache-2.0's own text contains "you may not use this file except in
-  compliance with the License" and "without any additional terms or
-  conditions". Those two lines flagged every clean Apache repo on the first
-  run. If you see a new false positive that is canonical licence text, add it
-  there **with a test** — do not loosen `RESTRICTION_PATTERNS`, which would
-  cost real detections.
-- Gated repos (`meta-llama/*`, `google/gemma-*`) may 401 on file fetches
-  without a token. That is `fetch-failed`, not `tag-only`.
-- Google's Gemma 4 rows tag `apache-2.0` while every previous Gemma release
-  used the custom, conditional Gemma licence, and they ship no licence file.
-  `models.yaml` carries a standing `VERIFY:` note about it. Treat a permissive
-  tag from a vendor with a history of custom licences as a reason for more
-  suspicion, not less.
+  because Apache-2.0's own text says "you may not use this file except in
+  compliance with the License" and (§5) "without any additional terms or
+  conditions". Those flagged every clean Apache repo on the first run. Add new
+  false positives there **with a test**; never loosen `RESTRICTION_PATTERNS`.
+- `link-contradicts-tag` fires when a permissive tag links to a vendor-hosted
+  licence page. It is a *lead*, not a verdict: the Gemma 4 link looked like a
+  custom licence and turned out to serve unmodified Apache-2.0. Follow it.
+- Gated repos (`meta-llama/*`, older `google/gemma-*`) may 401 without a token.
+  That is `fetch-failed` — "could not look", not "nothing to find".
+- A card saying "intended for research and educational use" alongside an
+  Apache-2.0 grant is a *guideline*, not a licence term. Check whether the
+  licence conditions anything on it before downgrading to `conditional`.

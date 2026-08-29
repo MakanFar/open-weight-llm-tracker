@@ -289,3 +289,49 @@ def test_apply_reports_how_many_rows_changed(tmp_path):
     n = cl.apply_edits(f, {"org/a": {"commercial_use_verified": True},
                            "org/b": {"license_text_published": False}})
     assert n == 2
+
+
+# --- a licence link that contradicts the tag -------------------------------
+
+def test_canonical_link_is_not_a_contradiction():
+    """thinkingmachines points license_link at apache.org's own text. That
+    corroborates the tag; it does not contradict it."""
+    assert not cl.link_contradicts_tag(
+        "https://www.apache.org/licenses/LICENSE-2.0", "apache-2.0", "org/m")
+    assert not cl.link_contradicts_tag(
+        "https://opensource.org/licenses/MIT", "mit", "org/m")
+
+
+def test_a_link_into_the_repo_itself_is_not_a_contradiction():
+    assert not cl.link_contradicts_tag(
+        "https://huggingface.co/Qwen/Qwen3.5-27B/blob/main/LICENSE",
+        "apache-2.0", "Qwen/Qwen3.5-27B")
+
+
+def test_a_vendor_licence_page_contradicts_a_permissive_tag():
+    """Gemma 4 tags apache-2.0 and links to ai.google.dev/gemma/docs/
+    gemma_4_license. A vendor hosting its own licence page is not publishing
+    Apache-2.0, whatever the tag says."""
+    assert cl.link_contradicts_tag(
+        "https://ai.google.dev/gemma/docs/gemma_4_license",
+        "apache-2.0", "google/gemma-4-12B-it")
+
+
+def test_no_link_is_not_a_contradiction():
+    assert not cl.link_contradicts_tag(None, "apache-2.0", "org/m")
+    assert not cl.link_contradicts_tag("", "apache-2.0", "org/m")
+
+
+def test_a_bespoke_tag_with_a_vendor_link_is_consistent():
+    """Only a PERMISSIVE tag is contradicted by a bespoke licence page. A row
+    already claiming a vendor licence and linking to it agrees with itself."""
+    assert not cl.link_contradicts_tag(
+        "https://ai.google.dev/gemma/terms", "gemma", "google/gemma-3-27b-it")
+
+
+def test_verdict_reports_the_contradiction_over_tag_only():
+    """It must outrank tag-only: 'no licence file' understates a row whose
+    own metadata points at a different licence."""
+    r = _report(licence_files=[], identified=None,
+                license_link="https://ai.google.dev/gemma/docs/gemma_4_license")
+    assert cl.verdict(r, "apache-2.0") == "link-contradicts-tag"
