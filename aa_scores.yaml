@@ -129,6 +129,16 @@ scores:
     intelligence_index: 53
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: max
+  zai-org/GLM-5.3:
+    aa_model: GLM-5.3 (max)
+    intelligence_index: 60
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: max
+  zai-org/GLM-5.3-Flash:
+    aa_model: GLM-5.3-Flash
+    intelligence_index: 57
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
 unmatched:
 - A.X-K2
 - Agnes 2.5 Pro Alpha
@@ -144,8 +154,6 @@ unmatched:
 - Devstral 2
 - Devstral Small 2
 - G9v3-39A5B
-- GLM-5.3 (max)
-- GLM-5.3-Flash
 - GPT-5.5 Instant (June 2026)
 - GPT-5.6 Luna (max)
 - GPT-5.6 Sol (max)
