@@ -19,7 +19,8 @@ Each list entry is one model. Fields:
 | `hf_repo` | no | string | Hugging Face repo id, e.g. `meta-llama/Llama-3.1-405B-Instruct`. Used by the auto-puller. |
 | `developer` | yes | string | Org that released it: Meta, Alibaba, DeepSeek, Mistral AI, Google, Microsoft, etc. |
 | `release_date` | yes | date | `YYYY-MM-DD` (use the 1st if only month is known) |
-| `params_total_b` | yes | number | Total parameters in **billions** |
+| `params_total_b` | yes | number | Total parameters in **billions**, **measured** — HF's summed safetensors tensor count. Reproducible, and the anchor every other figure is checked against. |
+| `params_total_stated_b` | no | number | The total the **vendor publishes**, when it publishes one. A different quantity from `params_total_b`, not a correction of it: a checkpoint carries tensors a headline figure leaves out, so DeepSeek-V3 is `671` stated against `684.5` measured (the MTP module) and GLM-5 is `744` against `753.9`. Both are recorded so a row cannot appear to argue with itself — a `params_active_source` quote like `"284B parameters (13B activated"` asserts a total, and storing it beside a bare measured figure is what made 13 rows look wrong. **Never invented:** absent means the vendor published no distinct figure, which is the majority case. `validate.py` rejects a value more than 25% from `params_total_b` — that far apart means it was copied off another variant of the family. The README table prints this figure when present, `params_total_b` otherwise. |
 | `params_active_b` | yes | number | Active params per token in billions. For dense models = total. For MoE, the smaller routed count. |
 | `architecture` | yes | enum | `dense` or `moe` |
 | `context_window` | yes | integer | Max context in tokens |
@@ -30,7 +31,7 @@ Each list entry is one model. Fields:
 | `weights_url` | no | url | Direct link to the weights |
 | `notes` | no | string | Free text (standout result, quantization tips, etc.) |
 | `commercial_use_verified` | no | bool | `false` (or absent) means the value was inferred from the licence tag, not read from the licence. The README marks these with `?`. |
-| `params_active_source` | no | string | For auto-promoted MoE rows: the sentence in the model card the activation figure came from. |
+| `params_active_source` | no | string | For auto-promoted MoE rows: the sentence in the model card the activation figure came from. Where that sentence also names a total, it is recorded in `params_total_stated_b`, so the quote and the row agree. |
 
 ## Conventions
 

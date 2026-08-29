@@ -12,8 +12,9 @@ models:
     hf_repo: meta-llama/Llama-3.1-405B-Instruct
     developer: Meta
     release_date: 2024-07-23
-    params_total_b: 405
-    params_active_b: 405
+    params_total_b: 405.9
+    params_total_stated_b: 405
+    params_active_b: 405.9
     architecture: dense
     context_window: 128000
     modality: text
@@ -28,8 +29,9 @@ models:
     hf_repo: meta-llama/Llama-3.3-70B-Instruct
     developer: Meta
     release_date: 2024-12-06
-    params_total_b: 70
-    params_active_b: 70
+    params_total_b: 70.6
+    params_total_stated_b: 70
+    params_active_b: 70.6
     architecture: dense
     context_window: 128000
     modality: text
@@ -44,7 +46,8 @@ models:
     hf_repo: meta-llama/Llama-4-Scout-17B-16E-Instruct
     developer: Meta
     release_date: 2025-04-05
-    params_total_b: 109
+    params_total_b: 108.6
+    params_total_stated_b: 109
     params_active_b: 17
     architecture: moe
     context_window: 10000000
@@ -60,7 +63,8 @@ models:
     hf_repo: meta-llama/Llama-4-Maverick-17B-128E-Instruct
     developer: Meta
     release_date: 2025-04-05
-    params_total_b: 400
+    params_total_b: 401.6
+    params_total_stated_b: 400
     params_active_b: 17
     architecture: moe
     context_window: 1000000
@@ -92,7 +96,8 @@ models:
     hf_repo: Qwen/Qwen3-235B-A22B
     developer: Alibaba
     release_date: 2025-04-28
-    params_total_b: 235
+    params_total_b: 235.1
+    params_total_stated_b: 235
     params_active_b: 22
     architecture: moe
     context_window: 131072
@@ -108,7 +113,8 @@ models:
     hf_repo: deepseek-ai/DeepSeek-V3
     developer: DeepSeek
     release_date: 2024-12-26
-    params_total_b: 671
+    params_total_b: 684.5
+    params_total_stated_b: 671
     params_active_b: 37
     architecture: moe
     context_window: 128000
@@ -124,7 +130,8 @@ models:
     hf_repo: deepseek-ai/DeepSeek-R1
     developer: DeepSeek
     release_date: 2025-01-20
-    params_total_b: 671
+    params_total_b: 684.5
+    params_total_stated_b: 671
     params_active_b: 37
     architecture: moe
     context_window: 128000
@@ -140,8 +147,9 @@ models:
     hf_repo: mistralai/Mistral-Small-24B-Instruct-2501
     developer: Mistral AI
     release_date: 2025-01-30
-    params_total_b: 24
-    params_active_b: 24
+    params_total_b: 23.6
+    params_total_stated_b: 24
+    params_active_b: 23.6
     architecture: dense
     context_window: 32768
     modality: text
@@ -156,7 +164,8 @@ models:
     hf_repo: mistralai/Mixtral-8x22B-Instruct-v0.1
     developer: Mistral AI
     release_date: 2024-04-17
-    params_total_b: 141
+    params_total_b: 140.6
+    params_total_stated_b: 141
     params_active_b: 39
     architecture: moe
     context_window: 65536
@@ -172,8 +181,9 @@ models:
     hf_repo: google/gemma-2-27b-it
     developer: Google
     release_date: 2024-06-27
-    params_total_b: 27
-    params_active_b: 27
+    params_total_b: 27.2
+    params_total_stated_b: 27
+    params_active_b: 27.2
     architecture: dense
     context_window: 8192
     modality: text
@@ -188,8 +198,9 @@ models:
     hf_repo: google/gemma-3-27b-it
     developer: Google
     release_date: 2025-03-12
-    params_total_b: 27
-    params_active_b: 27
+    params_total_b: 27.4
+    params_total_stated_b: 27
+    params_active_b: 27.4
     architecture: dense
     context_window: 128000
     modality: vision-language
@@ -204,8 +215,9 @@ models:
     hf_repo: microsoft/phi-4
     developer: Microsoft
     release_date: 2024-12-12
-    params_total_b: 14
-    params_active_b: 14
+    params_total_b: 14.7
+    params_total_stated_b: 14
+    params_active_b: 14.7
     architecture: dense
     context_window: 16384
     modality: text
@@ -220,8 +232,9 @@ models:
     hf_repo: CohereForAI/c4ai-command-r-plus-08-2024
     developer: Cohere
     release_date: 2024-08-30
-    params_total_b: 104
-    params_active_b: 104
+    params_total_b: 103.8
+    params_total_stated_b: 104
+    params_active_b: 103.8
     architecture: dense
     context_window: 128000
     modality: text
@@ -365,7 +378,7 @@ models:
     developer: XiaomiMiMo
     release_date: 2026-04-27
     params_total_b: 310.8
-    params_active_b: 15.0
+    params_active_b: 15
     architecture: moe
     context_window: 1048576
     modality: text
@@ -396,7 +409,7 @@ models:
     developer: Qwen
     release_date: 2026-01-30
     params_total_b: 79.7
-    params_active_b: 3.0
+    params_active_b: 3
     architecture: moe
     context_window: 262144
     modality: text
@@ -427,7 +440,7 @@ models:
     developer: XiaomiMiMo
     release_date: 2025-12-16
     params_total_b: 309.8
-    params_active_b: 15.0
+    params_active_b: 15
     architecture: moe
     context_window: 262144
     modality: text
@@ -488,7 +501,7 @@ models:
     developer: google
     release_date: 2026-05-23
     params_total_b: 12.0
-    params_active_b: 12.0
+    params_active_b: 12
     architecture: dense
     context_window: 262144
     modality: multimodal
@@ -518,7 +531,7 @@ models:
     developer: google
     release_date: 2026-03-02
     params_total_b: 8.0
-    params_active_b: 8.0
+    params_active_b: 8
     architecture: dense
     context_window: 131072
     modality: multimodal
@@ -533,7 +546,8 @@ models:
     developer: zai-org
     release_date: 2026-02-11
     params_total_b: 753.9
-    params_active_b: 40.0
+    params_total_stated_b: 744
+    params_active_b: 40
     architecture: moe
     context_window: 202752
     modality: text
@@ -549,7 +563,8 @@ models:
     developer: Qwen
     release_date: 2026-02-16
     params_total_b: 403.4
-    params_active_b: 17.0
+    params_total_stated_b: 397
+    params_active_b: 17
     architecture: moe
     context_window: 262144
     modality: multimodal
@@ -565,7 +580,8 @@ models:
     developer: thinkingmachines
     release_date: 2026-07-14
     params_total_b: 952.4
-    params_active_b: 41.0
+    params_total_stated_b: 975
+    params_active_b: 41
     architecture: moe
     context_window: 1048576
     modality: multimodal
@@ -597,7 +613,8 @@ models:
     developer: deepseek-ai
     release_date: 2026-04-22
     params_total_b: 290.9
-    params_active_b: 13.0
+    params_total_stated_b: 284
+    params_active_b: 13
     architecture: moe
     context_window: 1048576
     modality: text
@@ -613,7 +630,8 @@ models:
     developer: Qwen
     release_date: 2026-02-24
     params_total_b: 125.1
-    params_active_b: 10.0
+    params_total_stated_b: 122
+    params_active_b: 10
     architecture: moe
     context_window: 262144
     modality: multimodal
@@ -629,7 +647,8 @@ models:
     developer: Qwen
     release_date: 2025-09-22
     params_total_b: 235.7
-    params_active_b: 22.0
+    params_total_stated_b: 235
+    params_active_b: 22
     architecture: moe
     context_window: 262144
     modality: multimodal
@@ -645,7 +664,8 @@ models:
     developer: thinkingmachines
     release_date: 2026-07-27
     params_total_b: 266.0
-    params_active_b: 12.0
+    params_total_stated_b: 276
+    params_active_b: 12
     architecture: moe
     context_window: 1048576
     modality: multimodal
@@ -661,7 +681,8 @@ models:
     developer: Qwen
     release_date: 2025-09-09
     params_total_b: 81.3
-    params_active_b: 3.0
+    params_total_stated_b: 80
+    params_active_b: 3
     architecture: moe
     context_window: 262144
     modality: text
@@ -677,7 +698,8 @@ models:
     developer: Qwen
     release_date: 2026-02-24
     params_total_b: 36.0
-    params_active_b: 3.0
+    params_total_stated_b: 35
+    params_active_b: 3
     architecture: moe
     context_window: 262144
     modality: multimodal
@@ -693,7 +715,8 @@ models:
     developer: Qwen
     release_date: 2025-09-22
     params_total_b: 235.7
-    params_active_b: 22.0
+    params_total_stated_b: 235
+    params_active_b: 22
     architecture: moe
     context_window: 262144
     modality: multimodal
@@ -709,7 +732,8 @@ models:
     developer: Qwen
     release_date: 2025-09-09
     params_total_b: 81.3
-    params_active_b: 3.0
+    params_total_stated_b: 80
+    params_active_b: 3
     architecture: moe
     context_window: 262144
     modality: text
@@ -725,7 +749,8 @@ models:
     developer: zai-org
     release_date: 2026-01-19
     params_total_b: 31.2
-    params_active_b: 3.0
+    params_total_stated_b: 30
+    params_active_b: 3
     architecture: moe
     context_window: 202752
     modality: text
@@ -741,6 +766,7 @@ models:
     developer: openai
     release_date: 2025-08-04
     params_total_b: 116.8
+    params_total_stated_b: 117
     params_active_b: 5.1
     architecture: moe
     context_window: 131072

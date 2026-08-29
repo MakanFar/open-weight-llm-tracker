@@ -185,3 +185,38 @@ def test_commercial_use_false_is_not_treated_as_missing():
     """`false` is a legitimate value and must not trip the missing check --
     it is falsy, which is exactly how this kind of guard goes wrong."""
     assert validate.row_errors(_valid_row(commercial_use=False)) == []
+
+
+# --- params_total_stated_b: the vendor's figure beside the measured one ----
+
+def _row_with_stated(**kw):
+    row = _valid_row(architecture="moe", params_total_b=290.9,
+                     params_active_b=13.0)
+    row.update(kw)
+    return row
+
+
+def test_stated_total_must_be_a_number():
+    errs = validate.row_errors(_row_with_stated(params_total_stated_b="284B"))
+    assert any("params_total_stated_b" in str(e) for e in errs)
+
+
+def test_stated_total_may_be_absent():
+    """Most rows have no distinct vendor figure to cite, and the field must
+    never be invented -- absence is the normal case, not an error."""
+    assert validate.row_errors(_row_with_stated()) == []
+
+
+def test_stated_total_close_to_the_measured_one_is_fine():
+    """Cards quote a headline figure while safetensors counts every tensor.
+    A few percent apart is the normal, expected relationship."""
+    assert validate.row_errors(_row_with_stated(params_total_stated_b=284.0)) == []
+
+
+def test_stated_total_wildly_apart_from_the_measured_one_is_rejected():
+    """The two describe the SAME model. An order-of-magnitude gap means the
+    figure was copied from a different variant -- exactly the mistake the
+    capture-time tie-break exists to prevent, so a hand edit must not be able
+    to reintroduce it silently."""
+    errs = validate.row_errors(_row_with_stated(params_total_stated_b=13.0))
+    assert any("params_total_stated_b" in str(e) for e in errs)

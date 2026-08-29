@@ -656,16 +656,26 @@ def enrich_row(row, info, get_text, get_json):
         # family ("Pro with 1.6T (49B activated) and Flash with 284B (13B
         # activated)") can be resolved to the variant this row measures,
         # instead of being abandoned as ambiguous.
+        notes = {}
         found = enrich.active_params_from_card(
-            enrich.fetch_card(row["hf_repo"], get_text), total_b=total)
+            enrich.fetch_card(row["hf_repo"], get_text), total_b=total,
+            notes=notes)
         if found is None:
             # Last resort: the vendor's A-notation in the repo id. Tried only
             # after the card, which is the more precise of the two -- Gemma 4
             # is "26B-A4B" in its name and 3.8B in its table.
             found = enrich.active_params_from_repo_name(row["hf_repo"],
-                                                        total_b=total)
+                                                        total_b=total,
+                                                        notes=notes)
         if found is not None:
             row["params_active_b"], row["params_active_source"] = found
+            # The quote is evidence about two numbers. params_total_b is the
+            # measured tensor count; the figure the vendor publishes is a
+            # different quantity and gets its own field, so the row states
+            # both instead of appearing to disagree with itself. Absent when
+            # the quote named no total -- never invented.
+            if notes.get("stated_total") is not None:
+                row["params_total_stated_b"] = notes["stated_total"]
 
     # gated_no_access is RE-DERIVED here on every run, never carried forward.
     # candidates.yaml rows persist between runs, so a stale True would outlive

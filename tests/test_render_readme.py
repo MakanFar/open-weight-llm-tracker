@@ -257,3 +257,28 @@ def test_badges_omit_the_freshness_one_when_nothing_is_stamped():
     out = rr.badges(33, None)
     assert "last%20discovery%20run" not in out
     assert "models-33-" in out
+
+
+# --- which total the table prints ------------------------------------------
+
+def test_table_prints_the_vendors_figure_when_there_is_one():
+    """753.9 is the tensor count; 744 is what z.ai calls GLM-5 and what every
+    reader will compare against. The measured anchor stays in models.yaml."""
+    m = _model(params_total_b=753.9, params_active_b=40.0, architecture="moe",
+               params_total_stated_b=744.0)
+    assert rr.display_total(m) == 744.0
+
+
+def test_table_falls_back_to_the_measured_count():
+    """Most models publish no distinct headline figure. There is no competing
+    claim for those rows, so the measured count IS the published number."""
+    assert rr.display_total(_model(params_total_b=310.8)) == 310.8
+
+
+def test_display_total_ignores_a_junk_stated_value():
+    """row_errors rejects these, but candidates.yaml is hand-edited and this
+    renderer must not raise on a row that slipped through."""
+    assert rr.display_total(_model(params_total_b=70.0,
+                                   params_total_stated_b="70B")) == 70.0
+    assert rr.display_total(_model(params_total_b=70.0,
+                                   params_total_stated_b=0)) == 70.0

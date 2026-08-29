@@ -75,6 +75,33 @@ def badges(n, generated):
     return "\n".join(out)
 
 
+def display_total(model):
+    """The parameter count to PRINT: the vendor's published figure if there is
+    one, else the measured tensor count.
+
+    These are two different quantities and models.yaml now names both.
+    params_total_b is the measured count — reproducible, and the anchor
+    everything else is checked against. params_total_stated_b is what the
+    vendor publishes, and it is the number a reader arrives with: DeepSeek-V3
+    is "671B" to everyone even though its tensors sum to 684.5B, because the
+    measured figure includes the MTP module. Printing the measured one would
+    make a correct table look wrong to more people than it informed.
+
+    Falling back is not a compromise. Most models publish no distinct headline
+    figure at all, so for those rows there is no competing claim and the
+    measured count IS the published number.
+
+    Guarded rather than trusted because candidates.yaml is hand-edited and
+    row_errors runs on models.yaml only — human_params does f"{total:g}",
+    which raises ValueError on a string.
+    """
+    stated = model.get("params_total_stated_b")
+    if isinstance(stated, (int, float)) and not isinstance(stated, bool) \
+            and stated > 0:
+        return stated
+    return model["params_total_b"]
+
+
 def human_params(total, active, arch):
     if arch == "moe":
         return f"{total:g}B ({active:g}B active)"
@@ -273,7 +300,7 @@ def build_table(models, aa, ranks):
             name = f"[{name}]({m['weights_url']})"
         rows.append(
             f"| {name} | {m['developer']} | {m['release_date']} | "
-            f"{human_params(m['params_total_b'], m['params_active_b'], m['architecture'])} | "
+            f"{human_params(display_total(m), m['params_active_b'], m['architecture'])} | "
             f"{human_ctx(m['context_window'])} | {m['modality']} | "
             f"{arena_cell(m, ranks)} | {aa_cell(m, aa)} | "
             f"`{m['license']}` | {commercial_badge(m)} |"
@@ -317,7 +344,12 @@ def main():
         "across time. **Arena** is the rank on arena.ai's text leaderboard among "
         "open-weight models (`—` = not currently ranked). "
         "A trailing `?` on **Commercial** marks a value inferred from the "
-        "licence tag and not yet checked against the licence text.\n\n"
+        "licence tag and not yet checked against the licence text. "
+        "**Params** is the figure the vendor publishes where there is one "
+        "(`params_total_stated_b`), otherwise the measured tensor count "
+        "(`params_total_b`) — the two differ by a few percent because a "
+        "checkpoint carries tensors a headline figure leaves out, and "
+        "[`models.json`](models.json) carries both.\n\n"
         f"{START}\n{table}\n{END}\n\n"
         "## Regenerate\n\n"
         "```bash\n"

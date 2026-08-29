@@ -18,6 +18,13 @@ import names  # noqa: E402  (names.py imports only `re`)
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 
+# How far the vendor's published total may sit from the measured tensor count
+# and still plausibly describe the same model. Every real gap observed is under
+# 4%; 25% leaves enormous room while still catching a figure copied off another
+# variant of the family. Mirrors enrich._TOTAL_MATCH_TOLERANCE, which is the
+# tighter capture-time guard — this one only has to catch hand edits.
+STATED_TOTAL_TOLERANCE = 0.25
+
 REQUIRED = [
     "name", "developer", "release_date", "params_total_b", "params_active_b",
     "architecture", "context_window", "modality", "license", "commercial_use",
@@ -163,6 +170,37 @@ def row_errors(m, tag=None):
                                        or not isinstance(val, (int, float))):
             errors.append(SchemaError(
                 field, f"[{tag}] {field} must be a number, got {val!r}"))
+
+    # params_total_stated_b is the figure the VENDOR publishes; params_total_b
+    # is the measured tensor count. Two names for two quantities, so a row can
+    # carry both without appearing to argue with itself. Optional, and never
+    # invented: most models publish no distinct headline figure, and absence
+    # is the normal case.
+    #
+    # They still describe the SAME model, though. Cards quote a rounded
+    # headline while safetensors counts every tensor — GLM-5 says 744B against
+    # 753.9B, DeepSeek-V3 says 671B against 684.5B — so a few percent apart is
+    # expected and 25% is far outside anything observed. A gap that wide means
+    # the figure was copied off a different variant of the family, which is
+    # exactly what enrich's capture-time tie-break exists to prevent; without
+    # this check a hand edit could reintroduce it with nothing to complain.
+    pts = m.get("params_total_stated_b")
+    if pts not in (None, ""):
+        if isinstance(pts, bool) or not isinstance(pts, (int, float)):
+            errors.append(SchemaError(
+                "params_total_stated_b",
+                f"[{tag}] params_total_stated_b must be a number, got {pts!r}"))
+        elif pts <= 0:
+            errors.append(SchemaError(
+                "params_total_stated_b",
+                f"[{tag}] params_total_stated_b must be positive, got {pts!r}"))
+        elif isinstance(pt, (int, float)) and not isinstance(pt, bool) and pt > 0 \
+                and abs(pts - pt) / pt > STATED_TOTAL_TOLERANCE:
+            errors.append(SchemaError(
+                "params_total_stated_b",
+                f"[{tag}] params_total_stated_b ({pts}) is more than "
+                f"{STATED_TOTAL_TOLERANCE:.0%} from params_total_b ({pt}) — "
+                f"is it the figure for a different variant?"))
 
     # MoE sanity: active <= total
     if isinstance(pt, (int, float)) and isinstance(pa, (int, float)) and pa > pt:

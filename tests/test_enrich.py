@@ -276,3 +276,53 @@ def test_a_precise_figure_beats_the_rounded_a_notation_on_the_same_page():
             "| **Active Parameters** | 3.8B |")
     value, _ = enrich.active_params_from_card(text, total_b=26.5)
     assert value == 3.8
+
+
+# --- the total the quote asserts, reported alongside it --------------------
+
+def test_card_reports_the_total_it_quoted():
+    """A quote like '284B parameters (13B activated)' asserts a TOTAL as well.
+    Storing the sentence without that number is what made a row contradict
+    itself: params_total_b said 290.9 beside a quote plainly saying 284."""
+    notes = {}
+    value, _ = enrich.active_params_from_card(
+        "**Flash** with 284B parameters (13B activated)",
+        total_b=290.9, notes=notes)
+    assert value == 13.0
+    assert notes["stated_total"] == 284.0
+
+
+def test_no_stated_total_when_the_quote_asserts_none():
+    """'~23B activated parameters' names no total. Recording one would be
+    inventing a vendor claim that was never made."""
+    notes = {}
+    enrich.active_params_from_card("~23B activated parameters", notes=notes)
+    assert "stated_total" not in notes
+
+
+def test_nothing_recorded_when_the_card_abstains():
+    notes = {}
+    assert enrich.active_params_from_card(_card("two_variants.md"),
+                                          notes=notes) is None
+    assert notes == {}
+
+
+def test_the_rounded_tier_reports_its_total_too():
+    notes = {}
+    enrich.active_params_from_card("GLM-4.7-Flash is a 30B-A3B MoE model.",
+                                   notes=notes)
+    assert notes["stated_total"] == 30.0
+
+
+def test_repo_name_reports_its_stated_total():
+    notes = {}
+    enrich.active_params_from_repo_name("Qwen/Qwen3-VL-235B-A22B-Instruct",
+                                        notes=notes)
+    assert notes["stated_total"] == 235.0
+
+
+def test_repo_name_records_nothing_when_it_abstains():
+    notes = {}
+    assert enrich.active_params_from_repo_name(
+        "google/gemma-4-26B-A4B-it", total_b=250.0, notes=notes) is None
+    assert notes == {}

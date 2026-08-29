@@ -350,3 +350,32 @@ def test_refresh_reads_one_model_info_per_row():
     assert api.calls == ["org/m"]
     assert rows[0]["modality"] == "multimodal"
     assert rows[0]["params_total_b"] == 8.0
+
+
+def test_enrich_records_the_total_the_card_stated():
+    """params_total_b is the measured tensor count; the card's headline figure
+    is a different quantity. Both belong in the row, labelled -- carrying only
+    the quote made the record argue with itself."""
+    card = "**Flash** with 284B parameters (13B activated)."
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash",
+               params_total_b=290.9, params_active_b=290.9)
+    discover.enrich_row(row, FakeInfo({"license": "mit"}),
+                        get_text=lambda u: card, get_json=lambda u: {})
+    assert row["params_total_b"] == 290.9
+    assert row["params_total_stated_b"] == 284.0
+
+
+def test_enrich_records_no_stated_total_when_the_card_names_none():
+    row = _row()
+    discover.enrich_row(row, FakeInfo({"license": "mit"}),
+                        get_text=lambda u: CARD, get_json=lambda u: {})
+    assert row["params_active_b"] == 23.0
+    assert "params_total_stated_b" not in row
+
+
+def test_enrich_records_the_repo_names_total_on_the_fallback_path():
+    row = _row(hf_repo="Qwen/Qwen3-VL-235B-A22B-Instruct",
+               params_total_b=235.7, params_active_b=235.7)
+    discover.enrich_row(row, FakeInfo({"license": "apache-2.0"}),
+                        get_text=lambda u: "nothing here", get_json=lambda u: {})
+    assert row["params_total_stated_b"] == 235.0

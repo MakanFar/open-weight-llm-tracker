@@ -139,18 +139,18 @@ def _card_claims(text):
 
 
 def _resolve(claims, total_b):
-    """One figure from a tier of claims, or None if the tier is ambiguous."""
+    """The winning claim from a tier, or None if the tier is ambiguous."""
     if not claims:
         return None
     if len({active for active, _, _ in claims}) == 1:
-        return claims[0][0], claims[0][2]
+        return claims[0]
     plausible = [c for c in claims if _matches_total(c[1] or 0, total_b)]
     if len({active for active, _, _ in plausible}) == 1:
-        return plausible[0][0], plausible[0][2]
+        return plausible[0]
     return None
 
 
-def active_params_from_card(text, total_b=None):
+def active_params_from_card(text, total_b=None, notes=None):
     """(billions, quoted_source) from a model card, or None if not stated.
 
     None is the important case: it routes the row to human review. Returning 0
@@ -174,8 +174,31 @@ def active_params_from_card(text, total_b=None):
     if not text:
         return None
     precise, rounded = _card_claims(text)
-    found = _resolve(precise, total_b)
-    return found if found is not None else _resolve(rounded, total_b)
+    claim = _resolve(precise, total_b)
+    if claim is None:
+        claim = _resolve(rounded, total_b)
+    if claim is None:
+        return None
+    active, stated_total, quote = claim
+    _record_stated_total(notes, stated_total)
+    return active, quote
+
+
+def _record_stated_total(notes, stated_total):
+    """Report the TOTAL the winning quote asserts, when it asserts one.
+
+    The `notes` out-parameter is the same seam hf_meta.fetch_config and
+    context_from_tokenizer already use, chosen so the return shape stays a
+    plain (billions, quote) pair for every existing caller.
+
+    This exists because a quote like "284B parameters (13B activated)" is
+    evidence about two numbers, and storing it beside a params_total_b of
+    290.9 made the record contradict itself in 13 published rows. Recorded
+    only when the quote actually names a total: "~23B activated parameters"
+    names none, and inventing one would fabricate a vendor claim.
+    """
+    if notes is not None and stated_total is not None:
+        notes["stated_total"] = stated_total
 
 
 # "Qwen3-VL-235B-A22B-Instruct", "gemma-4-26B-A4B-it": the vendor states the
@@ -185,7 +208,7 @@ def active_params_from_card(text, total_b=None):
 _REPO_A_NOTATION = re.compile(r"(\d+(?:\.\d+)?)B[-_]A(\d+(?:\.\d+)?)B\b", re.I)
 
 
-def active_params_from_repo_name(repo, total_b=None):
+def active_params_from_repo_name(repo, total_b=None, notes=None):
     """(billions, quoted_source) from the repo id's A-notation, or None.
 
     A last resort, tried only after the card. Qwen3-VL-235B-A22B states its
@@ -208,6 +231,7 @@ def active_params_from_repo_name(repo, total_b=None):
     stated_total = _to_b(m.group(1), "b")
     if total_b and not _matches_total(stated_total, total_b):
         return None
+    _record_stated_total(notes, stated_total)
     return _to_b(m.group(2), "b"), f"repo name: {m.group(0)}"
 
 

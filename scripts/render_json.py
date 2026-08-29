@@ -38,7 +38,8 @@ DATA_LICENSE = "CC-BY-4.0"
 # (discovered_via, needs_review, downloads, ...) exist to move a row through
 # review and would be republished as fact by a blind dict copy.
 FIELDS = ("name", "hf_repo", "developer", "release_date", "params_total_b",
-          "params_active_b", "params_active_source", "architecture",
+          "params_total_stated_b", "params_active_b", "params_active_source",
+          "architecture",
           "context_window", "modality", "license", "commercial_use",
           "commercial_use_verified", "license_notes", "weights_url", "notes")
 
