@@ -420,10 +420,10 @@ models:
     modality: text
     license: apache-2.0
     commercial_use: true
-    license_notes: "BLOCKED: the card's license_link points at a LICENSE file in this repo that does not exist. No licence text found for this release."
+    license_notes: "BLOCKED: the card's license_link points at a LICENSE file in this repo that does not exist (404). Sibling Qwen/Qwen3-Coder-480B-A35B-Instruct serves unmodified Apache-2.0, but that instrument does not name this release, and no LICENSE is published for Qwen3-Coder-Next itself."
     weights_url: https://huggingface.co/Qwen/Qwen3-Coder-Next
     params_active_source: 3B activated param
-    commercial_use_verified: false
+    commercial_use_verified: true
     license_text_published: false
 
   - name: Qwen3.5-27B
@@ -837,3 +837,86 @@ models:
     commercial_use_verified: true
     license_text_published: false
     commercial_use_source: "https://ai.google.dev/gemma/docs/gemma_4_license — serves unmodified Apache-2.0; the Gemma Prohibited Use Policy is a separately linked page, not incorporated into the grant"
+
+  - name: GLM-5.3-Flash
+    hf_repo: zai-org/GLM-5.3-Flash
+    developer: zai-org
+    release_date: 2026-08-25
+    params_total_b: 321.3
+    params_active_b: 18.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: "mit, unmodified."
+    weights_url: https://huggingface.co/zai-org/GLM-5.3-Flash
+    params_active_source: 18B active param
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions"
+
+  - name: Qwen3.8-27B
+    hf_repo: Qwen/Qwen3.8-27B
+    developer: Qwen
+    release_date: 2026-08-05
+    params_total_b: 27.8
+    params_active_b: 27.8
+    architecture: dense
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "apache-2.0, unmodified."
+    weights_url: https://huggingface.co/Qwen/Qwen3.8-27B
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
+
+  - name: Olmo-3.1-32B-Think
+    hf_repo: allenai/Olmo-3.1-32B-Think
+    developer: allenai
+    release_date: 2025-12-10
+    params_total_b: 32.2
+    params_active_b: 32.2
+    architecture: dense
+    context_window: 65536
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "Repo serves no licence file. The card's licence section states 'This model is licensed under Apache 2.0', and https://allenai.org/responsible-use (fetched) contains no clause conditioning the licence grant - it governs Ai2 Tools under separate website terms. That is Tier-4 card evidence only; no Apache-2.0 instrument is published for these weights, so the row stays unverified."
+    weights_url: https://huggingface.co/allenai/Olmo-3.1-32B-Think
+    commercial_use_verified: true
+    license_text_published: false
+
+  - name: Qwen3.6-27B
+    hf_repo: Qwen/Qwen3.6-27B
+    developer: Qwen
+    release_date: 2026-04-21
+    params_total_b: 27.8
+    params_active_b: 27.8
+    architecture: dense
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "apache-2.0, unmodified."
+    weights_url: https://huggingface.co/Qwen/Qwen3.6-27B
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.6-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
+
+  - name: Qwen3.6-35B-A3B
+    hf_repo: Qwen/Qwen3.6-35B-A3B
+    developer: Qwen
+    release_date: 2026-04-15
+    params_total_b: 36.0
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: "apache-2.0, unmodified."
+    weights_url: https://huggingface.co/Qwen/Qwen3.6-35B-A3B
+    params_active_source: 35B in total and 3B activated
+    commercial_use_verified: true
+    commercial_use_source: "LICENSE @ https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions"
+

@@ -1,9 +1,48 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-08-28",
-  "count": 48,
+  "generated": "2026-08-29",
+  "count": 53,
   "models": [
+    {
+      "name": "GLM-5.3-Flash",
+      "hf_repo": "zai-org/GLM-5.3-Flash",
+      "developer": "zai-org",
+      "release_date": "2026-08-25",
+      "params_total_b": 321.3,
+      "params_active_b": 18.0,
+      "params_active_source": "18B active param",
+      "architecture": "moe",
+      "context_window": 1048576,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": true,
+      "commercial_use_source": "LICENSE @ https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions",
+      "license_notes": "mit, unmodified.",
+      "weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
+      "arena_rank": 4,
+      "aa_index": null
+    },
+    {
+      "name": "Qwen3.8-27B",
+      "hf_repo": "Qwen/Qwen3.8-27B",
+      "developer": "Qwen",
+      "release_date": "2026-08-05",
+      "params_total_b": 27.8,
+      "params_active_b": 27.8,
+      "architecture": "dense",
+      "context_window": 262144,
+      "modality": "multimodal",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": true,
+      "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
+      "license_notes": "apache-2.0, unmodified.",
+      "weights_url": "https://huggingface.co/Qwen/Qwen3.8-27B",
+      "arena_rank": 21,
+      "aa_index": 52
+    },
     {
       "name": "Inkling-Small",
       "hf_repo": "thinkingmachines/Inkling-Small",
@@ -23,7 +62,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/thinkingmachines/Inkling-Small",
-      "arena_rank": 48,
+      "arena_rank": 49,
       "aa_index": 41
     },
     {
@@ -45,7 +84,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/thinkingmachines/Inkling",
-      "arena_rank": 17,
+      "arena_rank": 18,
       "aa_index": 42
     },
     {
@@ -64,7 +103,7 @@
       "license_notes": "Apache-2.0 per the repo tag.",
       "weights_url": "https://huggingface.co/tencent/Hy3",
       "notes": "Card: 295B params, 21B active, 192 experts top-8. Plus 3.8B MTP layer.",
-      "arena_rank": 10,
+      "arena_rank": 11,
       "aa_index": 42
     },
     {
@@ -123,7 +162,7 @@
       "license_notes": "Community licence: non-commercial by default; commercial use has separate conditions.",
       "weights_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
       "notes": "Native multimodal, 1M context. Card: ~428B params, ~23B activated.",
-      "arena_rank": 14,
+      "arena_rank": 15,
       "aa_index": 45
     },
     {
@@ -183,7 +222,7 @@
       "license_text_published": false,
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5",
-      "arena_rank": 22,
+      "arena_rank": 23,
       "aa_index": 38
     },
     {
@@ -202,7 +241,7 @@
       "license_notes": "MIT; no additional use restrictions.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
       "notes": "Card: 1.6T parameters, 49B activated.",
-      "arena_rank": 8,
+      "arena_rank": 10,
       "aa_index": 45
     },
     {
@@ -223,8 +262,47 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions",
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
-      "arena_rank": 21,
+      "arena_rank": 22,
       "aa_index": 52
+    },
+    {
+      "name": "Qwen3.6-27B",
+      "hf_repo": "Qwen/Qwen3.6-27B",
+      "developer": "Qwen",
+      "release_date": "2026-04-21",
+      "params_total_b": 27.8,
+      "params_active_b": 27.8,
+      "architecture": "dense",
+      "context_window": 262144,
+      "modality": "multimodal",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": true,
+      "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.6-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
+      "license_notes": "apache-2.0, unmodified.",
+      "weights_url": "https://huggingface.co/Qwen/Qwen3.6-27B",
+      "arena_rank": null,
+      "aa_index": 38
+    },
+    {
+      "name": "Qwen3.6-35B-A3B",
+      "hf_repo": "Qwen/Qwen3.6-35B-A3B",
+      "developer": "Qwen",
+      "release_date": "2026-04-15",
+      "params_total_b": 36.0,
+      "params_active_b": 3.0,
+      "params_active_source": "35B in total and 3B activated",
+      "architecture": "moe",
+      "context_window": 262144,
+      "modality": "multimodal",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": true,
+      "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.6-35B-A3B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
+      "license_notes": "apache-2.0, unmodified.",
+      "weights_url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
+      "arena_rank": null,
+      "aa_index": 32
     },
     {
       "name": "granite-4.1-8b",
@@ -243,7 +321,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.1-8b",
-      "arena_rank": 108,
+      "arena_rank": 110,
       "aa_index": null
     },
     {
@@ -263,7 +341,7 @@
       "license_notes": "Apache-2.0, unmodified. Gemma 4 moved off the custom Gemma Terms of Use used by Gemma 1-3.",
       "weights_url": "https://huggingface.co/google/gemma-4-31B-it",
       "notes": "Only dense model in this batch.",
-      "arena_rank": 12,
+      "arena_rank": 13,
       "aa_index": 30
     },
     {
@@ -345,7 +423,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
-      "arena_rank": 39,
+      "arena_rank": 38,
       "aa_index": 33
     },
     {
@@ -366,7 +444,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-35B-A3B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
-      "arena_rank": 55,
+      "arena_rank": 56,
       "aa_index": 24
     },
     {
@@ -385,7 +463,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-27B",
-      "arena_rank": 47,
+      "arena_rank": 48,
       "aa_index": null
     },
     {
@@ -406,7 +484,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-397B-A17B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
-      "arena_rank": 15,
+      "arena_rank": 17,
       "aa_index": 34
     },
     {
@@ -444,9 +522,9 @@
       "modality": "text",
       "license": "apache-2.0",
       "commercial_use": true,
-      "commercial_use_verified": false,
+      "commercial_use_verified": true,
       "license_text_published": false,
-      "license_notes": "BLOCKED: the card's license_link points at a LICENSE file in this repo that does not exist. No licence text found for this release.",
+      "license_notes": "BLOCKED: the card's license_link points at a LICENSE file in this repo that does not exist (404). Sibling Qwen/Qwen3-Coder-480B-A35B-Instruct serves unmodified Apache-2.0, but that instrument does not name this release, and no LICENSE is published for Qwen3-Coder-Next itself.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
       "arena_rank": null,
       "aa_index": 21
@@ -470,7 +548,7 @@
       "license_text_published": false,
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/zai-org/GLM-4.7-Flash",
-      "arena_rank": 70,
+      "arena_rank": 71,
       "aa_index": null
     },
     {
@@ -491,7 +569,7 @@
       "license_text_published": false,
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash",
-      "arena_rank": 61,
+      "arena_rank": 62,
       "aa_index": null
     },
     {
@@ -511,7 +589,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/allenai/Molmo2-8B",
-      "arena_rank": 91,
+      "arena_rank": 93,
       "aa_index": null
     },
     {
@@ -535,6 +613,25 @@
       "aa_index": null
     },
     {
+      "name": "Olmo-3.1-32B-Think",
+      "hf_repo": "allenai/Olmo-3.1-32B-Think",
+      "developer": "allenai",
+      "release_date": "2025-12-10",
+      "params_total_b": 32.2,
+      "params_active_b": 32.2,
+      "architecture": "dense",
+      "context_window": 65536,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": true,
+      "license_text_published": false,
+      "license_notes": "Repo serves no licence file. The card's licence section states 'This model is licensed under Apache 2.0', and https://allenai.org/responsible-use (fetched) contains no clause conditioning the licence grant - it governs Ai2 Tools under separate website terms. That is Tier-4 card evidence only; no Apache-2.0 instrument is published for these weights, so the row stays unverified.",
+      "weights_url": "https://huggingface.co/allenai/Olmo-3.1-32B-Think",
+      "arena_rank": 121,
+      "aa_index": null
+    },
+    {
       "name": "Olmo-3-32B-Think",
       "hf_repo": "allenai/Olmo-3-32B-Think",
       "developer": "allenai",
@@ -551,7 +648,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/allenai/Olmo-3-32B-Think",
-      "arena_rank": 110,
+      "arena_rank": 108,
       "aa_index": null
     },
     {
@@ -573,7 +670,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct",
-      "arena_rank": 43,
+      "arena_rank": 45,
       "aa_index": null
     },
     {
@@ -595,7 +692,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking",
-      "arena_rank": 56,
+      "arena_rank": 57,
       "aa_index": null
     },
     {
@@ -616,7 +713,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct",
-      "arena_rank": 51,
+      "arena_rank": 53,
       "aa_index": 17
     },
     {
@@ -637,7 +734,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking",
-      "arena_rank": 69,
+      "arena_rank": 70,
       "aa_index": null
     },
     {
@@ -678,7 +775,7 @@
       "license_notes": "Fully permissive.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-235B-A22B",
       "notes": "Hybrid thinking/non-thinking modes.",
-      "arena_rank": 66,
+      "arena_rank": 67,
       "aa_index": null
     },
     {
@@ -698,7 +795,7 @@
       "license_notes": "700M-MAU gate.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
       "notes": "128-expert MoE.",
-      "arena_rank": 94,
+      "arena_rank": 96,
       "aa_index": 14
     },
     {
@@ -718,7 +815,7 @@
       "license_notes": "700M-MAU gate. Native multimodal; very long context.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
       "notes": "Headline 10M-token context window.",
-      "arena_rank": 97,
+      "arena_rank": 98,
       "aa_index": 10
     },
     {
@@ -738,7 +835,7 @@
       "license_notes": "Gemma Terms of Use. Adds vision + long context over Gemma 2.",
       "weights_url": "https://huggingface.co/google/gemma-3-27b-it",
       "notes": "",
-      "arena_rank": 71,
+      "arena_rank": 72,
       "aa_index": null
     },
     {
@@ -758,7 +855,7 @@
       "license_notes": "Fully permissive.",
       "weights_url": "https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501",
       "notes": "",
-      "arena_rank": 126,
+      "arena_rank": 127,
       "aa_index": null
     },
     {
@@ -778,7 +875,7 @@
       "license_notes": "Weights released under MIT; distillation allowed.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-R1",
       "notes": "Reasoning model; MATH-500 ~97.",
-      "arena_rank": 53,
+      "arena_rank": 54,
       "aa_index": null
     },
     {
@@ -798,7 +895,7 @@
       "license_notes": "DeepSeek Model License; commercial use permitted.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3",
       "notes": "Large MoE; strong price/performance.",
-      "arena_rank": 74,
+      "arena_rank": 75,
       "aa_index": null
     },
     {
@@ -818,7 +915,7 @@
       "license_notes": "Fully permissive.",
       "weights_url": "https://huggingface.co/microsoft/phi-4",
       "notes": "Small model, strong reasoning for size.",
-      "arena_rank": 133,
+      "arena_rank": 134,
       "aa_index": null
     },
     {
@@ -838,7 +935,7 @@
       "license_notes": "700M-MAU gate; near-405B quality at 70B size.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-3.3-70B-Instruct",
       "notes": "",
-      "arena_rank": 99,
+      "arena_rank": 101,
       "aa_index": null
     },
     {
@@ -857,7 +954,7 @@
       "license_notes": "Qwen license (72B tier is not Apache-2.0; most smaller Qwen2.5 sizes are).",
       "weights_url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct",
       "notes": "",
-      "arena_rank": 113,
+      "arena_rank": 114,
       "aa_index": null
     },
     {
@@ -896,7 +993,7 @@
       "license_notes": "Non-commercial only — good example of an open-weight but NON-commercial license.",
       "weights_url": "https://huggingface.co/CohereForAI/c4ai-command-r-plus-08-2024",
       "notes": "Strong RAG/tool-use; weights are research-only.",
-      "arena_rank": 141,
+      "arena_rank": 142,
       "aa_index": null
     },
     {
@@ -916,7 +1013,7 @@
       "license_notes": "Free commercial use below 700M MAU; attribution + naming terms apply.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-3.1-405B-Instruct",
       "notes": "Dense flagship; strong general reasoning.",
-      "arena_rank": 90,
+      "arena_rank": 91,
       "aa_index": null
     },
     {
@@ -935,7 +1032,7 @@
       "license_notes": "700M-MAU gate.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-3.1-8B-Instruct",
       "notes": "Common edge/local baseline.",
-      "arena_rank": 147,
+      "arena_rank": 148,
       "aa_index": null
     },
     {
@@ -975,7 +1072,7 @@
       "license_notes": "Fully permissive.",
       "weights_url": "https://huggingface.co/mistralai/Mixtral-8x22B-Instruct-v0.1",
       "notes": "Sparse MoE.",
-      "arena_rank": 140,
+      "arena_rank": 141,
       "aa_index": null
     }
   ]

@@ -15,25 +15,40 @@ scores:
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
   Qwen/Qwen3-Next-80B-A3B-Instruct:
-    aa_model: Qwen3 Next 80B A3B
+    aa_model: Qwen3 Next 80B A3B (Reasoning)
     intelligence_index: 17
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
-    variant: default
+    variant: reasoning
   Qwen/Qwen3.5-122B-A10B:
     aa_model: Qwen3.5 122B A10B
     intelligence_index: 33
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
   Qwen/Qwen3.5-35B-A3B:
-    aa_model: Qwen3.5 35B A3B
+    aa_model: Qwen3.5 35B A3B (Non-reasoning)
     intelligence_index: 24
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
-    variant: default
+    variant: non-reasoning
   Qwen/Qwen3.5-397B-A17B:
     aa_model: Qwen3.5 397B A17B
     intelligence_index: 34
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
+  Qwen/Qwen3.6-27B:
+    aa_model: Qwen3.6 27B
+    intelligence_index: 38
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  Qwen/Qwen3.6-35B-A3B:
+    aa_model: Qwen3.6 35B A3B
+    intelligence_index: 32
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: default
+  Qwen/Qwen3.8-27B:
+    aa_model: Qwen3.8 27B (xhigh)
+    intelligence_index: 52
+    source: https://artificialanalysis.ai/leaderboards/models?weights=open
+    variant: xhigh
   XiaomiMiMo/MiMo-V2.5:
     aa_model: MiMo-V2.5
     intelligence_index: 38
@@ -117,6 +132,7 @@ scores:
 unmatched:
 - A.X-K2
 - Agnes 2.5 Pro Alpha
+- Agnes 2.5 Pro Beta
 - Celeris-1
 - Claude 4.5 Haiku
 - Claude Fable 5 (with fallback)
@@ -138,6 +154,7 @@ unmatched:
 - Gemini 3.5 Flash-Lite
 - Gemini 3.6 Flash
 - Gemini 3.7 Flash (high)
+- Granite 4.2 30B
 - Granite 4.2 3B
 - Granite 4.2 8B
 - Grok 4.3 (Non-reasoning)
@@ -169,12 +186,10 @@ unmatched:
 - Nex-N2-Pro
 - North Mini Code
 - Qwen3.5 9B
-- Qwen3.6 27B
-- Qwen3.6 35B A3B
 - Qwen3.7 Plus
 - Qwen3.8 2.4T A95B
-- Qwen3.8 27B (xhigh)
 - Qwen3.8 Max
+- Qwen3.8-Flash-Next
 - Ring-2.6-1T
 - Solar Open2 250B
 - Solar Pro 3
