@@ -181,19 +181,22 @@ def test_fresh_row_does_not_refetch_config_json():
 
 # --- carried rows must not freeze a wrong modality -------------------------
 
-class _ModalityInfo:
-    """Only the two attributes hf_meta.modality_of reads."""
+class _FactsInfo:
+    """Only the attributes modality_of and params_b_of read."""
 
-    def __init__(self, pipeline_tag=None, tags=None):
+    def __init__(self, pipeline_tag=None, tags=None, safetensors=None):
         self.pipeline_tag = pipeline_tag
         self.tags = tags or []
+        self.safetensors = safetensors
 
 
-class _ModalityApi:
-    """model_info stub: maps repo -> pipeline_tag, or raises."""
+class _FactsApi:
+    """model_info stub: maps repo -> pipeline_tag (and optionally a
+    safetensors total in billions), or raises."""
 
-    def __init__(self, tags, errors=()):
+    def __init__(self, tags, totals=None, errors=()):
         self.tags = tags
+        self.totals = totals or {}
         self.errors = set(errors)
         self.calls = []
 
@@ -201,7 +204,10 @@ class _ModalityApi:
         self.calls.append(repo)
         if repo in self.errors:
             raise RuntimeError("HF 429")
-        return _ModalityInfo(pipeline_tag=self.tags.get(repo))
+        total = self.totals.get(repo)
+        return _FactsInfo(pipeline_tag=self.tags.get(repo),
+                          safetensors=None if total is None
+                          else {"total": int(total * 1e9)})
 
 
 def test_refresh_modality_corrects_a_stale_value():
@@ -212,8 +218,8 @@ def test_refresh_modality_corrects_a_stale_value():
     gated_no_access each had.
     """
     rows = [{"hf_repo": "thinkingmachines/Inkling", "modality": "text"}]
-    api = _ModalityApi({"thinkingmachines/Inkling": "image-text-to-text"})
-    discover.refresh_modality(api, rows)
+    api = _FactsApi({"thinkingmachines/Inkling": "image-text-to-text"})
+    discover.refresh_hf_facts(api, rows)
     assert rows[0]["modality"] == "multimodal"
 
 
@@ -222,19 +228,19 @@ def test_refresh_modality_leaves_a_row_alone_when_hf_is_silent():
     'we do not know', not 'text' -- overwriting a real value with a guess is
     exactly what enrich.py's contract forbids."""
     rows = [{"hf_repo": "org/m", "modality": "vision-language"}]
-    discover.refresh_modality(_ModalityApi({"org/m": None}), rows)
+    discover.refresh_hf_facts(_FactsApi({"org/m": None}), rows)
     assert rows[0]["modality"] == "vision-language"
 
 
 def test_refresh_modality_survives_a_fetch_failure():
     rows = [{"hf_repo": "org/m", "modality": "text"}]
-    discover.refresh_modality(_ModalityApi({}, errors=["org/m"]), rows)
+    discover.refresh_hf_facts(_FactsApi({}, errors=["org/m"]), rows)
     assert rows[0]["modality"] == "text"
 
 
 def test_refresh_modality_is_quiet_when_nothing_changes(capsys):
     rows = [{"hf_repo": "org/m", "modality": "text"}]
-    discover.refresh_modality(_ModalityApi({"org/m": "text-generation"}), rows)
+    discover.refresh_hf_facts(_FactsApi({"org/m": "text-generation"}), rows)
     assert rows[0]["modality"] == "text"
     assert capsys.readouterr().out == ""
 
@@ -270,3 +276,77 @@ def test_enrich_prefers_the_card_over_the_repo_name():
                         get_text=lambda u: "| **Active Parameters** | 3.8B |",
                         get_json=lambda u: {})
     assert row["params_active_b"] == 3.8
+
+
+# --- carried rows must not freeze a wrong parameter count ------------------
+
+def test_refresh_corrects_a_stale_params_total():
+    """deepseek-ai/DeepSeek-V4-Flash sat in the queue at 158.1B against a real
+    290.9B: the row froze a partial count taken while the repo was still
+    uploading its shards. Unlike a frozen modality, validate.py cannot even
+    flag this -- it only checks the number is positive -- so a wrong total
+    promotes and renders as fact."""
+    rows = [{"hf_repo": "deepseek-ai/DeepSeek-V4-Flash", "architecture": "moe",
+             "params_total_b": 158.1, "params_active_b": 158.1}]
+    api = _FactsApi({}, totals={"deepseek-ai/DeepSeek-V4-Flash": 290.9})
+    discover.refresh_hf_facts(api, rows)
+    assert rows[0]["params_total_b"] == 290.9
+
+
+def test_refresh_keeps_a_dense_row_self_consistent():
+    """validate.py requires active == total on a dense row, so correcting one
+    without the other would append a row that fails its own schema gate."""
+    rows = [{"hf_repo": "org/m", "architecture": "dense",
+             "params_total_b": 7.0, "params_active_b": 7.0}]
+    discover.refresh_hf_facts(_FactsApi({}, totals={"org/m": 8.0}), rows)
+    assert rows[0]["params_total_b"] == 8.0
+    assert rows[0]["params_active_b"] == 8.0
+
+
+def test_refresh_preserves_a_known_moe_activation():
+    """An activation figure read from a card is about routing, not file size.
+    A corrected total says nothing about it and must not overwrite it."""
+    rows = [{"hf_repo": "org/m", "architecture": "moe",
+             "params_total_b": 158.1, "params_active_b": 13.0,
+             "params_active_source": "284B parameters (13B activated"}]
+    discover.refresh_hf_facts(_FactsApi({}, totals={"org/m": 290.9}), rows)
+    assert rows[0]["params_total_b"] == 290.9
+    assert rows[0]["params_active_b"] == 13.0
+
+
+def test_refresh_carries_the_unknown_activation_sentinel():
+    """An MoE row with active == total means 'activation unknown'. Correcting
+    only the total would break the sentinel and the row would read as a model
+    that routes every one of its parameters."""
+    rows = [{"hf_repo": "org/m", "architecture": "moe",
+             "params_total_b": 158.1, "params_active_b": 158.1}]
+    discover.refresh_hf_facts(_FactsApi({}, totals={"org/m": 290.9}), rows)
+    assert rows[0]["params_active_b"] == rows[0]["params_total_b"] == 290.9
+
+
+def test_refresh_leaves_params_alone_when_hf_publishes_none():
+    """No safetensors metadata is 'we do not know', not zero -- the same
+    contract the modality half keeps."""
+    rows = [{"hf_repo": "org/m", "architecture": "moe",
+             "params_total_b": 158.1, "params_active_b": 13.0}]
+    discover.refresh_hf_facts(_FactsApi({}), rows)
+    assert rows[0]["params_total_b"] == 158.1
+
+
+def test_refresh_is_quiet_when_the_params_are_already_right(capsys):
+    rows = [{"hf_repo": "org/m", "architecture": "moe",
+             "params_total_b": 290.9, "params_active_b": 13.0}]
+    discover.refresh_hf_facts(_FactsApi({}, totals={"org/m": 290.9}), rows)
+    assert capsys.readouterr().out == ""
+
+
+def test_refresh_reads_one_model_info_per_row():
+    """Both facts come off the same response. Fetching twice would double the
+    request count on every carried row of every weekly run for nothing."""
+    rows = [{"hf_repo": "org/m", "modality": "text", "architecture": "dense",
+             "params_total_b": 7.0, "params_active_b": 7.0}]
+    api = _FactsApi({"org/m": "image-text-to-text"}, totals={"org/m": 8.0})
+    discover.refresh_hf_facts(api, rows)
+    assert api.calls == ["org/m"]
+    assert rows[0]["modality"] == "multimodal"
+    assert rows[0]["params_total_b"] == 8.0

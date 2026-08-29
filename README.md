@@ -36,8 +36,8 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 8 | 45 | `mit` | Yes |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 290.9B (13B active) | 1M | text | 21 | 52 | `mit` | Yes? |
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 108 | — | `apache-2.0` | Yes? |
-| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 32.7B | 262K | text | 12 | 30 | `apache-2.0` | Yes |
-| [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 26.5B (3.8B active) | 262K | multimodal | 20 | 26 | `apache-2.0` | Yes? |
+| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 12 | 30 | `apache-2.0` | Yes |
+| [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 20 | 26 | `apache-2.0` | Yes? |
 | [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
 | [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes? |
 | [Qwen3.5-122B-A10B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | Qwen | 2026-02-24 | 125.1B (10B active) | 262K | multimodal | 39 | 33 | `apache-2.0` | Yes? |
@@ -55,7 +55,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [Qwen3-VL-235B-A22B-Thinking](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking) | Qwen | 2025-09-22 | 235.7B (22B active) | 262K | multimodal | 56 | — | `apache-2.0` | Yes? |
 | [Qwen3-Next-80B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct) | Qwen | 2025-09-09 | 81.3B (3B active) | 262K | text | 51 | 17 | `apache-2.0` | Yes? |
 | [Qwen3-Next-80B-A3B-Thinking](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking) | Qwen | 2025-09-09 | 81.3B (3B active) | 262K | text | 69 | — | `apache-2.0` | Yes? |
-| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 120.4B (5.1B active) | 131K | text | 79 | 24 | `apache-2.0` | Yes? |
+| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 116.8B (5.1B active) | 131K | text | 79 | 24 | `apache-2.0` | Yes? |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 66 | — | `apache-2.0` | Yes |
 | [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 94 | 14 | `llama-4-community` | Conditional |
 | [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 97 | 10 | `llama-4-community` | Conditional |

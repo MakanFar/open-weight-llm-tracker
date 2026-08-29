@@ -348,8 +348,8 @@ models:
     hf_repo: google/gemma-4-31B-it
     developer: Google
     release_date: 2026-03-11
-    params_total_b: 32.7
-    params_active_b: 32.7
+    params_total_b: 31.3
+    params_active_b: 31.3
     architecture: dense
     context_window: 262144
     modality: text
@@ -580,7 +580,7 @@ models:
     hf_repo: google/gemma-4-26B-A4B-it
     developer: google
     release_date: 2026-03-11
-    params_total_b: 26.5
+    params_total_b: 25.8
     params_active_b: 3.8
     architecture: moe
     context_window: 262144
@@ -740,7 +740,7 @@ models:
     hf_repo: openai/gpt-oss-120b
     developer: openai
     release_date: 2025-08-04
-    params_total_b: 120.4
+    params_total_b: 116.8
     params_active_b: 5.1
     architecture: moe
     context_window: 131072

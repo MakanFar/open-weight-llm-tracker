@@ -665,6 +665,47 @@ models:
     assert row and row[0]["modality"] == "multimodal"
 
 
+def test_refresh_re_derives_params_on_carried_rows(tmp_path):
+    """Same freezing bug as modality, and worse: validate.py cannot catch a
+    wrong parameter count, it only checks the number is positive.
+
+    Ungated by missing_vitals for the same reason -- this row has no gaps, so
+    it promotes, and the stale total would land in models.yaml and render as
+    fact. Correcting the total BEFORE the enrichment loop also lets the card
+    tie-break in enrich_row resolve the activation figure, which it cannot do
+    against a total that disagrees with every variant the card names.
+    """
+    _seed(tmp_path, candidates="""\
+models:
+- name: DeepSeek-V4-Flash
+  hf_repo: deepseek-ai/DeepSeek-V4-Flash
+  developer: deepseek-ai
+  release_date: 2026-04-22
+  params_total_b: 158.1
+  params_active_b: 13.0
+  architecture: moe
+  context_window: 1048576
+  modality: text
+  license: mit
+  commercial_use: true
+  discovered_via: [arena]
+  downloads: 600000
+""")
+
+    class Api(FakeApi):
+        def model_info(self, repo, **kw):
+            class I:
+                pipeline_tag = "text-generation"
+                tags = []
+                safetensors = {"total": 290944616402}
+            return I()
+
+    promoted, _, _, _ = _refresh(Api({}), tmp_path)
+    row = [r for r in promoted if r["hf_repo"] == "deepseek-ai/DeepSeek-V4-Flash"]
+    assert row and row[0]["params_total_b"] == 290.9
+    assert row[0]["params_active_b"] == 13.0
+
+
 def test_write_candidates_stamps_the_run_date(tmp_path):
     """The README's 'last discovery run' line reads this stamp.
 

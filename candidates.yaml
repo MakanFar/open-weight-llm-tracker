@@ -53,6 +53,7 @@ models:
   aa_index: 53
   needs_review:
   - moe-active-params-unknown
+  - family-already-tracked
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -76,11 +77,12 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
+  - family-already-tracked
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
   release_date: 2026-04-14
-  params_total_b: 1058.6
+  params_total_b: 1026.9
   params_active_b: 32.0
   architecture: moe
   context_window: 262144
@@ -753,7 +755,7 @@ models:
   hf_repo: openai/gpt-oss-20b
   developer: openai
   release_date: 2025-08-04
-  params_total_b: 21.5
+  params_total_b: 20.9
   params_active_b: 3.6
   architecture: moe
   context_window: 131072
@@ -1554,7 +1556,7 @@ models:
   hf_repo: moonshotai/Kimi-K2.7-Code
   developer: moonshotai
   release_date: 2026-06-11
-  params_total_b: 1058.6
+  params_total_b: 1026.9
   params_active_b: 32.0
   architecture: moe
   context_window: 262144

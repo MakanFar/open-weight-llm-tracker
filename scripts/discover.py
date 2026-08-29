@@ -537,12 +537,77 @@ def arena_candidates(api, rows, min_params, known, get_json=hf_meta._http_get_js
     return out
 
 
-def refresh_modality(api, rows):
-    """Re-derive modality on carried rows from HF's CURRENT signals.
+def refresh_hf_facts(api, rows):
+    """Re-derive on carried rows the HF facts that were frozen at staging.
 
     A staged row is never rebuilt — it is "known", so no sweep touches it —
-    which means every HF-derived field it was born with is frozen. modality
-    is the one where that actually publishes something false:
+    which means every HF-derived field it was born with is frozen. Two of
+    those go stale in ways validate.py cannot catch, so both are re-read here
+    from ONE model_info response: fetching twice would double the request
+    count on every carried row of every weekly run for nothing.
+
+    Deliberately NOT gated on missing_vitals, unlike the re-enrichment loop
+    at the call site. A row with no gaps is promotable, so a frozen wrong
+    value on it is precisely the one that reaches models.yaml.
+
+    Both halves overrule a hand-edited candidates.yaml value, unlike every
+    other edit there, which carries forward. That is deliberate and narrow:
+    these are machine-derived facts, HF is the authority on them, and the
+    rows they exist for prove the stored value can simply be wrong. Every
+    change is printed so a reviewer sees it happen.
+    """
+    for row in rows:
+        repo = row.get("hf_repo")
+        if not repo:
+            continue
+        try:
+            info = api.model_info(
+                repo, expand=["pipeline_tag", "tags", "safetensors"])
+        except Exception:
+            continue
+        _refresh_modality(row, info, repo)
+        _refresh_params(row, info, repo)
+
+
+def _refresh_params(row, info, repo):
+    """Re-read params_total_b from HF's safetensors count.
+
+    deepseek-ai/DeepSeek-V4-Flash sat in the queue at 158.1B against a real
+    290.9B: the row froze a partial count taken while the repo was still
+    uploading its shards. This is worse than a frozen modality, which at
+    least renders as an obviously odd word — validate.py checks only that the
+    number is positive, so a wrong total promotes silently and renders as
+    fact next to figures that were measured.
+
+    Runs BEFORE the enrichment loop for a second reason: enrich_row's card
+    tie-break resolves a family card ("Pro with 1.6T ... and Flash with
+    284B ...") by matching the row's own total against the variants the card
+    names, and it cannot do that against a total that disagrees with all of
+    them. Correcting the total first is what lets the activation figure
+    resolve at all.
+
+    params_active_b is kept consistent rather than recomputed. A dense row
+    must satisfy validate.py's active == total rule, so correcting one
+    without the other would append a row that fails its own schema gate. An
+    MoE row whose active still equals its total is carrying the "activation
+    unknown" sentinel, which has to stay a sentinel. Only a real MoE
+    activation figure is left alone: it describes routing, not file size, and
+    a corrected total says nothing about it.
+    """
+    total = hf_meta.params_b_of(info)
+    if total is None or total == row.get("params_total_b"):
+        return
+    print(f"  ~ {repo}: params_total_b {row.get('params_total_b')!r} "
+          f"-> {total!r}")
+    if row.get("architecture") != "moe" or \
+            row.get("params_active_b") == row.get("params_total_b"):
+        row["params_active_b"] = total
+    row["params_total_b"] = total
+
+
+def _refresh_modality(row, info, repo):
+    """Re-derive modality from HF's CURRENT pipeline_tag.
+
     thinkingmachines/Inkling sat in the queue as `text` and is multimodal,
     staged before the pipeline requested pipeline_tag (57bee32). Promote it
     and models.yaml gets a wrong modality that validate.py cannot catch,
@@ -554,27 +619,11 @@ def refresh_modality(api, rows):
     differs. A None means HF publishes no usable signal — "we do not know",
     not "text" — and replacing a real value with that would be the guess
     enrich.py's contract forbids.
-
-    This does overrule a hand-edited modality, unlike other candidates.yaml
-    edits which carry forward. That is deliberate and narrow: modality is
-    machine-derived from pipeline_tag, HF is the authority on it, and the
-    row this exists for proves the stored value can simply be wrong. Every
-    change is printed so a reviewer sees it happen.
-
-    Cheap on purpose — pipeline_tag and tags are all modality_of reads.
     """
-    for row in rows:
-        repo = row.get("hf_repo")
-        if not repo:
-            continue
-        try:
-            info = api.model_info(repo, expand=["pipeline_tag", "tags"])
-        except Exception:
-            continue
-        current = hf_meta.modality_of(info)
-        if current and current != row.get("modality"):
-            print(f"  ~ {repo}: modality {row.get('modality')!r} -> {current!r}")
-            row["modality"] = current
+    current = hf_meta.modality_of(info)
+    if current and current != row.get("modality"):
+        print(f"  ~ {repo}: modality {row.get('modality')!r} -> {current!r}")
+        row["modality"] = current
 
 
 def enrich_row(row, info, get_text, get_json):
@@ -895,9 +944,12 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # documented no-op for carried rows — only the card-derived active-params
     # and tokenizer-derived context-window halves can actually help them.
     # Deliberately NOT gated on missing_vitals, unlike the enrichment below:
-    # a row with no gaps is promotable, so a frozen wrong modality on it is
-    # precisely the one that reaches models.yaml. See refresh_modality.
-    refresh_modality(api, staged)
+    # a row with no gaps is promotable, so a frozen wrong modality or
+    # parameter count on it is precisely the one that reaches models.yaml.
+    # Must also run BEFORE the enrichment loop: enrich_row's card tie-break
+    # matches the row's own total against the variants a family card names,
+    # so a stale total has to be corrected first. See refresh_hf_facts.
+    refresh_hf_facts(api, staged)
 
     stems = tracked_stems(data_path)
     for row in staged:
