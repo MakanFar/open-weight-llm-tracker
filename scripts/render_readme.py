@@ -17,13 +17,13 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import aa_join
 import names  # noqa: E402  (names.py imports only `re` — keeps this renderer offline)
 
 ROOT = Path(__file__).resolve().parent.parent
 DATA = ROOT / "models.yaml"
 README = ROOT / "README.md"
 ARENA = ROOT / "arena_agent_rankings.yaml"
-AA = ROOT / "aa_scores.yaml"
 CANDIDATES = ROOT / "candidates.yaml"
 
 START = "<!-- MODELS_TABLE_START -->"
@@ -158,8 +158,9 @@ def _index_by_identity(pairs, identity_of=names.repo_identity):
     and reported. Identical values are harmless and kept: two spellings of the
     same repo naturally agree.
 
-    Values are compared with != rather than collected into a set, because an AA
-    value is a dict and dicts are unhashable.
+    Values are compared with != rather than collected into a set so the guard
+    works whatever the value is; it was written when one caller's values were
+    unhashable dicts.
 
     identity_of is a seam for testing the guard; production always uses
     names.repo_identity.
@@ -236,58 +237,23 @@ def load_arena_ranks(path=ARENA):
     return load_arena_ranks_from_rows(rows)
 
 
-def load_aa_scores_from_dict(scores, identity_of=names.repo_identity):
-    """Build the AA indexes from an already-parsed `scores:` mapping.
-
-    Split out from load_aa_scores so tests can exercise the indexing and the
-    collision guard without a file on disk.
-    """
-    repos, pairs = {}, []
-    if isinstance(scores, dict):
-        for repo, entry in scores.items():
-            if not isinstance(entry, dict):
-                continue
-            idx = entry.get("intelligence_index")
-            if isinstance(idx, int) and not isinstance(idx, bool):
-                value = {"index": idx, "variant": entry.get("variant")}
-                repos[str(repo).lower()] = value
-                pairs.append((str(repo), value))
-
-    return {"repos": repos,
-            "identities": _index_by_identity(pairs, identity_of)}
-
-
-def load_aa_scores(path=AA):
-    """AA indexes keyed by lowercased repo and by repo identity.
-
-    Returns {"repos": {}, "identities": {}} on a missing, empty, or malformed
-    file — never raises — so the render always completes and every row just
-    falls through to aa_cell's '—'.
-    """
-    try:
-        doc = yaml.safe_load(Path(path).read_text()) or {}
-    except (OSError, yaml.YAMLError):
-        return {"repos": {}, "identities": {}}
-    scores = doc.get("scores") if isinstance(doc, dict) else None
-    return load_aa_scores_from_dict(scores)
-
-
 def aa_cell(model, aa):
     """Artificial Analysis Intelligence Index, or — when AA does not rate it.
 
-    Exact repo first, then repo identity: AA and arena disagree about which
-    repo string names a model (AA scored DeepSeek-V4-Flash-0731, arena resolved
-    DeepSeek-V4-Flash), and an exact-only join prints — for a model both rate.
+    `aa` is aa_join.join()'s {lower_repo: entry}, already keyed by this row's
+    own hf_repo, so a single exact lookup is the whole join. The repo-identity
+    fallback this used to need is gone with the thing it worked around: the
+    old sidecar stored whichever repo string the scrape-time join happened to
+    land on (AA scored DeepSeek-V4-Flash-0731 against a tracked
+    DeepSeek-V4-Flash) and the fallback reconciled the two spellings. There is
+    only one spelling now.
 
     There is deliberately no fallback to a manual figure: models.yaml no longer
     carries one, because MMLU (~86) and the AA index (~10-57) are different
     scales and sharing a column invited a comparison that does not exist.
     """
-    repo = model.get("hf_repo") or ""
-    entry = aa["repos"].get(repo.lower())
-    if entry is None and repo:
-        entry = aa["identities"].get(names.repo_identity(repo))
-    return str(entry["index"]) if entry else "—"
+    entry = aa.get((model.get("hf_repo") or "").lower())
+    return str(entry["intelligence_index"]) if entry else "—"
 
 
 def arena_cell(model, ranks):
@@ -331,7 +297,10 @@ def build_table(models, aa, ranks):
 
 def main():
     doc = yaml.safe_load(DATA.read_text())
-    aa = load_aa_scores()
+    # models.yaml rows only, never the review queue: a render must be a
+    # function of the published index and the scrape, or a staged candidate
+    # could claim an AA entry out from under the published row.
+    aa = aa_join.join(aa_join.load_entries(), doc["models"])
     ranks = load_arena_ranks()
     table = build_table(doc["models"], aa, ranks)
     n = len(doc["models"])

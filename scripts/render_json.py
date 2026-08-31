@@ -23,6 +23,7 @@ from pathlib import Path
 import yaml
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import aa_join  # noqa: E402
 import names  # noqa: E402
 import render_readme as rr  # noqa: E402
 
@@ -76,10 +77,10 @@ def model_entry(model, aa, ranks):
                 break
     out["arena_rank"] = rank
 
-    entry = aa["repos"].get(repo.lower())
-    if entry is None and repo:
-        entry = aa["identities"].get(names.repo_identity(repo))
-    out["aa_index"] = entry["index"] if entry else None
+    # aa is aa_join.join()'s {lower_repo: entry}: already keyed by this row's
+    # own hf_repo, so one exact lookup is the whole join.
+    entry = aa.get(repo.lower())
+    out["aa_index"] = entry["intelligence_index"] if entry else None
     return out
 
 
@@ -99,8 +100,9 @@ def build(models, aa, ranks, generated):
 
 def main():
     doc = yaml.safe_load(DATA.read_text())
-    payload = build(doc["models"], rr.load_aa_scores(), rr.load_arena_ranks(),
-                    rr.load_generated())
+    payload = build(doc["models"],
+                    aa_join.join(aa_join.load_entries(), doc["models"]),
+                    rr.load_arena_ranks(), rr.load_generated())
     OUT.write_text(json.dumps(payload, indent=2, ensure_ascii=False) + "\n")
     print(f"Rendered models.json with {payload['count']} models.")
 

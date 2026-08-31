@@ -72,7 +72,10 @@ jobs:
         # This must run unconditionally, every week, whether or not
         # discover.py appended a row: pull_aa.py runs earlier in this same
         # job and can change an AA Index value already in aa_scores.yaml with
-        # no new row in models.yaml at all. Before this step ran
+        # no new row in models.yaml at all. It cuts the other way too now
+        # that aa_join resolves scores at render time — a row promoted this
+        # run picks up an AA Index the sidecar already held, so the rendered
+        # column moves even when aa_scores.yaml does not. Before this step ran
         # unconditionally, that case opened a PR with a stale README, and
         # validate.yml's `git diff --exit-code README.md` check then failed
         # on every such PR. Re-rendering every run, regardless of what

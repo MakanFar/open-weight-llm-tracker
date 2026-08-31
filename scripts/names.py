@@ -16,6 +16,25 @@ _SUFFIX_RE = re.compile(
     r"[-_\s](?:" + "|".join(VARIANT_SUFFIXES) + r")$", re.IGNORECASE)
 
 
+_PAREN_RE = re.compile(r"\(([^)]*)\)")
+
+
+def split_variant(display):
+    """('Kimi K3 (max)') -> ('Kimi K3', 'max'). No parenthetical -> 'default'.
+
+    Leaderboards append the reasoning effort a score was measured at, and the
+    parenthetical is not part of the model's identity. It lives here because
+    both the AA scraper and the AA join have to strip it the same way: the
+    join re-derives its keys from the display names the scraper wrote, so a
+    disagreement about what "Kimi K3 (max)" slugs to means nothing matches.
+    """
+    found = _PAREN_RE.search(display)
+    variant = found.group(1).strip().lower() if found else "default"
+    base = _PAREN_RE.sub(" ", display)
+    base = re.sub(r"\s+", " ", base).strip()
+    return base, variant
+
+
 def slug(text):
     """Lowercase and strip every non-alphanumeric character."""
     return re.sub(r"[^a-z0-9]", "", text.lower())
