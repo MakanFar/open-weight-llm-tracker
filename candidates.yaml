@@ -27,7 +27,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-08-29'
+generated: '2026-08-31'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -54,6 +54,7 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
+  aa_index: 60
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
@@ -1474,27 +1475,110 @@ models:
   resolution_confidence: high
   needs_review:
   - signal-too-stale
-- name: DeepSeek-V4-Flash-0731
-  hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
+- name: Qwen3.8-Flash-Next
+  hf_repo: Qwen/Qwen3.8-Flash-Next
+  developer: Qwen
+  release_date: 2026-08-24
+  params_total_b: 180.0
+  params_active_b: 6.0
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: qwen-community-1-0
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.8-Flash-Next
+  downloads: 158598
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 6B activated
+  aa_index: 56
+  needs_review:
+  - license-not-allowlisted
+- name: DeepSeek-V4-Pro-0813
+  hf_repo: deepseek-ai/DeepSeek-V4-Pro-0813
   developer: deepseek-ai
-  release_date: 2026-07-31
-  params_total_b: 304.2
-  params_active_b: 304.2
+  release_date: 2026-08-13
+  params_total_b: 1650.5
+  params_active_b: 1650.5
   architecture: moe
   context_window: 1048576
   modality: text
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731
-  downloads: 0
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813
+  downloads: 134723
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 52
+  aa_index: 53
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
+- name: Qwen3.8-2.4T-A95B
+  hf_repo: Qwen/Qwen3.8-2.4T-A95B
+  developer: Qwen
+  release_date: 2026-08-08
+  params_total_b: 2446.2
+  params_active_b: 95.0
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: qwen3-8-max
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B
+  downloads: 36081
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 2.4T in total and 95B activated
+  params_total_stated_b: 2400.0
+  aa_index: 58
+  needs_review:
+  - license-not-allowlisted
+- name: granite-4.2-8b
+  hf_repo: ibm-granite/granite-4.2-8b
+  developer: ibm-granite
+  release_date: 2026-08-07
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.2-8b
+  downloads: 9012
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 20
+  needs_review:
+  - family-already-tracked
+- name: granite-4.2-3b
+  hf_repo: ibm-granite/granite-4.2-3b
+  developer: ibm-granite
+  release_date: 2026-08-07
+  params_total_b: 3.7
+  params_active_b: 3.7
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.2-3b
+  downloads: 8221
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 14
+  needs_review:
+  - signal-too-weak
 - name: DeepSeek-V4-Flash-DSpark
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
   developer: deepseek-ai
@@ -1556,6 +1640,25 @@ models:
   needs_review:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
+- name: gemma-4-31B
+  hf_repo: google/gemma-4-31B
+  developer: google
+  release_date: 2026-03-12
+  params_total_b: 32.7
+  params_active_b: 32.7
+  architecture: dense
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-4-31B
+  downloads: 713290
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - family-already-tracked
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   developer: nvidia

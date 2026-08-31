@@ -308,7 +308,7 @@ arena_agent:
   - 1456 ±8
   - 39 76
   - 6,466
-  - $0.13 / $0.53
+  - $0.08 / $0.33
   - 262.1K
   by_header:
     Rank: '11'
@@ -317,7 +317,7 @@ arena_agent:
     Score: 1456 ±8
     Rank Spread: 39 76
     Votes: 6,466
-    Price $/M: $0.13 / $0.53
+    Price $/M: $0.08 / $0.33
     Context: 262.1K
   resolved_repo: tencent/Hy3
   resolution_confidence: high
@@ -685,7 +685,7 @@ arena_agent:
   - 1431 ±7
   - 80 119
   - 7,992
-  - $0.60 / $3
+  - $0.45 / $2.25
   - 262.1K
   by_header:
     Rank: '24'
@@ -694,7 +694,7 @@ arena_agent:
     Score: 1431 ±7
     Rank Spread: 80 119
     Votes: 7,992
-    Price $/M: $0.60 / $3
+    Price $/M: $0.45 / $2.25
     Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
@@ -1526,7 +1526,7 @@ arena_agent:
   - 1399 ±5
   - 136 158
   - 22,523
-  - $0.10 / $1.10
+  - $0.09 / $1.10
   - 262.1K
   by_header:
     Rank: '53'
@@ -1535,7 +1535,7 @@ arena_agent:
     Score: 1399 ±5
     Rank Spread: 136 158
     Votes: 22,523
-    Price $/M: $0.10 / $1.10
+    Price $/M: $0.09 / $1.10
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
   resolution_confidence: high
@@ -1990,7 +1990,7 @@ arena_agent:
   - 1369 ±5
   - 172 188
   - 29,001
-  - $0.22 / $0.85
+  - $0.25 / $0.80
   - 262.1K
   by_header:
     Rank: '69'
@@ -1999,7 +1999,7 @@ arena_agent:
     Score: 1369 ±5
     Rank Spread: 172 188
     Votes: 29,001
-    Price $/M: $0.22 / $0.85
+    Price $/M: $0.25 / $0.80
     Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
@@ -2454,7 +2454,7 @@ arena_agent:
   - 1345 ±8
   - 191 227
   - 6,750
-  - $0.26 / $1.02
+  - $0.30 / $1.20
   - 204.8K
   by_header:
     Rank: '85'
@@ -2463,7 +2463,7 @@ arena_agent:
     Score: 1345 ±8
     Rank Spread: 191 227
     Votes: 6,750
-    Price $/M: $0.26 / $1.02
+    Price $/M: $0.30 / $1.20
     Context: 204.8K
   resolved_repo: MiniMaxAI/MiniMax-M2
   resolution_confidence: high

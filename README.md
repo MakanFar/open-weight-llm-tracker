@@ -1,12 +1,12 @@
 # Open-Weight & Open-Source LLM Tracker
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
-[![models](https://img.shields.io/badge/models-53-1f6feb)](models.yaml)
-[![last discovery run](https://img.shields.io/badge/last%20discovery%20run-2026--08--29-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![models](https://img.shields.io/badge/models-54-1f6feb)](models.yaml)
+[![last discovery run](https://img.shields.io/badge/last%20discovery%20run-2026--08--31-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
-**What it is** — a curated, machine-readable index of **53 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
+**What it is** — a curated, machine-readable index of **54 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
 
 **Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every week, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
 
@@ -25,6 +25,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
 | [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) | zai-org | 2026-08-25 | 321.3B (18B active) | 1M | text | 4 | 57 | `mit` | Yes |
+| [granite-4.2-30b](https://huggingface.co/ibm-granite/granite-4.2-30b) | ibm-granite | 2026-08-07 | 29.3B | 131K | text | — | 24 | `apache-2.0` | Yes? |
 | [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) | Qwen | 2026-08-05 | 27.8B | 262K | multimodal | 21 | 52 | `apache-2.0` | Yes |
 | [Inkling-Small](https://huggingface.co/thinkingmachines/Inkling-Small) | thinkingmachines | 2026-07-27 | 276B (12B active) | 1M | multimodal | 49 | 41 | `apache-2.0` | Yes |
 | [Inkling](https://huggingface.co/thinkingmachines/Inkling) | thinkingmachines | 2026-07-14 | 975B (41B active) | 1M | multimodal | 18 | 42 | `apache-2.0` | Yes |
