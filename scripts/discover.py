@@ -102,6 +102,7 @@ except ImportError:
     sys.exit("Install deps first:  pip install -r requirements.txt")
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
+import aa_join
 import hf_meta
 import enrich
 import names
@@ -738,26 +739,32 @@ def merge_candidates(org_rows, arena_rows):
                                  -_release_ordinal(c)))
 
 
-def load_aa_index(path=AA):
-    """{lower_repo: intelligence_index}. {} on missing/unreadable/malformed.
+def load_aa_index(rows, path=AA):
+    """{lower_repo: intelligence_index} for `rows`, joined here and now.
 
     Never load-bearing, exactly like the arena file: a discovery run with no
     aa_scores.yaml simply stages rows without an index.
+
+    The join happens on every run against the rows passed in, so a model
+    discovered THIS run gets its index THIS run. The sidecar carries every
+    scraped row, including the ones nothing has ever claimed, so a release
+    that AA already rated is scored the moment a row for it exists — it no
+    longer has to wait for the next scrape to notice it.
+
+    Pass the union of models.yaml and the queue: the claim guard in
+    aa_join.claims is what catches two rows that are really the same model
+    (google/gemma-4-31B against a tracked google/gemma-4-31B-it), and it can
+    only catch that if it sees both files at once.
     """
-    try:
-        doc = yaml.safe_load(Path(path).read_text()) or {}
-    except (OSError, yaml.YAMLError):
+    entries = aa_join.load_entries(path)
+    if not entries:
         return {}
-    scores = doc.get("scores") if isinstance(doc, dict) else None
-    out = {}
-    if isinstance(scores, dict):
-        for repo, entry in scores.items():
-            if not isinstance(entry, dict):
-                continue
-            idx = entry.get("intelligence_index")
-            if isinstance(idx, int) and not isinstance(idx, bool):
-                out[str(repo).lower()] = idx
-    return out
+    joined, claimed = aa_join.claims(entries, rows)
+    gaps = aa_join.unclaimed(entries, claimed)
+    if gaps:
+        print(f"  {len(gaps)} of {len(entries)} AA row(s) unclaimed "
+              f"(mostly proprietary models this tracker will never carry)")
+    return {repo: entry["intelligence_index"] for repo, entry in joined.items()}
 
 
 def annotate_aa(rows, aa_index):
@@ -772,10 +779,16 @@ def annotate_aa(rows, aa_index):
     than keeping the old number — AA delists older models, and a stale score
     on a carried-forward row would silently misrepresent it.
 
-    NOTE ON FRESHNESS: the workflow runs pull_aa.py before discover.py, and
-    pull_aa scores what is already in candidates.yaml. A brand-new candidate
-    therefore gets its index on the NEXT weekly run, not the one that found
-    it. That lag is accepted: closing it would need a second discovery pass.
+    FRESHNESS: no lag. This used to read a sidecar whose name->repo join was
+    frozen at scrape time, and discover.yml scrapes BEFORE it discovers — so
+    a candidate found this run was joined against an index that predated it
+    and got its score a week later. That was accepted while a human drained
+    the queue by hand and would see the number next week; auto-promotion
+    (5b7c50b) then started carrying the gap into the published table three
+    days after the note claiming it was harmless (4e0a72f). load_aa_index now
+    joins against the rows it is given, so this run's discoveries are scored
+    on this run, and a high AA index can clear the promotion floor
+    immediately rather than one week late.
     """
     for row in rows:
         idx = aa_index.get((row.get("hf_repo") or "").lower())
@@ -986,7 +999,9 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
 
     candidates = merge_candidates(staged + org_rows, arena_rows)
 
-    aa_index = load_aa_index(aa_path)
+    # Union, models.yaml first: see load_aa_index on why the guard needs both.
+    aa_index = load_aa_index(
+        aa_join.union(aa_join.tracked_models(data_path), candidates), aa_path)
     annotate_aa(candidates, aa_index)
 
     arena_index = load_arena_index(arena_path)

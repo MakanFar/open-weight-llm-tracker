@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """
 Scrape the Artificial Analysis Intelligence Index into a committed sidecar,
-aa_scores.yaml, keyed by hf_repo.
+aa_scores.yaml, keyed by AA name slug.
+
+THIS SCRIPT ONLY SCRAPES. It reads no models.yaml, no candidates.yaml, and
+resolves no display name to a repo — aa_join.py does that at the point of
+use. Keeping the join out of the write is what makes the sidecar a plain
+record of the leaderboard rather than a snapshot of a join whose inputs move
+underneath it; see aa_join's module docstring for why that mattered.
 
 WHY THIS REPLACED THE HF LEADERBOARD:
     scripts/pull_leaderboard.py could not fill the benchmark column. HF Open
@@ -16,8 +22,9 @@ WHAT THE INDEX IS:
 
 OPENNESS IS NOT READ FROM AA:
     AA's page carries no openness column, and we would not trust it if it did.
-    Proprietary rows simply fail to match models.yaml and fall out. Open-weight
-    status stays decided by HF repo resolution alone.
+    Proprietary rows are stored like any other and simply go unclaimed when
+    aa_join joins them against models.yaml. Open-weight status stays decided
+    by HF repo resolution alone.
 """
 import argparse
 import re
@@ -32,17 +39,15 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import names
 
 ROOT = Path(__file__).resolve().parent.parent
-DATA = ROOT / "models.yaml"
-CANDIDATES = ROOT / "candidates.yaml"
 OUT = ROOT / "aa_scores.yaml"
 
 # The open-weights view. NOTE: ?weights=open is applied client-side by AA's
 # JS — the server returns the full table either way (verified byte-identical,
 # 130 scored rows, proprietary models still first). It is kept because it is
-# the URL recorded as each score's `source`, so a human clicking through lands
-# on the open-weights list. Do NOT rely on it to pre-filter: the filtering that
-# matters happens when match_to_tracked joins against models.yaml, and
-# proprietary rows simply fail to match.
+# the URL recorded as the file's `source`, so a human clicking through lands
+# on the open-weights list. Do NOT rely on it to pre-filter: proprietary rows
+# are stored like any other and simply go unclaimed when aa_join joins them
+# against models.yaml.
 LEADERBOARD_URL = "https://artificialanalysis.ai/leaderboards/models?weights=open"
 
 # Cell positions in the data rows, matching the column header:
@@ -76,18 +81,6 @@ def parse_leaderboard(html):
     return rows
 
 
-_PAREN_RE = re.compile(r"\(([^)]*)\)")
-
-
-def split_variant(display):
-    """('Kimi K3 (max)') -> ('Kimi K3', 'max'). No parenthetical -> 'default'."""
-    found = _PAREN_RE.search(display)
-    variant = found.group(1).strip().lower() if found else "default"
-    base = _PAREN_RE.sub(" ", display)
-    base = re.sub(r"\s+", " ", base).strip()
-    return base, variant
-
-
 def best_by_slug(rows):
     """Highest-scoring variant per model, keyed by slug.
 
@@ -98,7 +91,7 @@ def best_by_slug(rows):
     """
     best = {}
     for row in rows:
-        base, variant = split_variant(row["model"])
+        base, variant = names.split_variant(row["model"])
         key = names.slug(names.strip_variant_suffix(base))
         if not key:
             continue
@@ -113,122 +106,14 @@ def best_by_slug(rows):
     return best
 
 
-def _rows_with_repo(path):
-    """A YAML file's `models:` rows that carry an hf_repo. [] if unreadable."""
-    try:
-        doc = yaml.safe_load(Path(path).read_text()) or {}
-    except (OSError, yaml.YAMLError):
-        return []
-    rows = doc.get("models") if isinstance(doc, dict) else None
-    if not isinstance(rows, list):
-        return []
-    return [r for r in rows if isinstance(r, dict) and r.get("hf_repo")]
-
-
-def tracked_models(path=DATA):
-    """models.yaml rows that carry an hf_repo."""
-    return _rows_with_repo(path)
-
-
-def staged_models(path=CANDIDATES):
-    """candidates.yaml rows that carry an hf_repo."""
-    return _rows_with_repo(path)
-
-
-def joinable_models(data_path=DATA, candidates_path=CANDIDATES):
-    """Every row worth scoring: published models plus the review queue.
-
-    Staged candidates are included because the score is most useful BEFORE
-    promotion, not after — a reviewer deciding whether to take a model wants
-    its index in hand. Scoring only models.yaml also made the `unmatched` list
-    lie: 15 of 95 entries were models already sitting in the queue, which
-    drowned the entries that are genuine coverage gaps.
-
-    models.yaml wins on a duplicate hf_repo. A row mid-promotion can briefly
-    appear in both files, and scoring it twice would trip the double-claim
-    guard in match_to_tracked and drop the score entirely.
-    """
-    rows, seen = [], set()
-    for row in list(_rows_with_repo(data_path)) + list(_rows_with_repo(candidates_path)):
-        key = row["hf_repo"].lower()
-        if key in seen:
-            continue
-        seen.add(key)
-        rows.append(row)
-    return rows
-
-
-def _keys_for(model):
-    """Slugs a tracked model may be known by on a leaderboard, in try-order.
-
-    The name is tried before the hf_repo tail: models.yaml's `name` is the
-    curated, human-facing label, while the repo tail is a fallback for when
-    AA's display name doesn't match it (e.g. "Some Model" vs repo
-    "zai-org/GLM-5.2"). Order must be explicit and a set cannot express it —
-    iterating a set is hash-randomized, so if the two sources ever resolved to
-    different AA entries, which one won would vary between runs on identical
-    inputs. Returning an ordered, deduplicated list fixes both the order and
-    the case where the two sources agree (no repeated key).
-    """
-    candidates = [model["name"], model["hf_repo"].split("/")[-1]]
-    keys = []
-    for c in candidates:
-        if not c:
-            continue
-        key = names.slug(names.strip_variant_suffix(c))
-        if key and key not in keys:
-            keys.append(key)
-    return keys
-
-
-def match_to_tracked(best, tracked):
-    """Join AA entries onto tracked models. Returns (scores, unmatched).
-
-    Matching is local: AA publishes display names, not repo ids, and doing the
-    lookup here avoids depending on HF search, whose rate limits have already
-    caused silent data loss elsewhere in this repo.
-
-    An AA entry may be claimed by at most one tracked model, first claim wins.
-    Two tracked rows can produce overlapping keys (a near-duplicate
-    models.yaml entry, or one row's name-key colliding with another row's
-    repo-tail-key); without this guard both would silently get a score
-    pointing at the same AA measurement. The collision is also printed so it
-    surfaces during a discovery run instead of quietly corrupting the data.
-
-    unmatched is expected to be long — most AA rows are proprietary models this
-    tracker will never carry — so it is informational, never an error. An
-    entry claimed by any tracked model (even one whose claim was rejected as a
-    duplicate) is not unmatched.
-    """
-    scores, claimed_by = {}, {}
-    for model in tracked:
-        for key in _keys_for(model):
-            entry = best.get(key)
-            if entry is None:
-                continue
-            prior = claimed_by.get(key)
-            if prior is not None:
-                print(f"  ! {model['hf_repo']} and {prior} both match AA "
-                      f"model {entry['aa_model']!r}; keeping {prior}")
-                break
-            claimed_by[key] = model["hf_repo"]
-            scores[model["hf_repo"]] = {
-                "intelligence_index": entry["intelligence_index"],
-                "variant": entry["variant"],
-                "aa_model": entry["aa_model"],
-                "source": LEADERBOARD_URL,
-            }
-            break
-    unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in claimed_by)
-    return scores, unmatched
-
-
 HEADER = (
     "# AUTO-SCRAPED by scripts/pull_aa.py — do not hand-edit.\n"
-    "# Artificial Analysis Intelligence Index (0-100 composite), by hf_repo.\n"
+    "# Artificial Analysis Intelligence Index (0-100 composite), by AA name slug.\n"
     "# variant records which reasoning-effort row won (the highest scoring).\n"
     "# The index is re-weighted between versions, so values are NOT comparable\n"
-    "# across time. unmatched lists AA rows no tracked model claimed.\n"
+    "# across time. EVERY scored row is stored, including the proprietary ones\n"
+    "# this tracker will never carry: the name->repo join is NOT done here, it\n"
+    "# is done by aa_join at the point of use, against rows as they stand then.\n"
 )
 
 
@@ -246,14 +131,24 @@ def fetch_html(url, get=requests.get):
     return resp.text
 
 
-def write_scores(path, scores, unmatched):
+def write_scores(path, entries):
+    """Write every scraped entry, keyed by slug.
+
+    model_slug is dropped: it is the key. `source` is hoisted out of the rows
+    — it is one URL for the whole scrape, and repeating it on ~130 entries
+    buried the data under its own provenance.
+    """
+    scores = {key: {"aa_model": e["aa_model"],
+                    "intelligence_index": e["intelligence_index"],
+                    "variant": e["variant"]}
+              for key, e in entries.items()}
     Path(path).write_text(HEADER + yaml.safe_dump(
-        {"scores": scores, "unmatched": unmatched},
+        {"source": LEADERBOARD_URL, "scores": scores},
         sort_keys=True, allow_unicode=True, width=100))
 
 
-def refresh(path, html, tracked):
-    """Rewrite the sidecar. Returns the score count, or None if nothing was written.
+def refresh(path, html):
+    """Rewrite the sidecar. Returns the entry count, or None if nothing was written.
 
     None means the run failed and the committed file was left alone. A zero-row
     parse is a failure: AA is never legitimately empty, so an empty parse means
@@ -267,9 +162,9 @@ def refresh(path, html, tracked):
         print(f"  ! parsed 0 rows — AA markup may have changed; "
               f"leaving {Path(path).name} unchanged")
         return None
-    scores, unmatched = match_to_tracked(best_by_slug(rows), tracked)
-    write_scores(path, scores, unmatched)
-    return len(scores)
+    entries = best_by_slug(rows)
+    write_scores(path, entries)
+    return len(entries)
 
 
 def main():
@@ -278,7 +173,7 @@ def main():
     args = ap.parse_args()
 
     html = Path(args.html).read_text() if args.html else fetch_html(LEADERBOARD_URL)
-    n = refresh(OUT, html, joinable_models())
+    n = refresh(OUT, html)
     if n is None:
         return
     print(f"Wrote {n} AA score(s) to {OUT.name}")

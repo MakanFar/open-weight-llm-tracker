@@ -22,7 +22,7 @@
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
       "arena_rank": 4,
-      "aa_index": null
+      "aa_index": 57
     },
     {
       "name": "Qwen3.8-27B",

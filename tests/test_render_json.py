@@ -31,7 +31,7 @@ def test_dates_become_iso_strings():
 def test_arena_rank_and_aa_index_are_numbers_or_null():
     """The table prints an em dash for a missing value; JSON must not -- a
     consumer filtering on aa_index would have to special-case a glyph."""
-    aa = {"repos": {"org/m": {"index": 42, "variant": None}}, "identities": {}}
+    aa = {"org/m": {"aa_model": "M", "intelligence_index": 42, "variant": None}}
     ranks = {"repos": {"org/m": 10}, "names": {}, "identities": {}}
     out = rj.build([_model()], aa, ranks, generated="2026-08-28")
     assert out["models"][0]["arena_rank"] == 10

@@ -294,18 +294,36 @@ def test_write_candidates_round_trips(tmp_path):
 
 # --- AA index merged onto candidate rows, mirroring arena_rank --------------
 
-def test_load_aa_index_reads_the_sidecar(tmp_path):
+def test_load_aa_index_joins_against_the_rows_it_is_given(tmp_path):
     f = tmp_path / "aa.yaml"
-    f.write_text("scores:\n  Moonshot/Kimi-K3:\n    intelligence_index: 57\n"
-                 "    variant: max\n")
-    assert discover.load_aa_index(f) == {"moonshot/kimi-k3": 57}
+    f.write_text("scores:\n  kimik3:\n    aa_model: Kimi K3 (max)\n"
+                 "    intelligence_index: 57\n    variant: max\n")
+    rows = [{"name": "Kimi K3", "hf_repo": "Moonshot/Kimi-K3"}]
+    assert discover.load_aa_index(rows, f) == {"moonshot/kimi-k3": 57}
+
+
+def test_load_aa_index_scores_a_row_the_scrape_never_saw(tmp_path):
+    """The freshness fix, at the discovery end.
+
+    The sidecar carries every AA row, matched or not, and the join runs here
+    — so a model discovered on THIS run is scored on this run and can clear
+    the promotion floor immediately, instead of a week late.
+    """
+    f = tmp_path / "aa.yaml"
+    f.write_text("scores:\n  glm53flash:\n    aa_model: GLM-5.3-Flash\n"
+                 "    intelligence_index: 57\n    variant: default\n")
+    assert discover.load_aa_index([], f) == {}
+    assert discover.load_aa_index(
+        [{"name": "GLM-5.3-Flash", "hf_repo": "zai-org/GLM-5.3-Flash"}], f) \
+        == {"zai-org/glm-5.3-flash": 57}
 
 
 def test_load_aa_index_degrades_on_a_missing_or_broken_file(tmp_path):
-    assert discover.load_aa_index(tmp_path / "nope.yaml") == {}
+    rows = [{"name": "M", "hf_repo": "org/m"}]
+    assert discover.load_aa_index(rows, tmp_path / "nope.yaml") == {}
     bad = tmp_path / "bad.yaml"
     bad.write_text("scores: [not, a, mapping]\n")
-    assert discover.load_aa_index(bad) == {}
+    assert discover.load_aa_index(rows, bad) == {}
 
 
 def test_annotate_aa_sets_the_index_on_matching_rows():
@@ -333,7 +351,7 @@ def test_refresh_annotates_carried_forward_candidates(tmp_path):
         {"name": "Kimi-K3", "hf_repo": "moonshotai/Kimi-K3",
          "release_date": date(2026, 7, 1)}]}))
     (tmp_path / "aa.yaml").write_text(
-        "scores:\n  moonshotai/Kimi-K3:\n    intelligence_index: 57\n")
+        "scores:\n  kimik3:\n    aa_model: Kimi K3\n    intelligence_index: 57\n")
     api = FakeApi({})
 
     _, queue, _, _ = discover.refresh(
@@ -486,8 +504,8 @@ def test_refresh_splits_promotable_from_reviewable(tmp_path):
     ]}))
     (tmp_path / "aa.yaml").write_text(
         "scores:\n"
-        "  org/ready:\n    intelligence_index: 40\n"
-        "  org/gappy:\n    intelligence_index: 45\n")
+        "  ready:\n    aa_model: Ready\n    intelligence_index: 40\n"
+        "  gappy:\n    aa_model: Gappy\n    intelligence_index: 45\n")
     api = FakeApi({})
 
     promoted, queue, _, _ = discover.refresh(
@@ -511,7 +529,7 @@ def test_refresh_records_why_a_queued_row_is_queued(tmp_path):
          "context_window": 0, "modality": "text", "license": "mit",
          "commercial_use": True, "aa_index": 45}]}))
     (tmp_path / "aa.yaml").write_text(
-        "scores:\n  org/gappy:\n    intelligence_index: 45\n")
+        "scores:\n  gappy:\n    aa_model: Gappy\n    intelligence_index: 45\n")
 
     _, queue, _, _ = discover.refresh(
         FakeApi({}), 3.0, data_path=tmp_path / "models.yaml",

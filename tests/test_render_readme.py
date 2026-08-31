@@ -47,37 +47,31 @@ def test_load_arena_ranks_indexes_resolved_and_unresolved_rows(tmp_path):
 
 def test_aa_cell_shows_the_index():
     m = _model(hf_repo="moonshotai/Kimi-K3")
-    aa = {"repos": {"moonshotai/kimi-k3": {"index": 57, "variant": "max"}},
-          "identities": {}}
+    aa = {"moonshotai/kimi-k3": {"aa_model": "Kimi K3 (max)",
+                                 "intelligence_index": 57, "variant": "max"}}
     assert rr.aa_cell(m, aa) == "57"
 
 
 def test_aa_cell_dashes_when_aa_does_not_rate_the_model():
     """There is no fallback to a manual figure: models.yaml carries no score."""
-    empty = {"repos": {}, "identities": {}}
-    assert rr.aa_cell(_model(hf_repo="org/m"), empty) == "—"
+    assert rr.aa_cell(_model(hf_repo="org/m"), {}) == "—"
 
 
-def test_load_aa_scores_parses_the_sidecar(tmp_path):
-    f = tmp_path / "aa.yaml"
-    f.write_text("scores:\n  Moonshot/Kimi-K3:\n    intelligence_index: 57\n"
-                 "    variant: max\n")
-    loaded = rr.load_aa_scores(f)
-    assert loaded["repos"] == {
-        "moonshot/kimi-k3": {"index": 57, "variant": "max"}}
-    assert loaded["identities"] == {
-        "kimik3": {"index": 57, "variant": "max"}}
+def test_aa_cell_does_an_exact_lookup_and_needs_no_identity_fallback():
+    """aa_join keys the map by the ROW's own hf_repo, so there is nothing left
+    to reconcile here.
 
-
-def test_load_aa_scores_tolerates_a_missing_file(tmp_path):
-    assert rr.load_aa_scores(tmp_path / "nope.yaml") == {
-        "repos": {}, "identities": {}}
-
-
-def test_load_aa_scores_skips_entries_with_no_numeric_index(tmp_path):
-    f = tmp_path / "aa.yaml"
-    f.write_text("scores:\n  org/m:\n    variant: max\n")
-    assert rr.load_aa_scores(f) == {"repos": {}, "identities": {}}
+    aa_cell used to fall back to repo_identity because the sidecar stored
+    whichever repo string the scrape-time join landed on — AA scored
+    DeepSeek-V4-Flash-0731 against a tracked DeepSeek-V4-Flash. The join now
+    happens against the row being rendered, so the key IS the row's repo.
+    Reconciling two spellings of it is no longer possible, or needed.
+    """
+    m = _model(hf_repo="deepseek-ai/DeepSeek-V4-Flash")
+    aa = {"deepseek-ai/deepseek-v4-flash": {"aa_model": "DeepSeek V4 Flash",
+                                            "intelligence_index": 44,
+                                            "variant": "default"}}
+    assert rr.aa_cell(m, aa) == "44"
 
 
 def test_commercial_badge_unmarked_when_verified():
@@ -103,7 +97,7 @@ def test_commercial_badge_marked_when_verified_field_is_absent():
 def test_table_has_an_aa_index_column_and_no_mmlu():
     table = rr.build_table(
         [_model(hf_repo="org/m")],
-        {"repos": {"org/m": {"index": 42, "variant": "max"}}, "identities": {}},
+        {"org/m": {"aa_model": "M", "intelligence_index": 42, "variant": "max"}},
         {"repos": {}, "names": {}, "identities": {}})
     head = table.splitlines()[0]
     assert "| AA Index |" in head
@@ -112,23 +106,6 @@ def test_table_has_an_aa_index_column_and_no_mmlu():
 
 
 # --- identity fallback -------------------------------------------------------
-
-def test_aa_cell_falls_back_to_repo_identity():
-    """The DeepSeek V4 Flash split: arena resolved the bare repo, AA scored the
-    dated snapshot. Both name the same weights."""
-    m = _model(hf_repo="deepseek-ai/DeepSeek-V4-Flash")
-    aa = {"repos": {"deepseek-ai/deepseek-v4-flash-0731":
-                    {"index": 50, "variant": "max"}},
-          "identities": {"deepseekv4flash": {"index": 50, "variant": "max"}}}
-    assert rr.aa_cell(m, aa) == "50"
-
-
-def test_aa_cell_prefers_an_exact_repo_match_over_an_identity_match():
-    m = _model(hf_repo="deepseek-ai/DeepSeek-V4-Flash")
-    aa = {"repos": {"deepseek-ai/deepseek-v4-flash": {"index": 44, "variant": "default"}},
-          "identities": {"deepseekv4flash": {"index": 50, "variant": "max"}}}
-    assert rr.aa_cell(m, aa) == "44"
-
 
 def test_arena_cell_falls_back_to_repo_identity():
     """Arena resolved the NVFP4 mirror; the tracked row is the BF16 release."""
@@ -162,26 +139,31 @@ def test_arena_cell_matches_thinking_machines_inkling():
 # --- collision guard ---------------------------------------------------------
 
 def test_ambiguous_identity_is_dropped_rather_than_guessed(capsys):
-    """Two sidecar entries sharing an identity means we cannot know which one
-    the tracked row refers to. A wrong number is worse than no number."""
-    m = _model(hf_repo="org/Model-C")
-    aa = rr.load_aa_scores_from_dict({
-        "org/Model-A": {"intelligence_index": 10},
-        "org/Model-B": {"intelligence_index": 20},
-    }, identity_of=lambda repo: "collide")
-    assert rr.aa_cell(m, aa) == "—"
+    """Two entries sharing an identity means we cannot know which one a
+    tracked row refers to. A wrong number is worse than no number."""
+    index = rr._index_by_identity(
+        [("org/Model-A", 10), ("org/Model-B", 20)],
+        identity_of=lambda repo: "collide")
+    assert index == {}
     assert "collide" in capsys.readouterr().out
+
+
+def test_identical_values_under_one_identity_are_kept():
+    """Two spellings of the same repo naturally agree; that is not ambiguity."""
+    assert rr._index_by_identity(
+        [("org/Model-A", 7), ("org/Model-B", 7)],
+        identity_of=lambda repo: "same") == {"same": 7}
 
 
 def test_distinct_sizes_do_not_collide():
     """405B and 8B are different models. If repo_identity ever stripped size,
     this pair would share an identity and BOTH would be dropped by the guard."""
-    aa = rr.load_aa_scores_from_dict({
-        "meta-llama/Llama-3.1-405B-Instruct": {"intelligence_index": 30},
-        "meta-llama/Llama-3.1-8B-Instruct": {"intelligence_index": 12},
-    })
-    assert aa["identities"]["llama31405b"]["index"] == 30
-    assert aa["identities"]["llama318b"]["index"] == 12
+    index = rr._index_by_identity([
+        ("meta-llama/Llama-3.1-405B-Instruct", 30),
+        ("meta-llama/Llama-3.1-8B-Instruct", 12),
+    ])
+    assert index["llama31405b"] == 30
+    assert index["llama318b"] == 12
 
 
 def test_arena_same_repo_at_several_reasoning_efforts_keeps_the_best_rank():
