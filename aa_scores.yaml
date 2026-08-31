@@ -2,7 +2,8 @@
 # Artificial Analysis Intelligence Index (0-100 composite), by hf_repo.
 # variant records which reasoning-effort row won (the highest scoring).
 # The index is re-weighted between versions, so values are NOT comparable
-# across time. unmatched lists AA rows no tracked model claimed.
+# across time. unmatched lists AA rows no tracked model claimed, with
+# their scores, so --rejoin can re-run the join without re-fetching.
 scores:
   MiniMaxAI/MiniMax-M3:
     aa_model: MiniMax-M3
@@ -140,67 +141,198 @@ scores:
     source: https://artificialanalysis.ai/leaderboards/models?weights=open
     variant: default
 unmatched:
-- A.X-K2
-- Agnes 2.5 Pro Alpha
-- Agnes 2.5 Pro Beta
-- Celeris-1
-- Claude 4.5 Haiku
-- Claude Fable 5 (with fallback)
-- Claude Opus 5 (max)
-- Claude Sonnet 5 (max)
-- Command A+
-- DeepSeek V4 Flash Vision (max)
-- DeepSeek V4 Pro 0813 (max)
-- Devstral 2
-- Devstral Small 2
-- G9v3-39A5B
-- GPT-5.5 Instant (June 2026)
-- GPT-5.6 Luna (max)
-- GPT-5.6 Sol (max)
-- GPT-5.6 Terra (max)
-- Gemini 3.1 Pro Preview
-- Gemini 3.5 Flash-Lite
-- Gemini 3.6 Flash
-- Gemini 3.7 Flash (high)
-- Granite 4.2 30B
-- Granite 4.2 3B
-- Granite 4.2 8B
-- Grok 4.3 (Non-reasoning)
-- Grok 4.5 (high)
-- Grok 4.6 (high)
-- HyperNova 60B 2605
-- K-EXAONE 2.0
-- KAT-Coder-Pro V2
-- LFM2.5-2.6B
-- Ling 3.0 Flash
-- Ling 3.0 Tiny
-- LongCat 2.0
-- Magistral Medium 1.2
-- Magistral Small 1.2
-- Mercury 2
-- Ministral 3 14B
-- Ministral 3 3B
-- Ministral 3 8B
-- Mistral Large 3
-- Mistral Medium 3.5
-- Mistral Small 4
-- Motif 3
-- Muse Glimmer (high)
-- Muse Spark 1.2 (xhigh)
-- Nemotron 3 Nano
-- Nemotron 3 Super
-- Nemotron 3 Ultra
-- Nemotron 3.5 Lightning
-- Nex-N2-Pro
-- North Mini Code
-- Qwen3.5 9B
-- Qwen3.7 Plus
-- Qwen3.8 2.4T A95B
-- Qwen3.8 Max
-- Qwen3.8-Flash-Next
-- Ring-2.6-1T
-- Solar Open2 250B
-- Solar Pro 3
-- Solar Pro 4
-- Step 3.7 Flash
-- Trinity Large Thinking
+- aa_model: A.X-K2
+  intelligence_index: 35
+  variant: default
+- aa_model: Agnes 2.5 Pro Alpha
+  intelligence_index: 40
+  variant: default
+- aa_model: Agnes 2.5 Pro Beta
+  intelligence_index: 49
+  variant: default
+- aa_model: Apodex 1.1
+  intelligence_index: 44
+  variant: default
+- aa_model: Celeris-1
+  intelligence_index: 12
+  variant: default
+- aa_model: Claude 4.5 Haiku
+  intelligence_index: 30
+  variant: default
+- aa_model: Claude Fable 5 (with fallback)
+  intelligence_index: 62
+  variant: with fallback
+- aa_model: Claude Opus 5 (max)
+  intelligence_index: 63
+  variant: max
+- aa_model: Claude Sonnet 5 (max)
+  intelligence_index: 55
+  variant: max
+- aa_model: Command A+
+  intelligence_index: 23
+  variant: default
+- aa_model: DeepSeek V4 Flash Vision (max)
+  intelligence_index: 51
+  variant: max
+- aa_model: DeepSeek V4 Pro 0813 (max)
+  intelligence_index: 53
+  variant: max
+- aa_model: Devstral 2
+  intelligence_index: 19
+  variant: default
+- aa_model: Devstral Small 2
+  intelligence_index: 18
+  variant: default
+- aa_model: G9v3-39A5B
+  intelligence_index: 34
+  variant: default
+- aa_model: GPT-5.5 Instant (June 2026)
+  intelligence_index: 29
+  variant: june 2026
+- aa_model: GPT-5.6 Luna (max)
+  intelligence_index: 52
+  variant: max
+- aa_model: GPT-5.6 Sol (max)
+  intelligence_index: 61
+  variant: max
+- aa_model: GPT-5.6 Terra (max)
+  intelligence_index: 57
+  variant: max
+- aa_model: Gemini 3.1 Pro Preview
+  intelligence_index: 48
+  variant: default
+- aa_model: Gemini 3.5 Flash-Lite
+  intelligence_index: 37
+  variant: default
+- aa_model: Gemini 3.6 Flash
+  intelligence_index: 52
+  variant: default
+- aa_model: Gemini 3.7 Flash (high)
+  intelligence_index: 56
+  variant: high
+- aa_model: Granite 4.2 30B
+  intelligence_index: 24
+  variant: default
+- aa_model: Granite 4.2 3B
+  intelligence_index: 14
+  variant: default
+- aa_model: Granite 4.2 8B
+  intelligence_index: 20
+  variant: default
+- aa_model: Grok 4.3 (Non-reasoning)
+  intelligence_index: 25
+  variant: non-reasoning
+- aa_model: Grok 4.5 (high)
+  intelligence_index: 56
+  variant: high
+- aa_model: Grok 4.6 (high)
+  intelligence_index: 61
+  variant: high
+- aa_model: HyperNova 60B 2605
+  intelligence_index: 18
+  variant: default
+- aa_model: K-EXAONE 2.0
+  intelligence_index: 31
+  variant: default
+- aa_model: KAT-Coder-Pro V2
+  intelligence_index: 34
+  variant: default
+- aa_model: LFM2.5-2.6B
+  intelligence_index: 11
+  variant: default
+- aa_model: Ling 3.0 Flash
+  intelligence_index: 38
+  variant: default
+- aa_model: Ling 3.0 Tiny
+  intelligence_index: 25
+  variant: default
+- aa_model: LongCat 2.0
+  intelligence_index: 34
+  variant: default
+- aa_model: Magistral Medium 1.2
+  intelligence_index: 18
+  variant: default
+- aa_model: Magistral Small 1.2
+  intelligence_index: 11
+  variant: default
+- aa_model: Mercury 2
+  intelligence_index: 22
+  variant: default
+- aa_model: Ministral 3 14B
+  intelligence_index: 11
+  variant: default
+- aa_model: Ministral 3 3B
+  intelligence_index: 7
+  variant: default
+- aa_model: Ministral 3 8B
+  intelligence_index: 9
+  variant: default
+- aa_model: Mistral Large 3
+  intelligence_index: 16
+  variant: default
+- aa_model: Mistral Medium 3.5
+  intelligence_index: 30
+  variant: default
+- aa_model: Mistral Small 4
+  intelligence_index: 20
+  variant: default
+- aa_model: Motif 3
+  intelligence_index: 47
+  variant: default
+- aa_model: Muse Glimmer (high)
+  intelligence_index: 35
+  variant: high
+- aa_model: Muse Spark 1.2 (xhigh)
+  intelligence_index: 57
+  variant: xhigh
+- aa_model: Nemotron 3 Nano
+  intelligence_index: 15
+  variant: default
+- aa_model: Nemotron 3 Super
+  intelligence_index: 26
+  variant: default
+- aa_model: Nemotron 3 Ultra
+  intelligence_index: 38
+  variant: default
+- aa_model: Nemotron 3.5 Lightning
+  intelligence_index: 24
+  variant: default
+- aa_model: Nex-N2-Pro
+  intelligence_index: 42
+  variant: default
+- aa_model: North Mini Code
+  intelligence_index: 20
+  variant: default
+- aa_model: Qwen3.5 9B
+  intelligence_index: 22
+  variant: default
+- aa_model: Qwen3.7 Plus
+  intelligence_index: 39
+  variant: default
+- aa_model: Qwen3.8 2.4T A95B
+  intelligence_index: 58
+  variant: default
+- aa_model: Qwen3.8 Max
+  intelligence_index: 58
+  variant: default
+- aa_model: Qwen3.8-Flash-Next
+  intelligence_index: 56
+  variant: default
+- aa_model: Ring-2.6-1T
+  intelligence_index: 32
+  variant: default
+- aa_model: Solar Open2 250B
+  intelligence_index: 37
+  variant: default
+- aa_model: Solar Pro 3
+  intelligence_index: 14
+  variant: default
+- aa_model: Solar Pro 4
+  intelligence_index: 42
+  variant: default
+- aa_model: Step 3.7 Flash
+  intelligence_index: 31
+  variant: default
+- aa_model: Trinity Large Thinking
+  intelligence_index: 19
+  variant: default

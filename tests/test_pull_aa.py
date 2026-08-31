@@ -14,6 +14,13 @@ TRACKED = [
     {"name": "Some Model", "hf_repo": "zai-org/GLM-5.2"},
 ]
 
+ONLY_KIMI = [{"name": "Kimi K3", "hf_repo": "moonshotai/Kimi-K3"}]
+
+
+def _names(unmatched):
+    """Display names out of the unmatched entries, in file order."""
+    return [e["aa_model"] for e in unmatched]
+
 
 def test_parse_reads_every_scored_row():
     rows = pull_aa.parse_leaderboard(FIXTURE)
@@ -112,7 +119,19 @@ def test_match_falls_back_to_the_repo_tail():
 def test_match_reports_aa_rows_that_hit_nothing():
     best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
     _, unmatched = pull_aa.match_to_tracked(best, TRACKED)
-    assert unmatched == ["Claude Opus 5 (max)"]
+    assert _names(unmatched) == ["Claude Opus 5 (max)"]
+
+
+def test_unmatched_keeps_the_score_not_just_the_name():
+    """The number is what makes the file repairable offline; keep it.
+
+    Discarding it is why a score scraped for a model published that week was
+    unrecoverable without hitting AA again.
+    """
+    best = pull_aa.best_by_slug(pull_aa.parse_leaderboard(FIXTURE))
+    _, unmatched = pull_aa.match_to_tracked(best, TRACKED)
+    assert unmatched == [{"aa_model": "Claude Opus 5 (max)",
+                          "intelligence_index": 61, "variant": "max"}]
 
 
 def test_match_records_the_source_url():
@@ -168,7 +187,7 @@ def test_match_prefers_name_key_over_repo_tail_key():
     scores, unmatched = pull_aa.match_to_tracked(best, tracked)
     assert scores["org/Repo-Key"]["intelligence_index"] == 10
     assert scores["org/Repo-Key"]["aa_model"] == "Name Entry"
-    assert unmatched == ["Repo Entry"]
+    assert _names(unmatched) == ["Repo Entry"]
 
 
 def test_match_does_not_double_claim_an_aa_entry(capsys):
@@ -206,7 +225,8 @@ def test_refresh_writes_scores_and_unmatched(tmp_path):
     assert n == 3
     doc = yaml.safe_load(out.read_text())
     assert doc["scores"]["moonshotai/Kimi-K3"]["intelligence_index"] == 57
-    assert doc["unmatched"] == ["Claude Opus 5 (max)"]
+    assert doc["unmatched"] == [{"aa_model": "Claude Opus 5 (max)",
+                                "intelligence_index": 61, "variant": "max"}]
 
 
 def test_refresh_leaves_the_sidecar_untouched_when_the_fetch_failed(tmp_path):
@@ -295,4 +315,121 @@ def test_staged_candidates_get_scored(tmp_path):
     scores, unmatched = pull_aa.match_to_tracked(best, staged)
 
     assert scores["moonshotai/Kimi-K3"]["intelligence_index"] == 57
-    assert "Kimi K3 (max)" not in unmatched
+    assert "Kimi K3 (max)" not in _names(unmatched)
+
+
+def test_entries_from_sidecar_rebuilds_both_halves():
+    """Scored and unmatched rows are both scraped rows; both feed the index."""
+    doc = {
+        "scores": {"moonshotai/Kimi-K3": {
+            "aa_model": "Kimi K3 (max)", "intelligence_index": 57,
+            "variant": "max", "source": pull_aa.LEADERBOARD_URL}},
+        "unmatched": [{"aa_model": "GLM-5.2", "intelligence_index": 34,
+                       "variant": "default"}],
+    }
+    entries = pull_aa.entries_from_sidecar(doc)
+    assert set(entries) == {"kimik3", "glm52"}
+    assert entries["kimik3"]["intelligence_index"] == 57
+    assert entries["kimik3"]["variant"] == "max"
+    assert entries["glm52"]["intelligence_index"] == 34
+
+
+def test_entries_from_sidecar_rederives_the_slug():
+    """The key comes from names.slug, never from the file.
+
+    A slug stored beside the entry would go stale the moment normalisation
+    changed, and stop matching with no visible failure.
+    """
+    doc = {"scores": {"org/m": {"aa_model": "Kimi K3 (max)",
+                                "model_slug": "stale-key-from-an-old-run",
+                                "intelligence_index": 57, "variant": "max"}}}
+    assert set(pull_aa.entries_from_sidecar(doc)) == {"kimik3"}
+
+
+def test_entries_from_sidecar_skips_pre_migration_string_entries():
+    """An older file lists unmatched as bare names, which carry no score."""
+    doc = {"scores": {"org/m": {"aa_model": "Kimi K3 (max)",
+                                "intelligence_index": 57, "variant": "max"}},
+           "unmatched": ["Claude Opus 5 (max)", "GLM-5.2"]}
+    assert set(pull_aa.entries_from_sidecar(doc)) == {"kimik3"}
+
+
+def test_entries_from_sidecar_drops_entries_with_no_usable_score():
+    doc = {"unmatched": [
+        {"aa_model": "No Index"},
+        {"aa_model": "Bool Index", "intelligence_index": True},
+        {"aa_model": "Text Index", "intelligence_index": "57"},
+        {"intelligence_index": 40},
+        {"aa_model": "Good One", "intelligence_index": 40},
+    ]}
+    assert set(pull_aa.entries_from_sidecar(doc)) == {"goodone"}
+
+
+def test_entries_from_sidecar_tolerates_a_malformed_document():
+    for doc in (None, [], "scores", {}, {"scores": "nope", "unmatched": "nope"}):
+        assert pull_aa.entries_from_sidecar(doc) == {}
+
+
+def test_rejoin_scores_a_model_that_arrived_after_the_scrape(tmp_path):
+    """The GLM-5.3-Flash case, offline.
+
+    discover.yml scrapes before it discovers, so a model promoted this week
+    was joined against an index that predated it and rendered no score at all.
+    """
+    out = tmp_path / "aa_scores.yaml"
+    pull_aa.refresh(out, FIXTURE, ONLY_KIMI)
+    assert "zai-org/GLM-5.2" not in yaml.safe_load(out.read_text())["scores"]
+
+    n = pull_aa.rejoin(out, TRACKED)
+
+    doc = yaml.safe_load(out.read_text())
+    assert n == 3
+    assert doc["scores"]["zai-org/GLM-5.2"]["intelligence_index"] == 34
+    assert doc["scores"]["moonshotai/Kimi-K3"]["intelligence_index"] == 57
+    assert _names(doc["unmatched"]) == ["Claude Opus 5 (max)"]
+
+
+def test_rejoin_preserves_the_winning_variant_and_source(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    pull_aa.refresh(out, FIXTURE, ONLY_KIMI)
+    pull_aa.rejoin(out, TRACKED)
+
+    kimi = yaml.safe_load(out.read_text())["scores"]["moonshotai/Kimi-K3"]
+    assert kimi["variant"] == "max"
+    assert kimi["source"] == pull_aa.LEADERBOARD_URL
+
+
+def test_rejoin_is_idempotent(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    pull_aa.refresh(out, FIXTURE, TRACKED)
+    once = out.read_text()
+    pull_aa.rejoin(out, TRACKED)
+    assert out.read_text() == once
+
+
+def test_rejoin_drops_a_score_whose_row_is_gone(tmp_path):
+    """A row deleted from models.yaml releases its claim, exactly as a
+    re-scrape would. The entry survives in unmatched with its score."""
+    out = tmp_path / "aa_scores.yaml"
+    pull_aa.refresh(out, FIXTURE, TRACKED)
+
+    pull_aa.rejoin(out, ONLY_KIMI)
+
+    doc = yaml.safe_load(out.read_text())
+    assert "zai-org/GLM-5.2" not in doc["scores"]
+    assert {"aa_model": "GLM-5.2", "intelligence_index": 34,
+            "variant": "default"} in doc["unmatched"]
+
+
+def test_rejoin_leaves_the_file_alone_when_it_holds_no_entries(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    out.write_text("scores: {}\nunmatched: []\n")
+    before = out.read_text()
+    assert pull_aa.rejoin(out, TRACKED) is None
+    assert out.read_text() == before
+
+
+def test_rejoin_leaves_the_file_alone_when_it_cannot_be_read(tmp_path):
+    out = tmp_path / "aa_scores.yaml"
+    assert pull_aa.rejoin(out, TRACKED) is None
+    assert not out.exists()

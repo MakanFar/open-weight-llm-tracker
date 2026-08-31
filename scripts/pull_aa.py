@@ -199,6 +199,14 @@ def match_to_tracked(best, tracked):
     tracker will never carry — so it is informational, never an error. An
     entry claimed by any tracked model (even one whose claim was rejected as a
     duplicate) is not unmatched.
+
+    It carries each row's score and variant, not just its display name. The
+    join is against a SNAPSHOT of models.yaml/candidates.yaml, and a model
+    published after the last scrape has no row to claim it — so its score
+    lands here. Keeping only the name discarded the one number needed to
+    repair that later, which is why GLM-5.3-Flash's index of 57 could only be
+    recovered by hitting AA again. With the score kept, rejoin() fixes it
+    offline.
     """
     scores, claimed_by = {}, {}
     for model in tracked:
@@ -219,7 +227,12 @@ def match_to_tracked(best, tracked):
                 "source": LEADERBOARD_URL,
             }
             break
-    unmatched = sorted(e["aa_model"] for k, e in best.items() if k not in claimed_by)
+    unmatched = sorted(
+        ({"aa_model": e["aa_model"],
+          "intelligence_index": e["intelligence_index"],
+          "variant": e["variant"]}
+         for k, e in best.items() if k not in claimed_by),
+        key=lambda e: e["aa_model"])
     return scores, unmatched
 
 
@@ -228,7 +241,8 @@ HEADER = (
     "# Artificial Analysis Intelligence Index (0-100 composite), by hf_repo.\n"
     "# variant records which reasoning-effort row won (the highest scoring).\n"
     "# The index is re-weighted between versions, so values are NOT comparable\n"
-    "# across time. unmatched lists AA rows no tracked model claimed.\n"
+    "# across time. unmatched lists AA rows no tracked model claimed, with\n"
+    "# their scores, so --rejoin can re-run the join without re-fetching.\n"
 )
 
 
@@ -250,6 +264,78 @@ def write_scores(path, scores, unmatched):
     Path(path).write_text(HEADER + yaml.safe_dump(
         {"scores": scores, "unmatched": unmatched},
         sort_keys=True, allow_unicode=True, width=100))
+
+
+def entries_from_sidecar(doc):
+    """Rebuild best_by_slug's index from an already-written aa_scores.yaml.
+
+    Both halves of the file are scraped rows that differ only in whether some
+    tracked model claimed them, so both feed the index and the file becomes
+    re-joinable with no network. An `unmatched` written before those entries
+    carried a score is a list of bare strings; those are skipped, so a
+    --rejoin against a pre-migration file re-joins only what was already
+    scored. One real scrape re-populates it.
+
+    The slug is re-derived rather than read back, so names.slug stays the
+    single authority on the key: a stored one would go stale the moment that
+    normalisation changed, and silently stop matching.
+    """
+    if not isinstance(doc, dict):
+        return {}
+    scored = doc.get("scores")
+    rows = list(scored.values()) if isinstance(scored, dict) else []
+    unclaimed = doc.get("unmatched")
+    if isinstance(unclaimed, list):
+        rows += unclaimed
+
+    entries = {}
+    for entry in rows:
+        if not isinstance(entry, dict):
+            continue
+        display = entry.get("aa_model")
+        index = entry.get("intelligence_index")
+        if not isinstance(display, str) or not display:
+            continue
+        if not isinstance(index, int) or isinstance(index, bool):
+            continue
+        base, variant = split_variant(display)
+        key = names.slug(names.strip_variant_suffix(base))
+        if not key or key in entries:
+            continue
+        entries[key] = {
+            "model_slug": key,
+            "aa_model": display,
+            "variant": entry.get("variant") or variant,
+            "intelligence_index": index,
+        }
+    return entries
+
+
+def rejoin(path, tracked):
+    """Re-run the name->repo join against the current files. No network.
+
+    The join in match_to_tracked is against whatever models.yaml and
+    candidates.yaml held when the scrape ran, and discover.yml scrapes BEFORE
+    it discovers — so a model that arrives this week is joined against an
+    index that predates it and renders no score for a full week. That is
+    exactly the release the tracker exists to surface. Re-joining costs one
+    file read.
+
+    Returns the score count, or None when nothing was written.
+    """
+    name = Path(path).name
+    try:
+        doc = yaml.safe_load(Path(path).read_text()) or {}
+    except (OSError, yaml.YAMLError) as exc:
+        print(f"  ! cannot read {name}: {exc}; leaving it unchanged")
+        return None
+    entries = entries_from_sidecar(doc)
+    if not entries:
+        print(f"  ! {name} holds no scored entries; leaving it unchanged")
+        return None
+    scores, unmatched = match_to_tracked(entries, tracked)
+    write_scores(path, scores, unmatched)
+    return len(scores)
 
 
 def refresh(path, html, tracked):
@@ -274,8 +360,18 @@ def refresh(path, html, tracked):
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--html", help="parse a saved page instead of fetching")
+    source = ap.add_mutually_exclusive_group()
+    source.add_argument("--html", help="parse a saved page instead of fetching")
+    source.add_argument("--rejoin", action="store_true",
+                        help="re-run the name->repo join against the current "
+                             "models.yaml/candidates.yaml, without fetching")
     args = ap.parse_args()
+
+    if args.rejoin:
+        n = rejoin(OUT, joinable_models())
+        if n is not None:
+            print(f"Re-joined {n} AA score(s) in {OUT.name}")
+        return
 
     html = Path(args.html).read_text() if args.html else fetch_html(LEADERBOARD_URL)
     n = refresh(OUT, html, joinable_models())

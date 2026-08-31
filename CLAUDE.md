@@ -21,6 +21,7 @@ python scripts/render_json.py     # regenerate models.json from models.yaml
 python scripts/check_license.py --unverified   # licence evidence for rows still `?`
 python scripts/pull_hf.py         # dry-run: auto-fill fields from HF (--write to apply)
 python scripts/pull_aa.py         # scrape AA Intelligence Index -> aa_scores.yaml
+python scripts/pull_aa.py --rejoin  # re-run the name->repo join offline, no fetch
 python scripts/discover.py        # org sweep + arena merge -> candidates.yaml
 python scripts/pull_arena.py      # scrape arena leaderboard -> arena_agent_rankings.yaml
 ```
