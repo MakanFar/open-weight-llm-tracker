@@ -27,7 +27,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-08-29'
+generated: '2026-09-07'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -54,6 +54,7 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - family-already-tracked
+  aa_index: 44
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
@@ -72,10 +73,9 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 3
+  arena_rank: 4
   needs_hf_repo: false
   resolution_confidence: high
-  aa_index: 53
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
@@ -120,7 +120,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 8
+  arena_rank: 7
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -167,7 +167,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 26
+  arena_rank: 27
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -240,8 +240,8 @@ models:
   - family-already-tracked
   - signal-too-stale
   params_active_source: 235B in total and 22B activated
-- name: DeepSeek-V3.2-Exp
-  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
+- name: DeepSeek-V3.2-Exp-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp-Base
   developer: deepseek-ai
   release_date: 2025-09-29
   params_total_b: 685.4
@@ -252,8 +252,8 @@ models:
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp
-  downloads: 190277
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp-Base
+  downloads: 623
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -262,6 +262,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
+  - derivative-or-base
 - name: DeepSeek-R1-0528
   hf_repo: deepseek-ai/DeepSeek-R1-0528
   developer: deepseek-ai
@@ -286,10 +287,10 @@ models:
   - family-already-tracked
   - signal-too-stale
   params_active_source: 235B-A22B
-- name: DeepSeek-V3.1-Base
-  hf_repo: deepseek-ai/DeepSeek-V3.1-Base
+- name: DeepSeek-V3.1
+  hf_repo: deepseek-ai/DeepSeek-V3.1
   developer: deepseek-ai
-  release_date: 2025-08-19
+  release_date: 2025-08-21
   params_total_b: 684.5
   params_active_b: 684.5
   architecture: moe
@@ -298,8 +299,8 @@ models:
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Base
-  downloads: 23969
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1
+  downloads: 223192
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -308,7 +309,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - derivative-or-base
   - family-already-tracked
   - signal-too-stale
 - name: MiniMax-M2.7
@@ -329,7 +329,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 41
+  arena_rank: 42
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -653,7 +653,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 88
+  arena_rank: 89
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -678,7 +678,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 89
+  arena_rank: 90
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -700,7 +700,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 95
+  arena_rank: 96
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -723,7 +723,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 97
+  arena_rank: 98
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -747,10 +747,10 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 15
+  aa_index: 9
   needs_review:
   - signal-too-stale
-  arena_rank: 102
+  arena_rank: 104
   params_active_source: 21B parameters with 3.6B active
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
@@ -793,7 +793,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 107
+  arena_rank: 108
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -817,7 +817,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 112
+  arena_rank: 113
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -841,7 +841,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 113
+  arena_rank: 114
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -865,7 +865,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 116
+  arena_rank: 118
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -873,6 +873,29 @@ models:
   - family-already-tracked
   - signal-too-stale
   gated_no_access: true
+- name: granite-4.2-8b
+  hf_repo: ibm-granite/granite-4.2-8b
+  developer: ibm-granite
+  release_date: 2026-08-07
+  params_total_b: 8.8
+  params_active_b: 8.8
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.2-8b
+  downloads: 17939
+  discovered_via:
+  - arena
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 121
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - family-already-tracked
 - name: Meta-Llama-3-70B-Instruct
   hf_repo: meta-llama/Meta-Llama-3-70B-Instruct
   developer: meta-llama
@@ -890,7 +913,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 125
+  arena_rank: 128
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -914,7 +937,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 128
+  arena_rank: 131
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -936,7 +959,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 130
+  arena_rank: 133
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -966,7 +989,7 @@ models:
   - moe-active-params-unknown
   - license-not-allowlisted
   - signal-too-stale
-  arena_rank: 131
+  arena_rank: 134
 - name: Qwen2-72B-Instruct
   hf_repo: Qwen/Qwen2-72B-Instruct
   developer: Qwen
@@ -984,7 +1007,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 132
+  arena_rank: 135
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1008,7 +1031,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 135
+  arena_rank: 138
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1031,7 +1054,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 139
+  arena_rank: 142
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1054,7 +1077,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 140
+  arena_rank: 143
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1078,7 +1101,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 143
+  arena_rank: 146
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1102,7 +1125,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 149
+  arena_rank: 152
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1125,7 +1148,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 150
+  arena_rank: 153
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1148,7 +1171,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 152
+  arena_rank: 155
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1170,7 +1193,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 153
+  arena_rank: 156
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1194,7 +1217,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 155
+  arena_rank: 158
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1217,7 +1240,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 160
+  arena_rank: 163
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1240,7 +1263,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 162
+  arena_rank: 166
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1264,7 +1287,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 169
+  arena_rank: 173
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1286,7 +1309,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 173
+  arena_rank: 176
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1310,7 +1333,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 177
+  arena_rank: 180
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1332,7 +1355,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 182
+  arena_rank: 185
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1354,7 +1377,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 184
+  arena_rank: 187
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1378,7 +1401,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 189
+  arena_rank: 192
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1402,7 +1425,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 192
+  arena_rank: 195
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1424,7 +1447,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 193
+  arena_rank: 196
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1446,7 +1469,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 205
+  arena_rank: 208
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1469,32 +1492,54 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 206
+  arena_rank: 209
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
   - signal-too-stale
-- name: DeepSeek-V4-Flash-0731
-  hf_repo: deepseek-ai/DeepSeek-V4-Flash-0731
+- name: DeepSeek-V4-Pro-0813
+  hf_repo: deepseek-ai/DeepSeek-V4-Pro-0813
   developer: deepseek-ai
-  release_date: 2026-07-31
-  params_total_b: 304.2
-  params_active_b: 304.2
+  release_date: 2026-08-13
+  params_total_b: 1650.5
+  params_active_b: 1650.5
   architecture: moe
   context_window: 1048576
   modality: text
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-0731
-  downloads: 0
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813
+  downloads: 159392
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 52
+  aa_index: 36
   needs_review:
   - moe-active-params-unknown
   - family-already-tracked
+- name: Qwen3.8-2.4T-A95B
+  hf_repo: Qwen/Qwen3.8-2.4T-A95B
+  developer: Qwen
+  release_date: 2026-08-08
+  params_total_b: 2446.2
+  params_active_b: 95.0
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: qwen3-8-max
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B
+  downloads: 51967
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 2.4T in total and 95B activated
+  params_total_stated_b: 2400.0
+  aa_index: 40
+  needs_review:
+  - license-not-allowlisted
 - name: DeepSeek-V4-Flash-DSpark
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
   developer: deepseek-ai
@@ -1552,10 +1597,47 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_hf_repo: false
   resolution_confidence: high
-  aa_index: 43
   needs_review:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
+- name: granite-4.1-30b
+  hf_repo: ibm-granite/granite-4.1-30b
+  developer: ibm-granite
+  release_date: 2026-04-06
+  params_total_b: 28.9
+  params_active_b: 28.9
+  architecture: dense
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/ibm-granite/granite-4.1-30b
+  downloads: 531784
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - family-already-tracked
+- name: gemma-4-31B
+  hf_repo: google/gemma-4-31B
+  developer: google
+  release_date: 2026-03-12
+  params_total_b: 32.7
+  params_active_b: 32.7
+  architecture: dense
+  context_window: 262144
+  modality: multimodal
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/google/gemma-4-31B
+  downloads: 680498
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - family-already-tracked
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   developer: nvidia
