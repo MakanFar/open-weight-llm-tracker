@@ -1,10 +1,10 @@
 name: discover-models
-# Weekly scan of Hugging Face for new open-weight LLMs. Runs on GitHub's
+# Daily scan of Hugging Face for new open-weight LLMs. Runs on GitHub's
 # runners (which CAN reach huggingface.co) and opens a PR with new candidates
 # for you to review — the PR IS the human-in-the-loop approval step.
 on:
   schedule:
-    - cron: "0 13 * * 1"   # Mondays 13:00 UTC
+    - cron: "0 13 * * *"   # every day, 13:00 UTC
   workflow_dispatch: {}     # allow manual runs from the Actions tab
 
 permissions:
@@ -69,7 +69,7 @@ jobs:
         # render_readme.py's date sort with no clue what row caused it.
         run: python scripts/validate.py
       - name: Rebuild README and models.json (always, not just on a promotion)
-        # This must run unconditionally, every week, whether or not
+        # This must run unconditionally, every run, whether or not
         # discover.py appended a row: pull_aa.py runs earlier in this same
         # job and can change an AA Index value already in aa_scores.yaml with
         # no new row in models.yaml at all. It cuts the other way too now

@@ -8,7 +8,7 @@
 
 **What it is** — a curated, machine-readable index of **55 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
 
-**Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every week, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
+**Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every day, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
 
 **How to consume it** — fetch the data, don't scrape the table:
 
@@ -93,7 +93,7 @@ python scripts/render_json.py     # rebuild models.json
 
 ## Staying current (automatic discovery)
 
-Discovery runs weekly and classifies what it finds. A model that clears the notability bar (an Artificial Analysis score, an arena rank, or ≥500k Hugging Face downloads) **and** has no missing vitals is **appended** to `models.yaml` automatically — never edited, reordered, or deleted, only added to. A notable model missing something (most often a missing context window, or a family already tracked under a different repo name) waits in [`candidates.yaml`](candidates.yaml) with a `needs_review` list explaining what is missing. An unremarkable model is dropped before either file sees it.
+Discovery runs daily and classifies what it finds. A model that clears the notability bar (an Artificial Analysis score, an arena rank, or ≥500k Hugging Face downloads) **and** has no missing vitals is **appended** to `models.yaml` automatically — never edited, reordered, or deleted, only added to. A notable model missing something (most often a missing context window, or a family already tracked under a different repo name) waits in [`candidates.yaml`](candidates.yaml) with a `needs_review` list explaining what is missing. An unremarkable model is dropped before either file sees it.
 
 [`scripts/discover.py`](scripts/discover.py) sweeps an allowlist of organizations — one Hugging Face query per org — rather than scanning all of HF by recency. Sorting the whole Hub by upload date returns finetunes and quantizations, essentially never a frontier release. **Adding an org to `ORG_ALLOWLIST` in `scripts/discover.py` is how the tracker gains coverage.** It skips quantizations/adapters/merges, dedups against `models.yaml`, and writes new rows with fields pre-filled.
 
@@ -101,7 +101,7 @@ Discovery runs weekly and classifies what it finds. A model that clears the nota
 
 **Open-weight status comes from whether weights actually resolve on Hugging Face** — not from a vendor's name and not from a leaderboard's license label. A model is open-weight if and only if a public weights repo was found for it. See [SCHEMA.md](SCHEMA.md) for the discovery-only fields, including `needs_hf_repo`, which flags an inexact name match for a human to confirm.
 
-The `discover-models` GitHub Action runs this weekly and opens a **pull request** — nothing it does ever commits straight to `main`, and that PR is the human-in-the-loop approval step. A row in the table above marked with a trailing `?` on **Commercial** was auto-promoted with `commercial_use` inferred from the licence tag: check it against the licence text before merging. For a row left in `candidates.yaml`, fill the gap named in its `needs_review` list and the next run promotes it automatically.
+The `discover-models` GitHub Action runs this daily and opens a **pull request** — nothing it does ever commits straight to `main`, and that PR is the human-in-the-loop approval step. A row in the table above marked with a trailing `?` on **Commercial** was auto-promoted with `commercial_use` inferred from the licence tag: check it against the licence text before merging. For a row left in `candidates.yaml`, fill the gap named in its `needs_review` list and the next run promotes it automatically.
 
 ## License
 

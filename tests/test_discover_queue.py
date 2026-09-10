@@ -155,7 +155,7 @@ def test_schema_invalid_carried_forward_row_is_demoted_not_promoted(tmp_path):
     test_staged_row_with_unusable_release_date_survives proves a human can
     type. missing_vitals alone would wave this row through to models.yaml,
     where render_readme's date sort then raises TypeError comparing a
-    datetime.date to a str, killing the whole weekly PR. The promotion gate
+    datetime.date to a str, killing the whole discovery PR. The promotion gate
     must also run validate.py's per-row checks and demote a failure to
     review — never append it — carrying the specific complaint so a human
     can see what is wrong.
@@ -234,7 +234,7 @@ def test_refresh_reenriches_a_carried_forward_row_with_unmet_vitals(tmp_path):
 def test_refresh_does_not_reenrich_a_carried_forward_row_that_is_already_complete(tmp_path):
     """Only rows classify.missing_vitals still flags should get a re-fetch
     attempt — a fully complete row must not pay for a network round trip on
-    every single weekly run forever."""
+    every single scheduled run forever."""
     def boom(url):
         raise AssertionError(f"should not have fetched {url} for a complete row")
 
