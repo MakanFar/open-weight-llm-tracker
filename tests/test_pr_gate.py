@@ -195,3 +195,43 @@ def test_cli_prints_a_bare_boolean_on_stdout():
         cwd=str(Path(pr_gate.__file__).resolve().parent.parent))
     assert proc.returncode == 0
     assert proc.stdout.strip() in ("true", "false")
+
+
+# --- the workflow step that consumes it ------------------------------------
+
+def _gate_step():
+    import yaml
+    wf = yaml.safe_load(
+        (Path(__file__).resolve().parent.parent
+         / ".github" / "workflows" / "discover.yml").read_text())
+    steps = wf["jobs"]["discover"]["steps"]
+    return next(s for s in steps if s.get("id") == "worth"), steps
+
+
+def test_the_pr_step_is_gated_on_the_gate():
+    _, steps = _gate_step()
+    pr = next(s for s in steps
+              if str(s.get("uses", "")).startswith("peter-evans/create-pull-request"))
+    assert pr["if"] == "steps.worth.outputs.changed == 'true'"
+
+
+def test_the_gate_step_assigns_on_its_own_line_so_a_crash_fails_the_job():
+    """`echo "changed=$(cmd)"` swallows cmd's exit status even under bash -e.
+
+    Written that way, a crashed gate writes a bare `changed=`, the step
+    exits 0, and the PR step's `if` reads it as false — silently suppressing
+    a release, which is the one failure this whole gate exists to prevent.
+    A bare assignment propagates the status; keep it on its own line.
+    """
+    step, _ = _gate_step()
+    run = step["run"]
+    assert "changed=$(python scripts/pr_gate.py)" in run
+    assert 'echo "changed=$(python' not in run
+
+
+def test_the_gate_step_rejects_a_value_that_is_not_true_or_false():
+    """Belt to the assignment's braces: garbage on stdout must not read as
+    false. Anything unrecognised fails the job instead."""
+    step, _ = _gate_step()
+    assert "exit 1" in step["run"]
+    assert "true|false)" in step["run"]
