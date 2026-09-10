@@ -95,7 +95,22 @@ jobs:
         # matters is the quiet one: over-suppression drops a discovered
         # frontier release with no PR and no error to notice.
         id: worth
-        run: echo "changed=$(python scripts/pr_gate.py)" >> "$GITHUB_OUTPUT"
+        run: |
+          # The assignment gets its OWN line, and that is load-bearing.
+          # `echo "changed=$(cmd)"` discards cmd's exit status even under
+          # GitHub's default `bash -e` shell, so a gate that crashed would
+          # write a bare `changed=`, the step would exit 0, and the PR step's
+          # `if` would read that as false: a silently suppressed release,
+          # which is the exact failure this gate exists to prevent. A bare
+          # assignment DOES propagate the substitution's status, so a broken
+          # gate fails the job loudly instead of quietly eating the PR.
+          changed=$(python scripts/pr_gate.py)
+          case "$changed" in
+            true|false) ;;
+            *) echo "::error::pr_gate.py printed '$changed', expected true or false"
+               exit 1 ;;
+          esac
+          echo "changed=$changed" >> "$GITHUB_OUTPUT"
       - name: Open PR if there are new candidates
         if: steps.worth.outputs.changed == 'true'
         uses: peter-evans/create-pull-request@v6
