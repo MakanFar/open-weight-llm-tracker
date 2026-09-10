@@ -34,6 +34,10 @@ scores:
     aa_model: Command A+
     intelligence_index: 14
     variant: default
+  deepseekv41flash:
+    aa_model: DeepSeek V4.1 Flash (max)
+    intelligence_index: 40
+    variant: max
   deepseekv4flash0731:
     aa_model: DeepSeek V4 Flash 0731 (max)
     intelligence_index: 35
@@ -84,7 +88,7 @@ scores:
     variant: default
   glm53:
     aa_model: GLM-5.3 (max)
-    intelligence_index: 44
+    intelligence_index: 45
     variant: max
   glm53flash:
     aa_model: GLM-5.3-Flash
@@ -122,6 +126,10 @@ scores:
     aa_model: Granite 4.2 3B
     intelligence_index: 9
     variant: default
+  granite428b:
+    aa_model: Granite 4.2 8B
+    intelligence_index: 12
+    variant: default
   grok43:
     aa_model: Grok 4.3 (Non-reasoning)
     intelligence_index: 15
@@ -146,10 +154,18 @@ scores:
     aa_model: Inkling Small
     intelligence_index: 26
     variant: default
+  kimik27code:
+    aa_model: Kimi K2.7 Code
+    intelligence_index: 26
+    variant: default
   kimik3:
     aa_model: Kimi K3 (max)
     intelligence_index: 44
     variant: max
+  ling30flashvl:
+    aa_model: Ling-3.0-flash-VL
+    intelligence_index: 25
+    variant: default
   ling30tiny:
     aa_model: Ling 3.0 Tiny
     intelligence_index: 12
@@ -162,6 +178,10 @@ scores:
     aa_model: Llama 4 Scout
     intelligence_index: 6
     variant: default
+  longcat20:
+    aa_model: LongCat 2.0
+    intelligence_index: 20
+    variant: default
   mercury2:
     aa_model: Mercury 2
     intelligence_index: 12
@@ -173,6 +193,10 @@ scores:
   mimov25pro:
     aa_model: MiMo-V2.5-Pro
     intelligence_index: 26
+    variant: default
+  minicpm52b:
+    aa_model: MiniCPM5-2B
+    intelligence_index: 13
     variant: default
   minimaxm3:
     aa_model: MiniMax-M3
@@ -246,6 +270,10 @@ scores:
     aa_model: Qwen3.6 27B
     intelligence_index: 22
     variant: default
+  qwen3635ba3b:
+    aa_model: Qwen3.6 35B A3B
+    intelligence_index: 19
+    variant: default
   qwen37plus:
     aa_model: Qwen3.7 Plus
     intelligence_index: 26
@@ -258,6 +286,14 @@ scores:
     aa_model: Qwen3.8 27B (xhigh)
     intelligence_index: 34
     variant: xhigh
+  qwen38flashnext:
+    aa_model: Qwen3.8-Flash-Next
+    intelligence_index: 40
+    variant: default
+  qwen38max:
+    aa_model: Qwen3.8 Max
+    intelligence_index: 40
+    variant: default
   qwen3codernext:
     aa_model: Qwen3 Coder Next
     intelligence_index: 10
