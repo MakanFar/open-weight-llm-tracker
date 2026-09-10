@@ -725,7 +725,7 @@ models:
 
 
 def test_write_candidates_stamps_the_run_date(tmp_path):
-    """The README's 'last discovery run' line reads this stamp.
+    """The README's 'index updated' badge reads this stamp.
 
     It has to come from the data, not from date.today() at render time:
     validate.yml re-renders the README and fails on any diff, so a rendered

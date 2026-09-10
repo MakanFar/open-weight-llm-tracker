@@ -34,7 +34,7 @@ RAW_URL = "https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/ma
 
 
 def load_generated(path=CANDIDATES):
-    """ISO date of the last discovery run, or None if unstamped.
+    """ISO date the published index last changed, or None if unstamped.
 
     Read from candidates.yaml (discover.write_candidates puts it there), never
     from the clock. validate.yml re-renders this README and fails on any diff
@@ -57,7 +57,12 @@ def load_generated(path=CANDIDATES):
 
 def badges(n, generated):
     """Shields for CI, size and freshness. Hyphens in a shields label must be
-    doubled, so a date renders as 2026--08--28."""
+    doubled, so a date renders as 2026--08--28.
+
+    The freshness shield says "index updated", not "last discovery run".
+    Discovery runs daily, but pr_gate.py suppresses a PR when nothing but the
+    run stamp moved, so the committed stamp is the date the DATA last changed
+    — which is the useful number anyway, and the cadence is in the prose."""
     out = [
         f"[![validate]({REPO_URL}/actions/workflows/validate.yml/badge.svg)]"
         f"({REPO_URL}/actions/workflows/validate.yml)",
@@ -66,8 +71,8 @@ def badges(n, generated):
     if generated:
         stamp = generated.replace("-", "--")
         out.append(
-            f"[![last discovery run](https://img.shields.io/badge/"
-            f"last%20discovery%20run-{stamp}-1f6feb)]"
+            f"[![index updated](https://img.shields.io/badge/"
+            f"index%20updated-{stamp}-1f6feb)]"
             f"({REPO_URL}/actions/workflows/discover.yml)")
     out.append("[![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)")
     out.append("[![data: CC BY 4.0](https://img.shields.io/badge/"

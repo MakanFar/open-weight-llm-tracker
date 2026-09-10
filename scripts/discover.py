@@ -911,7 +911,7 @@ HEADER = (
 def write_candidates(path, candidates, generated=None):
     """Replace the queue file wholesale, stamped with the run date.
 
-    The stamp is what the README's "last discovery run" line reads. It has to
+    The stamp is what the README's "index updated" badge reads. It has to
     live in the data rather than be computed at render time: validate.yml
     re-renders the README and fails on any diff, so a date.today() baked into
     the rendered prose would break CI on the first day nobody ran discovery.

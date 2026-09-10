@@ -49,7 +49,7 @@ Each list entry is one model. Fields:
 
 `candidates.yaml` is written by `scripts/discover.py` and holds *unreviewed*
 models. The file carries one top-level key besides `models:` — `generated`, the
-ISO date of the last discovery run, which is what the README's "last discovery
+ISO date the published index last changed, which is what the README's "index updated"
 run" badge reads (rendered output must never call `date.today()`, or CI's
 re-render diff fails the day after). Rows use the `models.yaml` fields above
 plus the discovery-only fields below. **Strip all of these fields when promoting a row into `models.yaml`** —
