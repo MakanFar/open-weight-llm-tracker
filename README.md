@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-55-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--09--07-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--09--10-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -40,7 +40,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 9 | 31 | `mit` | Yes |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 284B (13B active) | 1M | text | 22 | 35 | `mit` | Yes |
 | [Qwen3.6-27B](https://huggingface.co/Qwen/Qwen3.6-27B) | Qwen | 2026-04-21 | 27.8B | 262K | multimodal | — | 22 | `apache-2.0` | Yes |
-| [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) | Qwen | 2026-04-15 | 36B (3B active) | 262K | multimodal | — | — | `apache-2.0` | Yes |
+| [Qwen3.6-35B-A3B](https://huggingface.co/Qwen/Qwen3.6-35B-A3B) | Qwen | 2026-04-15 | 36B (3B active) | 262K | multimodal | — | 19 | `apache-2.0` | Yes |
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 111 | — | `apache-2.0` | Yes |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 13 | 15 | `apache-2.0` | Yes |
 | [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 20 | — | `apache-2.0` | Yes |

@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-07",
+  "generated": "2026-09-10",
   "count": 55,
   "models": [
     {
@@ -338,7 +338,7 @@
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
       "arena_rank": null,
-      "aa_index": null
+      "aa_index": 19
     },
     {
       "name": "granite-4.1-8b",
