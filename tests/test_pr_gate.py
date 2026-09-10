@@ -68,7 +68,37 @@ def test_a_promoted_model_is_worth_a_pr():
         == ["models.yaml"]
 
 
-def test_a_models_json_change_alone_is_worth_a_pr():
+def test_the_models_json_stamp_alone_is_not_worth_a_pr():
+    """models.json republishes the same run date as a top-level field.
+
+    Missed on the first pass: the gate then fired on a simulated no-op run
+    and named models.json as the substantive change. Wrong in the safe
+    direction — a spurious PR, not a swallowed release — but it defeats the
+    whole gate, which is why all three stamp carriers are now pinned below.
+    """
+    before = {"models.json": '{\n  "generated": "2026-09-09",\n  "count": 55\n}'}
+    after = {"models.json": '{\n  "generated": "2026-09-10",\n  "count": 55\n}'}
+    assert pr_gate.changed_paths(before, after) == []
+
+
+def test_the_json_stamp_mask_leaves_the_rest_of_the_document():
+    text = '{\n  "generated": "2026-09-10",\n  "count": 55\n}'
+    masked = pr_gate.mask("models.json", text)
+    assert "2026-09-10" not in masked and '"count": 55' in masked
+
+
+def test_the_json_stamp_mask_matches_what_render_json_actually_writes(tmp_path):
+    """The third pin. render_json builds the stamp through the same
+    load_generated() the README badge uses."""
+    import render_json
+    doc = render_json.build([], {}, {}, "2026-09-10")
+    import json
+    line = [l for l in json.dumps(doc, indent=2).splitlines() if '"generated"' in l]
+    assert len(line) == 1
+    assert pr_gate.mask("models.json", line[0]).strip() == '"generated": <run date>'
+
+
+def test_a_models_json_content_change_is_worth_a_pr():
     """models.json carries the AA index and arena rank the README rounds off,
     so it can move on its own."""
     assert pr_gate.changed_paths({"models.json": "[]"}, {"models.json": '[{}]'}) \

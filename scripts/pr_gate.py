@@ -43,10 +43,19 @@ WATCHED = ("models.yaml", "candidates.yaml", "README.md", "models.json")
 # search is how this file would start hiding real diffs.
 _STAMP_RE = re.compile(r"(?m)^generated:.*$")
 _BADGE_RE = re.compile(r"(?m)^\[!\[index updated\].*$")
+_JSON_STAMP_RE = re.compile(r'(?m)^\s*"generated":.*$')
 
+# THREE files carry the run date, not two. models.json republishes the same
+# stamp as a top-level field, and it was missed on the first pass here — the
+# gate then fired on a simulated no-op run and reported models.json as a
+# substantive change. That is the SAFE direction to be wrong in (a spurious
+# PR, not a swallowed release) but it defeats the point, and it is the reason
+# each mask below is pinned by a test to the code that emits it: a fourth
+# consumer of load_generated() would otherwise reintroduce this silently.
 _MASKS = {
     "candidates.yaml": (_STAMP_RE, "generated: <run date>"),
     "README.md": (_BADGE_RE, "<freshness badge>"),
+    "models.json": (_JSON_STAMP_RE, '  "generated": <run date>'),
 }
 
 
