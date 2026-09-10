@@ -342,7 +342,7 @@ def test_refresh_is_quiet_when_the_params_are_already_right(capsys):
 
 def test_refresh_reads_one_model_info_per_row():
     """Both facts come off the same response. Fetching twice would double the
-    request count on every carried row of every weekly run for nothing."""
+    request count on every carried row of every scheduled run for nothing."""
     rows = [{"hf_repo": "org/m", "modality": "text", "architecture": "dense",
              "params_total_b": 7.0, "params_active_b": 7.0}]
     api = _FactsApi({"org/m": "image-text-to-text"}, totals={"org/m": 8.0})

@@ -438,7 +438,7 @@ def test_string_params_total_b_is_schema_invalid_and_routes_to_review():
     licence, needs_hf_repo, family stem are all fine -- so before validate's
     type check existed this promoted straight through, and
     render_readme.human_params then raised ValueError on f"{total:g}" for a
-    str, killing the weekly PR after the schema gate had already said OK.
+    str, killing the discovery PR after the schema gate had already said OK.
 
     architecture="moe" here is deliberate, not incidental: with the default
     "dense" the pre-existing active==total equality check happens to catch
@@ -589,7 +589,7 @@ def test_review_reasons_keeps_schema_errors_with_no_vitals_counterpart():
 def test_review_reasons_returns_plain_yaml_safe_strings():
     """needs_review is written straight to candidates.yaml. A str SUBCLASS
     leaking through here makes yaml.safe_dump raise RepresenterError and
-    takes the whole weekly run down with it."""
+    takes the whole scheduled run down with it."""
     import yaml
     row = _row(context_window=0, license="nope", release_date="whenever")
     reasons = classify.review_reasons(row, set())

@@ -40,7 +40,7 @@ def test_row_errors_flags_a_string_params_total_b():
     stray quote) is a very plausible hand-edit. Before this check,
     row_errors let it through, classify.route() promoted it, and
     render_readme.human_params blew up with `f"{total:g}"` on a str -- with
-    no continue-on-error on that CI step, the whole weekly PR was lost.
+    no continue-on-error on that CI step, the whole discovery PR was lost.
 
     architecture="moe" and a numeric params_active_b keep the pre-existing
     dense-equality check (whose message text happens to mention both field

@@ -237,7 +237,7 @@ def test_badges_double_the_hyphens_in_a_date():
 def test_badges_omit_the_freshness_one_when_nothing_is_stamped():
     """Better no claim than a badge implying a run that never happened."""
     out = rr.badges(33, None)
-    assert "last%20discovery%20run" not in out
+    assert "index%20updated" not in out
     assert "models-33-" in out
 
 

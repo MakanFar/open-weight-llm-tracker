@@ -35,7 +35,7 @@ Thanks for adding to the tracker. A few rules keep the data comparable and trust
 
 ## Reviewing auto-discovered candidates
 
-`scripts/discover.py` (run weekly by the `discover-models` Action) no longer only
+`scripts/discover.py` (run daily by the `discover-models` Action) no longer only
 stages — it **classifies**. Each discovered model is routed one of three ways: an
 unremarkable one is dropped before either file sees it; a notable one with no missing
 vitals and no schema problems is **appended straight into `models.yaml`**; everything
@@ -44,7 +44,7 @@ edits, reorders, or deletes an existing row — appending to `models.yaml` is th
 write it makes there. Entries come from an org sweep, from the arena leaderboard, or
 both — `discovered_via` says which.
 
-The human gate is the weekly PR itself, not a hand-move step. When a discovery PR
+The human gate is the discovery PR itself, not a hand-move step. When a discovery PR
 shows up:
 
 1. **In `models.yaml`'s diff** — the rows `discover.py` auto-promoted. Check each is a

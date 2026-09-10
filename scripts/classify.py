@@ -348,7 +348,7 @@ def schema_errors(row):
     by a human and can carry a release_date like "sometime in 2025" —
     missing_vitals has no opinion on that, so without this check such a row
     would promote, and render_readme.py's release_date sort would then raise
-    TypeError comparing a datetime.date to a str, killing the weekly PR with
+    TypeError comparing a datetime.date to a str, killing the discovery PR with
     no PR ever opening. Reuses validate.row_errors rather than
     reimplementing CI's rules, so the two can never drift apart.
     """
@@ -377,7 +377,7 @@ def review_reasons(row, tracked_stems, today=None):
 
     Returns plain `str`, never validate.SchemaError: the list goes straight
     into yaml.safe_dump, which raises RepresenterError on a str subclass and
-    would take down the whole weekly run.
+    would take down the whole scheduled run.
     """
     vitals = missing_vitals(row, tracked_stems, today)
     covered = {_VITALS_COVERS_FIELD[r] for r in vitals

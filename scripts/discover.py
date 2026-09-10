@@ -114,7 +114,7 @@ CANDIDATES = ROOT / "candidates.yaml"
 ARENA = ROOT / "arena_agent_rankings.yaml"
 AA = ROOT / "aa_scores.yaml"
 
-# How far back the org sweep reaches. Kept generous relative to the weekly
+# How far back the org sweep reaches. Kept generous relative to the daily
 # schedule so a run that fails or is skipped does not create a coverage hole.
 DEFAULT_MAX_AGE_DAYS = 180
 
@@ -545,7 +545,7 @@ def refresh_hf_facts(api, rows):
     which means every HF-derived field it was born with is frozen. Two of
     those go stale in ways validate.py cannot catch, so both are re-read here
     from ONE model_info response: fetching twice would double the request
-    count on every carried row of every weekly run for nothing.
+    count on every carried row of every scheduled run for nothing.
 
     Deliberately NOT gated on missing_vitals, unlike the re-enrichment loop
     at the call site. A row with no gaps is promotable, so a frozen wrong
@@ -911,7 +911,7 @@ HEADER = (
 def write_candidates(path, candidates, generated=None):
     """Replace the queue file wholesale, stamped with the run date.
 
-    The stamp is what the README's "last discovery run" line reads. It has to
+    The stamp is what the README's "index updated" badge reads. It has to
     live in the data rather than be computed at render time: validate.yml
     re-renders the README and fails on any diff, so a date.today() baked into
     the rendered prose would break CI on the first day nobody ran discovery.
