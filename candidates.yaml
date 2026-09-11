@@ -10,14 +10,15 @@
 # promote a row yourself instead of waiting, move it into models.yaml and
 # strip the discovery-only fields listed in SCHEMA.md.
 #
-# family-already-tracked is the one reason you cannot fix by filling a
-# gap -- it means this release collides with a family already in
-# models.yaml and someone has to decide supersede-or-coexist. To answer
-# COEXIST, add `family_collision_reviewed: true` to the row and the next
-# run promotes it. It must be a real YAML bool -- `true`, not "true" or
-# yes -- and it clears ONLY the collision, never any other reason. To
-# answer SUPERSEDE, edit models.yaml by hand; discover.py only ever
-# appends and will never retire a row for you.
+# duplicates-tracked-row is the one reason you cannot fix by filling a
+# gap -- this repo id names the same weights as a row already in
+# models.yaml (a dated snapshot of it, or its base against a tracked
+# instruct tune), and one row per model is the rule. If the two really
+# are different models, add `duplicate_reviewed: true` to the row and
+# the next run promotes it. It must be a real YAML bool -- `true`, not
+# "true" or yes -- and it clears ONLY this reason. To RETIRE the older
+# row instead, edit models.yaml by hand; discover.py only ever appends
+# and will never retire a row for you.
 #
 # gated-repo-no-access means the repo's config.json answered 401/403:
 # the context window exists, we are just not allowed to read it. Accept
@@ -53,7 +54,6 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - family-already-tracked
   aa_index: 45
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
@@ -78,7 +78,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -102,7 +101,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -125,7 +123,6 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - family-already-tracked
   params_active_source: Activated Parameters** | 32B
 - name: GLM-4.7
   hf_repo: zai-org/GLM-4.7
@@ -149,7 +146,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
 - name: gemma-4-26B-A4B
   hf_repo: google/gemma-4-26B-A4B
   developer: google
@@ -172,7 +168,7 @@ models:
   resolution_confidence: high
   params_active_source: Active Parameters** | 3.8B
   needs_review:
-  - family-already-tracked
+  - duplicates-tracked-row
 - name: Mistral-Medium-3.5-128B
   hf_repo: mistralai/Mistral-Medium-3.5-128B
   developer: mistralai
@@ -214,7 +210,6 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
   arena_rank: 29
 - name: GLM-4.6
   hf_repo: zai-org/GLM-4.6
@@ -238,7 +233,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
 - name: Qwen3-235B-A22B-Instruct-2507
   hf_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
   developer: Qwen
@@ -260,7 +254,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
+  - duplicates-tracked-row
   - signal-too-stale
   params_active_source: 235B in total and 22B activated
 - name: DeepSeek-V3.2-Exp
@@ -306,7 +300,7 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
+  - duplicates-tracked-row
   - signal-too-stale
   params_active_source: 235B-A22B
 - name: DeepSeek-V3.1
@@ -331,7 +325,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
   - signal-too-stale
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
@@ -357,7 +350,6 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - family-already-tracked
 - name: DeepSeek-V3.1-Terminus
   hf_repo: deepseek-ai/DeepSeek-V3.1-Terminus
   developer: deepseek-ai
@@ -401,7 +393,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
   - signal-too-stale
   params_active_source: 355B-A32B
 - name: Qwen3-235B-A22B-Thinking-2507
@@ -449,7 +440,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
+  - duplicates-tracked-row
   - signal-too-stale
 - name: MiniMax-M2.5
   hf_repo: MiniMaxAI/MiniMax-M2.5
@@ -471,7 +462,6 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - family-already-tracked
   arena_rank: 60
 - name: Qwen3-Coder-480B-A35B-Instruct
   hf_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
@@ -657,7 +647,6 @@ models:
   needs_review:
   - moe-active-params-unknown
   - license-not-allowlisted
-  - family-already-tracked
 - name: gemma-3-12b-it
   hf_repo: google/gemma-3-12b-it
   developer: google
@@ -680,7 +669,6 @@ models:
   resolution_confidence: high
   needs_review:
   - gated-repo-no-access
-  - family-already-tracked
   - signal-too-stale
   gated_no_access: true
 - name: QwQ-32B
@@ -750,7 +738,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
   - signal-too-stale
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
@@ -820,7 +807,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
   - signal-too-stale
 - name: gemma-3-4b-it
   hf_repo: google/gemma-3-4b-it
@@ -867,7 +853,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
   - signal-too-stale
   - 'schema-invalid: [Mistral-Small-3.1-24B-Instruct-2503] missing required field: modality'
 - name: Llama-3.1-70B-Instruct
@@ -892,7 +877,6 @@ models:
   resolution_confidence: high
   needs_review:
   - gated-repo-no-access
-  - family-already-tracked
   - signal-too-stale
   gated_no_access: true
 - name: granite-4.2-8b
@@ -916,8 +900,6 @@ models:
   arena_rank: 121
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - family-already-tracked
   aa_index: 12
 - name: Meta-Llama-3-70B-Instruct
   hf_repo: meta-llama/Meta-Llama-3-70B-Instruct
@@ -1035,7 +1017,6 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - family-already-tracked
   - signal-too-stale
 - name: OLMo-2-0325-32B-Instruct
   hf_repo: allenai/OLMo-2-0325-32B-Instruct
@@ -1058,7 +1039,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
   - signal-too-stale
 - name: Qwen1.5-110B-Chat
   hf_repo: Qwen/Qwen1.5-110B-Chat
@@ -1105,7 +1085,6 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - family-already-tracked
   - signal-too-stale
 - name: Meta-Llama-3-8B-Instruct
   hf_repo: meta-llama/Meta-Llama-3-8B-Instruct
@@ -1152,7 +1131,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
   - signal-too-stale
 - name: Qwen1.5-32B-Chat
   hf_repo: Qwen/Qwen1.5-32B-Chat
@@ -1267,7 +1245,6 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - family-already-tracked
   - signal-too-stale
 - name: gemma-1.1-7b-it
   hf_repo: google/gemma-1.1-7b-it
@@ -1405,7 +1382,6 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
-  - family-already-tracked
   - signal-too-stale
 - name: gemma-7b-it
   hf_repo: google/gemma-7b-it
@@ -1540,7 +1516,6 @@ models:
   aa_index: 40
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
 - name: Qwen3.8-Flash-Next
   hf_repo: Qwen/Qwen3.8-Flash-Next
   developer: Qwen
@@ -1582,7 +1557,7 @@ models:
   aa_index: 36
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
+  - duplicates-tracked-row
 - name: Qwen3.8-2.4T-A95B
   hf_repo: Qwen/Qwen3.8-2.4T-A95B
   developer: Qwen
@@ -1644,7 +1619,7 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
-  - family-already-tracked
+  - duplicates-tracked-row
 - name: DeepSeek-V4-Flash-DSpark
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
   developer: deepseek-ai
@@ -1723,8 +1698,6 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - family-already-tracked
 - name: gemma-4-31B
   hf_repo: google/gemma-4-31B
   developer: google
@@ -1743,7 +1716,7 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
-  - family-already-tracked
+  - duplicates-tracked-row
 - name: NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   developer: nvidia

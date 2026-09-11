@@ -165,19 +165,23 @@ def tracked_repos(path=DATA):
 # needs_review is classify.route's own output (why a row waited rather than
 # promoted); a promoted row has already cleared that bar, so the reason it
 # once carried is stale and must not survive into models.yaml.
-# family_collision_reviewed records a REVIEWER'S DECISION about a
-# candidates.yaml collision, not a fact about the model. Once the row is in
-# models.yaml the collision it answered is resolved and the marker is
-# meaningless there, so it is stripped like needs_review.
+# duplicate_reviewed records a REVIEWER'S DECISION about a candidates.yaml
+# collision, not a fact about the model. Once the row is in models.yaml the
+# collision it answered is resolved and the marker is meaningless there, so
+# it is stripped like needs_review.
 PROMOTION_STRIP_FIELDS = ("discovered_via", "arena_rank", "aa_index",
                           "downloads", "needs_hf_repo", "resolution_confidence",
-                          "needs_review", "family_collision_reviewed",
+                          "needs_review", "duplicate_reviewed",
                           "gated_no_access")
 
 
-def tracked_stems(path=DATA):
-    """Family stems already present in models.yaml."""
-    return {names.family_stem(r["hf_repo"]) for r in _rows_of(path)}
+def tracked_identities(path=DATA):
+    """Repo identities already present in models.yaml.
+
+    The same key validate.identity_errors uses, so the promotion gate and
+    the published-index check cannot disagree about what a duplicate is.
+    """
+    return {names.repo_identity(r["hf_repo"]) for r in _rows_of(path)}
 
 
 def promotion_row(candidate):
@@ -888,14 +892,15 @@ HEADER = (
     "# promote a row yourself instead of waiting, move it into models.yaml and\n"
     "# strip the discovery-only fields listed in SCHEMA.md.\n"
     "#\n"
-    "# family-already-tracked is the one reason you cannot fix by filling a\n"
-    "# gap -- it means this release collides with a family already in\n"
-    "# models.yaml and someone has to decide supersede-or-coexist. To answer\n"
-    "# COEXIST, add `family_collision_reviewed: true` to the row and the next\n"
-    "# run promotes it. It must be a real YAML bool -- `true`, not \"true\" or\n"
-    "# yes -- and it clears ONLY the collision, never any other reason. To\n"
-    "# answer SUPERSEDE, edit models.yaml by hand; discover.py only ever\n"
-    "# appends and will never retire a row for you.\n"
+    "# duplicates-tracked-row is the one reason you cannot fix by filling a\n"
+    "# gap -- this repo id names the same weights as a row already in\n"
+    "# models.yaml (a dated snapshot of it, or its base against a tracked\n"
+    "# instruct tune), and one row per model is the rule. If the two really\n"
+    "# are different models, add `duplicate_reviewed: true` to the row and\n"
+    "# the next run promotes it. It must be a real YAML bool -- `true`, not\n"
+    "# \"true\" or yes -- and it clears ONLY this reason. To RETIRE the older\n"
+    "# row instead, edit models.yaml by hand; discover.py only ever appends\n"
+    "# and will never retire a row for you.\n"
     "#\n"
     "# gated-repo-no-access means the repo's config.json answered 401/403:\n"
     "# the context window exists, we are just not allowed to read it. Accept\n"
@@ -917,8 +922,17 @@ def write_candidates(path, candidates, generated=None):
     the rendered prose would break CI on the first day nobody ran discovery.
     Stored as an ISO string so a YAML round-trip cannot turn it back into a
     date object the renderer would then have to format.
+
+    `generated` accepts either a date or the ISO string this function itself
+    writes, because a caller re-writing an existing queue file (see
+    refresh_review.py) has read the stamp back out of YAML and holds the
+    string form. Round-tripping it through date.fromisoformat only to
+    re-serialise it would also turn a malformed stamp into a crash, when
+    carrying it through unchanged is both harmless and more honest about
+    where the value came from.
     """
-    stamp = (generated or date.today()).isoformat()
+    stamp = generated or date.today()
+    stamp = stamp if isinstance(stamp, str) else stamp.isoformat()
     Path(path).write_text(HEADER + yaml.safe_dump(
         {"generated": stamp, "models": candidates},
         sort_keys=False, allow_unicode=True, width=100))
@@ -957,7 +971,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # row automatically instead of leaving it stuck in review forever.
     #
     # Gated on missing_vitals so a fully complete row is never re-fetched —
-    # tracked_stems(data_path) does not change within this call, so computing
+    # tracked_identities(data_path) does not change within this call, so computing
     # it once up front is enough to gate this loop.
     #
     # info=None: a carried-forward row has no ModelInfo (it was not fetched
@@ -974,9 +988,9 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     # so a stale total has to be corrected first. See refresh_hf_facts.
     refresh_hf_facts(api, staged)
 
-    stems = tracked_stems(data_path)
+    identities = tracked_identities(data_path)
     for row in staged:
-        if classify.missing_vitals(row, stems, today=today):
+        if classify.missing_vitals(row, identities, today=today):
             enrich_row(row, None, get_text, get_json)
 
     print(f"Sweeping {len(orgs)} orgs (min {min_params}B params, "
@@ -1007,17 +1021,17 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
     arena_index = load_arena_index(arena_path)
     annotate_arena_rank(candidates, arena_index)
 
-    # Reuses the `stems` computed above the re-enrichment loop rather than
-    # recomputing tracked_stems(data_path) — nothing in between mutates
+    # Reuses the `identities` computed above the re-enrichment loop rather than
+    # recomputing tracked_identities(data_path) — nothing in between mutates
     # data_path, so the value is still current.
     promoted, queue = [], []
     for row in candidates:
-        verdict = classify.route(row, stems, today=today)
+        verdict = classify.route(row, identities, today=today)
         if verdict == "drop":
             continue
         if verdict == "promote":
             promoted.append(row)
-            stems.add(names.family_stem(row["hf_repo"]))
+            identities.add(names.repo_identity(row["hf_repo"]))
             continue
         # route() can land here for two independent reasons: missing_vitals
         # (worth a look but not complete) and/or schema_errors (would fail
@@ -1025,7 +1039,7 @@ def refresh(api, min_params, *, orgs=None, data_path=DATA,
         # release_date that is not a date). review_reasons surfaces both so a
         # reviewer sees everything wrong in one pass, without reporting the
         # same gap twice — see it for how the overlap is suppressed.
-        row["needs_review"] = classify.review_reasons(row, stems, today=today)
+        row["needs_review"] = classify.review_reasons(row, identities, today=today)
         queue.append(row)
 
     print(f"  {len(promoted)} promotable, {len(queue)} need review, "

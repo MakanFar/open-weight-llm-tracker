@@ -207,8 +207,7 @@ def strip_repo_decorations(repo_id):
 def _identity_parts(repo_id):
     """Repo tail split into tokens, author prefix and trailing noise removed.
 
-    Shared by repo_identity and family_stem so the two keys always agree on
-    what counts as noise; they differ only in whether versions survive.
+    The one place that decides what counts as noise in a repo id.
     """
     author, _, tail = repo_id.rpartition("/")
     parts = [p for p in re.split(r"[-_.]", tail) if p]
@@ -238,52 +237,6 @@ def repo_identity(repo_id):
     """
     return slug("-".join(_identity_parts(repo_id)))
 
-
-# A token that is a version, not a size: an optional leading letter then digits.
-# "4", "5", "K3", "V4" match; "405B", "17B", "16E", "A22B" do not,
-# because they end in a letter and therefore denote a size or an expert count.
-_VERSION_TOKEN = re.compile(r"^[A-Za-z]?\d+$")
-
-# A version fused directly onto the family name with no separator to split on,
-# e.g. "Qwen3" ("Qwen/Qwen3-235B-A22B" — HF writes no hyphen before the
-# generation digit, unlike Llama's "Llama-4-Scout"). Requires letters BEFORE
-# the digits, which is what keeps it from ever matching a size/expert token:
-# those end in a letter ("405B", "16E"), never in a digit.
-_FUSED_VERSION = re.compile(r"^([A-Za-z]+?)\d+$")
-
-
-def family_stem(repo_id):
-    """A model FAMILY key: repo_identity with version tokens removed.
-
-    Deliberately coarser than repo_identity and deliberately finer than a bare
-    vendor name. repo_identity keeps versions, so it can never detect that
-    GLM-5.2 supersedes GLM-5.1. Stripping more than versions would be worse:
-    dropping sizes collapses Llama-3.1-405B onto Llama-3.1-8B, and dropping
-    words collapses Llama-4-Scout onto Llama-4-Maverick — all four are
-    legitimately tracked as separate rows.
-
-    So this fires on exactly one shape: a version bump at the same size, which
-    is the supersede-or-coexist call a human should make. That shape includes
-    a version fused onto the family name itself (Qwen2 -> Qwen3): Qwen ships
-    generation bumps that way, and missing them would defeat the point of this
-    key for one of the most active open-weight vendors.
-
-    LIMITATION: Collisions in family_stem indicate that a human should review
-    whether the models are truly the same family line. The heuristic cannot
-    distinguish a version marker from a product-line marker — both are a single
-    letter followed by digits (e.g. "V3", "R1"). DeepSeek-V3 and DeepSeek-R1
-    are different product lines (base/chat vs reasoning), not versions of each
-    other, yet both produce the stem "deepseek". Collision is not an error; it
-    is a signal to check. While the collision exists, no DeepSeek model can
-    auto-promote based on family_stem matching.
-    """
-    kept = []
-    for part in _identity_parts(repo_id):
-        if _VERSION_TOKEN.match(part):
-            continue
-        fused = _FUSED_VERSION.match(part)
-        kept.append(fused.group(1) if fused else part)
-    return slug("-".join(kept))
 
 
 def display_identity(display):

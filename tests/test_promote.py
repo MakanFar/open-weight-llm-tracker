@@ -42,10 +42,10 @@ def _candidate(**kw):
     return base
 
 
-def test_tracked_stems_reads_models_yaml(tmp_path):
+def test_tracked_identities_reads_models_yaml(tmp_path):
     p = tmp_path / "models.yaml"
     p.write_text(EXISTING)
-    assert discover.tracked_stems(p) == {"llama70b"}
+    assert discover.tracked_identities(p) == {"llama3370b"}
 
 
 def test_promotion_row_strips_discovery_only_fields():
@@ -67,16 +67,16 @@ def test_promotion_row_strips_needs_review():
     assert "needs_review" not in row
 
 
-def test_promotion_row_strips_the_family_collision_marker():
-    """family_collision_reviewed is a review-workflow field, not a model fact.
+def test_promotion_row_strips_the_duplicate_reviewed_marker():
+    """duplicate_reviewed is a review-workflow field, not a model fact.
 
     It records that a human cleared a candidates.yaml collision; once the row
     is in models.yaml the collision is resolved and the marker is meaningless
     there. validate.py checks models.yaml only, so it would otherwise leak in
     the way arena_rank and needs_review must not.
     """
-    row = discover.promotion_row(_candidate(family_collision_reviewed=True))
-    assert "family_collision_reviewed" not in row
+    row = discover.promotion_row(_candidate(duplicate_reviewed=True))
+    assert "duplicate_reviewed" not in row
 
 
 def test_promotion_row_keeps_the_activation_provenance():
