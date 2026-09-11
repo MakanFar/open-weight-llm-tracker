@@ -185,13 +185,67 @@ def test_inexact_repo_match_is_incomplete():
     assert "inexact-repo-match" in classify.missing_vitals(_row(needs_hf_repo=True), set())
 
 
-def test_family_already_tracked_is_incomplete():
-    """GLM-5.2 must not auto-promote while GLM-5.1 is tracked."""
-    row = _row(hf_repo="zai-org/GLM-5.2")
-    assert "family-already-tracked" in classify.missing_vitals(row, {"glm"})
+def test_a_dated_snapshot_of_a_tracked_row_is_incomplete():
+    """DeepSeek-V4-Flash-0731 is the SAME weights as a tracked
+    DeepSeek-V4-Flash, published under a snapshot-dated id. One row per
+    model, so it must not auto-promote alongside it."""
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash-0731")
+    assert "duplicates-tracked-row" in classify.missing_vitals(
+        row, {"deepseekv4flash"})
 
 
-def test_family_collision_reviewed_clears_the_collision():
+def test_a_base_repo_is_incomplete_while_its_instruct_tune_is_tracked():
+    """The real case: google/gemma-4-31B auto-promoted against a tracked
+    gemma-4-31B-it, and validate.identity_errors caught it only AFTER the
+    row was in models.yaml. Under the old family-stem key this was one of
+    the few true positives; under repo_identity it is still caught, and now
+    the promotion gate agrees with validate.py instead of trailing it."""
+    row = _row(hf_repo="google/gemma-4-31B")
+    assert "duplicates-tracked-row" in classify.missing_vitals(
+        row, {"gemma431b"})
+
+
+def test_a_version_bump_is_NOT_a_duplicate():
+    """The change this rule exists after. DeepSeek-V4.1-Flash is a distinct
+    release from DeepSeek-V4-Flash and needs no human decision to coexist.
+
+    The old key was names.family_stem, which stripped version tokens, so
+    both collapsed to "deepseekflash" and every point release asked a human
+    to re-affirm the index's own newest-first premise. Measured on the real
+    queue: 33 rows carried the flag, 26 of them distinct releases a reviewer
+    would always keep. An answer that is "coexist" 79% of the time is not a
+    decision, it is friction.
+    """
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4.1-Flash")
+    assert "duplicates-tracked-row" not in classify.missing_vitals(
+        row, {"deepseekv4flash"})
+
+
+def test_a_generation_bump_is_NOT_a_duplicate():
+    """Same rule, fused-version spelling: GLM-5.3 beside a tracked GLM-5.2,
+    MiniMax-M2.7 beside M2. Six GLM rows and three MiniMax rows sat in the
+    queue on this alone."""
+    for repo, tracked in (("zai-org/GLM-5.3", "glm52"),
+                          ("MiniMaxAI/MiniMax-M2.7", "minimaxm2"),
+                          ("ibm-granite/granite-4.2-8b", "granite418b")):
+        assert "duplicates-tracked-row" not in classify.missing_vitals(
+            _row(hf_repo=repo), {tracked}), repo
+
+
+def test_the_duplicate_key_is_the_one_validate_uses():
+    """classify's gate and validate.identity_errors must not disagree about
+    what a duplicate is, or a row can pass the gate and then fail CI — which
+    in discover.yml kills the whole run rather than queueing the row."""
+    import names
+    import validate
+    rows = [{"hf_repo": "google/gemma-4-31B-it"},
+            {"hf_repo": "google/gemma-4-31B"}]
+    assert validate.identity_errors(rows)
+    assert names.repo_identity(rows[0]["hf_repo"]) == \
+        names.repo_identity(rows[1]["hf_repo"])
+
+
+def test_duplicate_reviewed_clears_the_flag():
     """A human who reviewed the collision and chose coexist unblocks the row.
 
     Without this, a notable, complete, schema-clean row whose ONLY blocker is
@@ -200,11 +254,13 @@ def test_family_collision_reviewed_clears_the_collision():
     the reviewer's decision has nowhere to live. allenai/Olmo-3.1-32B-Think
     is the real row this exists for.
     """
-    row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=True)
-    assert "family-already-tracked" not in classify.missing_vitals(row, {"glm"})
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash-0731",
+               duplicate_reviewed=True)
+    assert "duplicates-tracked-row" not in classify.missing_vitals(
+        row, {"deepseekv4flash"})
 
 
-def test_family_collision_reviewed_only_honours_a_real_bool():
+def test_duplicate_reviewed_only_honours_a_real_bool():
     """A non-bool truthy value must NOT clear the collision.
 
     candidates.yaml is hand-edited and validate.py never sees it, so this is
@@ -214,14 +270,17 @@ def test_family_collision_reviewed_only_honours_a_real_bool():
     commercial_use_verified.
     """
     for value in ("yes", "no", 1, "true"):
-        row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=value)
-        assert "family-already-tracked" in classify.missing_vitals(row, {"glm"}), \
+        row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash-0731",
+                   duplicate_reviewed=value)
+        assert "duplicates-tracked-row" in classify.missing_vitals(
+            row, {"deepseekv4flash"}), \
             f"{value!r} must not clear the collision"
 
 
-def test_family_collision_reviewed_does_not_clear_other_gaps():
+def test_duplicate_reviewed_does_not_clear_other_gaps():
     """The marker is scoped to the collision, not a blanket promote override."""
-    row = _row(hf_repo="zai-org/GLM-5.2", family_collision_reviewed=True,
+    row = _row(hf_repo="deepseek-ai/DeepSeek-V4-Flash-0731",
+               duplicate_reviewed=True,
                context_window=0)
     assert "no-context-window" in classify.missing_vitals(row, {"glm"})
 

@@ -248,7 +248,7 @@ def promotion_signal_gap(row, today):
     return "signal-too-weak"
 
 
-def missing_vitals(row, tracked_stems, today=None):
+def missing_vitals(row, tracked_identities, today=None):
     """Every reason this row cannot be promoted unreviewed. [] means it can.
 
     Returns ALL reasons rather than the first, so one review pass shows a
@@ -294,34 +294,48 @@ def missing_vitals(row, tracked_stems, today=None):
     if is_derivative_or_base(row.get("hf_repo")):
         reasons.append("derivative-or-base")
 
-    # A collision here means "a human should look", not "this is a duplicate":
-    # family_stem cannot tell a version bump from a distinct product line (see
-    # its docstring — DeepSeek-V3 and DeepSeek-R1 both collapse to "deepseek").
-    # Routing to review is the entire intended response to a collision.
+    # A collision here means the candidate's repo id names the SAME weights
+    # as a row already in models.yaml — a dated snapshot of it
+    # (DeepSeek-V4-Flash-0731 against DeepSeek-V4-Flash), or its base against
+    # a tracked instruct tune (google/gemma-4-31B against gemma-4-31B-it).
+    # CLAUDE.md allows one row per model, so promoting it would publish a
+    # duplicate.
     #
-    # family_collision_reviewed is that human's answer coming back. Without
+    # THIS KEY USED TO BE names.family_stem, WHICH STRIPPED VERSIONS, and it
+    # asked a different and much worse question: "is this a new version of a
+    # tracked family?" Measured on the real queue, 33 rows carried the flag
+    # and 26 of them were distinct releases a reviewer would always keep —
+    # MiniMax-M2/M2.5/M2.7, GLM-4.5 through 5.3, granite 3.0/3.1/4.1/4.2,
+    # DeepSeek-V4-Flash against V4.1-Flash. A decision whose answer is
+    # "coexist" 79% of the time is not a decision, it is friction, and it was
+    # asking a human to re-affirm the index's own newest-first premise. The
+    # 7 rows that survive the switch to repo_identity are every one of them a
+    # true duplicate. Keeping versions also means this check now agrees with
+    # validate.identity_errors, so a candidate that would make validate.py
+    # fail can no longer auto-promote past it.
+    #
+    # duplicate_reviewed is a human's answer coming back. Without
     # it the collision is unresolvable by construction: candidates.yaml is
     # rebuilt every run and models.yaml is append-only, so a reviewer who
-    # decides "coexist" has nowhere to record it and the row regenerates
-    # identically forever (22 of 85 staged rows sat here, one of them —
-    # allenai/Olmo-3.1-32B-Think — notable, complete and schema-clean with
-    # this as its ONLY blocker). Setting the field promotes the row on the
+    # decides the two rows are genuinely distinct has nowhere to record it
+    # and the row regenerates identically forever. Setting the field
+    # promotes the row on the
     # next run, and discover.PROMOTION_STRIP_FIELDS drops the marker on the
     # way into models.yaml, so it exists only for as long as the question does.
     #
     # `is True`, not a truthiness test: candidates.yaml is hand-edited and
     # validate.py never reads it, so this is the only place a typo can be
-    # caught. `family_collision_reviewed: no` parses to the string "no" under
+    # caught. `duplicate_reviewed: no` parses to the string "no" under
     # a quoted spelling and is truthy — a bare `if` would read a reviewer's
     # explicit "no" as "yes" and publish the row. Same reasoning as
     # validate.row_errors's isinstance guard on commercial_use_verified.
     #
     # It clears the collision ONLY. Every other reason still applies, so the
     # marker can never become a blanket promote override.
-    stem = names.family_stem(row.get("hf_repo") or "")
-    if stem and stem in tracked_stems and \
-            row.get("family_collision_reviewed") is not True:
-        reasons.append("family-already-tracked")
+    identity = names.repo_identity(row.get("hf_repo") or "")
+    if identity and identity in tracked_identities and \
+            row.get("duplicate_reviewed") is not True:
+        reasons.append("duplicates-tracked-row")
 
     # is_notable stages a row on ANY aa_index or arena_rank, however low or
     # stale; this is the stricter question of whether that (or another)
@@ -368,7 +382,7 @@ _VITALS_COVERS_FIELD = {
 }
 
 
-def review_reasons(row, tracked_stems, today=None):
+def review_reasons(row, tracked_identities, today=None):
     """Everything a reviewer needs to know about this row, each thing once.
 
     missing_vitals's terse tokens first, then any validator complaint it did
@@ -379,7 +393,7 @@ def review_reasons(row, tracked_stems, today=None):
     into yaml.safe_dump, which raises RepresenterError on a str subclass and
     would take down the whole scheduled run.
     """
-    vitals = missing_vitals(row, tracked_stems, today)
+    vitals = missing_vitals(row, tracked_identities, today)
     covered = {_VITALS_COVERS_FIELD[r] for r in vitals
                if r in _VITALS_COVERS_FIELD}
     return list(vitals) + [
@@ -387,7 +401,7 @@ def review_reasons(row, tracked_stems, today=None):
         if getattr(e, "field", None) not in covered]
 
 
-def route(row, tracked_stems, today=None):
+def route(row, tracked_identities, today=None):
     """'promote' | 'review' | 'drop'.
 
     Notability gates first: completeness alone is not evidence of worth (see
@@ -404,5 +418,5 @@ def route(row, tracked_stems, today=None):
     """
     if not is_notable(row, today):
         return "drop"
-    return "review" if missing_vitals(row, tracked_stems, today) or schema_errors(row) \
+    return "review" if missing_vitals(row, tracked_identities, today) or schema_errors(row) \
         else "promote"
