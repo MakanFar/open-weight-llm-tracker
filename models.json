@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-10",
-  "count": 55,
+  "generated": "2026-09-13",
+  "count": 57,
   "models": [
     {
       "name": "GLM-5.3-Flash",
@@ -39,8 +39,26 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-30b",
-      "arena_rank": 88,
+      "arena_rank": 89,
       "aa_index": null
+    },
+    {
+      "name": "granite-4.2-8b",
+      "hf_repo": "ibm-granite/granite-4.2-8b",
+      "developer": "ibm-granite",
+      "release_date": "2026-08-07",
+      "params_total_b": 8.8,
+      "params_active_b": 8.8,
+      "architecture": "dense",
+      "context_window": 131072,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
+      "arena_rank": 121,
+      "aa_index": 12
     },
     {
       "name": "granite-4.2-3b",
@@ -158,7 +176,7 @@
       "license_notes": "Modified MIT; extra obligations for products above 100M users.",
       "weights_url": "https://huggingface.co/moonshotai/Kimi-K3",
       "notes": "Top open-weight model on both Agent Arena (#5) and AA Intelligence Index (57). Activates 16 of 896 experts.",
-      "arena_rank": 1,
+      "arena_rank": 2,
       "aa_index": 44
     },
     {
@@ -198,7 +216,7 @@
       "license_notes": "Community licence: non-commercial by default; commercial use has separate conditions.",
       "weights_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
       "notes": "Native multimodal, 1M context. Card: ~428B params, ~23B activated.",
-      "arena_rank": 15,
+      "arena_rank": 16,
       "aa_index": 30
     },
     {
@@ -277,7 +295,7 @@
       "license_notes": "MIT; no additional use restrictions.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
       "notes": "Card: 1.6T parameters, 49B activated.",
-      "arena_rank": 9,
+      "arena_rank": 10,
       "aa_index": 31
     },
     {
@@ -339,6 +357,24 @@
       "weights_url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
       "arena_rank": null,
       "aa_index": 19
+    },
+    {
+      "name": "granite-4.1-30b",
+      "hf_repo": "ibm-granite/granite-4.1-30b",
+      "developer": "ibm-granite",
+      "release_date": "2026-04-06",
+      "params_total_b": 28.9,
+      "params_active_b": 28.9,
+      "architecture": "dense",
+      "context_window": 131072,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/ibm-granite/granite-4.1-30b",
+      "arena_rank": null,
+      "aa_index": null
     },
     {
       "name": "granite-4.1-8b",
@@ -480,7 +516,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-35B-A3B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-35B-A3B",
-      "arena_rank": 56,
+      "arena_rank": 57,
       "aa_index": null
     },
     {
@@ -520,7 +556,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-397B-A17B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
-      "arena_rank": 17,
+      "arena_rank": 15,
       "aa_index": 19
     },
     {
@@ -542,7 +578,7 @@
       "license_text_published": false,
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5",
-      "arena_rank": 10,
+      "arena_rank": 9,
       "aa_index": null
     },
     {
@@ -664,7 +700,7 @@
       "license_text_published": false,
       "license_notes": "Repo serves no licence file. The card's licence section states 'This model is licensed under Apache 2.0', and https://allenai.org/responsible-use (fetched) contains no clause conditioning the licence grant - it governs Ai2 Tools under separate website terms. That is Tier-4 card evidence only; no Apache-2.0 instrument is published for these weights, so the row stays unverified.",
       "weights_url": "https://huggingface.co/allenai/Olmo-3.1-32B-Think",
-      "arena_rank": 124,
+      "arena_rank": 125,
       "aa_index": null
     },
     {
@@ -728,7 +764,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking",
-      "arena_rank": 57,
+      "arena_rank": 56,
       "aa_index": null
     },
     {

@@ -5,35 +5,6 @@
 # needs_hf_repo=true means the match was inexact — verify by hand.
 arena_agent:
 - rank: 1
-  model: kimi-k3-max Moonshot · Kimi K3 license
-  org: Moonshot AI
-  matched_keyword: kimi
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '1'
-  - '12'
-  - kimi-k3-max Moonshot · Kimi K3 license
-  - 1489 ±5
-  - 5 24
-  - 18,090
-  - N/A
-  - N/A
-  by_header:
-    Rank: '1'
-    Overall Rank: '12'
-    Model: kimi-k3-max Moonshot · Kimi K3 license
-    Score: 1489 ±5
-    Rank Spread: 5 24
-    Votes: 18,090
-    Price $/M: N/A
-    Context: N/A
-  resolved_repo: moonshotai/Kimi-K3
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 2
   model: glm-5.3-max Z.ai · MIT
   org: Zhipu AI
   matched_keyword: glm
@@ -41,24 +12,53 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '2'
-  - '20'
+  - '1'
+  - '15'
   - glm-5.3-max Z.ai · MIT
-  - 1482 ±7
-  - 7 38
-  - 7,668
+  - 1486 ±7
+  - 6 30
+  - 10,559
   - $1.40 / $4.40
   - 1M
   by_header:
-    Rank: '2'
-    Overall Rank: '20'
+    Rank: '1'
+    Overall Rank: '15'
     Model: glm-5.3-max Z.ai · MIT
-    Score: 1482 ±7
-    Rank Spread: 7 38
-    Votes: 7,668
+    Score: 1486 ±7
+    Rank Spread: 6 30
+    Votes: 10,559
     Price $/M: $1.40 / $4.40
     Context: 1M
   resolved_repo: zai-org/GLM-5.3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 2
+  model: kimi-k3-max Moonshot · Kimi K3 license
+  org: Moonshot AI
+  matched_keyword: kimi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '2'
+  - '17'
+  - kimi-k3-max Moonshot · Kimi K3 license
+  - 1485 ±5
+  - 7 30
+  - 20,911
+  - N/A
+  - N/A
+  by_header:
+    Rank: '2'
+    Overall Rank: '17'
+    Model: kimi-k3-max Moonshot · Kimi K3 license
+    Score: 1485 ±5
+    Rank Spread: 7 30
+    Votes: 20,911
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: moonshotai/Kimi-K3
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -71,20 +71,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '3'
-  - '29'
+  - '28'
   - glm-5.3-flash Z.ai · MIT
-  - 1474 ±9
-  - 13 52
-  - 4,672
+  - 1475 ±7
+  - 14 49
+  - 9,479
   - $0.07 / $0.25
   - 1M
   by_header:
     Rank: '3'
-    Overall Rank: '29'
+    Overall Rank: '28'
     Model: glm-5.3-flash Z.ai · MIT
-    Score: 1474 ±9
-    Rank Spread: 13 52
-    Votes: 4,672
+    Score: 1475 ±7
+    Rank Spread: 14 49
+    Votes: 9,479
     Price $/M: $0.07 / $0.25
     Context: 1M
   resolved_repo: zai-org/GLM-5.3-Flash
@@ -103,8 +103,8 @@ arena_agent:
   - '37'
   - glm-5.2-max Z.ai · MIT
   - 1472 ±5
-  - 20 51
-  - 33,966
+  - 21 50
+  - 36,471
   - $1.40 / $4.40
   - 1M
   by_header:
@@ -112,8 +112,8 @@ arena_agent:
     Overall Rank: '37'
     Model: glm-5.2-max Z.ai · MIT
     Score: 1472 ±5
-    Rank Spread: 20 51
-    Votes: 33,966
+    Rank Spread: 21 50
+    Votes: 36,471
     Price $/M: $1.40 / $4.40
     Context: 1M
   resolved_repo: zai-org/GLM-5.2
@@ -129,20 +129,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '5'
-  - '41'
+  - '43'
   - mimo-v2.5-pro Xiaomi · MIT
   - 1468 ±4
   - 27 52
-  - 57,649
+  - 60,523
   - $0.43 / $0.87
   - 1.1M
   by_header:
     Rank: '5'
-    Overall Rank: '41'
+    Overall Rank: '43'
     Model: mimo-v2.5-pro Xiaomi · MIT
     Score: 1468 ±4
     Rank Spread: 27 52
-    Votes: 57,649
+    Votes: 60,523
     Price $/M: $0.43 / $0.87
     Context: 1.1M
   resolved_repo: XiaomiMiMo/MiMo-V2.5-Pro
@@ -158,20 +158,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '6'
-  - '44'
+  - '46'
   - glm-5.1 Z.ai · MIT
-  - 1466 ±4
-  - 28 56
-  - 45,650
+  - 1465 ±4
+  - 29 57
+  - 48,503
   - $1.40 / $4.40
   - 202.8K
   by_header:
     Rank: '6'
-    Overall Rank: '44'
+    Overall Rank: '46'
     Model: glm-5.1 Z.ai · MIT
-    Score: 1466 ±4
-    Rank Spread: 28 56
-    Votes: 45,650
+    Score: 1465 ±4
+    Rank Spread: 29 57
+    Votes: 48,503
     Price $/M: $1.40 / $4.40
     Context: 202.8K
   resolved_repo: zai-org/GLM-5.1
@@ -179,35 +179,6 @@ arena_agent:
   open_weight: true
   needs_hf_repo: false
 - rank: 7
-  model: kimi-k2.6 Moonshot · Modified MIT
-  org: Moonshot AI
-  matched_keyword: kimi
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '7'
-  - '50'
-  - kimi-k2.6 Moonshot · Modified MIT
-  - 1461 ±5
-  - 39 66
-  - 37,568
-  - $0.95 / $4
-  - 262.1K
-  by_header:
-    Rank: '7'
-    Overall Rank: '50'
-    Model: kimi-k2.6 Moonshot · Modified MIT
-    Score: 1461 ±5
-    Rank Spread: 39 66
-    Votes: 37,568
-    Price $/M: $0.95 / $4
-    Context: 262.1K
-  resolved_repo: moonshotai/Kimi-K2.6
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 8
   model: deepseek-v4-pro-high-20260813 DeepSeek · MIT
   org: DeepSeek
   matched_keyword: deepseek
@@ -215,57 +186,57 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '8'
-  - '52'
+  - '7'
+  - '49'
   - deepseek-v4-pro-high-20260813 DeepSeek · MIT
-  - 1460 ±8
-  - 35 72
-  - 5,557
+  - 1462 ±7
+  - 30 68
+  - 8,623
   - $1.32 / $3.96
   - N/A
   by_header:
-    Rank: '8'
-    Overall Rank: '52'
+    Rank: '7'
+    Overall Rank: '49'
     Model: deepseek-v4-pro-high-20260813 DeepSeek · MIT
-    Score: 1460 ±8
-    Rank Spread: 35 72
-    Votes: 5,557
+    Score: 1462 ±7
+    Rank Spread: 30 68
+    Votes: 8,623
     Price $/M: $1.32 / $3.96
     Context: N/A
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
-- rank: 9
-  model: deepseek-v4-pro DeepSeek · MIT
-  org: DeepSeek
-  matched_keyword: deepseek
+- rank: 8
+  model: kimi-k2.6 Moonshot · Modified MIT
+  org: Moonshot AI
+  matched_keyword: kimi
   net_improvement_pct: null
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '9'
-  - '55'
-  - deepseek-v4-pro DeepSeek · MIT
-  - 1458 ±4
-  - 45 68
-  - 54,225
-  - $1.32 / $3.96
-  - 1M
+  - '8'
+  - '51'
+  - kimi-k2.6 Moonshot · Modified MIT
+  - 1461 ±5
+  - 39 67
+  - 37,497
+  - $0.95 / $4
+  - 262.1K
   by_header:
-    Rank: '9'
-    Overall Rank: '55'
-    Model: deepseek-v4-pro DeepSeek · MIT
-    Score: 1458 ±4
-    Rank Spread: 45 68
-    Votes: 54,225
-    Price $/M: $1.32 / $3.96
-    Context: 1M
-  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
+    Rank: '8'
+    Overall Rank: '51'
+    Model: kimi-k2.6 Moonshot · Modified MIT
+    Score: 1461 ±5
+    Rank Spread: 39 67
+    Votes: 37,497
+    Price $/M: $0.95 / $4
+    Context: 262.1K
+  resolved_repo: moonshotai/Kimi-K2.6
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
-- rank: 10
+- rank: 9
   model: glm-5 Z.ai · MIT
   org: Zhipu AI
   matched_keyword: glm
@@ -273,24 +244,53 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '10'
-  - '56'
+  - '9'
+  - '55'
   - glm-5 Z.ai · MIT
   - 1458 ±4
-  - 44 68
-  - 27,647
+  - 45 71
+  - 27,600
   - $1 / $3.20
   - 204.8K
   by_header:
-    Rank: '10'
-    Overall Rank: '56'
+    Rank: '9'
+    Overall Rank: '55'
     Model: glm-5 Z.ai · MIT
     Score: 1458 ±4
-    Rank Spread: 44 68
-    Votes: 27,647
+    Rank Spread: 45 71
+    Votes: 27,600
     Price $/M: $1 / $3.20
     Context: 204.8K
   resolved_repo: zai-org/GLM-5
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 10
+  model: deepseek-v4-pro DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '10'
+  - '56'
+  - deepseek-v4-pro DeepSeek · MIT
+  - 1457 ±4
+  - 47 69
+  - 54,142
+  - $1.32 / $3.96
+  - 1M
+  by_header:
+    Rank: '10'
+    Overall Rank: '56'
+    Model: deepseek-v4-pro DeepSeek · MIT
+    Score: 1457 ±4
+    Rank Spread: 47 69
+    Votes: 54,142
+    Price $/M: $1.32 / $3.96
+    Context: 1M
+  resolved_repo: deepseek-ai/DeepSeek-V4-Pro
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -303,21 +303,21 @@ arena_agent:
   arena_license_label: null
   raw:
   - '11'
-  - '60'
+  - '59'
   - Tencent hy3 Tencent · Apache 2.0
-  - 1455 ±8
-  - 43 78
-  - 6,958
-  - $0.08 / $0.33
+  - 1456 ±7
+  - 44 76
+  - 8,023
+  - $0.13 / $0.53
   - 262.1K
   by_header:
     Rank: '11'
-    Overall Rank: '60'
+    Overall Rank: '59'
     Model: Tencent hy3 Tencent · Apache 2.0
-    Score: 1455 ±8
-    Rank Spread: 43 78
-    Votes: 6,958
-    Price $/M: $0.08 / $0.33
+    Score: 1456 ±7
+    Rank Spread: 44 76
+    Votes: 8,023
+    Price $/M: $0.13 / $0.53
     Context: 262.1K
   resolved_repo: tencent/Hy3
   resolution_confidence: high
@@ -332,20 +332,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '12'
-  - '63'
+  - '65'
   - deepseek-v4-pro-high-preview DeepSeek · MIT
   - 1455 ±4
-  - 48 72
-  - 51,569
+  - 49 73
+  - 51,494
   - $1.32 / $3.96
   - 1M
   by_header:
     Rank: '12'
-    Overall Rank: '63'
+    Overall Rank: '65'
     Model: deepseek-v4-pro-high-preview DeepSeek · MIT
     Score: 1455 ±4
-    Rank Spread: 48 72
-    Votes: 51,569
+    Rank Spread: 49 73
+    Votes: 51,494
     Price $/M: $1.32 / $3.96
     Context: 1M
   resolved_repo: null
@@ -361,20 +361,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '13'
-  - '66'
+  - '67'
   - gemma-4-31b Google · Apache 2.0
   - 1451 ±8
-  - 48 84
-  - 5,898
+  - 49 86
+  - 5,891
   - $0.99 / $1.49
   - 131.1K
   by_header:
     Rank: '13'
-    Overall Rank: '66'
+    Overall Rank: '67'
     Model: gemma-4-31b Google · Apache 2.0
     Score: 1451 ±8
-    Rank Spread: 48 84
-    Votes: 5,898
+    Rank Spread: 49 86
+    Votes: 5,891
     Price $/M: $0.99 / $1.49
     Context: 131.1K
   resolved_repo: google/gemma-4-31B-it
@@ -390,20 +390,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '14'
-  - '67'
+  - '68'
   - kimi-k2.5-thinking Moonshot · Modified MIT
-  - 1451 ±3
-  - 52 79
-  - 70,586
+  - 1450 ±3
+  - 54 79
+  - 70,513
   - $0.60 / $3
   - N/A
   by_header:
     Rank: '14'
-    Overall Rank: '67'
+    Overall Rank: '68'
     Model: kimi-k2.5-thinking Moonshot · Modified MIT
-    Score: 1451 ±3
-    Rank Spread: 52 79
-    Votes: 70,586
+    Score: 1450 ±3
+    Rank Spread: 54 79
+    Votes: 70,513
     Price $/M: $0.60 / $3
     Context: N/A
   resolved_repo: null
@@ -411,64 +411,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 15
-  model: minimax-m3 MiniMax · MiniMax Community License
-  org: MiniMax
-  matched_keyword: minimax
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '15'
-  - '80'
-  - minimax-m3 MiniMax · MiniMax Community License
-  - 1443 ±4
-  - 66 94
-  - 44,829
-  - $0.30 / $1.20
-  - 524.3K
-  by_header:
-    Rank: '15'
-    Overall Rank: '80'
-    Model: minimax-m3 MiniMax · MiniMax Community License
-    Score: 1443 ±4
-    Rank Spread: 66 94
-    Votes: 44,829
-    Price $/M: $0.30 / $1.20
-    Context: 524.3K
-  resolved_repo: MiniMaxAI/MiniMax-M3
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 16
-  model: glm-4.7 Z.ai · MIT
-  org: Zhipu AI
-  matched_keyword: glm
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '16'
-  - '81'
-  - glm-4.7 Z.ai · MIT
-  - 1442 ±6
-  - 64 100
-  - 11,889
-  - $0.40 / $1.75
-  - 204.8K
-  by_header:
-    Rank: '16'
-    Overall Rank: '81'
-    Model: glm-4.7 Z.ai · MIT
-    Score: 1442 ±6
-    Rank Spread: 64 100
-    Votes: 11,889
-    Price $/M: $0.40 / $1.75
-    Context: 204.8K
-  resolved_repo: zai-org/GLM-4.7
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 17
   model: qwen3.5-397b-a17b Alibaba · Apache 2.0
   org: Alibaba
   matched_keyword: qwen
@@ -476,24 +418,82 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '17'
-  - '82'
+  - '15'
+  - '81'
   - qwen3.5-397b-a17b Alibaba · Apache 2.0
-  - 1441 ±3
-  - 70 95
-  - 73,640
+  - 1442 ±3
+  - 69 95
+  - 76,643
   - $0.55 / $3.50
   - 262.1K
   by_header:
-    Rank: '17'
-    Overall Rank: '82'
+    Rank: '15'
+    Overall Rank: '81'
     Model: qwen3.5-397b-a17b Alibaba · Apache 2.0
-    Score: 1441 ±3
-    Rank Spread: 70 95
-    Votes: 73,640
+    Score: 1442 ±3
+    Rank Spread: 69 95
+    Votes: 76,643
     Price $/M: $0.55 / $3.50
     Context: 262.1K
   resolved_repo: Qwen/Qwen3.5-397B-A17B
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 16
+  model: minimax-m3 MiniMax · MiniMax Community License
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '16'
+  - '82'
+  - minimax-m3 MiniMax · MiniMax Community License
+  - 1442 ±4
+  - 69 97
+  - 48,130
+  - $0.30 / $1.20
+  - 524.3K
+  by_header:
+    Rank: '16'
+    Overall Rank: '82'
+    Model: minimax-m3 MiniMax · MiniMax Community License
+    Score: 1442 ±4
+    Rank Spread: 69 97
+    Votes: 48,130
+    Price $/M: $0.30 / $1.20
+    Context: 524.3K
+  resolved_repo: MiniMaxAI/MiniMax-M3
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 17
+  model: glm-4.7 Z.ai · MIT
+  org: Zhipu AI
+  matched_keyword: glm
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '17'
+  - '83'
+  - glm-4.7 Z.ai · MIT
+  - 1442 ±6
+  - 67 100
+  - 11,892
+  - $0.40 / $1.75
+  - 204.8K
+  by_header:
+    Rank: '17'
+    Overall Rank: '83'
+    Model: glm-4.7 Z.ai · MIT
+    Score: 1442 ±6
+    Rank Spread: 67 100
+    Votes: 11,892
+    Price $/M: $0.40 / $1.75
+    Context: 204.8K
+  resolved_repo: zai-org/GLM-4.7
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -506,20 +506,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '18'
-  - '83'
+  - '84'
   - Thinking Machines inkling Thinky · Apache 2.0
   - 1439 ±5
-  - 70 101
-  - 22,229
+  - 72 102
+  - 25,509
   - $1 / $4.05
   - 524.3K
   by_header:
     Rank: '18'
-    Overall Rank: '83'
+    Overall Rank: '84'
     Model: Thinking Machines inkling Thinky · Apache 2.0
     Score: 1439 ±5
-    Rank Spread: 70 101
-    Votes: 22,229
+    Rank Spread: 72 102
+    Votes: 25,509
     Price $/M: $1 / $4.05
     Context: 524.3K
   resolved_repo: thinkingmachines/Inkling
@@ -535,20 +535,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '19'
-  - '85'
+  - '86'
   - deepseek-v4-flash-high-preview DeepSeek · MIT
   - 1438 ±4
-  - 74 101
-  - 48,691
+  - 75 102
+  - 48,595
   - $0.30 / $1.20
   - 1M
   by_header:
     Rank: '19'
-    Overall Rank: '85'
+    Overall Rank: '86'
     Model: deepseek-v4-flash-high-preview DeepSeek · MIT
     Score: 1438 ±4
-    Rank Spread: 74 101
-    Votes: 48,691
+    Rank Spread: 75 102
+    Votes: 48,595
     Price $/M: $0.30 / $1.20
     Context: 1M
   resolved_repo: null
@@ -564,20 +564,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '20'
-  - '86'
+  - '87'
   - gemma-4-26b-a4b Google · Apache 2.0
   - 1438 ±8
-  - 68 107
-  - 5,813
+  - 69 108
+  - 5,804
   - N/A
   - N/A
   by_header:
     Rank: '20'
-    Overall Rank: '86'
+    Overall Rank: '87'
     Model: gemma-4-26b-a4b Google · Apache 2.0
     Score: 1438 ±8
-    Rank Spread: 68 107
-    Votes: 5,813
+    Rank Spread: 69 108
+    Votes: 5,804
     Price $/M: N/A
     Context: N/A
   resolved_repo: google/gemma-4-26B-A4B
@@ -593,20 +593,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '21'
-  - '89'
+  - '88'
   - qwen3.8-27b Alibaba · Apache 2.0
-  - 1436 ±8
-  - 73 112
-  - 6,913
+  - 1438 ±7
+  - 71 107
+  - 10,256
   - $0.40 / $3
   - 262.1K
   by_header:
     Rank: '21'
-    Overall Rank: '89'
+    Overall Rank: '88'
     Model: qwen3.8-27b Alibaba · Apache 2.0
-    Score: 1436 ±8
-    Rank Spread: 73 112
-    Votes: 6,913
+    Score: 1438 ±7
+    Rank Spread: 71 107
+    Votes: 10,256
     Price $/M: $0.40 / $3
     Context: 262.1K
   resolved_repo: Qwen/Qwen3.8-27B
@@ -625,8 +625,8 @@ arena_agent:
   - '91'
   - deepseek-v4-flash DeepSeek · MIT
   - 1436 ±4
-  - 77 106
-  - 48,950
+  - 78 107
+  - 48,890
   - $0.30 / $1.20
   - 1M
   by_header:
@@ -634,8 +634,8 @@ arena_agent:
     Overall Rank: '91'
     Model: deepseek-v4-flash DeepSeek · MIT
     Score: 1436 ±4
-    Rank Spread: 77 106
-    Votes: 48,950
+    Rank Spread: 78 107
+    Votes: 48,890
     Price $/M: $0.30 / $1.20
     Context: 1M
   resolved_repo: deepseek-ai/DeepSeek-V4-Flash
@@ -651,20 +651,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '23'
-  - '94'
+  - '95'
   - mimo-v2.5 Xiaomi · MIT
-  - 1434 ±4
-  - 81 109
-  - 44,530
+  - 1433 ±4
+  - 82 110
+  - 44,446
   - $0.14 / $0.28
   - 1.1M
   by_header:
     Rank: '23'
-    Overall Rank: '94'
+    Overall Rank: '95'
     Model: mimo-v2.5 Xiaomi · MIT
-    Score: 1434 ±4
-    Rank Spread: 81 109
-    Votes: 44,530
+    Score: 1433 ±4
+    Rank Spread: 82 110
+    Votes: 44,446
     Price $/M: $0.14 / $0.28
     Context: 1.1M
   resolved_repo: XiaomiMiMo/MiMo-V2.5
@@ -680,20 +680,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '24'
-  - '98'
+  - '99'
   - kimi-k2.5-instant Moonshot · Modified MIT
   - 1431 ±7
-  - 82 121
-  - 7,998
+  - 82 122
+  - 7,990
   - $0.45 / $2.25
   - 262.1K
   by_header:
     Rank: '24'
-    Overall Rank: '98'
+    Overall Rank: '99'
     Model: kimi-k2.5-instant Moonshot · Modified MIT
     Score: 1431 ±7
-    Rank Spread: 82 121
-    Votes: 7,998
+    Rank Spread: 82 122
+    Votes: 7,990
     Price $/M: $0.45 / $2.25
     Context: 262.1K
   resolved_repo: null
@@ -709,20 +709,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '25'
-  - '100'
+  - '101'
   - kimi-k2-thinking-turbo Moonshot · Modified MIT
   - 1430 ±3
-  - 87 115
-  - 61,122
+  - 88 116
+  - 61,079
   - $1.15 / $8
   - 262.1K
   by_header:
     Rank: '25'
-    Overall Rank: '100'
+    Overall Rank: '101'
     Model: kimi-k2-thinking-turbo Moonshot · Modified MIT
     Score: 1430 ±3
-    Rank Spread: 87 115
-    Votes: 61,122
+    Rank Spread: 88 116
+    Votes: 61,079
     Price $/M: $1.15 / $8
     Context: 262.1K
   resolved_repo: null
@@ -738,20 +738,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '26'
-  - '102'
+  - '103'
   - Meta muse-glimmer Meta · Apache-2.0
   - 1427 ±10
-  - 82 130
-  - 3,693
+  - 83 131
+  - 3,665
   - N/A
   - N/A
   by_header:
     Rank: '26'
-    Overall Rank: '102'
+    Overall Rank: '103'
     Model: Meta muse-glimmer Meta · Apache-2.0
     Score: 1427 ±10
-    Rank Spread: 82 130
-    Votes: 3,693
+    Rank Spread: 83 131
+    Votes: 3,665
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
@@ -767,20 +767,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '27'
-  - '103'
+  - '105'
   - mistral-medium-3.5 Mistral · Modified MIT
-  - 1427 ±7
-  - 87 127
-  - 11,017
+  - 1426 ±7
+  - 88 128
+  - 10,998
   - $0.75 / $3.75
   - 262.1K
   by_header:
     Rank: '27'
-    Overall Rank: '103'
+    Overall Rank: '105'
     Model: mistral-medium-3.5 Mistral · Modified MIT
-    Score: 1427 ±7
-    Rank Spread: 87 127
-    Votes: 11,017
+    Score: 1426 ±7
+    Rank Spread: 88 128
+    Votes: 10,998
     Price $/M: $0.75 / $3.75
     Context: 262.1K
   resolved_repo: mistralai/Mistral-Medium-3.5-128B
@@ -796,20 +796,20 @@ arena_agent:
   arena_license_label: nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
   raw:
   - '28'
-  - '105'
+  - '108'
   - nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
   - 1426 ±7
-  - 87 127
-  - 10,700
+  - 88 128
+  - 10,691
   - N/A
   - N/A
   by_header:
     Rank: '28'
-    Overall Rank: '105'
+    Overall Rank: '108'
     Model: nvidia-nemotron-3-ultra-550b-a55b-nvfp4 Nvidia · OpenMDW-1.1
     Score: 1426 ±7
-    Rank Spread: 87 127
-    Votes: 10,700
+    Rank Spread: 88 128
+    Votes: 10,691
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
@@ -817,35 +817,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 29
-  model: deepseek-v3.2 DeepSeek · MIT
-  org: DeepSeek
-  matched_keyword: deepseek
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '29'
-  - '108'
-  - deepseek-v3.2 DeepSeek · MIT
-  - 1425 ±4
-  - 94 124
-  - 46,493
-  - $0.27 / $0.40
-  - 163.8K
-  by_header:
-    Rank: '29'
-    Overall Rank: '108'
-    Model: deepseek-v3.2 DeepSeek · MIT
-    Score: 1425 ±4
-    Rank Spread: 94 124
-    Votes: 46,493
-    Price $/M: $0.27 / $0.40
-    Context: 163.8K
-  resolved_repo: deepseek-ai/DeepSeek-V3.2
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 30
   model: deepseek-v3.2-exp-thinking DeepSeek · MIT
   org: DeepSeek
   matched_keyword: deepseek
@@ -853,27 +824,56 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '30'
+  - '29'
   - '109'
   - deepseek-v3.2-exp-thinking DeepSeek · MIT
   - 1425 ±7
-  - 88 128
-  - 8,910
+  - 89 128
+  - 8,908
   - $0.27 / $0.41
   - 163.8K
   by_header:
-    Rank: '30'
+    Rank: '29'
     Overall Rank: '109'
     Model: deepseek-v3.2-exp-thinking DeepSeek · MIT
     Score: 1425 ±7
-    Rank Spread: 88 128
-    Votes: 8,910
+    Rank Spread: 89 128
+    Votes: 8,908
     Price $/M: $0.27 / $0.41
     Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
+- rank: 30
+  model: deepseek-v3.2 DeepSeek · MIT
+  org: DeepSeek
+  matched_keyword: deepseek
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '30'
+  - '110'
+  - deepseek-v3.2 DeepSeek · MIT
+  - 1425 ±4
+  - 96 125
+  - 46,464
+  - $0.27 / $0.40
+  - 163.8K
+  by_header:
+    Rank: '30'
+    Overall Rank: '110'
+    Model: deepseek-v3.2 DeepSeek · MIT
+    Score: 1425 ±4
+    Rank Spread: 96 125
+    Votes: 46,464
+    Price $/M: $0.27 / $0.40
+    Context: 163.8K
+  resolved_repo: deepseek-ai/DeepSeek-V3.2
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 31
   model: glm-4.6 Z.ai · MIT
   org: Zhipu AI
@@ -883,20 +883,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '31'
-  - '110'
+  - '111'
   - glm-4.6 Z.ai · MIT
   - 1425 ±4
-  - 94 125
-  - 35,068
+  - 96 126
+  - 35,065
   - $0.43 / $1.75
   - 204.8K
   by_header:
     Rank: '31'
-    Overall Rank: '110'
+    Overall Rank: '111'
     Model: glm-4.6 Z.ai · MIT
     Score: 1425 ±4
-    Rank Spread: 94 125
-    Votes: 35,068
+    Rank Spread: 96 126
+    Votes: 35,065
     Price $/M: $0.43 / $1.75
     Context: 204.8K
   resolved_repo: zai-org/GLM-4.6
@@ -912,20 +912,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '32'
-  - '112'
+  - '113'
   - qwen3-235b-a22b-instruct-2507 Alibaba · Apache 2.0
   - 1423 ±3
-  - 100 127
-  - 95,700
+  - 101 127
+  - 95,656
   - $0.26 / $1.06
   - N/A
   by_header:
     Rank: '32'
-    Overall Rank: '112'
+    Overall Rank: '113'
     Model: qwen3-235b-a22b-instruct-2507 Alibaba · Apache 2.0
     Score: 1423 ±3
-    Rank Spread: 100 127
-    Votes: 95,700
+    Rank Spread: 101 127
+    Votes: 95,656
     Price $/M: $0.26 / $1.06
     Context: N/A
   resolved_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
@@ -941,20 +941,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '33'
-  - '113'
+  - '114'
   - deepseek-v3.2-thinking DeepSeek · MIT
-  - 1423 ±4
+  - 1422 ±4
   - 100 128
-  - 40,520
+  - 40,496
   - $0.27 / $0.40
   - 163.8K
   by_header:
     Rank: '33'
-    Overall Rank: '113'
+    Overall Rank: '114'
     Model: deepseek-v3.2-thinking DeepSeek · MIT
-    Score: 1423 ±4
+    Score: 1422 ±4
     Rank Spread: 100 128
-    Votes: 40,520
+    Votes: 40,496
     Price $/M: $0.27 / $0.40
     Context: 163.8K
   resolved_repo: null
@@ -970,19 +970,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '34'
-  - '114'
+  - '115'
   - deepseek-v3.2-exp DeepSeek · MIT
   - 1422 ±6
-  - 94 132
+  - 97 135
   - 11,756
   - $0.27 / $0.41
   - 163.8K
   by_header:
     Rank: '34'
-    Overall Rank: '114'
+    Overall Rank: '115'
     Model: deepseek-v3.2-exp DeepSeek · MIT
     Score: 1422 ±6
-    Rank Spread: 94 132
+    Rank Spread: 97 135
     Votes: 11,756
     Price $/M: $0.27 / $0.41
     Context: 163.8K
@@ -999,20 +999,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '35'
-  - '115'
+  - '116'
   - deepseek-r1-0528 DeepSeek · MIT
   - 1421 ±6
-  - 97 134
-  - 18,092
+  - 98 135
+  - 18,089
   - $0.50 / $2.15
   - 163.8K
   by_header:
     Rank: '35'
-    Overall Rank: '115'
+    Overall Rank: '116'
     Model: deepseek-r1-0528 DeepSeek · MIT
     Score: 1421 ±6
-    Rank Spread: 97 134
-    Votes: 18,092
+    Rank Spread: 98 135
+    Votes: 18,089
     Price $/M: $0.50 / $2.15
     Context: 163.8K
   resolved_repo: deepseek-ai/DeepSeek-R1-0528
@@ -1028,20 +1028,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '36'
-  - '118'
+  - '119'
   - kimi-k2-0905-preview Moonshot · Modified MIT
   - 1418 ±7
-  - 100 139
-  - 11,569
+  - 101 138
+  - 11,566
   - $0.60 / $2.50
   - 262.1K
   by_header:
     Rank: '36'
-    Overall Rank: '118'
+    Overall Rank: '119'
     Model: kimi-k2-0905-preview Moonshot · Modified MIT
     Score: 1418 ±7
-    Rank Spread: 100 139
-    Votes: 11,569
+    Rank Spread: 101 138
+    Votes: 11,566
     Price $/M: $0.60 / $2.50
     Context: 262.1K
   resolved_repo: null
@@ -1057,20 +1057,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '37'
-  - '119'
+  - '120'
   - kimi-k2-0711-preview Moonshot · Modified MIT
   - 1418 ±5
-  - 102 135
-  - 27,033
+  - 103 136
+  - 27,027
   - $0.60 / $2.50
   - 131.1K
   by_header:
     Rank: '37'
-    Overall Rank: '119'
+    Overall Rank: '120'
     Model: kimi-k2-0711-preview Moonshot · Modified MIT
     Score: 1418 ±5
-    Rank Spread: 102 135
-    Votes: 27,033
+    Rank Spread: 103 136
+    Votes: 27,027
     Price $/M: $0.60 / $2.50
     Context: 131.1K
   resolved_repo: null
@@ -1086,20 +1086,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '38'
-  - '120'
+  - '121'
   - deepseek-v3.1-terminus-thinking DeepSeek · MIT
-  - 1418 ±10
-  - 97 143
-  - 3,372
+  - 1417 ±10
+  - 98 144
+  - 3,369
   - $0.27 / $1
   - 163.8K
   by_header:
     Rank: '38'
-    Overall Rank: '120'
+    Overall Rank: '121'
     Model: deepseek-v3.1-terminus-thinking DeepSeek · MIT
-    Score: 1418 ±10
-    Rank Spread: 97 143
-    Votes: 3,372
+    Score: 1417 ±10
+    Rank Spread: 98 144
+    Votes: 3,369
     Price $/M: $0.27 / $1
     Context: 163.8K
   resolved_repo: null
@@ -1115,20 +1115,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '39'
-  - '121'
+  - '122'
   - deepseek-v3.1 DeepSeek · MIT
   - 1417 ±6
-  - 102 139
-  - 14,609
+  - 103 138
+  - 14,604
   - $1.23 / $4.94
   - N/A
   by_header:
     Rank: '39'
-    Overall Rank: '121'
+    Overall Rank: '122'
     Model: deepseek-v3.1 DeepSeek · MIT
     Score: 1417 ±6
-    Rank Spread: 102 139
-    Votes: 14,609
+    Rank Spread: 103 138
+    Votes: 14,604
     Price $/M: $1.23 / $4.94
     Context: N/A
   resolved_repo: deepseek-ai/DeepSeek-V3.1
@@ -1144,20 +1144,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '40'
-  - '122'
+  - '123'
   - qwen3.5-122b-a10b Alibaba · Apache 2.0
   - 1417 ±4
-  - 104 135
-  - 28,376
+  - 106 136
+  - 28,349
   - $0.26 / $2.08
   - 262.1K
   by_header:
     Rank: '40'
-    Overall Rank: '122'
+    Overall Rank: '123'
     Model: qwen3.5-122b-a10b Alibaba · Apache 2.0
     Score: 1417 ±4
-    Rank Spread: 104 135
-    Votes: 28,376
+    Rank Spread: 106 136
+    Votes: 28,349
     Price $/M: $0.26 / $2.08
     Context: 262.1K
   resolved_repo: Qwen/Qwen3.5-122B-A10B
@@ -1173,20 +1173,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '41'
-  - '123'
+  - '124'
   - deepseek-v3.1-thinking DeepSeek · MIT
   - 1416 ±7
-  - 102 140
-  - 11,463
+  - 103 141
+  - 11,462
   - $1.23 / $4.94
   - N/A
   by_header:
     Rank: '41'
-    Overall Rank: '123'
+    Overall Rank: '124'
     Model: deepseek-v3.1-thinking DeepSeek · MIT
     Score: 1416 ±7
-    Rank Spread: 102 140
-    Votes: 11,463
+    Rank Spread: 103 141
+    Votes: 11,462
     Price $/M: $1.23 / $4.94
     Context: N/A
   resolved_repo: null
@@ -1194,35 +1194,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 42
-  model: minimax-m2.7 MiniMax · Modified MIT
-  org: MiniMax
-  matched_keyword: minimax
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '42'
-  - '124'
-  - minimax-m2.7 MiniMax · Modified MIT
-  - 1415 ±4
-  - 109 138
-  - 65,655
-  - $0.30 / $1.20
-  - 204.8K
-  by_header:
-    Rank: '42'
-    Overall Rank: '124'
-    Model: minimax-m2.7 MiniMax · Modified MIT
-    Score: 1415 ±4
-    Rank Spread: 109 138
-    Votes: 65,655
-    Price $/M: $0.30 / $1.20
-    Context: 204.8K
-  resolved_repo: MiniMaxAI/MiniMax-M2.7
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 43
   model: deepseek-v3.1-terminus DeepSeek · MIT
   org: DeepSeek
   matched_keyword: deepseek
@@ -1230,24 +1201,53 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '43'
-  - '126'
+  - '42'
+  - '125'
   - deepseek-v3.1-terminus DeepSeek · MIT
   - 1415 ±10
-  - 100 148
-  - 3,613
+  - 101 149
+  - 3,611
   - $0.27 / $1
   - 163.8K
   by_header:
-    Rank: '43'
-    Overall Rank: '126'
+    Rank: '42'
+    Overall Rank: '125'
     Model: deepseek-v3.1-terminus DeepSeek · MIT
     Score: 1415 ±10
-    Rank Spread: 100 148
-    Votes: 3,613
+    Rank Spread: 101 149
+    Votes: 3,611
     Price $/M: $0.27 / $1
     Context: 163.8K
   resolved_repo: deepseek-ai/DeepSeek-V3.1-Terminus
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 43
+  model: minimax-m2.7 MiniMax · Modified MIT
+  org: MiniMax
+  matched_keyword: minimax
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '43'
+  - '126'
+  - minimax-m2.7 MiniMax · Modified MIT
+  - 1415 ±4
+  - 112 139
+  - 68,700
+  - $0.30 / $1.20
+  - 204.8K
+  by_header:
+    Rank: '43'
+    Overall Rank: '126'
+    Model: minimax-m2.7 MiniMax · Modified MIT
+    Score: 1415 ±4
+    Rank Spread: 112 139
+    Votes: 68,700
+    Price $/M: $0.30 / $1.20
+    Context: 204.8K
+  resolved_repo: MiniMaxAI/MiniMax-M2.7
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1260,20 +1260,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '44'
-  - '128'
+  - '130'
   - qwen3-vl-235b-a22b-instruct Alibaba · Apache 2.0
   - 1414 ±7
-  - 106 143
-  - 11,222
+  - 107 144
+  - 11,219
   - $0.21 / $1.90
   - 262.1K
   by_header:
     Rank: '44'
-    Overall Rank: '128'
+    Overall Rank: '130'
     Model: qwen3-vl-235b-a22b-instruct Alibaba · Apache 2.0
     Score: 1414 ±7
-    Rank Spread: 106 143
-    Votes: 11,222
+    Rank Spread: 107 144
+    Votes: 11,219
     Price $/M: $0.21 / $1.90
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-VL-235B-A22B-Instruct
@@ -1289,20 +1289,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '45'
-  - '130'
+  - '132'
   - mistral-large-3 Mistral · Apache 2.0
-  - 1414 ±3
-  - 113 139
-  - 65,587
+  - 1413 ±3
+  - 114 139
+  - 68,591
   - $0.50 / $1.50
   - N/A
   by_header:
     Rank: '45'
-    Overall Rank: '130'
+    Overall Rank: '132'
     Model: mistral-large-3 Mistral · Apache 2.0
-    Score: 1414 ±3
-    Rank Spread: 113 139
-    Votes: 65,587
+    Score: 1413 ±3
+    Rank Spread: 114 139
+    Votes: 68,591
     Price $/M: $0.50 / $1.50
     Context: N/A
   resolved_repo: null
@@ -1318,20 +1318,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '46'
-  - '132'
+  - '133'
   - Tencent hunyuan-hy3-preview Tencent · tencent-hunyuan-community
   - 1413 ±8
-  - 106 147
-  - 6,611
+  - 108 149
+  - 6,606
   - $0.29 / $1.17
   - 262.1K
   by_header:
     Rank: '46'
-    Overall Rank: '132'
+    Overall Rank: '133'
     Model: Tencent hunyuan-hy3-preview Tencent · tencent-hunyuan-community
     Score: 1413 ±8
-    Rank Spread: 106 147
-    Votes: 6,611
+    Rank Spread: 108 149
+    Votes: 6,606
     Price $/M: $0.29 / $1.17
     Context: 262.1K
   resolved_repo: null
@@ -1347,20 +1347,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '47'
-  - '134'
+  - '135'
   - glm-4.5 Z.ai · MIT
   - 1411 ±5
-  - 113 146
-  - 23,715
+  - 114 147
+  - 23,707
   - $0.60 / $2.20
   - 131.1K
   by_header:
     Rank: '47'
-    Overall Rank: '134'
+    Overall Rank: '135'
     Model: glm-4.5 Z.ai · MIT
     Score: 1411 ±5
-    Rank Spread: 113 146
-    Votes: 23,715
+    Rank Spread: 114 147
+    Votes: 23,707
     Price $/M: $0.60 / $2.20
     Context: 131.1K
   resolved_repo: zai-org/GLM-4.5
@@ -1376,20 +1376,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '48'
-  - '138'
+  - '139'
   - qwen3.5-27b Alibaba · Apache 2.0
   - 1408 ±4
-  - 118 150
-  - 27,238
+  - 119 151
+  - 27,228
   - $0.20 / $1.56
   - 262.1K
   by_header:
     Rank: '48'
-    Overall Rank: '138'
+    Overall Rank: '139'
     Model: qwen3.5-27b Alibaba · Apache 2.0
     Score: 1408 ±4
-    Rank Spread: 118 150
-    Votes: 27,238
+    Rank Spread: 119 151
+    Votes: 27,228
     Price $/M: $0.20 / $1.56
     Context: 262.1K
   resolved_repo: Qwen/Qwen3.5-27B
@@ -1405,20 +1405,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '49'
-  - '139'
+  - '141'
   - Thinking Machines Inkling Small Thinky · Apache 2.0
-  - 1407 ±6
-  - 118 152
-  - 15,183
+  - 1404 ±5
+  - 127 156
+  - 18,408
   - $0.50 / $1.20
   - 524.3K
   by_header:
     Rank: '49'
-    Overall Rank: '139'
+    Overall Rank: '141'
     Model: Thinking Machines Inkling Small Thinky · Apache 2.0
-    Score: 1407 ±6
-    Rank Spread: 118 152
-    Votes: 15,183
+    Score: 1404 ±5
+    Rank Spread: 127 156
+    Votes: 18,408
     Price $/M: $0.50 / $1.20
     Context: 524.3K
   resolved_repo: thinkingmachines/Inkling-Small
@@ -1434,20 +1434,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '50'
-  - '142'
+  - '143'
   - qwen3-235b-a22b-no-thinking Alibaba · Apache 2.0
   - 1402 ±5
-  - 132 156
-  - 37,389
+  - 133 156
+  - 37,381
   - $0.46 / $1.82
   - 131.1K
   by_header:
     Rank: '50'
-    Overall Rank: '142'
+    Overall Rank: '143'
     Model: qwen3-235b-a22b-no-thinking Alibaba · Apache 2.0
     Score: 1402 ±5
-    Rank Spread: 132 156
-    Votes: 37,389
+    Rank Spread: 133 156
+    Votes: 37,381
     Price $/M: $0.46 / $1.82
     Context: 131.1K
   resolved_repo: null
@@ -1463,20 +1463,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '51'
-  - '145'
+  - '146'
   - longcat-flash-chat Meituan · MIT
   - 1401 ±6
-  - 128 158
-  - 11,161
+  - 129 159
+  - 11,162
   - $0.20 / $0.80
   - 131.1K
   by_header:
     Rank: '51'
-    Overall Rank: '145'
+    Overall Rank: '146'
     Model: longcat-flash-chat Meituan · MIT
     Score: 1401 ±6
-    Rank Spread: 128 158
-    Votes: 11,161
+    Rank Spread: 129 159
+    Votes: 11,162
     Price $/M: $0.20 / $0.80
     Context: 131.1K
   resolved_repo: null
@@ -1492,20 +1492,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '52'
-  - '147'
+  - '148'
   - qwen3-235b-a22b-thinking-2507 Alibaba · Apache 2.0
   - 1400 ±7
-  - 133 162
-  - 8,800
+  - 134 163
+  - 8,797
   - $0.23 / $2.30
   - 131.1K
   by_header:
     Rank: '52'
-    Overall Rank: '147'
+    Overall Rank: '148'
     Model: qwen3-235b-a22b-thinking-2507 Alibaba · Apache 2.0
     Score: 1400 ±7
-    Rank Spread: 133 162
-    Votes: 8,800
+    Rank Spread: 134 163
+    Votes: 8,797
     Price $/M: $0.23 / $2.30
     Context: 131.1K
   resolved_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
@@ -1521,20 +1521,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '53'
-  - '148'
+  - '149'
   - qwen3-next-80b-a3b-instruct Alibaba · Apache 2.0
   - 1399 ±5
-  - 138 161
-  - 22,532
+  - 139 161
+  - 22,527
   - $0.09 / $1.10
   - 262.1K
   by_header:
     Rank: '53'
-    Overall Rank: '148'
+    Overall Rank: '149'
     Model: qwen3-next-80b-a3b-instruct Alibaba · Apache 2.0
     Score: 1399 ±5
-    Rank Spread: 138 161
-    Votes: 22,532
+    Rank Spread: 139 161
+    Votes: 22,527
     Price $/M: $0.09 / $1.10
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
@@ -1550,19 +1550,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '54'
-  - '149'
+  - '150'
   - deepseek-r1 DeepSeek · MIT
   - 1398 ±5
-  - 139 163
+  - 140 164
   - 18,524
   - $0.70 / $2.50
   - 64K
   by_header:
     Rank: '54'
-    Overall Rank: '149'
+    Overall Rank: '150'
     Model: deepseek-r1 DeepSeek · MIT
     Score: 1398 ±5
-    Rank Spread: 139 163
+    Rank Spread: 140 164
     Votes: 18,524
     Price $/M: $0.70 / $2.50
     Context: 64K
@@ -1579,20 +1579,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '55'
-  - '151'
+  - '152'
   - deepseek-v3-0324 DeepSeek · MIT
   - 1396 ±4
-  - 140 167
-  - 44,795
+  - 140 168
+  - 44,781
   - $3 / $4.50
   - 32.8K
   by_header:
     Rank: '55'
-    Overall Rank: '151'
+    Overall Rank: '152'
     Model: deepseek-v3-0324 DeepSeek · MIT
     Score: 1396 ±4
-    Rank Spread: 140 167
-    Votes: 44,795
+    Rank Spread: 140 168
+    Votes: 44,781
     Price $/M: $3 / $4.50
     Context: 32.8K
   resolved_repo: deepseek-ai/DeepSeek-V3-0324
@@ -1600,7 +1600,7 @@ arena_agent:
   open_weight: true
   needs_hf_repo: false
 - rank: 56
-  model: qwen3.5-35b-a3b Alibaba · Apache 2.0
+  model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
   org: Alibaba
   matched_keyword: qwen
   net_improvement_pct: null
@@ -1609,27 +1609,27 @@ arena_agent:
   raw:
   - '56'
   - '153'
-  - qwen3.5-35b-a3b Alibaba · Apache 2.0
-  - 1395 ±4
-  - 140 167
-  - 29,065
-  - $0.31 / $1.25
-  - 262.1K
+  - qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+  - 1395 ±7
+  - 140 172
+  - 7,780
+  - $0.40 / $4
+  - 131.1K
   by_header:
     Rank: '56'
     Overall Rank: '153'
-    Model: qwen3.5-35b-a3b Alibaba · Apache 2.0
-    Score: 1395 ±4
-    Rank Spread: 140 167
-    Votes: 29,065
-    Price $/M: $0.31 / $1.25
-    Context: 262.1K
-  resolved_repo: Qwen/Qwen3.5-35B-A3B
+    Model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+    Score: 1395 ±7
+    Rank Spread: 140 172
+    Votes: 7,780
+    Price $/M: $0.40 / $4
+    Context: 131.1K
+  resolved_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
 - rank: 57
-  model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
+  model: qwen3.5-35b-a3b Alibaba · Apache 2.0
   org: Alibaba
   matched_keyword: qwen
   net_improvement_pct: null
@@ -1637,23 +1637,23 @@ arena_agent:
   arena_license_label: null
   raw:
   - '57'
-  - '154'
-  - qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
-  - 1395 ±7
-  - 139 171
-  - 7,785
-  - $0.40 / $4
-  - 131.1K
+  - '155'
+  - qwen3.5-35b-a3b Alibaba · Apache 2.0
+  - 1395 ±4
+  - 142 168
+  - 29,033
+  - $0.31 / $1.25
+  - 262.1K
   by_header:
     Rank: '57'
-    Overall Rank: '154'
-    Model: qwen3-vl-235b-a22b-thinking Alibaba · Apache 2.0
-    Score: 1395 ±7
-    Rank Spread: 139 171
-    Votes: 7,785
-    Price $/M: $0.40 / $4
-    Context: 131.1K
-  resolved_repo: Qwen/Qwen3-VL-235B-A22B-Thinking
+    Overall Rank: '155'
+    Model: qwen3.5-35b-a3b Alibaba · Apache 2.0
+    Score: 1395 ±4
+    Rank Spread: 142 168
+    Votes: 29,033
+    Price $/M: $0.31 / $1.25
+    Context: 262.1K
+  resolved_repo: Qwen/Qwen3.5-35B-A3B
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1666,20 +1666,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '58'
-  - '156'
+  - '157'
   - Stepfun step-3.5-flash StepFun · Apache 2.0
   - 1394 ±4
-  - 143 167
-  - 57,212
+  - 145 168
+  - 57,129
   - $0.10 / $0.30
   - 262.1K
   by_header:
     Rank: '58'
-    Overall Rank: '156'
+    Overall Rank: '157'
     Model: Stepfun step-3.5-flash StepFun · Apache 2.0
     Score: 1394 ±4
-    Rank Spread: 143 167
-    Votes: 57,212
+    Rank Spread: 145 168
+    Votes: 57,129
     Price $/M: $0.10 / $0.30
     Context: 262.1K
   resolved_repo: null
@@ -1695,20 +1695,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '59'
-  - '157'
+  - '158'
   - mimo-v2-flash (non-thinking) Xiaomi · MIT
   - 1392 ±4
-  - 146 171
-  - 46,158
+  - 147 172
+  - 46,110
   - $0.10 / $0.30
   - 262.1K
   by_header:
     Rank: '59'
-    Overall Rank: '157'
+    Overall Rank: '158'
     Model: mimo-v2-flash (non-thinking) Xiaomi · MIT
     Score: 1392 ±4
-    Rank Spread: 146 171
-    Votes: 46,158
+    Rank Spread: 147 172
+    Votes: 46,110
     Price $/M: $0.10 / $0.30
     Context: 262.1K
   resolved_repo: XiaomiMiMo/MiMo-V2-Flash
@@ -1724,20 +1724,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '60'
-  - '159'
+  - '161'
   - minimax-m2.5 MiniMax · Modified MIT
-  - 1391 ±4
-  - 147 173
-  - 40,884
+  - 1390 ±4
+  - 149 174
+  - 40,852
   - $0.27 / $1.08
   - 204.8K
   by_header:
     Rank: '60'
-    Overall Rank: '159'
+    Overall Rank: '161'
     Model: minimax-m2.5 MiniMax · Modified MIT
-    Score: 1391 ±4
-    Rank Spread: 147 173
-    Votes: 40,884
+    Score: 1390 ±4
+    Rank Spread: 149 174
+    Votes: 40,852
     Price $/M: $0.27 / $1.08
     Context: 204.8K
   resolved_repo: MiniMaxAI/MiniMax-M2.5
@@ -1756,8 +1756,8 @@ arena_agent:
   - '166'
   - qwen3-coder-480b-a35b-instruct Alibaba · Apache 2.0
   - 1387 ±5
-  - 151 175
-  - 25,092
+  - 152 176
+  - 25,091
   - $0.40 / $1.60
   - 262.1K
   by_header:
@@ -1765,8 +1765,8 @@ arena_agent:
     Overall Rank: '166'
     Model: qwen3-coder-480b-a35b-instruct Alibaba · Apache 2.0
     Score: 1387 ±5
-    Rank Spread: 151 175
-    Votes: 25,092
+    Rank Spread: 152 176
+    Votes: 25,091
     Price $/M: $0.40 / $1.60
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
@@ -1782,20 +1782,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '62'
-  - '167'
+  - '168'
   - mimo-v2-flash (thinking) Xiaomi · MIT
   - 1386 ±6
-  - 151 175
-  - 10,749
+  - 152 176
+  - 10,742
   - $0.10 / $0.30
   - 262.1K
   by_header:
     Rank: '62'
-    Overall Rank: '167'
+    Overall Rank: '168'
     Model: mimo-v2-flash (thinking) Xiaomi · MIT
     Score: 1386 ±6
-    Rank Spread: 151 175
-    Votes: 10,749
+    Rank Spread: 152 176
+    Votes: 10,742
     Price $/M: $0.10 / $0.30
     Context: 262.1K
   resolved_repo: XiaomiMiMo/MiMo-V2-Flash
@@ -1811,20 +1811,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '63'
-  - '168'
+  - '169'
   - minimax-m2.1-preview MiniMax · MIT
   - 1384 ±5
-  - 154 177
-  - 16,633
+  - 155 178
+  - 16,623
   - $0.30 / $1.20
   - 204.8K
   by_header:
     Rank: '63'
-    Overall Rank: '168'
+    Overall Rank: '169'
     Model: minimax-m2.1-preview MiniMax · MIT
     Score: 1384 ±5
-    Rank Spread: 154 177
-    Votes: 16,633
+    Rank Spread: 155 178
+    Votes: 16,623
     Price $/M: $0.30 / $1.20
     Context: 204.8K
   resolved_repo: null
@@ -1840,20 +1840,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '64'
-  - '171'
+  - '172'
   - qwen3-30b-a3b-instruct-2507 Alibaba · Apache 2.0
   - 1382 ±5
-  - 156 179
-  - 23,224
+  - 157 180
+  - 23,220
   - $0.05 / $0.19
   - 262.1K
   by_header:
     Rank: '64'
-    Overall Rank: '171'
+    Overall Rank: '172'
     Model: qwen3-30b-a3b-instruct-2507 Alibaba · Apache 2.0
     Score: 1382 ±5
-    Rank Spread: 156 179
-    Votes: 23,224
+    Rank Spread: 157 180
+    Votes: 23,220
     Price $/M: $0.05 / $0.19
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
@@ -1869,20 +1869,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '65'
-  - '173'
+  - '174'
   - trinity-large-preview Apache 2.0
-  - 1379 ±4
-  - 164 182
-  - 29,771
+  - 1378 ±4
+  - 164 183
+  - 29,739
   - $0.15 / $0.45
   - 131K
   by_header:
     Rank: '65'
-    Overall Rank: '173'
+    Overall Rank: '174'
     Model: trinity-large-preview Apache 2.0
-    Score: 1379 ±4
-    Rank Spread: 164 182
-    Votes: 29,771
+    Score: 1378 ±4
+    Rank Spread: 164 183
+    Votes: 29,739
     Price $/M: $0.15 / $0.45
     Context: 131K
   resolved_repo: null
@@ -1898,20 +1898,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '66'
-  - '174'
+  - '175'
   - glm-4.6v Z.ai · MIT
   - 1378 ±11
-  - 154 190
-  - 2,762
+  - 155 191
+  - 2,761
   - $0.30 / $0.90
   - 131.1K
   by_header:
     Rank: '66'
-    Overall Rank: '174'
+    Overall Rank: '175'
     Model: glm-4.6v Z.ai · MIT
     Score: 1378 ±11
-    Rank Spread: 154 190
-    Votes: 2,762
+    Rank Spread: 155 191
+    Votes: 2,761
     Price $/M: $0.30 / $0.90
     Context: 131.1K
   resolved_repo: zai-org/GLM-4.6V
@@ -1927,20 +1927,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '67'
-  - '176'
+  - '177'
   - qwen3-235b-a22b Alibaba · Apache 2.0
   - 1375 ±5
-  - 167 184
-  - 25,864
+  - 168 185
+  - 25,861
   - $0.46 / $1.82
   - 131.1K
   by_header:
     Rank: '67'
-    Overall Rank: '176'
+    Overall Rank: '177'
     Model: qwen3-235b-a22b Alibaba · Apache 2.0
     Score: 1375 ±5
-    Rank Spread: 167 184
-    Votes: 25,864
+    Rank Spread: 168 185
+    Votes: 25,861
     Price $/M: $0.46 / $1.82
     Context: 131.1K
   resolved_repo: Qwen/Qwen3-235B-A22B
@@ -1956,20 +1956,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '68'
-  - '180'
+  - '181'
   - glm-4.5-air Z.ai · MIT
   - 1373 ±4
-  - 170 186
-  - 30,372
+  - 171 187
+  - 30,367
   - $0.13 / $0.85
   - 131.1K
   by_header:
     Rank: '68'
-    Overall Rank: '180'
+    Overall Rank: '181'
     Model: glm-4.5-air Z.ai · MIT
     Score: 1373 ±4
-    Rank Spread: 170 186
-    Votes: 30,372
+    Rank Spread: 171 187
+    Votes: 30,367
     Price $/M: $0.13 / $0.85
     Context: 131.1K
   resolved_repo: zai-org/GLM-4.5-Air-Base
@@ -1985,20 +1985,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '69'
-  - '182'
+  - '183'
   - trinity-large-thinking Apache 2.0
   - 1369 ±5
-  - 174 192
-  - 28,989
+  - 175 192
+  - 28,956
   - $0.25 / $0.80
   - 262.1K
   by_header:
     Rank: '69'
-    Overall Rank: '182'
+    Overall Rank: '183'
     Model: trinity-large-thinking Apache 2.0
     Score: 1369 ±5
-    Rank Spread: 174 192
-    Votes: 28,989
+    Rank Spread: 175 192
+    Votes: 28,956
     Price $/M: $0.25 / $0.80
     Context: 262.1K
   resolved_repo: null
@@ -2014,20 +2014,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '70'
-  - '183'
+  - '184'
   - qwen3-next-80b-a3b-thinking Alibaba · Apache 2.0
   - 1369 ±6
-  - 173 193
-  - 13,391
+  - 174 195
+  - 13,379
   - $0.15 / $1.20
   - 262.1K
   by_header:
     Rank: '70'
-    Overall Rank: '183'
+    Overall Rank: '184'
     Model: qwen3-next-80b-a3b-thinking Alibaba · Apache 2.0
     Score: 1369 ±6
-    Rank Spread: 173 193
-    Votes: 13,391
+    Rank Spread: 174 195
+    Votes: 13,379
     Price $/M: $0.15 / $1.20
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-Next-80B-A3B-Thinking
@@ -2043,20 +2043,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '71'
-  - '184'
+  - '185'
   - glm-4.7-flash Z.ai · MIT
   - 1366 ±6
-  - 174 197
-  - 11,514
+  - 175 198
+  - 11,495
   - $0.06 / $0.40
   - 200K
   by_header:
     Rank: '71'
-    Overall Rank: '184'
+    Overall Rank: '185'
     Model: glm-4.7-flash Z.ai · MIT
     Score: 1366 ±6
-    Rank Spread: 174 197
-    Votes: 11,514
+    Rank Spread: 175 198
+    Votes: 11,495
     Price $/M: $0.06 / $0.40
     Context: 200K
   resolved_repo: zai-org/GLM-4.7-Flash
@@ -2075,8 +2075,8 @@ arena_agent:
   - '186'
   - gemma-3-27b-it Google · Gemma
   - 1365 ±4
-  - 179 196
-  - 46,421
+  - 180 196
+  - 46,418
   - $0.08 / $0.45
   - 131.1K
   by_header:
@@ -2084,8 +2084,8 @@ arena_agent:
     Overall Rank: '186'
     Model: gemma-3-27b-it Google · Gemma
     Score: 1365 ±4
-    Rank Spread: 179 196
-    Votes: 46,421
+    Rank Spread: 180 196
+    Votes: 46,418
     Price $/M: $0.08 / $0.45
     Context: 131.1K
   resolved_repo: google/gemma-3-27b-it
@@ -2104,8 +2104,8 @@ arena_agent:
   - '188'
   - minimax-m1 MiniMax · Apache 2.0
   - 1364 ±4
-  - 179 198
-  - 34,038
+  - 180 199
+  - 34,024
   - $0.55 / $2.20
   - 1M
   by_header:
@@ -2113,8 +2113,8 @@ arena_agent:
     Overall Rank: '188'
     Model: minimax-m1 MiniMax · Apache 2.0
     Score: 1364 ±4
-    Rank Spread: 179 198
-    Votes: 34,038
+    Rank Spread: 180 199
+    Votes: 34,024
     Price $/M: $0.55 / $2.20
     Context: 1M
   resolved_repo: MiniMaxAI/MiniMax-M1-40k
@@ -2130,19 +2130,19 @@ arena_agent:
   arena_license_label: nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
   raw:
   - '74'
-  - '190'
+  - '191'
   - nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
   - 1361 ±7
-  - 179 210
+  - 181 211
   - 7,458
   - N/A
   - N/A
   by_header:
     Rank: '74'
-    Overall Rank: '190'
+    Overall Rank: '191'
     Model: nvidia-nemotron-3-super-120b-a12b Nvidia · NVIDIA Open Model
     Score: 1361 ±7
-    Rank Spread: 179 210
+    Rank Spread: 181 211
     Votes: 7,458
     Price $/M: N/A
     Context: N/A
@@ -2159,19 +2159,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '75'
-  - '192'
+  - '193'
   - deepseek-v3 DeepSeek · DeepSeek
   - 1358 ±5
-  - 184 209
+  - 184 210
   - 21,770
   - $1.14 / $4.56
   - N/A
   by_header:
     Rank: '75'
-    Overall Rank: '192'
+    Overall Rank: '193'
     Model: deepseek-v3 DeepSeek · DeepSeek
     Score: 1358 ±5
-    Rank Spread: 184 209
+    Rank Spread: 184 210
     Votes: 21,770
     Price $/M: $1.14 / $4.56
     Context: N/A
@@ -2188,20 +2188,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '76'
-  - '194'
+  - '195'
   - mistral-small-2506 Mistral · Apache 2.0
   - 1357 ±5
-  - 184 214
-  - 17,399
+  - 185 215
+  - 17,390
   - $0.10 / $0.30
   - 32K
   by_header:
     Rank: '76'
-    Overall Rank: '194'
+    Overall Rank: '195'
     Model: mistral-small-2506 Mistral · Apache 2.0
     Score: 1357 ±5
-    Rank Spread: 184 214
-    Votes: 17,399
+    Rank Spread: 185 215
+    Votes: 17,390
     Price $/M: $0.10 / $0.30
     Context: 32K
   resolved_repo: null
@@ -2217,20 +2217,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '77'
-  - '195'
+  - '196'
   - intellect-3 MIT
   - 1356 ±8
-  - 182 219
-  - 5,284
+  - 182 220
+  - 5,278
   - $0.20 / $1.10
   - 131.1K
   by_header:
     Rank: '77'
-    Overall Rank: '195'
+    Overall Rank: '196'
     Model: intellect-3 MIT
     Score: 1356 ±8
-    Rank Spread: 182 219
-    Votes: 5,284
+    Rank Spread: 182 220
+    Votes: 5,278
     Price $/M: $0.20 / $1.10
     Context: 131.1K
   resolved_repo: null
@@ -2238,35 +2238,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 78
-  model: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
-  org: NVIDIA
-  matched_keyword: nemotron
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
-  raw:
-  - '78'
-  - '196'
-  - nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
-  - 1355 ±9 Preliminary
-  - 181 219
-  - 4,814
-  - N/A
-  - N/A
-  by_header:
-    Rank: '78'
-    Overall Rank: '196'
-    Model: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
-    Score: 1355 ±9 Preliminary
-    Rank Spread: 181 219
-    Votes: 4,814
-    Price $/M: N/A
-    Context: N/A
-  resolved_repo: null
-  resolution_confidence: low
-  open_weight: false
-  needs_hf_repo: true
-- rank: 79
   model: Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
   org: Cohere
   matched_keyword: command
@@ -2274,28 +2245,28 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '79'
+  - '78'
   - '197'
   - Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
   - 1354 ±3
-  - 190 217
-  - 55,449
+  - 191 218
+  - 55,441
   - $2.50 / $10
   - 256K
   by_header:
-    Rank: '79'
+    Rank: '78'
     Overall Rank: '197'
     Model: Cohere command-a-03-2025 Cohere · CC-BY-NC-4.0
     Score: 1354 ±3
-    Rank Spread: 190 217
-    Votes: 55,449
+    Rank Spread: 191 218
+    Votes: 55,441
     Price $/M: $2.50 / $10
     Context: 256K
   resolved_repo: null
   resolution_confidence: low
   open_weight: false
   needs_hf_repo: true
-- rank: 80
+- rank: 79
   model: glm-4.5v Z.ai · MIT
   org: Zhipu AI
   matched_keyword: glm
@@ -2303,27 +2274,56 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '80'
+  - '79'
   - '199'
   - glm-4.5v Z.ai · MIT
   - 1353 ±8
-  - 186 221
-  - 4,817
+  - 186 222
+  - 4,816
   - $0.60 / $1.80
   - 65.5K
   by_header:
-    Rank: '80'
+    Rank: '79'
     Overall Rank: '199'
     Model: glm-4.5v Z.ai · MIT
     Score: 1353 ±8
-    Rank Spread: 186 221
-    Votes: 4,817
+    Rank Spread: 186 222
+    Votes: 4,816
     Price $/M: $0.60 / $1.80
     Context: 65.5K
   resolved_repo: zai-org/GLM-4.5V
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
+- rank: 80
+  model: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
+  org: NVIDIA
+  matched_keyword: nemotron
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
+  raw:
+  - '80'
+  - '200'
+  - nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
+  - 1353 ±8 Preliminary
+  - 188 221
+  - 7,900
+  - N/A
+  - N/A
+  by_header:
+    Rank: '80'
+    Overall Rank: '200'
+    Model: nvidia-nemotron-3.5-lightning-30b-a3b-nvfp4 Nvidia · OpenMDW-1.1
+    Score: 1353 ±8 Preliminary
+    Rank Spread: 188 221
+    Votes: 7,900
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: low
+  open_weight: false
+  needs_hf_repo: true
 - rank: 81
   model: gpt-oss-120b OpenAI · Apache 2.0
   org: OpenAI
@@ -2333,20 +2333,20 @@ arena_agent:
   arena_license_label: gpt-oss-120b OpenAI · Apache 2.0
   raw:
   - '81'
-  - '200'
+  - '201'
   - gpt-oss-120b OpenAI · Apache 2.0
   - 1352 ±4
-  - 190 219
-  - 29,955
+  - 191 220
+  - 29,948
   - $0.15 / $0.60
   - 131.1K
   by_header:
     Rank: '81'
-    Overall Rank: '200'
+    Overall Rank: '201'
     Model: gpt-oss-120b OpenAI · Apache 2.0
     Score: 1352 ±4
-    Rank Spread: 190 219
-    Votes: 29,955
+    Rank Spread: 191 220
+    Votes: 29,948
     Price $/M: $0.15 / $0.60
     Context: 131.1K
   resolved_repo: openai/gpt-oss-120b
@@ -2362,19 +2362,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '82'
-  - '203'
+  - '204'
   - Stepfun step-3 StepFun · Apache 2.0
   - 1349 ±8
-  - 190 223
+  - 191 224
   - 6,277
   - $0.57 / $1.42
   - 65.5K
   by_header:
     Rank: '82'
-    Overall Rank: '203'
+    Overall Rank: '204'
     Model: Stepfun step-3 StepFun · Apache 2.0
     Score: 1349 ±8
-    Rank Spread: 190 223
+    Rank Spread: 191 224
     Votes: 6,277
     Price $/M: $0.57 / $1.42
     Context: 65.5K
@@ -2391,19 +2391,19 @@ arena_agent:
   arena_license_label: llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
   raw:
   - '83'
-  - '206'
+  - '207'
   - llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
-  - 1347 ±12
-  - 188 233
+  - 1348 ±12
+  - 189 234
   - 2,549
   - $0.60 / $1.80
   - 131.1K
   by_header:
     Rank: '83'
-    Overall Rank: '206'
+    Overall Rank: '207'
     Model: llama-3.1-nemotron-ultra-253b-v1 Nvidia · Nvidia Open Model
-    Score: 1347 ±12
-    Rank Spread: 188 233
+    Score: 1348 ±12
+    Rank Spread: 189 234
     Votes: 2,549
     Price $/M: $0.60 / $1.80
     Context: 131.1K
@@ -2420,19 +2420,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '84'
-  - '207'
+  - '208'
   - qwen3-32b Alibaba · Apache 2.0
   - 1347 ±9
-  - 190 230
+  - 191 231
   - 3,926
   - $0.08 / $0.28
   - 131.1K
   by_header:
     Rank: '84'
-    Overall Rank: '207'
+    Overall Rank: '208'
     Model: qwen3-32b Alibaba · Apache 2.0
     Score: 1347 ±9
-    Rank Spread: 190 230
+    Rank Spread: 191 231
     Votes: 3,926
     Price $/M: $0.08 / $0.28
     Context: 131.1K
@@ -2449,19 +2449,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '85'
-  - '212'
+  - '213'
   - minimax-m2 MiniMax · Apache 2.0
   - 1346 ±8
-  - 192 230
+  - 193 231
   - 6,752
   - $0.30 / $1.20
   - 204.8K
   by_header:
     Rank: '85'
-    Overall Rank: '212'
+    Overall Rank: '213'
     Model: minimax-m2 MiniMax · Apache 2.0
     Score: 1346 ±8
-    Rank Spread: 192 230
+    Rank Spread: 193 231
     Votes: 6,752
     Price $/M: $0.30 / $1.20
     Context: 204.8K
@@ -2478,20 +2478,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '86'
-  - '213'
+  - '214'
   - ling-flash-2.0 Ant Group · MIT
   - 1344 ±7
-  - 194 230
-  - 6,853
+  - 195 232
+  - 6,851
   - N/A
   - N/A
   by_header:
     Rank: '86'
-    Overall Rank: '213'
+    Overall Rank: '214'
     Model: ling-flash-2.0 Ant Group · MIT
     Score: 1344 ±7
-    Rank Spread: 194 230
-    Votes: 6,853
+    Rank Spread: 195 232
+    Votes: 6,851
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
@@ -2507,20 +2507,20 @@ arena_agent:
   arena_license_label: nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
   raw:
   - '87'
-  - '214'
+  - '215'
   - nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
   - 1343 ±10
-  - 193 233
-  - 3,316
+  - 194 234
+  - 3,313
   - $0.10 / $0.40
   - 131.1K
   by_header:
     Rank: '87'
-    Overall Rank: '214'
+    Overall Rank: '215'
     Model: nvidia-llama-3.3-nemotron-super-49b-v1.5 Nvidia · Nvidia Open
     Score: 1343 ±10
-    Rank Spread: 193 233
-    Votes: 3,316
+    Rank Spread: 194 234
+    Votes: 3,313
     Price $/M: $0.10 / $0.40
     Context: 131.1K
   resolved_repo: null
@@ -2528,35 +2528,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 88
-  model: granite-4.2-30b IBM · Apache 2.0
-  org: IBM
-  matched_keyword: granite
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '88'
-  - '217'
-  - granite-4.2-30b IBM · Apache 2.0
-  - 1342 ±11
-  - 194 236
-  - 3,275
-  - N/A
-  - N/A
-  by_header:
-    Rank: '88'
-    Overall Rank: '217'
-    Model: granite-4.2-30b IBM · Apache 2.0
-    Score: 1342 ±11
-    Rank Spread: 194 236
-    Votes: 3,275
-    Price $/M: N/A
-    Context: N/A
-  resolved_repo: ibm-granite/granite-4.2-30b
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 89
   model: gemma-3-12b-it Google · Gemma
   org: Google
   matched_keyword: gemma
@@ -2564,24 +2535,53 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '89'
+  - '88'
   - '218'
   - gemma-3-12b-it Google · Gemma
   - 1342 ±10
-  - 195 234
+  - 196 235
   - 3,829
   - $0.05 / $0.15
   - 131.1K
   by_header:
-    Rank: '89'
+    Rank: '88'
     Overall Rank: '218'
     Model: gemma-3-12b-it Google · Gemma
     Score: 1342 ±10
-    Rank Spread: 195 234
+    Rank Spread: 196 235
     Votes: 3,829
     Price $/M: $0.05 / $0.15
     Context: 131.1K
   resolved_repo: google/gemma-3-12b-it
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 89
+  model: granite-4.2-30b IBM · Apache 2.0
+  org: IBM
+  matched_keyword: granite
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '89'
+  - '219'
+  - granite-4.2-30b IBM · Apache 2.0
+  - 1342 ±11
+  - 195 238
+  - 3,261
+  - N/A
+  - N/A
+  by_header:
+    Rank: '89'
+    Overall Rank: '219'
+    Model: granite-4.2-30b IBM · Apache 2.0
+    Score: 1342 ±11
+    Rank Spread: 195 238
+    Votes: 3,261
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: ibm-granite/granite-4.2-30b
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -2594,20 +2594,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '90'
-  - '223'
+  - '224'
   - qwq-32b Alibaba · Apache 2.0
   - 1336 ±4
-  - 206 236
-  - 25,092
+  - 207 237
+  - 25,087
   - $0.50 / $1
   - 16.4K
   by_header:
     Rank: '90'
-    Overall Rank: '223'
+    Overall Rank: '224'
     Model: qwq-32b Alibaba · Apache 2.0
     Score: 1336 ±4
-    Rank Spread: 206 236
-    Votes: 25,092
+    Rank Spread: 207 237
+    Votes: 25,087
     Price $/M: $0.50 / $1
     Context: 16.4K
   resolved_repo: Qwen/QwQ-32B
@@ -2623,19 +2623,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '91'
-  - '227'
+  - '228'
   - Meta llama-3.1-405b-instruct-bf16 Meta · Llama 3.1 Community
   - 1335 ±4
-  - 207 236
+  - 208 237
   - 41,375
   - $4 / $4
   - 32.8K
   by_header:
     Rank: '91'
-    Overall Rank: '227'
+    Overall Rank: '228'
     Model: Meta llama-3.1-405b-instruct-bf16 Meta · Llama 3.1 Community
     Score: 1335 ±4
-    Rank Spread: 207 236
+    Rank Spread: 208 237
     Votes: 41,375
     Price $/M: $4 / $4
     Context: 32.8K
@@ -2652,19 +2652,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '92'
-  - '229'
+  - '230'
   - Meta llama-3.1-405b-instruct-fp8 Meta · Llama 3.1 Community
   - 1333 ±4
-  - 212 238
+  - 212 239
   - 59,656
   - $4 / $4
   - 32.8K
   by_header:
     Rank: '92'
-    Overall Rank: '229'
+    Overall Rank: '230'
     Model: Meta llama-3.1-405b-instruct-fp8 Meta · Llama 3.1 Community
     Score: 1333 ±4
-    Rank Spread: 212 238
+    Rank Spread: 212 239
     Votes: 59,656
     Price $/M: $4 / $4
     Context: 32.8K
@@ -2681,20 +2681,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '93'
-  - '230'
+  - '231'
   - olmo-3.1-32b-instruct Ai2 · Apache 2.0
   - 1330 ±6
-  - 212 246
-  - 11,460
+  - 213 247
+  - 11,454
   - $0.20 / $0.60
   - 65.5K
   by_header:
     Rank: '93'
-    Overall Rank: '230'
+    Overall Rank: '231'
     Model: olmo-3.1-32b-instruct Ai2 · Apache 2.0
     Score: 1330 ±6
-    Rank Spread: 212 246
-    Votes: 11,460
+    Rank Spread: 213 247
+    Votes: 11,454
     Price $/M: $0.20 / $0.60
     Context: 65.5K
   resolved_repo: allenai/Olmo-3.1-32B-Instruct
@@ -2710,19 +2710,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '94'
-  - '232'
+  - '233'
   - llama-3.3-nemotron-49b-super-v1 Nvidia · Nvidia
   - 1328 ±12
-  - 206 260
+  - 207 261
   - 2,218
   - N/A
   - N/A
   by_header:
     Rank: '94'
-    Overall Rank: '232'
+    Overall Rank: '233'
     Model: llama-3.3-nemotron-49b-super-v1 Nvidia · Nvidia
     Score: 1328 ±12
-    Rank Spread: 206 260
+    Rank Spread: 207 261
     Votes: 2,218
     Price $/M: N/A
     Context: N/A
@@ -2739,19 +2739,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '95'
-  - '233'
+  - '234'
   - molmo-2-8b Ai2 · Apache 2.0
   - 1328 ±21
-  - 196 272
+  - 198 272
   - '792'
   - $0.20 / $0.20
   - 36.9K
   by_header:
     Rank: '95'
-    Overall Rank: '233'
+    Overall Rank: '234'
     Model: molmo-2-8b Ai2 · Apache 2.0
     Score: 1328 ±21
-    Rank Spread: 196 272
+    Rank Spread: 198 272
     Votes: '792'
     Price $/M: $0.20 / $0.20
     Context: 36.9K
@@ -2768,20 +2768,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '96'
-  - '234'
+  - '235'
   - qwen3-30b-a3b Alibaba · Apache 2.0
   - 1327 ±5
-  - 220 249
-  - 26,092
+  - 221 251
+  - 26,087
   - $0.12 / $0.50
   - 131.1K
   by_header:
     Rank: '96'
-    Overall Rank: '234'
+    Overall Rank: '235'
     Model: qwen3-30b-a3b Alibaba · Apache 2.0
     Score: 1327 ±5
-    Rank Spread: 220 249
-    Votes: 26,092
+    Rank Spread: 221 251
+    Votes: 26,087
     Price $/M: $0.12 / $0.50
     Context: 131.1K
   resolved_repo: Qwen/Qwen3-30B-A3B
@@ -2797,20 +2797,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '97'
-  - '235'
+  - '236'
   - Meta llama-4-maverick-17b-128e-instruct Meta · Llama 4
   - 1327 ±4
-  - 224 249
-  - 39,360
+  - 223 249
+  - 39,355
   - $0.63 / $1.80
   - 131.1K
   by_header:
     Rank: '97'
-    Overall Rank: '235'
+    Overall Rank: '236'
     Model: Meta llama-4-maverick-17b-128e-instruct Meta · Llama 4
     Score: 1327 ±4
-    Rank Spread: 224 249
-    Votes: 39,360
+    Rank Spread: 223 249
+    Votes: 39,355
     Price $/M: $0.63 / $1.80
     Context: 131.1K
   resolved_repo: meta-llama/Llama-4-Maverick-17B-128E-Instruct
@@ -2826,19 +2826,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '98'
-  - '240'
+  - '241'
   - deepseek-v2.5-1210 DeepSeek · DeepSeek
   - 1323 ±8
-  - 220 261
+  - 221 261
   - 6,795
   - N/A
   - N/A
   by_header:
     Rank: '98'
-    Overall Rank: '240'
+    Overall Rank: '241'
     Model: deepseek-v2.5-1210 DeepSeek · DeepSeek
     Score: 1323 ±8
-    Rank Spread: 220 261
+    Rank Spread: 221 261
     Votes: 6,795
     Price $/M: N/A
     Context: N/A
@@ -2855,20 +2855,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '99'
-  - '243'
+  - '244'
   - Meta llama-4-scout-17b-16e-instruct Meta · Llama
   - 1321 ±5
-  - 229 258
-  - 29,747
+  - 230 259
+  - 29,735
   - $0.40 / $0.70
   - 8.2K
   by_header:
     Rank: '99'
-    Overall Rank: '243'
+    Overall Rank: '244'
     Model: Meta llama-4-scout-17b-16e-instruct Meta · Llama
     Score: 1321 ±5
-    Rank Spread: 229 258
-    Votes: 29,747
+    Rank Spread: 230 259
+    Votes: 29,735
     Price $/M: $0.40 / $0.70
     Context: 8.2K
   resolved_repo: meta-llama/Llama-4-Scout-17B-16E-Instruct
@@ -2884,20 +2884,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '100'
-  - '244'
+  - '245'
   - ring-flash-2.0 Ant Group · MIT
   - 1321 ±7
-  - 229 261
-  - 6,902
+  - 230 262
+  - 6,898
   - N/A
   - N/A
   by_header:
     Rank: '100'
-    Overall Rank: '244'
+    Overall Rank: '245'
     Model: ring-flash-2.0 Ant Group · MIT
     Score: 1321 ±7
-    Rank Spread: 229 261
-    Votes: 6,902
+    Rank Spread: 230 262
+    Votes: 6,898
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
@@ -2913,19 +2913,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '101'
-  - '247'
+  - '248'
   - qwen-max-0919 Alibaba · Qwen
   - 1318 ±6
-  - 231 263
+  - 232 264
   - 16,478
   - $1.60 / $6.40
   - 32.8K
   by_header:
     Rank: '101'
-    Overall Rank: '247'
+    Overall Rank: '248'
     Model: qwen-max-0919 Alibaba · Qwen
     Score: 1318 ±6
-    Rank Spread: 231 263
+    Rank Spread: 232 264
     Votes: 16,478
     Price $/M: $1.60 / $6.40
     Context: 32.8K
@@ -2942,20 +2942,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '102'
-  - '249'
+  - '250'
   - Meta llama-3.3-70b-instruct Meta · Llama-3.3
-  - 1317 ±4
-  - 234 261
-  - 54,415
+  - 1318 ±4
+  - 235 262
+  - 54,410
   - $0.10 / $0.32
   - 131.1K
   by_header:
     Rank: '102'
-    Overall Rank: '249'
+    Overall Rank: '250'
     Model: Meta llama-3.3-70b-instruct Meta · Llama-3.3
-    Score: 1317 ±4
-    Rank Spread: 234 261
-    Votes: 54,415
+    Score: 1318 ±4
+    Rank Spread: 235 262
+    Votes: 54,410
     Price $/M: $0.10 / $0.32
     Context: 131.1K
   resolved_repo: meta-llama/Llama-3.3-70B-Instruct
@@ -2963,35 +2963,6 @@ arena_agent:
   open_weight: true
   needs_hf_repo: false
 - rank: 103
-  model: gemma-3n-e4b-it Google · Gemma
-  org: Google
-  matched_keyword: gemma
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '103'
-  - '250'
-  - gemma-3n-e4b-it Google · Gemma
-  - 1317 ±5
-  - 232 263
-  - 22,087
-  - $0.06 / $0.12
-  - 32.8K
-  by_header:
-    Rank: '103'
-    Overall Rank: '250'
-    Model: gemma-3n-e4b-it Google · Gemma
-    Score: 1317 ±5
-    Rank Spread: 232 263
-    Votes: 22,087
-    Price $/M: $0.06 / $0.12
-    Context: 32.8K
-  resolved_repo: google/gemma-3n-E4B-it
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 104
   model: gpt-oss-20b OpenAI · Apache 2.0
   org: OpenAI
   matched_keyword: gpt
@@ -2999,24 +2970,53 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: gpt-oss-20b OpenAI · Apache 2.0
   raw:
-  - '104'
+  - '103'
   - '251'
   - gpt-oss-20b OpenAI · Apache 2.0
   - 1317 ±6
-  - 231 267
-  - 10,394
+  - 232 268
+  - 10,393
   - $0.05 / $0.20
   - 131.1K
   by_header:
-    Rank: '104'
+    Rank: '103'
     Overall Rank: '251'
     Model: gpt-oss-20b OpenAI · Apache 2.0
     Score: 1317 ±6
-    Rank Spread: 231 267
-    Votes: 10,394
+    Rank Spread: 232 268
+    Votes: 10,393
     Price $/M: $0.05 / $0.20
     Context: 131.1K
   resolved_repo: openai/gpt-oss-20b
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
+- rank: 104
+  model: gemma-3n-e4b-it Google · Gemma
+  org: Google
+  matched_keyword: gemma
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '104'
+  - '252'
+  - gemma-3n-e4b-it Google · Gemma
+  - 1317 ±5
+  - 234 266
+  - 22,079
+  - $0.06 / $0.12
+  - 32.8K
+  by_header:
+    Rank: '104'
+    Overall Rank: '252'
+    Model: gemma-3n-e4b-it Google · Gemma
+    Score: 1317 ±5
+    Rank Spread: 234 266
+    Votes: 22,079
+    Price $/M: $0.06 / $0.12
+    Context: 32.8K
+  resolved_repo: google/gemma-3n-E4B-it
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -3029,20 +3029,20 @@ arena_agent:
   arena_license_label: nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
   raw:
   - '105'
-  - '253'
+  - '254'
   - nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
   - 1314 ±6
-  - 236 268
-  - 15,332
+  - 237 269
+  - 15,326
   - $0.06 / $0.24
   - 262.1K
   by_header:
     Rank: '105'
-    Overall Rank: '253'
+    Overall Rank: '254'
     Model: nvidia-nemotron-3-nano-30b-a3b-bf16 Nvidia · NVIDIA Open Model
     Score: 1314 ±6
-    Rank Spread: 236 268
-    Votes: 15,332
+    Rank Spread: 237 269
+    Votes: 15,326
     Price $/M: $0.06 / $0.24
     Context: 262.1K
   resolved_repo: null
@@ -3058,19 +3058,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '106'
-  - '254'
+  - '255'
   - mistral-large-2407 Mistral · Mistral Research
   - 1314 ±4
-  - 238 267
+  - 239 268
   - 45,459
   - $2 / $6
   - 131.1K
   by_header:
     Rank: '106'
-    Overall Rank: '254'
+    Overall Rank: '255'
     Model: mistral-large-2407 Mistral · Mistral Research
     Score: 1314 ±4
-    Rank Spread: 238 267
+    Rank Spread: 239 268
     Votes: 45,459
     Price $/M: $2 / $6
     Context: 131.1K
@@ -3087,19 +3087,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '107'
-  - '255'
+  - '256'
   - athene-v2-chat NexusFlow
   - 1314 ±5
-  - 237 268
+  - 239 269
   - 24,739
   - N/A
   - N/A
   by_header:
     Rank: '107'
-    Overall Rank: '255'
+    Overall Rank: '256'
     Model: athene-v2-chat NexusFlow
     Score: 1314 ±5
-    Rank Spread: 237 268
+    Rank Spread: 239 269
     Votes: 24,739
     Price $/M: N/A
     Context: N/A
@@ -3116,19 +3116,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '108'
-  - '262'
+  - '263'
   - deepseek-v2.5 DeepSeek · DeepSeek
   - 1307 ±5
-  - 250 273
+  - 251 274
   - 24,572
   - N/A
   - N/A
   by_header:
     Rank: '108'
-    Overall Rank: '262'
+    Overall Rank: '263'
     Model: deepseek-v2.5 DeepSeek · DeepSeek
     Score: 1307 ±5
-    Rank Spread: 250 273
+    Rank Spread: 251 274
     Votes: 24,572
     Price $/M: N/A
     Context: N/A
@@ -3145,19 +3145,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '109'
-  - '263'
+  - '264'
   - olmo-3-32b-think Ai2 · Apache 2.0
   - 1307 ±8
-  - 241 274
+  - 243 275
   - 5,683
   - $0.15 / $0.50
   - 65.5K
   by_header:
     Rank: '109'
-    Overall Rank: '263'
+    Overall Rank: '264'
     Model: olmo-3-32b-think Ai2 · Apache 2.0
     Score: 1307 ±8
-    Rank Spread: 241 274
+    Rank Spread: 243 275
     Votes: 5,683
     Price $/M: $0.15 / $0.50
     Context: 65.5K
@@ -3174,19 +3174,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '110'
-  - '264'
+  - '265'
   - athene-70b-0725 CC-BY-NC-4.0
   - 1306 ±6
-  - 250 273
+  - 250 274
   - 19,621
   - N/A
   - N/A
   by_header:
     Rank: '110'
-    Overall Rank: '264'
+    Overall Rank: '265'
     Model: athene-70b-0725 CC-BY-NC-4.0
     Score: 1306 ±6
-    Rank Spread: 250 273
+    Rank Spread: 250 274
     Votes: 19,621
     Price $/M: N/A
     Context: N/A
@@ -3203,20 +3203,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '111'
-  - '265'
+  - '266'
   - granite-4.1-8b IBM · Apache 2.0
   - 1306 ±10
-  - 240 278
-  - 4,028
+  - 241 279
+  - 4,018
   - $0.05 / $0.10
   - 131.1K
   by_header:
     Rank: '111'
-    Overall Rank: '265'
+    Overall Rank: '266'
     Model: granite-4.1-8b IBM · Apache 2.0
     Score: 1306 ±10
-    Rank Spread: 240 278
-    Votes: 4,028
+    Rank Spread: 241 279
+    Votes: 4,018
     Price $/M: $0.05 / $0.10
     Context: 131.1K
   resolved_repo: ibm-granite/granite-4.1-8b
@@ -3232,19 +3232,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '112'
-  - '266'
+  - '267'
   - mistral-large-2411 Mistral · MRL
   - 1305 ±4
-  - 252 273
+  - 253 274
   - 28,073
   - $2 / $6
   - 128K
   by_header:
     Rank: '112'
-    Overall Rank: '266'
+    Overall Rank: '267'
     Model: mistral-large-2411 Mistral · MRL
     Score: 1305 ±4
-    Rank Spread: 252 273
+    Rank Spread: 253 274
     Votes: 28,073
     Price $/M: $2 / $6
     Context: 128K
@@ -3261,19 +3261,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '113'
-  - '268'
+  - '269'
   - gemma-3-4b-it Google · Gemma
   - 1303 ±9
-  - 248 281
+  - 249 282
   - 4,171
   - $0.05 / $0.10
   - 131.1K
   by_header:
     Rank: '113'
-    Overall Rank: '268'
+    Overall Rank: '269'
     Model: gemma-3-4b-it Google · Gemma
     Score: 1303 ±9
-    Rank Spread: 248 281
+    Rank Spread: 249 282
     Votes: 4,171
     Price $/M: $0.05 / $0.10
     Context: 131.1K
@@ -3290,20 +3290,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '114'
-  - '269'
+  - '270'
   - mistral-small-3.1-24b-instruct-2503 Mistral · Apache 2.0
   - 1303 ±5
-  - 257 274
-  - 32,630
+  - 258 274
+  - 32,614
   - $0.10 / $0.30
   - 32K
   by_header:
     Rank: '114'
-    Overall Rank: '269'
+    Overall Rank: '270'
     Model: mistral-small-3.1-24b-instruct-2503 Mistral · Apache 2.0
     Score: 1303 ±5
-    Rank Spread: 257 274
-    Votes: 32,630
+    Rank Spread: 258 274
+    Votes: 32,614
     Price $/M: $0.10 / $0.30
     Context: 32K
   resolved_repo: mistralai/Mistral-Small-3.1-24B-Instruct-2503
@@ -3319,19 +3319,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '115'
-  - '270'
+  - '271'
   - qwen2.5-72b-instruct Alibaba · Qwen
   - 1303 ±4
-  - 257 274
+  - 258 274
   - 39,406
   - $1.20 / $1.20
   - N/A
   by_header:
     Rank: '115'
-    Overall Rank: '270'
+    Overall Rank: '271'
     Model: qwen2.5-72b-instruct Alibaba · Qwen
     Score: 1303 ±4
-    Rank Spread: 257 274
+    Rank Spread: 258 274
     Votes: 39,406
     Price $/M: $1.20 / $1.20
     Context: N/A
@@ -3348,19 +3348,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '116'
-  - '271'
+  - '272'
   - llama-3.1-nemotron-70b-instruct Nvidia · Llama 3.1
   - 1299 ±8
-  - 257 284
+  - 258 285
   - 7,140
   - $1.20 / $1.20
   - 131.1K
   by_header:
     Rank: '116'
-    Overall Rank: '271'
+    Overall Rank: '272'
     Model: llama-3.1-nemotron-70b-instruct Nvidia · Llama 3.1
     Score: 1299 ±8
-    Rank Spread: 257 284
+    Rank Spread: 258 285
     Votes: 7,140
     Price $/M: $1.20 / $1.20
     Context: 131.1K
@@ -3377,20 +3377,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '117'
-  - '272'
+  - '273'
   - granite-4.2-3b IBM · Apache 2.0
-  - 1296 ±12
-  - 257 287
-  - 3,093
+  - 1294 ±12
+  - 259 289
+  - 3,081
   - N/A
   - N/A
   by_header:
     Rank: '117'
-    Overall Rank: '272'
+    Overall Rank: '273'
     Model: granite-4.2-3b IBM · Apache 2.0
-    Score: 1296 ±12
-    Rank Spread: 257 287
-    Votes: 3,093
+    Score: 1294 ±12
+    Rank Spread: 259 289
+    Votes: 3,081
     Price $/M: N/A
     Context: N/A
   resolved_repo: ibm-granite/granite-4.2-3b
@@ -3406,19 +3406,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '118'
-  - '274'
+  - '275'
   - Meta llama-3.1-70b-instruct Meta · Llama 3.1 Community
   - 1293 ±4
-  - 268 285
+  - 269 286
   - 55,240
   - $0.40 / $0.40
   - 131.1K
   by_header:
     Rank: '118'
-    Overall Rank: '274'
+    Overall Rank: '275'
     Model: Meta llama-3.1-70b-instruct Meta · Llama 3.1 Community
     Score: 1293 ±4
-    Rank Spread: 268 285
+    Rank Spread: 269 286
     Votes: 55,240
     Price $/M: $0.40 / $0.40
     Context: 131.1K
@@ -3435,19 +3435,19 @@ arena_agent:
   arena_license_label: jamba-1.5-large Jamba Open
   raw:
   - '119'
-  - '276'
+  - '277'
   - jamba-1.5-large Jamba Open
   - 1289 ±7
-  - 268 289
+  - 269 290
   - 8,662
   - $2 / $8
   - 256K
   by_header:
     Rank: '119'
-    Overall Rank: '276'
+    Overall Rank: '277'
     Model: jamba-1.5-large Jamba Open
     Score: 1289 ±7
-    Rank Spread: 268 289
+    Rank Spread: 269 290
     Votes: 8,662
     Price $/M: $2 / $8
     Context: 256K
@@ -3464,19 +3464,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '120'
-  - '277'
+  - '278'
   - gemma-2-27b-it Google · Gemma license
   - 1289 ±3
-  - 271 286
+  - 272 287
   - 75,754
   - $0.65 / $0.65
   - 8.2K
   by_header:
     Rank: '120'
-    Overall Rank: '277'
+    Overall Rank: '278'
     Model: gemma-2-27b-it Google · Gemma license
     Score: 1289 ±3
-    Rank Spread: 271 286
+    Rank Spread: 272 287
     Votes: 75,754
     Price $/M: $0.65 / $0.65
     Context: 8.2K
@@ -3493,20 +3493,20 @@ arena_agent:
   arena_license_label: null
   raw:
   - '121'
-  - '278'
+  - '281'
   - granite-4.2-8b IBM · Apache 2.0
-  - 1288 ±11
-  - 264 295
-  - 3,111
+  - 1287 ±11
+  - 267 296
+  - 3,098
   - $0.06 / $0.25
   - 131.1K
   by_header:
     Rank: '121'
-    Overall Rank: '278'
+    Overall Rank: '281'
     Model: granite-4.2-8b IBM · Apache 2.0
-    Score: 1288 ±11
-    Rank Spread: 264 295
-    Votes: 3,111
+    Score: 1287 ±11
+    Rank Spread: 267 296
+    Votes: 3,098
     Price $/M: $0.06 / $0.25
     Context: 131.1K
   resolved_repo: ibm-granite/granite-4.2-8b
@@ -3522,19 +3522,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '122'
-  - '282'
+  - '283'
   - llama-3.1-nemotron-51b-instruct Nvidia · Llama 3.1
   - 1286 ±10
-  - 268 295
+  - 269 296
   - 3,749
   - N/A
   - N/A
   by_header:
     Rank: '122'
-    Overall Rank: '282'
+    Overall Rank: '283'
     Model: llama-3.1-nemotron-51b-instruct Nvidia · Llama 3.1
     Score: 1286 ±10
-    Rank Spread: 268 295
+    Rank Spread: 269 296
     Votes: 3,749
     Price $/M: N/A
     Context: N/A
@@ -3551,19 +3551,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '123'
-  - '283'
+  - '284'
   - llama-3.1-tulu-3-70b Ai2 · Llama 3.1
   - 1286 ±10
-  - 268 295
+  - 269 296
   - 2,846
   - N/A
   - N/A
   by_header:
     Rank: '123'
-    Overall Rank: '283'
+    Overall Rank: '284'
     Model: llama-3.1-tulu-3-70b Ai2 · Llama 3.1
     Score: 1286 ±10
-    Rank Spread: 268 295
+    Rank Spread: 269 296
     Votes: 2,846
     Price $/M: N/A
     Context: N/A
@@ -3572,35 +3572,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 124
-  model: olmo-3.1-32b-think Ai2 · Apache 2.0
-  org: Ai2
-  matched_keyword: olmo
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '124'
-  - '284'
-  - olmo-3.1-32b-think Ai2 · Apache 2.0
-  - 1286 ±7
-  - 271 295
-  - 8,116
-  - $0.15 / $0.50
-  - 65.5K
-  by_header:
-    Rank: '124'
-    Overall Rank: '284'
-    Model: olmo-3.1-32b-think Ai2 · Apache 2.0
-    Score: 1286 ±7
-    Rank Spread: 271 295
-    Votes: 8,116
-    Price $/M: $0.15 / $0.50
-    Context: 65.5K
-  resolved_repo: allenai/Olmo-3.1-32B-Think
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 125
   model: ibm-granite-h-small IBM · Apache 2.0
   org: IBM
   matched_keyword: granite
@@ -3608,27 +3579,56 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '125'
+  - '124'
   - '285'
   - ibm-granite-h-small IBM · Apache 2.0
-  - 1285 ±8
-  - 270 295
-  - 5,535
+  - 1286 ±8
+  - 271 296
+  - 5,531
   - N/A
   - N/A
   by_header:
-    Rank: '125'
+    Rank: '124'
     Overall Rank: '285'
     Model: ibm-granite-h-small IBM · Apache 2.0
-    Score: 1285 ±8
-    Rank Spread: 270 295
-    Votes: 5,535
+    Score: 1286 ±8
+    Rank Spread: 271 296
+    Votes: 5,531
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
   resolution_confidence: low
   open_weight: false
   needs_hf_repo: true
+- rank: 125
+  model: olmo-3.1-32b-think Ai2 · Apache 2.0
+  org: Ai2
+  matched_keyword: olmo
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '125'
+  - '286'
+  - olmo-3.1-32b-think Ai2 · Apache 2.0
+  - 1286 ±7
+  - 272 296
+  - 8,114
+  - $0.15 / $0.50
+  - 65.5K
+  by_header:
+    Rank: '125'
+    Overall Rank: '286'
+    Model: olmo-3.1-32b-think Ai2 · Apache 2.0
+    Score: 1286 ±7
+    Rank Spread: 272 296
+    Votes: 8,114
+    Price $/M: $0.15 / $0.50
+    Context: 65.5K
+  resolved_repo: allenai/Olmo-3.1-32B-Think
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 126
   model: gemma-2-9b-it-simpo MIT
   org: Google
@@ -3638,19 +3638,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '126'
-  - '287'
+  - '288'
   - gemma-2-9b-it-simpo MIT
   - 1280 ±7
-  - 273 295
+  - 274 296
   - 10,072
   - $0.03 / $0.09
   - 8.2K
   by_header:
     Rank: '126'
-    Overall Rank: '287'
+    Overall Rank: '288'
     Model: gemma-2-9b-it-simpo MIT
     Score: 1280 ±7
-    Rank Spread: 273 295
+    Rank Spread: 274 296
     Votes: 10,072
     Price $/M: $0.03 / $0.09
     Context: 8.2K
@@ -3667,19 +3667,19 @@ arena_agent:
   arena_license_label: nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
   raw:
   - '127'
-  - '288'
+  - '289'
   - nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
   - 1277 ±5
-  - 278 296
+  - 279 297
   - 19,659
   - N/A
   - N/A
   by_header:
     Rank: '127'
-    Overall Rank: '288'
+    Overall Rank: '289'
     Model: nemotron-4-340b-instruct Nvidia · NVIDIA Open Model
     Score: 1277 ±5
-    Rank Spread: 278 296
+    Rank Spread: 279 297
     Votes: 19,659
     Price $/M: N/A
     Context: N/A
@@ -3696,19 +3696,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '128'
-  - '289'
+  - '290'
   - Meta llama-3-70b-instruct Meta · Llama 3 Community
   - 1276 ±4
-  - 281 295
+  - 282 296
   - 156,876
   - $0.51 / $0.74
   - 8.2K
   by_header:
     Rank: '128'
-    Overall Rank: '289'
+    Overall Rank: '290'
     Model: Meta llama-3-70b-instruct Meta · Llama 3 Community
     Score: 1276 ±4
-    Rank Spread: 281 295
+    Rank Spread: 282 296
     Votes: 156,876
     Price $/M: $0.51 / $0.74
     Context: 8.2K
@@ -3725,19 +3725,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '129'
-  - '290'
+  - '291'
   - Cohere command-r-plus-08-2024 Cohere · CC-BY-NC-4.0
   - 1276 ±7
-  - 277 298
+  - 278 299
   - 9,866
   - $2.50 / $10
   - 128K
   by_header:
     Rank: '129'
-    Overall Rank: '290'
+    Overall Rank: '291'
     Model: Cohere command-r-plus-08-2024 Cohere · CC-BY-NC-4.0
     Score: 1276 ±7
-    Rank Spread: 277 298
+    Rank Spread: 278 299
     Votes: 9,866
     Price $/M: $2.50 / $10
     Context: 128K
@@ -3754,19 +3754,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '130'
-  - '292'
+  - '293'
   - mistral-small-24b-instruct-2501 Mistral · Apache 2.0
   - 1274 ±6
-  - 281 298
+  - 282 299
   - 14,681
   - $0.05 / $0.08
   - 32.8K
   by_header:
     Rank: '130'
-    Overall Rank: '292'
+    Overall Rank: '293'
     Model: mistral-small-24b-instruct-2501 Mistral · Apache 2.0
     Score: 1274 ±6
-    Rank Spread: 281 298
+    Rank Spread: 282 299
     Votes: 14,681
     Price $/M: $0.05 / $0.08
     Context: 32.8K
@@ -3783,19 +3783,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '131'
-  - '295'
+  - '296'
   - qwen2.5-coder-32b-instruct Alibaba · Apache 2.0
   - 1270 ±8
-  - 281 303
+  - 282 304
   - 5,432
   - $0.87 / $0.87
   - 32K
   by_header:
     Rank: '131'
-    Overall Rank: '295'
+    Overall Rank: '296'
     Model: qwen2.5-coder-32b-instruct Alibaba · Apache 2.0
     Score: 1270 ±8
-    Rank Spread: 281 303
+    Rank Spread: 282 304
     Votes: 5,432
     Price $/M: $0.87 / $0.87
     Context: 32K
@@ -3812,19 +3812,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '132'
-  - '296'
+  - '297'
   - Cohere c4ai-aya-expanse-32b Cohere · CC-BY-NC-4.0
   - 1267 ±5
-  - 289 304
+  - 290 305
   - 27,124
   - N/A
   - N/A
   by_header:
     Rank: '132'
-    Overall Rank: '296'
+    Overall Rank: '297'
     Model: Cohere c4ai-aya-expanse-32b Cohere · CC-BY-NC-4.0
     Score: 1267 ±5
-    Rank Spread: 289 304
+    Rank Spread: 290 305
     Votes: 27,124
     Price $/M: N/A
     Context: N/A
@@ -3841,19 +3841,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '133'
-  - '297'
+  - '298'
   - gemma-2-9b-it Google · Gemma license
   - 1267 ±4
-  - 291 303
+  - 292 303
   - 54,611
   - $0.03 / $0.09
   - 8.2K
   by_header:
     Rank: '133'
-    Overall Rank: '297'
+    Overall Rank: '298'
     Model: gemma-2-9b-it Google · Gemma license
     Score: 1267 ±4
-    Rank Spread: 291 303
+    Rank Spread: 292 303
     Votes: 54,611
     Price $/M: $0.03 / $0.09
     Context: 8.2K
@@ -3870,19 +3870,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '134'
-  - '298'
+  - '299'
   - deepseek-coder-v2 DeepSeek · DeepSeek License
   - 1265 ±6
-  - 291 305
+  - 292 306
   - 15,147
   - $0.14 / $0.28
   - 128K
   by_header:
     Rank: '134'
-    Overall Rank: '298'
+    Overall Rank: '299'
     Model: deepseek-coder-v2 DeepSeek · DeepSeek License
     Score: 1265 ±6
-    Rank Spread: 291 305
+    Rank Spread: 292 306
     Votes: 15,147
     Price $/M: $0.14 / $0.28
     Context: 128K
@@ -3899,19 +3899,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '135'
-  - '299'
+  - '300'
   - qwen2-72b-instruct Alibaba · Qianwen LICENSE
   - 1261 ±5
-  - 293 306
+  - 294 307
   - 37,325
   - $0.90 / $0.90
   - 32.8K
   by_header:
     Rank: '135'
-    Overall Rank: '299'
+    Overall Rank: '300'
     Model: qwen2-72b-instruct Alibaba · Qianwen LICENSE
     Score: 1261 ±5
-    Rank Spread: 293 306
+    Rank Spread: 294 307
     Votes: 37,325
     Price $/M: $0.90 / $0.90
     Context: 32.8K
@@ -3928,19 +3928,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '136'
-  - '300'
+  - '301'
   - Cohere command-r-plus Cohere · CC-BY-NC-4.0
   - 1261 ±4
-  - 294 305
+  - 295 306
   - 77,554
   - $2.50 / $10
   - 128K
   by_header:
     Rank: '136'
-    Overall Rank: '300'
+    Overall Rank: '301'
     Model: Cohere command-r-plus Cohere · CC-BY-NC-4.0
     Score: 1261 ±4
-    Rank Spread: 294 305
+    Rank Spread: 295 306
     Votes: 77,554
     Price $/M: $2.50 / $10
     Context: 128K
@@ -3957,19 +3957,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '137'
-  - '304'
+  - '305'
   - phi-4 Microsoft · MIT
   - 1256 ±5
-  - 298 306
+  - 299 307
   - 24,126
   - $0.07 / $0.14
   - 16.4K
   by_header:
     Rank: '137'
-    Overall Rank: '304'
+    Overall Rank: '305'
     Model: phi-4 Microsoft · MIT
     Score: 1256 ±5
-    Rank Spread: 298 306
+    Rank Spread: 299 307
     Votes: 24,126
     Price $/M: $0.07 / $0.14
     Context: 16.4K
@@ -3986,19 +3986,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '138'
-  - '305'
+  - '306'
   - olmo-2-0325-32b-instruct Ai2 · Apache-2.0
   - 1251 ±11
-  - 297 312
+  - 298 313
   - 3,334
   - $0.05 / $0.20
   - 128K
   by_header:
     Rank: '138'
-    Overall Rank: '305'
+    Overall Rank: '306'
     Model: olmo-2-0325-32b-instruct Ai2 · Apache-2.0
     Score: 1251 ±11
-    Rank Spread: 297 312
+    Rank Spread: 298 313
     Votes: 3,334
     Price $/M: $0.05 / $0.20
     Context: 128K
@@ -4015,19 +4015,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '139'
-  - '306'
+  - '307'
   - Cohere command-r-08-2024 Cohere · CC-BY-NC-4.0
   - 1250 ±7
-  - 301 312
+  - 302 313
   - 10,140
   - $0.15 / $0.60
   - 128K
   by_header:
     Rank: '139'
-    Overall Rank: '306'
+    Overall Rank: '307'
     Model: Cohere command-r-08-2024 Cohere · CC-BY-NC-4.0
     Score: 1250 ±7
-    Rank Spread: 301 312
+    Rank Spread: 302 313
     Votes: 10,140
     Price $/M: $0.15 / $0.60
     Context: 128K
@@ -4044,19 +4044,19 @@ arena_agent:
   arena_license_label: jamba-1.5-mini Jamba Open
   raw:
   - '140'
-  - '309'
+  - '310'
   - jamba-1.5-mini Jamba Open
-  - 1239 ±7
-  - 305 318
+  - 1240 ±7
+  - 306 319
   - 8,858
   - $0.20 / $0.40
   - 256K
   by_header:
     Rank: '140'
-    Overall Rank: '309'
+    Overall Rank: '310'
     Model: jamba-1.5-mini Jamba Open
-    Score: 1239 ±7
-    Rank Spread: 305 318
+    Score: 1240 ±7
+    Rank Spread: 306 319
     Votes: 8,858
     Price $/M: $0.20 / $0.40
     Context: 256K
@@ -4073,19 +4073,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '141'
-  - '310'
+  - '311'
   - ministral-8b-2410 Mistral · MRL
   - 1237 ±9
-  - 305 322
+  - 306 323
   - 4,781
   - $0.10 / $0.10
   - 131.1K
   by_header:
     Rank: '141'
-    Overall Rank: '310'
+    Overall Rank: '311'
     Model: ministral-8b-2410 Mistral · MRL
     Score: 1237 ±9
-    Rank Spread: 305 322
+    Rank Spread: 306 323
     Votes: 4,781
     Price $/M: $0.10 / $0.10
     Context: 131.1K
@@ -4102,19 +4102,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '142'
-  - '312'
+  - '313'
   - qwen1.5-110b-chat Alibaba · Qianwen LICENSE
   - 1234 ±6
-  - 307 322
+  - 308 323
   - 26,195
   - N/A
   - N/A
   by_header:
     Rank: '142'
-    Overall Rank: '312'
+    Overall Rank: '313'
     Model: qwen1.5-110b-chat Alibaba · Qianwen LICENSE
     Score: 1234 ±6
-    Rank Spread: 307 322
+    Rank Spread: 308 323
     Votes: 26,195
     Price $/M: N/A
     Context: N/A
@@ -4134,7 +4134,7 @@ arena_agent:
   - '315'
   - qwen1.5-72b-chat Alibaba · Qianwen LICENSE
   - 1233 ±5
-  - 307 322
+  - 308 323
   - 39,302
   - N/A
   - N/A
@@ -4143,7 +4143,7 @@ arena_agent:
     Overall Rank: '315'
     Model: qwen1.5-72b-chat Alibaba · Qianwen LICENSE
     Score: 1233 ±5
-    Rank Spread: 307 322
+    Rank Spread: 308 323
     Votes: 39,302
     Price $/M: N/A
     Context: N/A
@@ -4160,19 +4160,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '144'
-  - '316'
+  - '317'
   - mixtral-8x22b-instruct-v0.1 Mistral · Apache 2.0
   - 1229 ±5
-  - 309 324
+  - 310 325
   - 51,416
   - $0.90 / $0.90
   - 65.5K
   by_header:
     Rank: '144'
-    Overall Rank: '316'
+    Overall Rank: '317'
     Model: mixtral-8x22b-instruct-v0.1 Mistral · Apache 2.0
     Score: 1229 ±5
-    Rank Spread: 309 324
+    Rank Spread: 310 325
     Votes: 51,416
     Price $/M: $0.90 / $0.90
     Context: 65.5K
@@ -4189,19 +4189,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '145'
-  - '317'
+  - '318'
   - Cohere command-r Cohere · CC-BY-NC-4.0
   - 1226 ±5
-  - 310 325
+  - 311 326
   - 54,036
   - $0.15 / $0.60
   - 128K
   by_header:
     Rank: '145'
-    Overall Rank: '317'
+    Overall Rank: '318'
     Model: Cohere command-r Cohere · CC-BY-NC-4.0
     Score: 1226 ±5
-    Rank Spread: 310 325
+    Rank Spread: 311 326
     Votes: 54,036
     Price $/M: $0.15 / $0.60
     Context: 128K
@@ -4218,19 +4218,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '146'
-  - '320'
+  - '321'
   - Meta llama-3-8b-instruct Meta · Llama 3 Community
   - 1223 ±4
-  - 314 325
+  - 315 326
   - 104,642
   - $0.14 / $0.14
   - 8.2K
   by_header:
     Rank: '146'
-    Overall Rank: '320'
+    Overall Rank: '321'
     Model: Meta llama-3-8b-instruct Meta · Llama 3 Community
     Score: 1223 ±4
-    Rank Spread: 314 325
+    Rank Spread: 315 326
     Votes: 104,642
     Price $/M: $0.14 / $0.14
     Context: 8.2K
@@ -4247,19 +4247,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '147'
-  - '322'
+  - '323'
   - Cohere c4ai-aya-expanse-8b Cohere · CC-BY-NC-4.0
   - 1223 ±7
-  - 310 327
+  - 311 328
   - 9,818
   - N/A
   - N/A
   by_header:
     Rank: '147'
-    Overall Rank: '322'
+    Overall Rank: '323'
     Model: Cohere c4ai-aya-expanse-8b Cohere · CC-BY-NC-4.0
     Score: 1223 ±7
-    Rank Spread: 310 327
+    Rank Spread: 311 328
     Votes: 9,818
     Price $/M: N/A
     Context: N/A
@@ -4276,19 +4276,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '148'
-  - '324'
+  - '325'
   - llama-3.1-tulu-3-8b Ai2 · Llama 3.1
   - 1220 ±11
-  - 310 329
+  - 311 331
   - 2,896
   - N/A
   - N/A
   by_header:
     Rank: '148'
-    Overall Rank: '324'
+    Overall Rank: '325'
     Model: llama-3.1-tulu-3-8b Ai2 · Llama 3.1
     Score: 1220 ±11
-    Rank Spread: 310 329
+    Rank Spread: 311 331
     Votes: 2,896
     Price $/M: N/A
     Context: N/A
@@ -4297,35 +4297,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 149
-  model: yi-1.5-34b-chat Apache-2.0
-  org: 01.AI
-  matched_keyword: yi
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '149'
-  - '325'
-  - yi-1.5-34b-chat Apache-2.0
-  - 1212 ±5
-  - 321 330
-  - 24,146
-  - N/A
-  - N/A
-  by_header:
-    Rank: '149'
-    Overall Rank: '325'
-    Model: yi-1.5-34b-chat Apache-2.0
-    Score: 1212 ±5
-    Rank Spread: 321 330
-    Votes: 24,146
-    Price $/M: N/A
-    Context: N/A
-  resolved_repo: null
-  resolution_confidence: null
-  open_weight: false
-  needs_hf_repo: true
-- rank: 150
   model: zephyr-orpo-141b-A35b-v0.1 Apache 2.0
   org: null
   matched_keyword: null
@@ -4333,21 +4304,50 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '150'
+  - '149'
   - '326'
   - zephyr-orpo-141b-A35b-v0.1 Apache 2.0
-  - 1212 ±11
-  - 316 332
+  - 1213 ±11
+  - 317 333
   - 4,652
   - N/A
   - N/A
   by_header:
-    Rank: '150'
+    Rank: '149'
     Overall Rank: '326'
     Model: zephyr-orpo-141b-A35b-v0.1 Apache 2.0
-    Score: 1212 ±11
-    Rank Spread: 316 332
+    Score: 1213 ±11
+    Rank Spread: 317 333
     Votes: 4,652
+    Price $/M: N/A
+    Context: N/A
+  resolved_repo: null
+  resolution_confidence: null
+  open_weight: false
+  needs_hf_repo: true
+- rank: 150
+  model: yi-1.5-34b-chat Apache-2.0
+  org: 01.AI
+  matched_keyword: yi
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '150'
+  - '327'
+  - yi-1.5-34b-chat Apache-2.0
+  - 1213 ±5
+  - 322 331
+  - 24,146
+  - N/A
+  - N/A
+  by_header:
+    Rank: '150'
+    Overall Rank: '327'
+    Model: yi-1.5-34b-chat Apache-2.0
+    Score: 1213 ±5
+    Rank Spread: 322 331
+    Votes: 24,146
     Price $/M: N/A
     Context: N/A
   resolved_repo: null
@@ -4363,19 +4363,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '151'
-  - '327'
+  - '328'
   - Meta llama-3.1-8b-instruct Meta · Llama 3.1 Community
   - 1211 ±4
-  - 323 330
+  - 324 331
   - 49,605
   - $0.05 / $0.08
   - 131.1K
   by_header:
     Rank: '151'
-    Overall Rank: '327'
+    Overall Rank: '328'
     Model: Meta llama-3.1-8b-instruct Meta · Llama 3.1 Community
     Score: 1211 ±4
-    Rank Spread: 323 330
+    Rank Spread: 324 331
     Votes: 49,605
     Price $/M: $0.05 / $0.08
     Context: 131.1K
@@ -4392,19 +4392,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '152'
-  - '328'
+  - '329'
   - granite-3.1-8b-instruct IBM · Apache 2.0
   - 1208 ±11
-  - 321 336
+  - 322 337
   - 3,090
   - N/A
   - N/A
   by_header:
     Rank: '152'
-    Overall Rank: '328'
+    Overall Rank: '329'
     Model: granite-3.1-8b-instruct IBM · Apache 2.0
     Score: 1208 ±11
-    Rank Spread: 321 336
+    Rank Spread: 322 337
     Votes: 3,090
     Price $/M: N/A
     Context: N/A
@@ -4421,19 +4421,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '153'
-  - '329'
+  - '331'
   - qwen1.5-32b-chat Alibaba · Qianwen LICENSE
-  - 1203 ±6
-  - 325 336
+  - 1204 ±6
+  - 325 337
   - 21,741
   - N/A
   - N/A
   by_header:
     Rank: '153'
-    Overall Rank: '329'
+    Overall Rank: '331'
     Model: qwen1.5-32b-chat Alibaba · Qianwen LICENSE
-    Score: 1203 ±6
-    Rank Spread: 325 336
+    Score: 1204 ±6
+    Rank Spread: 325 337
     Votes: 21,741
     Price $/M: N/A
     Context: N/A
@@ -4450,26 +4450,26 @@ arena_agent:
   arena_license_label: null
   raw:
   - '154'
-  - '331'
+  - '332'
   - gemma-2-2b-it Google · Gemma license
   - 1200 ±4
-  - 327 337
+  - 328 338
   - 46,616
   - N/A
   - N/A
   by_header:
     Rank: '154'
-    Overall Rank: '331'
+    Overall Rank: '332'
     Model: gemma-2-2b-it Google · Gemma license
     Score: 1200 ±4
-    Rank Spread: 327 337
+    Rank Spread: 328 338
     Votes: 46,616
     Price $/M: N/A
     Context: N/A
-  resolved_repo: google/gemma-2b-it
-  resolution_confidence: medium
+  resolved_repo: google/gemma-2-2b-it
+  resolution_confidence: high
   open_weight: true
-  needs_hf_repo: true
+  needs_hf_repo: false
 - rank: 155
   model: phi-3-medium-4k-instruct Microsoft · MIT
   org: Microsoft
@@ -4479,19 +4479,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '155'
-  - '332'
+  - '333'
   - phi-3-medium-4k-instruct Microsoft · MIT
-  - 1197 ±5
-  - 327 338
+  - 1198 ±5
+  - 328 339
   - 25,055
   - $0.17 / $0.68
   - N/A
   by_header:
     Rank: '155'
-    Overall Rank: '332'
+    Overall Rank: '333'
     Model: phi-3-medium-4k-instruct Microsoft · MIT
-    Score: 1197 ±5
-    Rank Spread: 327 338
+    Score: 1198 ±5
+    Rank Spread: 328 339
     Votes: 25,055
     Price $/M: $0.17 / $0.68
     Context: N/A
@@ -4508,19 +4508,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '156'
-  - '333'
+  - '334'
   - mixtral-8x7b-instruct-v0.1 Mistral · Apache 2.0
   - 1197 ±4
-  - 328 338
+  - 329 339
   - 73,503
   - $0.63 / $0.63
   - 32K
   by_header:
     Rank: '156'
-    Overall Rank: '333'
+    Overall Rank: '334'
     Model: mixtral-8x7b-instruct-v0.1 Mistral · Apache 2.0
     Score: 1197 ±4
-    Rank Spread: 328 338
+    Rank Spread: 329 339
     Votes: 73,503
     Price $/M: $0.63 / $0.63
     Context: 32K
@@ -4537,19 +4537,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '157'
-  - '334'
+  - '335'
   - dbrx-instruct-preview DBRX LICENSE
   - 1195 ±6
-  - 328 343
+  - 329 344
   - 32,191
   - $0.60 / $0.60
   - 32.8K
   by_header:
     Rank: '157'
-    Overall Rank: '334'
+    Overall Rank: '335'
     Model: dbrx-instruct-preview DBRX LICENSE
     Score: 1195 ±6
-    Rank Spread: 328 343
+    Rank Spread: 329 344
     Votes: 32,191
     Price $/M: $0.60 / $0.60
     Context: 32.8K
@@ -4566,19 +4566,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '158'
-  - '335'
+  - '336'
   - qwen1.5-14b-chat Alibaba · Qianwen LICENSE
   - 1191 ±7
-  - 328 347
+  - 329 348
   - 17,839
   - $0.30 / $0.30
   - N/A
   by_header:
     Rank: '158'
-    Overall Rank: '335'
+    Overall Rank: '336'
     Model: qwen1.5-14b-chat Alibaba · Qianwen LICENSE
     Score: 1191 ±7
-    Rank Spread: 328 347
+    Rank Spread: 329 348
     Votes: 17,839
     Price $/M: $0.30 / $0.30
     Context: N/A
@@ -4595,19 +4595,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '159'
-  - '336'
+  - '337'
   - internlm2_5-20b-chat Other
-  - 1190 ±7
-  - 328 347
+  - 1191 ±7
+  - 329 348
   - 9,901
   - $0 / $0
   - 32.8K
   by_header:
     Rank: '159'
-    Overall Rank: '336'
+    Overall Rank: '337'
     Model: internlm2_5-20b-chat Other
-    Score: 1190 ±7
-    Rank Spread: 328 347
+    Score: 1191 ±7
+    Rank Spread: 329 348
     Votes: 9,901
     Price $/M: $0 / $0
     Context: 32.8K
@@ -4624,19 +4624,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '160'
-  - '337'
+  - '338'
   - deepseek-llm-67b-chat DeepSeek · DeepSeek License
   - 1184 ±11
-  - 330 354
+  - 331 355
   - 4,932
   - N/A
   - N/A
   by_header:
     Rank: '160'
-    Overall Rank: '337'
+    Overall Rank: '338'
     Model: deepseek-llm-67b-chat DeepSeek · DeepSeek License
     Score: 1184 ±11
-    Rank Spread: 330 354
+    Rank Spread: 331 355
     Votes: 4,932
     Price $/M: N/A
     Context: N/A
@@ -4653,19 +4653,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '161'
-  - '338'
+  - '339'
   - wizardlm-70b Microsoft · Llama 2 Community
   - 1184 ±9
-  - 332 353
+  - 333 354
   - 8,214
   - N/A
   - N/A
   by_header:
     Rank: '161'
-    Overall Rank: '338'
+    Overall Rank: '339'
     Model: wizardlm-70b Microsoft · Llama 2 Community
     Score: 1184 ±9
-    Rank Spread: 332 353
+    Rank Spread: 333 354
     Votes: 8,214
     Price $/M: N/A
     Context: N/A
@@ -4682,19 +4682,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '162'
-  - '339'
+  - '340'
   - yi-34b-chat Yi License
   - 1183 ±7
-  - 334 350
+  - 335 351
   - 15,483
   - $0.90 / $0.90
   - 4.1K
   by_header:
     Rank: '162'
-    Overall Rank: '339'
+    Overall Rank: '340'
     Model: yi-34b-chat Yi License
     Score: 1183 ±7
-    Rank Spread: 334 350
+    Rank Spread: 335 351
     Votes: 15,483
     Price $/M: $0.90 / $0.90
     Context: 4.1K
@@ -4711,19 +4711,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '163'
-  - '340'
+  - '341'
   - granite-3.0-8b-instruct IBM · Apache 2.0
-  - 1182 ±9
-  - 334 354
+  - 1183 ±9
+  - 335 355
   - 6,638
   - N/A
   - N/A
   by_header:
     Rank: '163'
-    Overall Rank: '340'
+    Overall Rank: '341'
     Model: granite-3.0-8b-instruct IBM · Apache 2.0
-    Score: 1182 ±9
-    Rank Spread: 334 354
+    Score: 1183 ±9
+    Rank Spread: 335 355
     Votes: 6,638
     Price $/M: N/A
     Context: N/A
@@ -4740,19 +4740,19 @@ arena_agent:
   arena_license_label: openchat-3.5 Apache-2.0
   raw:
   - '164'
-  - '341'
+  - '342'
   - openchat-3.5 Apache-2.0
-  - 1182 ±10
-  - 334 354
+  - 1183 ±10
+  - 335 355
   - 7,968
   - $0.20 / $0.20
   - N/A
   by_header:
     Rank: '164'
-    Overall Rank: '341'
+    Overall Rank: '342'
     Model: openchat-3.5 Apache-2.0
-    Score: 1182 ±10
-    Rank Spread: 334 354
+    Score: 1183 ±10
+    Rank Spread: 335 355
     Votes: 7,968
     Price $/M: $0.20 / $0.20
     Context: N/A
@@ -4769,19 +4769,19 @@ arena_agent:
   arena_license_label: openchat-3.5-0106 Apache-2.0
   raw:
   - '165'
-  - '342'
+  - '343'
   - openchat-3.5-0106 Apache-2.0
   - 1182 ±8
-  - 334 353
+  - 335 354
   - 12,637
   - N/A
   - N/A
   by_header:
     Rank: '165'
-    Overall Rank: '342'
+    Overall Rank: '343'
     Model: openchat-3.5-0106 Apache-2.0
     Score: 1182 ±8
-    Rank Spread: 334 353
+    Rank Spread: 335 354
     Votes: 12,637
     Price $/M: N/A
     Context: N/A
@@ -4798,19 +4798,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '166'
-  - '343'
+  - '344'
   - gemma-1.1-7b-it Google · Gemma license
   - 1182 ±6
-  - 335 350
+  - 336 351
   - 23,893
   - $0.03 / $0.09
   - 8.2K
   by_header:
     Rank: '166'
-    Overall Rank: '343'
+    Overall Rank: '344'
     Model: gemma-1.1-7b-it Google · Gemma license
     Score: 1182 ±6
-    Rank Spread: 335 350
+    Rank Spread: 336 351
     Votes: 23,893
     Price $/M: $0.03 / $0.09
     Context: 8.2K
@@ -4827,19 +4827,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '167'
-  - '344'
+  - '345'
   - snowflake-arctic-instruct Apache 2.0
-  - 1179 ±6
-  - 335 354
+  - 1180 ±6
+  - 336 355
   - 32,832
   - N/A
   - N/A
   by_header:
     Rank: '167'
-    Overall Rank: '344'
+    Overall Rank: '345'
     Model: snowflake-arctic-instruct Apache 2.0
-    Score: 1179 ±6
-    Rank Spread: 335 354
+    Score: 1180 ±6
+    Rank Spread: 336 355
     Votes: 32,832
     Price $/M: N/A
     Context: N/A
@@ -4856,19 +4856,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '168'
-  - '345'
+  - '346'
   - granite-3.1-2b-instruct IBM · Apache 2.0
-  - 1178 ±11
-  - 334 354
+  - 1179 ±11
+  - 335 355
   - 3,188
   - N/A
   - N/A
   by_header:
     Rank: '168'
-    Overall Rank: '345'
+    Overall Rank: '346'
     Model: granite-3.1-2b-instruct IBM · Apache 2.0
-    Score: 1178 ±11
-    Rank Spread: 334 354
+    Score: 1179 ±11
+    Rank Spread: 335 355
     Votes: 3,188
     Price $/M: N/A
     Context: N/A
@@ -4885,19 +4885,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '169'
-  - '346'
+  - '347'
   - tulu-2-dpo-70b AI2 ImpACT Low-risk
   - 1177 ±10
-  - 335 354
+  - 336 355
   - 6,535
   - N/A
   - N/A
   by_header:
     Rank: '169'
-    Overall Rank: '346'
+    Overall Rank: '347'
     Model: tulu-2-dpo-70b AI2 ImpACT Low-risk
     Score: 1177 ±10
-    Rank Spread: 335 354
+    Rank Spread: 336 355
     Votes: 6,535
     Price $/M: N/A
     Context: N/A
@@ -4914,19 +4914,19 @@ arena_agent:
   arena_license_label: openhermes-2.5-mistral-7b Apache-2.0
   raw:
   - '170'
-  - '347'
+  - '348'
   - openhermes-2.5-mistral-7b Apache-2.0
-  - 1175 ±10
-  - 335 358
+  - 1176 ±10
+  - 336 359
   - 5,006
   - $0.17 / $0.17
   - N/A
   by_header:
     Rank: '170'
-    Overall Rank: '347'
+    Overall Rank: '348'
     Model: openhermes-2.5-mistral-7b Apache-2.0
-    Score: 1175 ±10
-    Rank Spread: 335 358
+    Score: 1176 ±10
+    Rank Spread: 336 359
     Votes: 5,006
     Price $/M: $0.17 / $0.17
     Context: N/A
@@ -4943,19 +4943,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '171'
-  - '348'
+  - '349'
   - vicuna-33b Non-commercial
-  - 1172 ±6
-  - 337 356
+  - 1173 ±6
+  - 338 357
   - 22,479
   - $0 / $0
   - 2K
   by_header:
     Rank: '171'
-    Overall Rank: '348'
+    Overall Rank: '349'
     Model: vicuna-33b Non-commercial
-    Score: 1172 ±6
-    Rank Spread: 337 356
+    Score: 1173 ±6
+    Rank Spread: 338 357
     Votes: 22,479
     Price $/M: $0 / $0
     Context: 2K
@@ -4972,19 +4972,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '172'
-  - '349'
+  - '350'
   - starling-lm-7b-beta Apache-2.0
   - 1171 ±7
-  - 337 360
+  - 338 361
   - 16,056
   - N/A
   - N/A
   by_header:
     Rank: '172'
-    Overall Rank: '349'
+    Overall Rank: '350'
     Model: starling-lm-7b-beta Apache-2.0
     Score: 1171 ±7
-    Rank Spread: 337 360
+    Rank Spread: 338 361
     Votes: 16,056
     Price $/M: N/A
     Context: N/A
@@ -5001,19 +5001,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '173'
-  - '350'
+  - '351'
   - phi-3-small-8k-instruct Microsoft · MIT
   - 1171 ±6
-  - 337 358
+  - 338 359
   - 17,766
   - $0.15 / $0.60
   - N/A
   by_header:
     Rank: '173'
-    Overall Rank: '350'
+    Overall Rank: '351'
     Model: phi-3-small-8k-instruct Microsoft · MIT
     Score: 1171 ±6
-    Rank Spread: 337 358
+    Rank Spread: 338 359
     Votes: 17,766
     Price $/M: $0.15 / $0.60
     Context: N/A
@@ -5030,19 +5030,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '174'
-  - '351'
+  - '352'
   - Meta llama-2-70b-chat Meta · Llama 2 Community
   - 1170 ±5
-  - 339 358
+  - 340 359
   - 38,492
   - $0.70 / $2.80
   - 4.1K
   by_header:
     Rank: '174'
-    Overall Rank: '351'
+    Overall Rank: '352'
     Model: Meta llama-2-70b-chat Meta · Llama 2 Community
     Score: 1170 ±5
-    Rank Spread: 339 358
+    Rank Spread: 340 359
     Votes: 38,492
     Price $/M: $0.70 / $2.80
     Context: 4.1K
@@ -5059,19 +5059,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '175'
-  - '352'
+  - '353'
   - starling-lm-7b-alpha CC-BY-NC-4.0
   - 1167 ±8
-  - 339 361
+  - 340 362
   - 10,224
   - N/A
   - N/A
   by_header:
     Rank: '175'
-    Overall Rank: '352'
+    Overall Rank: '353'
     Model: starling-lm-7b-alpha CC-BY-NC-4.0
     Score: 1167 ±8
-    Rank Spread: 339 361
+    Rank Spread: 340 362
     Votes: 10,224
     Price $/M: N/A
     Context: N/A
@@ -5088,19 +5088,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '176'
-  - '353'
+  - '354'
   - Meta llama-3.2-3b-instruct Meta · Llama 3.2
   - 1166 ±8
-  - 341 361
+  - 342 362
   - 7,936
   - $0.05 / $0.33
   - 131.1K
   by_header:
     Rank: '176'
-    Overall Rank: '353'
+    Overall Rank: '354'
     Model: Meta llama-3.2-3b-instruct Meta · Llama 3.2
     Score: 1166 ±8
-    Rank Spread: 341 361
+    Rank Spread: 342 362
     Votes: 7,936
     Price $/M: $0.05 / $0.33
     Context: 131.1K
@@ -5117,19 +5117,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '177'
-  - '354'
+  - '355'
   - nous-hermes-2-mixtral-8x7b-dpo Apache-2.0
   - 1164 ±12
-  - 339 364
+  - 340 365
   - 3,777
   - $0.90 / $0.90
   - N/A
   by_header:
     Rank: '177'
-    Overall Rank: '354'
+    Overall Rank: '355'
     Model: nous-hermes-2-mixtral-8x7b-dpo Apache-2.0
     Score: 1164 ±12
-    Rank Spread: 339 364
+    Rank Spread: 340 365
     Votes: 3,777
     Price $/M: $0.90 / $0.90
     Context: N/A
@@ -5146,19 +5146,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '178'
-  - '355'
+  - '356'
   - granite-3.0-2b-instruct IBM · Apache 2.0
   - 1156 ±8
-  - 351 367
+  - 352 368
   - 6,837
   - N/A
   - N/A
   by_header:
     Rank: '178'
-    Overall Rank: '355'
+    Overall Rank: '356'
     Model: granite-3.0-2b-instruct IBM · Apache 2.0
     Score: 1156 ±8
-    Rank Spread: 351 367
+    Rank Spread: 352 368
     Votes: 6,837
     Price $/M: N/A
     Context: N/A
@@ -5175,19 +5175,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '179'
-  - '356'
+  - '357'
   - llama2-70b-steerlm-chat Nvidia · Llama 2 Community
   - 1154 ±13
-  - 347 372
+  - 348 373
   - 3,585
   - N/A
   - N/A
   by_header:
     Rank: '179'
-    Overall Rank: '356'
+    Overall Rank: '357'
     Model: llama2-70b-steerlm-chat Nvidia · Llama 2 Community
     Score: 1154 ±13
-    Rank Spread: 347 372
+    Rank Spread: 348 373
     Votes: 3,585
     Price $/M: N/A
     Context: N/A
@@ -5204,19 +5204,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '180'
-  - '357'
+  - '358'
   - qwq-32b-preview Alibaba · Apache 2.0
   - 1154 ±11
-  - 348 371
+  - 349 372
   - 3,231
   - $0.50 / $1
   - 16.4K
   by_header:
     Rank: '180'
-    Overall Rank: '357'
+    Overall Rank: '358'
     Model: qwq-32b-preview Alibaba · Apache 2.0
     Score: 1154 ±11
-    Rank Spread: 348 371
+    Rank Spread: 349 372
     Votes: 3,231
     Price $/M: $0.50 / $1
     Context: 16.4K
@@ -5233,19 +5233,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '181'
-  - '358'
+  - '359'
   - solar-10.7b-instruct-v1.0 CC-BY-NC-4.0
   - 1152 ±13
-  - 348 374
+  - 349 375
   - 4,155
   - $0.30 / $0.30
   - N/A
   by_header:
     Rank: '181'
-    Overall Rank: '358'
+    Overall Rank: '359'
     Model: solar-10.7b-instruct-v1.0 CC-BY-NC-4.0
     Score: 1152 ±13
-    Rank Spread: 348 374
+    Rank Spread: 349 375
     Votes: 4,155
     Price $/M: $0.30 / $0.30
     Context: N/A
@@ -5262,19 +5262,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '182'
-  - '359'
+  - '360'
   - dolphin-2.2.1-mistral-7b Apache-2.0
   - 1152 ±15
-  - 347 376
+  - 348 377
   - 1,679
   - $0.50 / $0.50
   - 16.4K
   by_header:
     Rank: '182'
-    Overall Rank: '359'
+    Overall Rank: '360'
     Model: dolphin-2.2.1-mistral-7b Apache-2.0
     Score: 1152 ±15
-    Rank Spread: 347 376
+    Rank Spread: 348 377
     Votes: 1,679
     Price $/M: $0.50 / $0.50
     Context: 16.4K
@@ -5291,19 +5291,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '183'
-  - '360'
+  - '361'
   - mpt-30b-chat CC-BY-NC-SA-4.0
   - 1150 ±12
-  - 352 374
+  - 353 375
   - 2,572
   - N/A
   - N/A
   by_header:
     Rank: '183'
-    Overall Rank: '360'
+    Overall Rank: '361'
     Model: mpt-30b-chat CC-BY-NC-SA-4.0
     Score: 1150 ±12
-    Rank Spread: 352 374
+    Rank Spread: 353 375
     Votes: 2,572
     Price $/M: N/A
     Context: N/A
@@ -5320,19 +5320,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '184'
-  - '361'
+  - '362'
   - wizardlm-13b Microsoft · Llama 2 Community
   - 1149 ±9
-  - 354 372
+  - 355 373
   - 7,044
   - $0.30 / $0.30
   - N/A
   by_header:
     Rank: '184'
-    Overall Rank: '361'
+    Overall Rank: '362'
     Model: wizardlm-13b Microsoft · Llama 2 Community
     Score: 1149 ±9
-    Rank Spread: 354 372
+    Rank Spread: 355 373
     Votes: 7,044
     Price $/M: $0.30 / $0.30
     Context: N/A
@@ -5349,19 +5349,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '185'
-  - '362'
+  - '363'
   - mistral-7b-instruct-v0.2 Mistral · Apache-2.0
   - 1149 ±7
-  - 354 371
+  - 355 372
   - 19,402
   - $0.20 / $0.20
   - 32.8K
   by_header:
     Rank: '185'
-    Overall Rank: '362'
+    Overall Rank: '363'
     Model: mistral-7b-instruct-v0.2 Mistral · Apache-2.0
     Score: 1149 ±7
-    Rank Spread: 354 371
+    Rank Spread: 355 372
     Votes: 19,402
     Price $/M: $0.20 / $0.20
     Context: 32.8K
@@ -5378,19 +5378,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '186'
-  - '363'
+  - '364'
   - falcon-180b-chat Falcon-180B TII License
-  - 1147 ±17
-  - 351 378
+  - 1148 ±17
+  - 352 379
   - 1,295
   - N/A
   - N/A
   by_header:
     Rank: '186'
-    Overall Rank: '363'
+    Overall Rank: '364'
     Model: falcon-180b-chat Falcon-180B TII License
-    Score: 1147 ±17
-    Rank Spread: 351 378
+    Score: 1148 ±17
+    Rank Spread: 352 379
     Votes: 1,295
     Price $/M: N/A
     Context: N/A
@@ -5407,19 +5407,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '187'
-  - '364'
+  - '365'
   - qwen1.5-7b-chat Alibaba · Qianwen LICENSE
   - 1143 ±10
-  - 354 377
+  - 355 378
   - 4,737
   - $0.20 / $0.20
   - N/A
   by_header:
     Rank: '187'
-    Overall Rank: '364'
+    Overall Rank: '365'
     Model: qwen1.5-7b-chat Alibaba · Qianwen LICENSE
     Score: 1143 ±10
-    Rank Spread: 354 377
+    Rank Spread: 355 378
     Votes: 4,737
     Price $/M: $0.20 / $0.20
     Context: N/A
@@ -5436,19 +5436,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '188'
-  - '365'
+  - '366'
   - phi-3-mini-4k-instruct-june-2024 Microsoft · MIT
   - 1143 ±6
-  - 355 376
+  - 356 377
   - 12,297
   - $0.13 / $0.52
   - 4.1K
   by_header:
     Rank: '188'
-    Overall Rank: '365'
+    Overall Rank: '366'
     Model: phi-3-mini-4k-instruct-june-2024 Microsoft · MIT
     Score: 1143 ±6
-    Rank Spread: 355 376
+    Rank Spread: 356 377
     Votes: 12,297
     Price $/M: $0.13 / $0.52
     Context: 4.1K
@@ -5457,35 +5457,6 @@ arena_agent:
   open_weight: false
   needs_hf_repo: true
 - rank: 189
-  model: Meta llama-2-13b-chat Meta · Llama 2 Community
-  org: Meta
-  matched_keyword: llama
-  net_improvement_pct: null
-  net_improvement_ci: null
-  arena_license_label: null
-  raw:
-  - '189'
-  - '366'
-  - Meta llama-2-13b-chat Meta · Llama 2 Community
-  - 1141 ±7
-  - 356 376
-  - 19,174
-  - $0.25 / $0.25
-  - 4.1K
-  by_header:
-    Rank: '189'
-    Overall Rank: '366'
-    Model: Meta llama-2-13b-chat Meta · Llama 2 Community
-    Score: 1141 ±7
-    Rank Spread: 356 376
-    Votes: 19,174
-    Price $/M: $0.25 / $0.25
-    Context: 4.1K
-  resolved_repo: meta-llama/Llama-2-13b-chat
-  resolution_confidence: high
-  open_weight: true
-  needs_hf_repo: false
-- rank: 190
   model: vicuna-13b Llama 2 Community
   org: Meta
   matched_keyword: llama
@@ -5493,20 +5464,20 @@ arena_agent:
   net_improvement_ci: null
   arena_license_label: null
   raw:
-  - '190'
+  - '189'
   - '367'
   - vicuna-13b Llama 2 Community
   - 1141 ±7
-  - 356 376
+  - 357 377
   - 19,367
   - $0.30 / $0.30
   - N/A
   by_header:
-    Rank: '190'
+    Rank: '189'
     Overall Rank: '367'
     Model: vicuna-13b Llama 2 Community
     Score: 1141 ±7
-    Rank Spread: 356 376
+    Rank Spread: 357 377
     Votes: 19,367
     Price $/M: $0.30 / $0.30
     Context: N/A
@@ -5514,6 +5485,35 @@ arena_agent:
   resolution_confidence: null
   open_weight: false
   needs_hf_repo: true
+- rank: 190
+  model: Meta llama-2-13b-chat Meta · Llama 2 Community
+  org: Meta
+  matched_keyword: llama
+  net_improvement_pct: null
+  net_improvement_ci: null
+  arena_license_label: null
+  raw:
+  - '190'
+  - '368'
+  - Meta llama-2-13b-chat Meta · Llama 2 Community
+  - 1141 ±7
+  - 357 377
+  - 19,174
+  - $0.25 / $0.25
+  - 4.1K
+  by_header:
+    Rank: '190'
+    Overall Rank: '368'
+    Model: Meta llama-2-13b-chat Meta · Llama 2 Community
+    Score: 1141 ±7
+    Rank Spread: 357 377
+    Votes: 19,174
+    Price $/M: $0.25 / $0.25
+    Context: 4.1K
+  resolved_repo: meta-llama/Llama-2-13b-chat
+  resolution_confidence: high
+  open_weight: true
+  needs_hf_repo: false
 - rank: 191
   model: qwen-14b-chat Alibaba · Qianwen LICENSE
   org: Alibaba
@@ -5523,19 +5523,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '191'
-  - '368'
+  - '369'
   - qwen-14b-chat Alibaba · Qianwen LICENSE
   - 1139 ±11
-  - 355 379
+  - 356 380
   - 4,964
   - N/A
   - N/A
   by_header:
     Rank: '191'
-    Overall Rank: '368'
+    Overall Rank: '369'
     Model: qwen-14b-chat Alibaba · Qianwen LICENSE
     Score: 1139 ±11
-    Rank Spread: 355 379
+    Rank Spread: 356 380
     Votes: 4,964
     Price $/M: N/A
     Context: N/A
@@ -5552,19 +5552,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '192'
-  - '370'
+  - '371'
   - gemma-7b-it Google · Gemma license
   - 1137 ±9
-  - 356 379
+  - 357 380
   - 8,925
   - $0.05 / $0.08
   - 8.2K
   by_header:
     Rank: '192'
-    Overall Rank: '370'
+    Overall Rank: '371'
     Model: gemma-7b-it Google · Gemma license
     Score: 1137 ±9
-    Rank Spread: 356 379
+    Rank Spread: 357 380
     Votes: 8,925
     Price $/M: $0.05 / $0.08
     Context: 8.2K
@@ -5581,19 +5581,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '193'
-  - '371'
+  - '372'
   - Meta codellama-34b-instruct Meta · Llama 2 Community
   - 1136 ±9
-  - 356 379
+  - 357 380
   - 7,366
   - $0.35 / $1.40
   - 16.4K
   by_header:
     Rank: '193'
-    Overall Rank: '371'
+    Overall Rank: '372'
     Model: Meta codellama-34b-instruct Meta · Llama 2 Community
     Score: 1136 ±9
-    Rank Spread: 356 379
+    Rank Spread: 357 380
     Votes: 7,366
     Price $/M: $0.35 / $1.40
     Context: 16.4K
@@ -5610,19 +5610,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '194'
-  - '372'
+  - '373'
   - zephyr-7b-beta MIT
   - 1130 ±9
-  - 360 381
+  - 361 382
   - 11,118
   - $0.15 / $0.15
   - 16.4K
   by_header:
     Rank: '194'
-    Overall Rank: '372'
+    Overall Rank: '373'
     Model: zephyr-7b-beta MIT
     Score: 1130 ±9
-    Rank Spread: 360 381
+    Rank Spread: 361 382
     Votes: 11,118
     Price $/M: $0.15 / $0.15
     Context: 16.4K
@@ -5639,19 +5639,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '195'
-  - '373'
+  - '374'
   - phi-3-mini-128k-instruct Microsoft · MIT
   - 1129 ±7
-  - 362 381
+  - 363 382
   - 20,685
   - $0.13 / $0.52
   - N/A
   by_header:
     Rank: '195'
-    Overall Rank: '373'
+    Overall Rank: '374'
     Model: phi-3-mini-128k-instruct Microsoft · MIT
     Score: 1129 ±7
-    Rank Spread: 362 381
+    Rank Spread: 363 382
     Votes: 20,685
     Price $/M: $0.13 / $0.52
     Context: N/A
@@ -5668,19 +5668,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '196'
-  - '374'
+  - '375'
   - phi-3-mini-4k-instruct Microsoft · MIT
   - 1128 ±6
-  - 366 381
+  - 367 382
   - 20,118
   - $0.13 / $0.52
   - N/A
   by_header:
     Rank: '196'
-    Overall Rank: '374'
+    Overall Rank: '375'
     Model: phi-3-mini-4k-instruct Microsoft · MIT
     Score: 1128 ±6
-    Rank Spread: 366 381
+    Rank Spread: 367 382
     Votes: 20,118
     Price $/M: $0.13 / $0.52
     Context: N/A
@@ -5697,19 +5697,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '197'
-  - '375'
+  - '376'
   - guanaco-33b Non-commercial
   - 1127 ±12
-  - 360 383
+  - 361 384
   - 2,921
   - N/A
   - N/A
   by_header:
     Rank: '197'
-    Overall Rank: '375'
+    Overall Rank: '376'
     Model: guanaco-33b Non-commercial
     Score: 1127 ±12
-    Rank Spread: 360 383
+    Rank Spread: 361 384
     Votes: 2,921
     Price $/M: N/A
     Context: N/A
@@ -5726,19 +5726,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '198'
-  - '376'
+  - '377'
   - zephyr-7b-alpha MIT
-  - 1126 ±16
-  - 358 384
+  - 1127 ±16
+  - 359 385
   - 1,785
   - N/A
   - N/A
   by_header:
     Rank: '198'
-    Overall Rank: '376'
+    Overall Rank: '377'
     Model: zephyr-7b-alpha MIT
-    Score: 1126 ±16
-    Rank Spread: 358 384
+    Score: 1127 ±16
+    Rank Spread: 359 385
     Votes: 1,785
     Price $/M: N/A
     Context: N/A
@@ -5755,19 +5755,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '199'
-  - '377'
+  - '378'
   - stripedhyena-nous-7b Apache 2.0
   - 1121 ±11
-  - 367 384
+  - 368 385
   - 5,182
   - $0.20 / $0.20
   - N/A
   by_header:
     Rank: '199'
-    Overall Rank: '377'
+    Overall Rank: '378'
     Model: stripedhyena-nous-7b Apache 2.0
     Score: 1121 ±11
-    Rank Spread: 367 384
+    Rank Spread: 368 385
     Votes: 5,182
     Price $/M: $0.20 / $0.20
     Context: N/A
@@ -5784,19 +5784,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '200'
-  - '378'
+  - '379'
   - Meta codellama-70b-instruct Meta · Llama 2 Community
   - 1119 ±18
-  - 362 385
+  - 363 386
   - 1,143
   - $0.70 / $2.80
   - 16.4K
   by_header:
     Rank: '200'
-    Overall Rank: '378'
+    Overall Rank: '379'
     Model: Meta codellama-70b-instruct Meta · Llama 2 Community
     Score: 1119 ±18
-    Rank Spread: 362 385
+    Rank Spread: 363 386
     Votes: 1,143
     Price $/M: $0.70 / $2.80
     Context: 16.4K
@@ -5813,19 +5813,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '201'
-  - '379'
+  - '380'
   - gemma-1.1-2b-it Google · Gemma license
   - 1116 ±8
-  - 372 384
+  - 373 385
   - 10,854
   - N/A
   - N/A
   by_header:
     Rank: '201'
-    Overall Rank: '379'
+    Overall Rank: '380'
     Model: gemma-1.1-2b-it Google · Gemma license
     Score: 1116 ±8
-    Rank Spread: 372 384
+    Rank Spread: 373 385
     Votes: 10,854
     Price $/M: N/A
     Context: N/A
@@ -5842,19 +5842,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '202'
-  - '380'
+  - '381'
   - vicuna-7b Llama 2 Community
   - 1115 ±9
-  - 372 384
+  - 373 385
   - 6,923
   - $0.20 / $0.20
   - N/A
   by_header:
     Rank: '202'
-    Overall Rank: '380'
+    Overall Rank: '381'
     Model: vicuna-7b Llama 2 Community
     Score: 1115 ±9
-    Rank Spread: 372 384
+    Rank Spread: 373 385
     Votes: 6,923
     Price $/M: $0.20 / $0.20
     Context: N/A
@@ -5871,19 +5871,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '203'
-  - '381'
+  - '382'
   - smollm2-1.7b-instruct Apache 2.0
   - 1114 ±14
-  - 369 385
+  - 370 387
   - 2,199
   - N/A
   - N/A
   by_header:
     Rank: '203'
-    Overall Rank: '381'
+    Overall Rank: '382'
     Model: smollm2-1.7b-instruct Apache 2.0
     Score: 1114 ±14
-    Rank Spread: 369 385
+    Rank Spread: 370 387
     Votes: 2,199
     Price $/M: N/A
     Context: N/A
@@ -5900,19 +5900,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '204'
-  - '382'
+  - '383'
   - Meta llama-3.2-1b-instruct Meta · Llama 3.2
   - 1111 ±8
-  - 375 385
+  - 376 386
   - 8,045
   - $0.03 / $0.20
   - 60K
   by_header:
     Rank: '204'
-    Overall Rank: '382'
+    Overall Rank: '383'
     Model: Meta llama-3.2-1b-instruct Meta · Llama 3.2
     Score: 1111 ±8
-    Rank Spread: 375 385
+    Rank Spread: 376 386
     Votes: 8,045
     Price $/M: $0.03 / $0.20
     Context: 60K
@@ -5929,19 +5929,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '205'
-  - '383'
+  - '384'
   - mistral-7b-instruct Mistral · Apache 2.0
   - 1110 ±9
-  - 375 385
+  - 376 386
   - 8,977
   - $0.07 / $0.28
   - 4.1K
   by_header:
     Rank: '205'
-    Overall Rank: '383'
+    Overall Rank: '384'
     Model: mistral-7b-instruct Mistral · Apache 2.0
     Score: 1110 ±9
-    Rank Spread: 375 385
+    Rank Spread: 376 386
     Votes: 8,977
     Price $/M: $0.07 / $0.28
     Context: 4.1K
@@ -5958,19 +5958,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '206'
-  - '384'
+  - '385'
   - Meta llama-2-7b-chat Meta · Llama 2 Community
-  - 1107 ±7
-  - 376 385
+  - 1108 ±7
+  - 377 386
   - 14,148
   - $0.15 / $0.15
   - 4.1K
   by_header:
     Rank: '206'
-    Overall Rank: '384'
+    Overall Rank: '385'
     Model: Meta llama-2-7b-chat Meta · Llama 2 Community
-    Score: 1107 ±7
-    Rank Spread: 376 385
+    Score: 1108 ±7
+    Rank Spread: 377 386
     Votes: 14,148
     Price $/M: $0.15 / $0.15
     Context: 4.1K
@@ -5987,19 +5987,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '207'
-  - '385'
+  - '386'
   - gemma-2b-it Google · Gemma license
   - 1093 ±11
-  - 380 388
+  - 381 389
   - 4,780
   - $0.10 / $0.10
   - N/A
   by_header:
     Rank: '207'
-    Overall Rank: '385'
+    Overall Rank: '386'
     Model: gemma-2b-it Google · Gemma license
     Score: 1093 ±11
-    Rank Spread: 380 388
+    Rank Spread: 381 389
     Votes: 4,780
     Price $/M: $0.10 / $0.10
     Context: N/A
@@ -6016,19 +6016,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '208'
-  - '386'
+  - '387'
   - qwen1.5-4b-chat Alibaba · Qianwen LICENSE
-  - 1090 ±9
-  - 385 388
+  - 1091 ±9
+  - 385 389
   - 7,597
   - $0.10 / $0.10
   - N/A
   by_header:
     Rank: '208'
-    Overall Rank: '386'
+    Overall Rank: '387'
     Model: qwen1.5-4b-chat Alibaba · Qianwen LICENSE
-    Score: 1090 ±9
-    Rank Spread: 385 388
+    Score: 1091 ±9
+    Rank Spread: 385 389
     Votes: 7,597
     Price $/M: $0.10 / $0.10
     Context: N/A
@@ -6045,19 +6045,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '209'
-  - '387'
+  - '388'
   - olmo-7b-instruct Ai2 · Apache-2.0
   - 1073 ±11
-  - 385 392
+  - 386 393
   - 6,328
   - $0.20 / $0.20
   - N/A
   by_header:
     Rank: '209'
-    Overall Rank: '387'
+    Overall Rank: '388'
     Model: olmo-7b-instruct Ai2 · Apache-2.0
     Score: 1073 ±11
-    Rank Spread: 385 392
+    Rank Spread: 386 393
     Votes: 6,328
     Price $/M: $0.20 / $0.20
     Context: N/A
@@ -6074,19 +6074,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '210'
-  - '388'
+  - '389'
   - koala-13b Non-commercial
   - 1070 ±10
-  - 387 392
+  - 388 393
   - 6,965
   - N/A
   - N/A
   by_header:
     Rank: '210'
-    Overall Rank: '388'
+    Overall Rank: '389'
     Model: koala-13b Non-commercial
     Score: 1070 ±10
-    Rank Spread: 387 392
+    Rank Spread: 388 393
     Votes: 6,965
     Price $/M: N/A
     Context: N/A
@@ -6103,19 +6103,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '211'
-  - '389'
+  - '390'
   - alpaca-13b Non-commercial
-  - 1069 ±11
-  - 387 392
+  - 1070 ±11
+  - 388 393
   - 5,745
   - N/A
   - N/A
   by_header:
     Rank: '211'
-    Overall Rank: '389'
+    Overall Rank: '390'
     Model: alpaca-13b Non-commercial
-    Score: 1069 ±11
-    Rank Spread: 387 392
+    Score: 1070 ±11
+    Rank Spread: 388 393
     Votes: 5,745
     Price $/M: N/A
     Context: N/A
@@ -6132,19 +6132,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '212'
-  - '390'
+  - '391'
   - gpt4all-13b-snoozy Non-commercial
   - 1067 ±15
-  - 385 393
+  - 386 394
   - 1,743
   - N/A
   - N/A
   by_header:
     Rank: '212'
-    Overall Rank: '390'
+    Overall Rank: '391'
     Model: gpt4all-13b-snoozy Non-commercial
     Score: 1067 ±15
-    Rank Spread: 385 393
+    Rank Spread: 386 394
     Votes: 1,743
     Price $/M: N/A
     Context: N/A
@@ -6161,19 +6161,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '213'
-  - '391'
+  - '392'
   - mpt-7b-chat CC-BY-NC-SA-4.0
   - 1063 ±12
-  - 387 393
+  - 388 394
   - 3,924
   - N/A
   - N/A
   by_header:
     Rank: '213'
-    Overall Rank: '391'
+    Overall Rank: '392'
     Model: mpt-7b-chat CC-BY-NC-SA-4.0
     Score: 1063 ±12
-    Rank Spread: 387 393
+    Rank Spread: 388 394
     Votes: 3,924
     Price $/M: N/A
     Context: N/A
@@ -6190,19 +6190,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '214'
-  - '392'
+  - '393'
   - chatglm3-6b Apache-2.0
   - 1056 ±12
-  - 387 393
+  - 388 394
   - 4,658
   - N/A
   - N/A
   by_header:
     Rank: '214'
-    Overall Rank: '392'
+    Overall Rank: '393'
     Model: chatglm3-6b Apache-2.0
     Score: 1056 ±12
-    Rank Spread: 387 393
+    Rank Spread: 388 394
     Votes: 4,658
     Price $/M: N/A
     Context: N/A
@@ -6219,19 +6219,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '215'
-  - '393'
+  - '394'
   - RWKV-4-Raven-14B Apache 2.0
   - 1042 ±11
-  - 390 395
+  - 391 396
   - 4,845
   - N/A
   - N/A
   by_header:
     Rank: '215'
-    Overall Rank: '393'
+    Overall Rank: '394'
     Model: RWKV-4-Raven-14B Apache 2.0
     Score: 1042 ±11
-    Rank Spread: 390 395
+    Rank Spread: 391 396
     Votes: 4,845
     Price $/M: N/A
     Context: N/A
@@ -6248,19 +6248,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '216'
-  - '394'
+  - '395'
   - chatglm2-6b Apache-2.0
   - 1024 ±14
-  - 393 395
+  - 394 396
   - 2,658
   - N/A
   - N/A
   by_header:
     Rank: '216'
-    Overall Rank: '394'
+    Overall Rank: '395'
     Model: chatglm2-6b Apache-2.0
     Score: 1024 ±14
-    Rank Spread: 393 395
+    Rank Spread: 394 396
     Votes: 2,658
     Price $/M: N/A
     Context: N/A
@@ -6277,19 +6277,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '217'
-  - '395'
+  - '396'
   - oasst-pythia-12b Apache 2.0
   - 1023 ±11
-  - 393 395
+  - 394 396
   - 6,310
   - N/A
   - N/A
   by_header:
     Rank: '217'
-    Overall Rank: '395'
+    Overall Rank: '396'
     Model: oasst-pythia-12b Apache 2.0
     Score: 1023 ±11
-    Rank Spread: 393 395
+    Rank Spread: 394 396
     Votes: 6,310
     Price $/M: N/A
     Context: N/A
@@ -6306,19 +6306,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '218'
-  - '396'
+  - '397'
   - chatglm-6b Non-commercial
   - 995 ±13
-  - 396 399
+  - 397 400
   - 4,914
   - N/A
   - N/A
   by_header:
     Rank: '218'
-    Overall Rank: '396'
+    Overall Rank: '397'
     Model: chatglm-6b Non-commercial
     Score: 995 ±13
-    Rank Spread: 396 399
+    Rank Spread: 397 400
     Votes: 4,914
     Price $/M: N/A
     Context: N/A
@@ -6335,19 +6335,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '219'
-  - '397'
+  - '398'
   - fastchat-t5-3b Apache 2.0
   - 992 ±12
-  - 396 399
+  - 397 400
   - 4,203
   - N/A
   - N/A
   by_header:
     Rank: '219'
-    Overall Rank: '397'
+    Overall Rank: '398'
     Model: fastchat-t5-3b Apache 2.0
     Score: 992 ±12
-    Rank Spread: 396 399
+    Rank Spread: 397 400
     Votes: 4,203
     Price $/M: N/A
     Context: N/A
@@ -6364,19 +6364,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '220'
-  - '398'
+  - '399'
   - dolly-v2-12b MIT
   - 982 ±13
-  - 396 399
+  - 397 400
   - 3,412
   - N/A
   - N/A
   by_header:
     Rank: '220'
-    Overall Rank: '398'
+    Overall Rank: '399'
     Model: dolly-v2-12b MIT
     Score: 982 ±13
-    Rank Spread: 396 399
+    Rank Spread: 397 400
     Votes: 3,412
     Price $/M: N/A
     Context: N/A
@@ -6393,19 +6393,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '221'
-  - '399'
+  - '400'
   - Meta llama-13b Meta · Non-commercial
-  - 974 ±16
-  - 396 400
+  - 975 ±16
+  - 397 401
   - 2,391
   - $0.23 / $0.23
   - N/A
   by_header:
     Rank: '221'
-    Overall Rank: '399'
+    Overall Rank: '400'
     Model: Meta llama-13b Meta · Non-commercial
-    Score: 974 ±16
-    Rank Spread: 396 400
+    Score: 975 ±16
+    Rank Spread: 397 401
     Votes: 2,391
     Price $/M: $0.23 / $0.23
     Context: N/A
@@ -6422,19 +6422,19 @@ arena_agent:
   arena_license_label: null
   raw:
   - '222'
-  - '400'
+  - '401'
   - stablelm-tuned-alpha-7b CC-BY-NC-SA-4.0
   - 953 ±13
-  - 399 400
+  - 400 401
   - 3,287
   - N/A
   - N/A
   by_header:
     Rank: '222'
-    Overall Rank: '400'
+    Overall Rank: '401'
     Model: stablelm-tuned-alpha-7b CC-BY-NC-SA-4.0
     Score: 953 ±13
-    Rank Spread: 399 400
+    Rank Spread: 400 401
     Votes: 3,287
     Price $/M: N/A
     Context: N/A
