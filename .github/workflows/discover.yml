@@ -60,6 +60,69 @@ jobs:
           HF_TOKEN: ${{ secrets.HF_TOKEN || secrets.HUGGINGFACE_TOKEN }}
           HUGGINGFACE_TOKEN: ${{ secrets.HUGGINGFACE_TOKEN }}
         run: python scripts/discover.py --min-params 3
+      - name: Are there gaps an agent could fill?
+        # Bounds the spend and keeps a no-op run free: if nothing in the
+        # queue carries either of the two reasons this agent handles, the
+        # step below is skipped entirely rather than paying a model to
+        # discover there is no work.
+        #
+        # The key check lives HERE and not in the agent step's own `if`,
+        # because a step's own `env:` block is not in scope for its own `if`
+        # expression — `env.ANTHROPIC_API_KEY` there reads as empty whether
+        # or not the secret is set, which would skip the agent forever. One
+        # step, one output, no silent never-runs.
+        id: gaps
+        env:
+          KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          n=$(python scripts/refresh_review.py --count-with \
+                moe-active-params-unknown license-not-allowlisted)
+          if [ -z "$KEY" ]; then
+            echo "no ANTHROPIC_API_KEY secret; skipping enrichment ($n gap(s) left for a human)"
+            n=0
+          fi
+          echo "count=$n" >> "$GITHUB_OUTPUT"
+          echo "$n row(s) with a fillable gap"
+      - name: Record models.yaml before the agent runs
+        # models.yaml is append-only and owned by discover.py. The agent is
+        # told not to touch it; this is what makes that a guarantee rather
+        # than an instruction to an LLM. Compared again below.
+        id: sealed
+        run: echo "sha=$(shasum -a 256 models.yaml | cut -d' ' -f1)" >> "$GITHUB_OUTPUT"
+      - name: Fill the review gaps a document can answer
+        # continue-on-error for the same reason arena and AA have it: this is
+        # an enrichment source, and an outage, a rate limit or an empty
+        # ANTHROPIC_API_KEY must degrade the run to "discovery without
+        # enrichment", never fail it. The queue simply keeps its gaps.
+        if: steps.gaps.outputs.count != '0'
+        continue-on-error: true
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          prompt: |
+            Use the fill-review-gaps skill on candidates.yaml.
+            Do not commit, do not push, and do not edit models.yaml.
+          claude_args: >-
+            --allowedTools
+            "Read,Edit,Grep,Glob,WebFetch,WebSearch,Bash(python scripts/check_license.py:*)"
+      - name: Verify the agent left models.yaml alone
+        # A hard stop, not a warning. If this fires the agent wrote to the
+        # published index, and the run must not proceed to open a PR
+        # containing that write. Deliberately NOT continue-on-error.
+        run: |
+          now=$(shasum -a 256 models.yaml | cut -d' ' -f1)
+          if [ "$now" != "${{ steps.sealed.outputs.sha }}" ]; then
+            echo "::error::the agent modified models.yaml, which is off limits"
+            exit 1
+          fi
+      - name: Re-derive needs_review after the agent's edits
+        # discover.py wrote needs_review before the agent changed the facts,
+        # so without this a row carries a filled params_active_b AND
+        # moe-active-params-unknown at once — contradictory, and it hides
+        # what is genuinely still outstanding from whoever reads the PR.
+        # Preserves the existing `generated:` stamp, so this step alone can
+        # never make a run look PR-worthy to pr_gate.py.
+        run: python scripts/refresh_review.py --write
       - name: Validate models.yaml
         # discover.py can now append promoted rows straight to models.yaml.
         # classify.py's schema gate should stop anything invalid before it

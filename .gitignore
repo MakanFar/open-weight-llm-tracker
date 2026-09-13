@@ -23,3 +23,4 @@ __pycache__/
 
 # SDD design docs (local only)
 docs/superpowers/
+!.claude/skills/fill-review-gaps/
