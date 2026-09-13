@@ -950,3 +950,33 @@ models:
     license_notes: AUTO-DISCOVERED — verify license terms.
     weights_url: https://huggingface.co/ibm-granite/granite-4.2-3b
     commercial_use_verified: false
+
+  - name: granite-4.2-8b
+    hf_repo: ibm-granite/granite-4.2-8b
+    developer: ibm-granite
+    release_date: 2026-08-07
+    params_total_b: 8.8
+    params_active_b: 8.8
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/ibm-granite/granite-4.2-8b
+    commercial_use_verified: false
+
+  - name: granite-4.1-30b
+    hf_repo: ibm-granite/granite-4.1-30b
+    developer: ibm-granite
+    release_date: 2026-04-06
+    params_total_b: 28.9
+    params_active_b: 28.9
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/ibm-granite/granite-4.1-30b
+    commercial_use_verified: false

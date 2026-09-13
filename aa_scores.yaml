@@ -6,6 +6,10 @@
 # this tracker will never carry: the name->repo join is NOT done here, it
 # is done by aa_join at the point of use, against rows as they stand then.
 scores:
+  agnes25proalpha:
+    aa_model: Agnes 2.5 Pro Alpha
+    intelligence_index: 28
+    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
@@ -86,6 +90,10 @@ scores:
     aa_model: Gemma 4 31B
     intelligence_index: 15
     variant: default
+  glm52:
+    aa_model: GLM-5.2 (max)
+    intelligence_index: 34
+    variant: max
   glm53:
     aa_model: GLM-5.3 (max)
     intelligence_index: 45
@@ -153,6 +161,10 @@ scores:
   inklingsmall:
     aa_model: Inkling Small
     intelligence_index: 26
+    variant: default
+  k2horizon375ba23b:
+    aa_model: K2 Horizon 375B A23B
+    intelligence_index: 31
     variant: default
   kimik27code:
     aa_model: Kimi K2.7 Code

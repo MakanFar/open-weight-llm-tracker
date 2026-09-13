@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-10'
+generated: '2026-09-13'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -48,7 +48,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 2
+  arena_rank: 1
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -78,6 +78,7 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
+  aa_index: 34
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
@@ -118,7 +119,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 7
+  arena_rank: 8
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -141,7 +142,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 16
+  arena_rank: 17
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -210,7 +211,7 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - moe-active-params-unknown
-  arena_rank: 29
+  arena_rank: 30
 - name: GLM-4.6
   hf_repo: zai-org/GLM-4.6
   developer: zai-org
@@ -344,7 +345,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 42
+  arena_rank: 43
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -367,7 +368,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 43
+  arena_rank: 42
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -596,7 +597,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 80
+  arena_rank: 79
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -664,7 +665,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 89
+  arena_rank: 88
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -756,7 +757,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 103
+  arena_rank: 104
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -783,7 +784,7 @@ models:
   aa_index: 9
   needs_review:
   - signal-too-stale
-  arena_rank: 104
+  arena_rank: 103
   params_active_source: 21B parameters with 3.6B active
 - name: DeepSeek-V2.5
   hf_repo: deepseek-ai/DeepSeek-V2.5
@@ -879,28 +880,6 @@ models:
   - gated-repo-no-access
   - signal-too-stale
   gated_no_access: true
-- name: granite-4.2-8b
-  hf_repo: ibm-granite/granite-4.2-8b
-  developer: ibm-granite
-  release_date: 2026-08-07
-  params_total_b: 8.8
-  params_active_b: 8.8
-  architecture: dense
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/ibm-granite/granite-4.2-8b
-  downloads: 17939
-  discovered_via:
-  - arena
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 121
-  needs_hf_repo: false
-  resolution_confidence: high
-  aa_index: 12
 - name: Meta-Llama-3-70B-Instruct
   hf_repo: meta-llama/Meta-Llama-3-70B-Instruct
   developer: meta-llama
@@ -1516,6 +1495,25 @@ models:
   aa_index: 40
   needs_review:
   - moe-active-params-unknown
+- name: DeepSeek-V4-Flash-Vision-Exp
+  hf_repo: deepseek-ai/DeepSeek-V4-Flash-Vision-Exp
+  developer: deepseek-ai
+  release_date: 2026-08-31
+  params_total_b: 304.6
+  params_active_b: 304.6
+  architecture: moe
+  context_window: 1048576
+  modality: multimodal
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-Vision-Exp
+  downloads: 518558
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - moe-active-params-unknown
 - name: Qwen3.8-Flash-Next
   hf_repo: Qwen/Qwen3.8-Flash-Next
   developer: Qwen
@@ -1681,23 +1679,6 @@ models:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
   aa_index: 26
-- name: granite-4.1-30b
-  hf_repo: ibm-granite/granite-4.1-30b
-  developer: ibm-granite
-  release_date: 2026-04-06
-  params_total_b: 28.9
-  params_active_b: 28.9
-  architecture: dense
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/ibm-granite/granite-4.1-30b
-  downloads: 531784
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
 - name: gemma-4-31B
   hf_repo: google/gemma-4-31B
   developer: google
