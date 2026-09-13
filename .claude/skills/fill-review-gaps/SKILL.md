@@ -64,33 +64,121 @@ is the right one.
 
 ## `moe-active-params-unknown`
 
-Read the model card and find the activation figure **for this row's model**.
+**You are the reviewer.** Not a card-reader that gives up when the card is
+quiet. The card is one source and usually not the best one: measured over the
+real queue, **22 of 25** blocked rows had cards stating no activation figure at
+all, while their vendors had published the number in a tech report, a GitHub
+README or a release post. Stopping at the card sent all 22 to a human who
+would have run the same search.
 
-The hard part is never the phrasing — it is that one card usually describes a
-whole family. `enrich.active_params_from_card()` already abstains whenever two
-activation figures are in play, and you must hold the same bar. Cross-check
-against the row's own `params_total_b`: a claim whose stated total is within
-about 15% of the row's measured total is the one describing this model.
+### 1. Establish the row's own total first
 
-**A model with two legitimate activation figures is not resolvable — abstain.**
-The live example: `deepseek-ai/DeepSeek-V4.1-Flash` publishes
-`# Activated Params | 8B / 16B` and prose reading "activate only **8B
-parameters per token during prefill** and **16B during decode**". There is no
-single correct value, `params_active_b` is one float, and picking either one
-publishes a number the vendor did not claim. Leave it; add a `notes` line
-saying what the card says and that the schema cannot express it.
+Everything downstream is an attribution problem, so anchor it before looking
+anywhere. `params_total_b` is HF's measured safetensors count for **this
+repo**. A claim belongs to this row only if the total stated alongside it
+lands within about 15% of that figure — the same `_TOTAL_MATCH_TOLERANCE`
+`enrich.active_params_from_card()` uses, loose because cards round to a
+headline (`744B`) while safetensors counts every tensor (`753.9B`).
 
-When you do resolve it, write:
+**A figure with no total stated beside it cannot be attributed and is not
+evidence.** This is the rule that makes searching safe. Without it, widening
+the search widens the damage, because the open web is full of confident
+sentences about a model's siblings.
+
+### 2. Look in this order, and stop at the first tier that answers
+
+| tier | source | strength |
+|---|---|---|
+| 1 | The row's own card, figure paired with a matching total | Definitive. `enrich` already tried this and failed, so expect to go further. |
+| 2 | `config.json` in the same repo | Definitive for *architecture* — it is the artifact, not a claim about it. See §3 for what that can and cannot settle. |
+| 3 | The vendor's tech report, arXiv paper or GitHub README **for this release** | Strong. The same vendor stating the same fact somewhere with more room than a card. |
+| 4 | The vendor's release post or announcement naming this exact model | Strong when it names the repo or the size; weak when it says only "our new model". |
+| 5 | Third-party write-ups, news, leaderboard blurbs | Corroboration only, never the sole basis — they routinely copy a sibling's number. |
+
+Searches that work: the repo tail plus `activated parameters`; the vendor and
+model name plus `total parameters active`; the model name plus `technical
+report`. Research **per family, not per row** — one DeepSeek-V3 tech report
+answers every V3.x row whose measured total it matches.
+
+### 3. What `config.json` settles, and what it does not
+
+It settles **whether two repos are the same architecture**. When
+`num_local_experts`, `num_experts_per_tok`, `hidden_size`,
+`num_hidden_layers` and `intermediate_size` all match a model whose
+activation is documented, at the same measured total, the activation is
+necessarily the same and you may carry the documented figure across — citing
+**both** the config comparison and the document the figure came from.
+MiniMax-M2.5 and M2.7 are exactly this shape: routing byte-identical to M2 at
+the same 228.7B, with M2's own card stating 10B.
+
+It does **not** settle the figure on its own. **Never compute activated
+parameters from expert counts and dimensions.** Shared experts, dense prefix
+layers and attention parameters all enter the sum, vendors round differently,
+and a derived number carries no citation anyone can re-check. If no document
+anywhere states a figure, abstain — a computed number is the one thing this
+skill must never publish.
+
+### 4. Decide
+
+| finding | action |
+|---|---|
+| One figure, stated total matches this row | Write it |
+| Several figures, exactly one whose stated total matches this row | Write that one |
+| Several figures, none whose total matches this row | **Abstain** — the document describes siblings |
+| Two figures for this same model (`8B / 16B`, prefill/decode) | **Abstain** — the schema holds one float. Not yours to pick; see *Maintainer decisions* below |
+| A figure with no total stated near it | **Abstain** — unattributable |
+| Nothing found across tiers 1–5 | **Abstain**, and name where you looked |
+
+### 5. Maintainer decisions are recorded as such
+
+Some rows have no single right answer and no amount of searching produces one.
+`deepseek-ai/DeepSeek-V4.1-Flash` publishes `# Activated Params | 8B / 16B`,
+prefill against decode, and the schema holds one float. **Picking one is not
+research and is not yours to do** — present both figures and what turns on the
+choice, and let the maintainer decide.
+
+When they do, say so **in those words** at the front of the field:
 
 ```yaml
-params_active_b: 13.0
-params_active_source: "DeepSeek-V4-Pro ... 284B parameters (13B activated)"
+    params_active_b: 16.0
+    params_active_source: "maintainer decision, not a published figure. <URL> states TWO activation figures for this one model - ... - and params_active_b holds one float. The maintainer chose the DECODE figure: <their reasoning>. The vendor has not published a single combined figure."
 ```
 
-`params_active_source` is a **verbatim quote** from the card, not a summary.
-If the card also states a headline total that differs from the measured one by
-more than a few percent, note it — do not write `params_total_stated_b`
-yourself; `enrich` owns that field and has a tolerance check you would bypass.
+This is the same rule as
+[verify-commercial-use](../verify-commercial-use/SKILL.md)'s "maintainer
+decision" wording, and it exists for the same reason: without it, the row is
+indistinguishable from one where somebody read the figure off a card. A reader
+six months later must be able to tell a sourced number from a chosen one, and
+`validate.py` will never tell them — it checks only that the value is
+positive.
+
+### 6. Write it
+
+`params_active_source` carries the provenance, and its *shape* says where the
+number came from.
+
+```yaml
+    params_active_b: 10.0
+    params_active_source: "230 billion total parameters with 10 billion active parameters"
+```
+
+```yaml
+    params_active_b: 37.0
+    params_active_source: "https://github.com/deepseek-ai/DeepSeek-V3/blob/main/README.md - \"671B total parameters with 37B activated for each token\"; matches this row's measured 684.5B within 2%"
+```
+
+**A bare quote means the row's own card.** That is what `discover.enrich_row`
+writes, and its meaning must not shift under it. **A value beginning with a
+URL means somebody went looking**, and it must carry the URL you actually
+fetched, what it said, and why it attaches to *this* row. Never "verified via
+web search" — the next person has to re-check it without repeating your
+search.
+
+When you carried a figure across identical configs, say both halves:
+
+```yaml
+    params_active_source: "https://huggingface.co/MiniMaxAI/MiniMax-M2 - \"230 billion total parameters with 10 billion active parameters\"; this repo's config.json is identical to M2's (256 experts, 8 per token, 62 layers, hidden 3072) at the same 228.7B measured total"
+```
 
 ## `license-not-allowlisted`
 
@@ -117,6 +205,16 @@ case and the one most worth doing: it needs no policy call at all.
 ## Finish
 
 Report, per row you touched: the repo, the field you set, the URL you fetched,
-and the quoted text. Then report the rows you deliberately left alone and why
-— that list is the useful half of the output, and a run that fills nothing
-because no card stated anything is a **successful run**.
+and the text it said. Then report the rows you deliberately left alone and
+why.
+
+**That second list is the useful half.** A run that resolves 9 of 25 and names
+the other 16 is a success. A run that resolves 25 is a claim to be suspicious
+of — searching hard enough to find *a* number for every row means you have
+started attributing siblings' figures, which is the one failure this whole
+procedure is shaped to prevent. A run that fills nothing because no document
+anywhere states a figure is also a success.
+
+Say explicitly where you looked for anything you abstained on. "No figure
+found" is not a finding; "the card, config.json, the GitHub README and the
+tech report all state totals only" is.

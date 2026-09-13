@@ -35,13 +35,15 @@ models:
   developer: zai-org
   release_date: 2026-08-25
   params_total_b: 753.3
-  params_active_b: 753.3
+  params_active_b: 40.0
   architecture: moe
   context_window: 1048576
   modality: text
   license: glm-5-3
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'GLM-5.3 License (https://huggingface.co/zai-org/GLM-5.3/blob/main/LICENSE): requires
+    passing "AI''s security review before using the Software or its derivative works for any commercial
+    purpose." String not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/zai-org/GLM-5.3
   downloads: 8804
   discovered_via:
@@ -52,15 +54,17 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
   aa_index: 45
+  params_active_source: https://huggingface.co/zai-org/GLM-5 - "744B parameters (40B active)"; this repo's
+    config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers,
+    hidden 6144) at the same ~753B measured total
 - name: GLM-5.2
   hf_repo: zai-org/GLM-5.2
   developer: zai-org
   release_date: 2026-06-16
   params_total_b: 753.3
-  params_active_b: 753.3
+  params_active_b: 40.0
   architecture: moe
   context_window: 1048576
   modality: text
@@ -76,15 +80,16 @@ models:
   arena_rank: 4
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
   aa_index: 34
+  params_active_source: https://huggingface.co/zai-org/GLM-5 - "744B parameters (40B active)"; this repo's
+    config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers,
+    hidden 6144) at the same ~753B measured total
 - name: GLM-5.1
   hf_repo: zai-org/GLM-5.1
   developer: zai-org
   release_date: 2026-04-03
   params_total_b: 753.9
-  params_active_b: 753.9
+  params_active_b: 40.0
   architecture: moe
   context_window: 202752
   modality: text
@@ -100,8 +105,9 @@ models:
   arena_rank: 6
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: https://huggingface.co/zai-org/GLM-5 - "744B parameters (40B active)"; this repo's
+    config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers,
+    hidden 6144) at the same ~753B measured total
 - name: Kimi-K2.6
   hf_repo: moonshotai/Kimi-K2.6
   developer: moonshotai
@@ -111,9 +117,14 @@ models:
   architecture: moe
   context_window: 262144
   modality: multimodal
-  license: other
+  license: modified-mit
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Modified MIT License (https://huggingface.co/moonshotai/Kimi-K2.6/blob/main/LICENSE):
+    "Our only modification part is that, if the Software ... is used for any of your commercial products
+    or services that have more than 100 million monthly active users, or more than 20 million US dollars
+    ... in monthly revenue, you shall prominently display "Kimi K2.6" on the user interface." Commercial
+    use permitted; attribution obligation above the threshold. Same shape as the allowlisted `kimi-k3`.
+    String not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/moonshotai/Kimi-K2.6
   downloads: 855480
   discovered_via:
@@ -130,7 +141,7 @@ models:
   developer: zai-org
   release_date: 2025-12-22
   params_total_b: 358.3
-  params_active_b: 358.3
+  params_active_b: 32.0
   architecture: moe
   context_window: 202752
   modality: text
@@ -145,8 +156,10 @@ models:
   arena_rank: 17
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: https://huggingface.co/zai-org/GLM-4.5-Air-Base - "GLM-4.5 has **355** billion
+    total parameters with **32** billion active parameters"; this repo's config.json is identical to zai-org/GLM-4.5
+    (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within
+    1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.
 - name: gemma-4-26B-A4B
   hf_repo: google/gemma-4-26B-A4B
   developer: google
@@ -179,9 +192,13 @@ models:
   architecture: dense
   context_window: 262144
   modality: text
-  license: other
+  license: modified-mit
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Modified MIT License (https://huggingface.co/mistralai/Mistral-Medium-3.5-128B/blob/main/LICENSE):
+    "You are not authorized to exercise any rights under this license if the global consolidated monthly
+    revenue of your company (or that of your employer) exceeds $20 million ... for the preceding month."
+    Above that, a commercial licence is granted at Mistral''s sole discretion. String not in validate.LICENSES
+    — allowlist decision pending.'
   weights_url: https://huggingface.co/mistralai/Mistral-Medium-3.5-128B
   downloads: 80616
   discovered_via:
@@ -197,7 +214,7 @@ models:
   developer: deepseek-ai
   release_date: 2025-12-01
   params_total_b: 685.4
-  params_active_b: 685.4
+  params_active_b: 37.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -209,15 +226,17 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - moe-active-params-unknown
   arena_rank: 30
+  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+    2% from the stated 671B'
 - name: GLM-4.6
   hf_repo: zai-org/GLM-4.6
   developer: zai-org
   release_date: 2025-09-29
   params_total_b: 356.8
-  params_active_b: 356.8
+  params_active_b: 32.0
   architecture: moe
   context_window: 202752
   modality: text
@@ -232,8 +251,10 @@ models:
   arena_rank: 31
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: https://huggingface.co/zai-org/GLM-4.5-Air-Base - "GLM-4.5 has **355** billion
+    total parameters with **32** billion active parameters"; this repo's config.json is identical to zai-org/GLM-4.5
+    (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within
+    1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.
 - name: Qwen3-235B-A22B-Instruct-2507
   hf_repo: Qwen/Qwen3-235B-A22B-Instruct-2507
   developer: Qwen
@@ -263,7 +284,7 @@ models:
   developer: deepseek-ai
   release_date: 2025-09-29
   params_total_b: 685.4
-  params_active_b: 685.4
+  params_active_b: 37.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -278,8 +299,10 @@ models:
   arena_rank: 34
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+    2% from the stated 671B'
 - name: DeepSeek-R1-0528
   hf_repo: deepseek-ai/DeepSeek-R1-0528
   developer: deepseek-ai
@@ -309,7 +332,7 @@ models:
   developer: deepseek-ai
   release_date: 2025-08-21
   params_total_b: 684.5
-  params_active_b: 684.5
+  params_active_b: 37.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -325,20 +348,27 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+    2% from the stated 671B'
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
   developer: MiniMaxAI
   release_date: 2026-04-09
   params_total_b: 228.7
-  params_active_b: 228.7
+  params_active_b: 10.0
   architecture: moe
   context_window: 204800
   modality: text
   license: other
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'The linked instrument (https://github.com/MiniMax-AI/MiniMax-M2.7/blob/main/LICENSE)
+    is titled "NON-COMMERCIAL LICENSE": "Non-commercial use permitted based on MIT-style terms; commercial
+    use requires prior written authorization." NOTE: this is a materially stricter licence than MiniMax-M2''s
+    modified MIT, and the HF tag is a bare `other` that says none of it. Commercial use needs written
+    permission first.'
   weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2.7
   downloads: 926703
   discovered_via:
@@ -349,14 +379,16 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
+  params_active_source: https://huggingface.co/MiniMaxAI/MiniMax-M2 - "230 billion total parameters with
+    10 billion active parameters"; this repo's config.json is identical to M2's (256 experts, 8 per token,
+    62 layers, hidden 3072, no shared expert) at the same 228.7B measured total
 - name: DeepSeek-V3.1-Terminus
   hf_repo: deepseek-ai/DeepSeek-V3.1-Terminus
   developer: deepseek-ai
   release_date: 2025-09-22
   params_total_b: 684.5
-  params_active_b: 684.5
+  params_active_b: 37.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -371,8 +403,10 @@ models:
   arena_rank: 42
   needs_hf_repo: false
   resolution_confidence: high
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+    2% from the stated 671B'
 - name: GLM-4.5
   hf_repo: zai-org/GLM-4.5
   developer: zai-org
@@ -424,7 +458,7 @@ models:
   developer: deepseek-ai
   release_date: 2025-03-24
   params_total_b: 684.5
-  params_active_b: 684.5
+  params_active_b: 37.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -440,30 +474,38 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - duplicates-tracked-row
   - signal-too-stale
+  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+    2% from the stated 671B'
 - name: MiniMax-M2.5
   hf_repo: MiniMaxAI/MiniMax-M2.5
   developer: MiniMaxAI
   release_date: 2026-02-12
   params_total_b: 228.7
-  params_active_b: 228.7
+  params_active_b: 10.0
   architecture: moe
   context_window: 196608
   modality: text
-  license: other
+  license: modified-mit
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Card frontmatter declares `license_name: modified-mit`, but the instrument it links
+    (https://github.com/MiniMax-AI/MiniMax-M2.5/blob/main/LICENSE) returns 404, as does the HF copy. The
+    NAME is sourced; the TEXT could not be retrieved, so commercial_use is left as found rather than inferred
+    from the sibling M2 licence.'
   weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2.5
   downloads: 789611
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
   arena_rank: 60
+  params_active_source: https://huggingface.co/MiniMaxAI/MiniMax-M2 - "230 billion total parameters with
+    10 billion active parameters"; this repo's config.json is identical to M2's (256 experts, 8 per token,
+    62 layers, hidden 3072, no shared expert) at the same 228.7B measured total
 - name: Qwen3-Coder-480B-A35B-Instruct
   hf_repo: Qwen/Qwen3-Coder-480B-A35B-Instruct
   developer: Qwen
@@ -537,7 +579,7 @@ models:
   developer: zai-org
   release_date: 2025-07-20
   params_total_b: 110.5
-  params_active_b: 110.5
+  params_active_b: 12.0
   architecture: moe
   context_window: 131072
   modality: text
@@ -553,9 +595,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - derivative-or-base
   - signal-too-stale
+  params_active_source: GLM-4.5-Air adopts a more compact design with **106** billion total parameters
+    and **12** billion active parameters
 - name: MiniMax-M1-40k
   hf_repo: MiniMaxAI/MiniMax-M1-40k
   developer: MiniMaxAI
@@ -630,13 +673,18 @@ models:
   developer: MiniMaxAI
   release_date: 2025-10-22
   params_total_b: 228.7
-  params_active_b: 228.7
+  params_active_b: 10.0
   architecture: moe
   context_window: 196608
   modality: text
   license: modified-mit
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'MIT License with one added clause (https://github.com/MiniMax-AI/MiniMax-M2/blob/main/LICENSE):
+    "Our only modification is that, if the Software ... is used for any of your commercial products or
+    services that have more than 100 million monthly active users, or more than 30 million US dollars
+    ... in annual recurring revenue, you shall prominently display "MiniMax M2" on the user interface."
+    The `modified-mit` tag is ACCURATE — the text is not plain MIT. String not in validate.LICENSES —
+    allowlist decision pending.'
   weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M2
   downloads: 135785
   discovered_via:
@@ -646,8 +694,8 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - license-not-allowlisted
+  params_active_source: 230 billion total parameters with 10 billion active parameters
 - name: gemma-3-12b-it
   hf_repo: google/gemma-3-12b-it
   developer: google
@@ -722,7 +770,7 @@ models:
   developer: deepseek-ai
   release_date: 2024-12-10
   params_total_b: 235.7
-  params_active_b: 235.7
+  params_active_b: 21.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -738,8 +786,11 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct - "DeepSeek-Coder-V2
+    with 16B and 236B parameters ... which has actived parameters of only 2.4B and 21B"; this repo's config.json
+    is identical (deepseek_v2, 160 routed experts, 6 per token, 2 shared, 60 layers) at the same 235.7B
+    measured total
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
   developer: google
@@ -791,7 +842,7 @@ models:
   developer: deepseek-ai
   release_date: 2024-09-05
   params_total_b: 235.7
-  params_active_b: 235.7
+  params_active_b: 21.0
   architecture: moe
   context_window: 163840
   modality: text
@@ -807,8 +858,11 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
+  params_active_source: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct - "DeepSeek-Coder-V2
+    with 16B and 236B parameters ... which has actived parameters of only 2.4B and 21B"; this repo's config.json
+    is identical (deepseek_v2, 160 routed experts, 6 per token, 2 shared, 60 layers) at the same 235.7B
+    measured total
 - name: gemma-3-4b-it
   hf_repo: google/gemma-3-4b-it
   developer: google
@@ -955,13 +1009,17 @@ models:
   developer: deepseek-ai
   release_date: 2024-06-14
   params_total_b: 235.7
-  params_active_b: 235.7
+  params_active_b: 21.0
   architecture: moe
   context_window: 163840
   modality: text
-  license: deepseek-license
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license: deepseek
+  commercial_use: true
+  license_notes: 'DEEPSEEK LICENSE AGREEMENT v1.0 (https://github.com/deepseek-ai/DeepSeek-Coder-V2/blob/main/LICENSE-MODEL):
+    "You may host for Third Party remote access purposes (e.g. software-as-a-service), reproduce and distribute
+    copies of the Model", subject to the Attachment A use-based restrictions, which are content limits,
+    not commercial ones. Same instrument as the allowlisted `deepseek` rows. The repo itself publishes
+    no LICENSE file and the card''s relative `LICENSE` link 404s.'
   weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
   downloads: 7261
   discovered_via:
@@ -970,10 +1028,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
-  - license-not-allowlisted
   - signal-too-stale
   arena_rank: 134
+  params_active_source: We release the DeepSeek-Coder-V2 with 16B and 236B parameters based on the DeepSeekMoE
+    framework, which has actived parameters of only 2.4B and 21B
 - name: Qwen2-72B-Instruct
   hf_repo: Qwen/Qwen2-72B-Instruct
   developer: Qwen
@@ -985,7 +1043,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen2-72B-Instruct
   downloads: 55859
   discovered_via:
@@ -1030,7 +1091,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-110B-Chat
   downloads: 2969
   discovered_via:
@@ -1053,7 +1117,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-72B-Chat
   downloads: 9926
   discovered_via:
@@ -1122,7 +1189,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-32B-Chat
   downloads: 11145
   discovered_via:
@@ -1161,7 +1231,7 @@ models:
   developer: mistralai
   release_date: 2023-12-10
   params_total_b: 46.7
-  params_active_b: 46.7
+  params_active_b: 12.9
   architecture: moe
   context_window: 32768
   modality: null
@@ -1177,9 +1247,10 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
-  - moe-active-params-unknown
   - signal-too-stale
   - 'schema-invalid: [Mixtral-8x7B-Instruct-v0.1] missing required field: modality'
+  params_active_source: https://mistral.ai/news/mixtral-of-experts/ - "Mixtral has 46.7B total parameters
+    but only uses 12.9B parameters per token"; matches this row's measured 46.7B exactly
 - name: Qwen1.5-14B-Chat
   hf_repo: Qwen/Qwen1.5-14B-Chat
   developer: Qwen
@@ -1191,7 +1262,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-14B-Chat
   downloads: 27028
   discovered_via:
@@ -1350,7 +1424,10 @@ models:
   modality: text
   license: tongyi-qianwen
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
+    "If you are commercially using the Materials, and your product or service has more than 100 million
+    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
+    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-7B-Chat
   downloads: 21185
   discovered_via:
@@ -1440,8 +1517,11 @@ models:
   context_window: 32768
   modality: text
   license: tongyi-qianwen-research
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  commercial_use: false
+  license_notes: 'Tongyi Qianwen RESEARCH LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-4B-Chat/blob/main/LICENSE):
+    "NON-COMMERCIAL PURPOSES ONLY"; "''Non-Commercial'' shall mean for research or evaluation purposes
+    only." CORRECTED from `conditional` — this is a research-only instrument with no commercial path,
+    unlike the plain Tongyi Qianwen licence on the other Qwen1.5 rows.'
   weights_url: https://huggingface.co/Qwen/Qwen1.5-4B-Chat
   downloads: 14512
   discovered_via:
@@ -1480,7 +1560,7 @@ models:
   developer: deepseek-ai
   release_date: 2026-09-10
   params_total_b: 763.2
-  params_active_b: 763.2
+  params_active_b: 16.0
   architecture: moe
   context_window: 1048576
   modality: multimodal
@@ -1493,8 +1573,12 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   aa_index: 40
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: 'maintainer decision, not a published figure. https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash
+    states TWO activation figures for this one model - table "# Activated Params | 8B / 16B" and prose
+    "activate only **8B parameters per token during prefill** and **16B during decode**" - and params_active_b
+    holds one float. The maintainer chose the DECODE figure: decode dominates serving cost for a generative
+    model, and 16B is the larger number, so the table under-claims efficiency rather than over-claims
+    it. The vendor has not published a single combined figure.'
 - name: DeepSeek-V4-Flash-Vision-Exp
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-Vision-Exp
   developer: deepseek-ai
@@ -1525,7 +1609,10 @@ models:
   modality: multimodal
   license: qwen-community-1-0
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Qwen Community License 1.0 (https://huggingface.co/Qwen/Qwen3.8-Flash-Next/blob/main/LICENSE):
+    "If the licensee or any of its affiliates conducts a Model as a Service or AI Work Assistant business,
+    the licensee shall obtain a separate license from Qwen before Using the Software ... for any commercial
+    purpose." String not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen3.8-Flash-Next
   downloads: 564079
   discovered_via:
@@ -1540,7 +1627,7 @@ models:
   developer: deepseek-ai
   release_date: 2026-08-13
   params_total_b: 1650.5
-  params_active_b: 1650.5
+  params_active_b: 49.0
   architecture: moe
   context_window: 1048576
   modality: text
@@ -1554,8 +1641,11 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   aa_index: 36
   needs_review:
-  - moe-active-params-unknown
   - duplicates-tracked-row
+  params_active_source: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-DSpark - the V4 series card:
+    "DeepSeek-V4-Pro with 1.6T parameters (49B activated)", table "# Total Params ... 1.6T | # Activated
+    Params ... 49B"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V4-Pro (384 routed
+    experts, 6 per token, 61 layers, hidden 7168) and 1.6T is within 4% of this row''s measured 1650.5B'
 - name: Qwen3.8-2.4T-A95B
   hf_repo: Qwen/Qwen3.8-2.4T-A95B
   developer: Qwen
@@ -1567,7 +1657,9 @@ models:
   modality: text
   license: qwen3-8-max
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Qwen3.8-Max License (https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B/blob/main/LICENSE):
+    a MaaS or AI Work Assistant business whose "aggregate revenue ... exceeds US$50,000,000" must obtain
+    a separate licence. String not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/Qwen/Qwen3.8-2.4T-A95B
   downloads: 51967
   discovered_via:
@@ -1603,7 +1695,7 @@ models:
   developer: deepseek-ai
   release_date: 2026-07-31
   params_total_b: 304.2
-  params_active_b: 304.2
+  params_active_b: 13.0
   architecture: moe
   context_window: 1048576
   modality: text
@@ -1616,8 +1708,12 @@ models:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
-  - moe-active-params-unknown
   - duplicates-tracked-row
+  params_active_source: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-DSpark - the V4 series card
+    table: "# Total Params | 284B" paired with "# Activated Params | 13B" for V4-Flash; this repo''s config.json
+    is identical to deepseek-ai/DeepSeek-V4-Flash (256 routed experts, 6 per token, 43 layers, hidden
+    4096). NOTE this row measures 304.2B, 7% above the stated 284B - within tolerance but the widest gap
+    of any figure written here'
 - name: DeepSeek-V4-Flash-DSpark
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
   developer: deepseek-ai
@@ -1642,7 +1738,7 @@ models:
   developer: baidu
   release_date: 2026-06-19
   params_total_b: 3.3
-  params_active_b: 3.3
+  params_active_b: 0.5
   architecture: moe
   context_window: 32768
   modality: multimodal
@@ -1654,8 +1750,8 @@ models:
   discovered_via:
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  needs_review:
-  - moe-active-params-unknown
+  params_active_source: https://arxiv.org/abs/2606.23050 - "a Mixture-of-Experts (MoE) architecture that
+    enjoys 3B total and 500M activated parameters"; stated 3B is within 10% of this row's measured 3.3B
 - name: Kimi-K2.7-Code
   hf_repo: moonshotai/Kimi-K2.7-Code
   developer: moonshotai
@@ -1665,9 +1761,14 @@ models:
   architecture: moe
   context_window: 262144
   modality: multimodal
-  license: other
+  license: modified-mit
   commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license_notes: 'Modified MIT License (https://huggingface.co/moonshotai/Kimi-K2.7-Code/blob/main/LICENSE):
+    "Our only modification part is that, if the Software ... is used for any of your commercial products
+    or services that have more than 100 million monthly active users, or more than 20 million US dollars
+    ... in monthly revenue, you shall prominently display "Kimi K2.6" on the user interface." Commercial
+    use permitted; attribution obligation above the threshold. Same shape as the allowlisted `kimi-k3`.
+    String not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/moonshotai/Kimi-K2.7-Code
   downloads: 657861
   discovered_via:
@@ -1707,9 +1808,11 @@ models:
   architecture: moe
   context_window: 262144
   modality: text
-  license: other
-  commercial_use: conditional
-  license_notes: AUTO-DISCOVERED — verify license terms.
+  license: nvidia-nemotron-open-model-license
+  commercial_use: true
+  license_notes: 'NVIDIA Nemotron Open Model License (https://www.nvidia.com/en-us/agreements/enterprise-software/nvidia-nemotron-open-model-license/):
+    "Subject to the terms of this License, NVIDIA confirms that: Works are commercially usable." String
+    not in validate.LICENSES — allowlist decision pending.'
   weights_url: https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Super-120B-A12B-BF16
   downloads: 816522
   discovered_via:

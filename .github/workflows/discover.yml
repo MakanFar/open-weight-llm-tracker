@@ -104,7 +104,7 @@ jobs:
             Do not commit, do not push, and do not edit models.yaml.
           claude_args: >-
             --allowedTools
-            "Read,Edit,Grep,Glob,WebFetch,WebSearch,Bash(python scripts/check_license.py:*)"
+            "Read,Edit,Grep,Glob,WebFetch,WebSearch,Bash(python scripts/check_license.py:*),Bash(curl -sSL https://huggingface.co/*)"
       - name: Verify the agent left models.yaml alone
         # A hard stop, not a warning. If this fires the agent wrote to the
         # published index, and the run must not proceed to open a PR
