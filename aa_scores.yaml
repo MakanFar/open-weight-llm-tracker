@@ -162,9 +162,25 @@ scores:
     aa_model: Inkling Small
     intelligence_index: 26
     variant: default
+  k2horizon09b:
+    aa_model: K2 Horizon 0.9B
+    intelligence_index: 3
+    variant: default
   k2horizon375ba23b:
     aa_model: K2 Horizon 375B A23B
     intelligence_index: 31
+    variant: default
+  k2horizon37b:
+    aa_model: K2 Horizon 3.7B
+    intelligence_index: 16
+    variant: default
+  k2horizon7b:
+    aa_model: K2 Horizon 7B
+    intelligence_index: 21
+    variant: default
+  k2horizonmova36ba4b:
+    aa_model: K2 Horizon MoVA 36B A4B
+    intelligence_index: 26
     variant: default
   kimik27code:
     aa_model: Kimi K2.7 Code
@@ -174,6 +190,10 @@ scores:
     aa_model: Kimi K3 (max)
     intelligence_index: 44
     variant: max
+  ling30flash:
+    aa_model: Ling 3.0 Flash
+    intelligence_index: 21
+    variant: default
   ling30flashvl:
     aa_model: Ling-3.0-flash-VL
     intelligence_index: 25
