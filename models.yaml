@@ -980,3 +980,172 @@ models:
     license_notes: AUTO-DISCOVERED — verify license terms.
     weights_url: https://huggingface.co/ibm-granite/granite-4.1-30b
     commercial_use_verified: false
+
+  - name: GLM-5.2
+    hf_repo: zai-org/GLM-5.2
+    developer: zai-org
+    release_date: 2026-06-16
+    params_total_b: 753.3
+    params_active_b: 40.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-5.2
+    params_active_source: https://huggingface.co/zai-org/GLM-5 - "744B parameters (40B active)"; this repo's
+      config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers,
+      hidden 6144) at the same ~753B measured total
+    commercial_use_verified: false
+
+  - name: GLM-5.1
+    hf_repo: zai-org/GLM-5.1
+    developer: zai-org
+    release_date: 2026-04-03
+    params_total_b: 753.9
+    params_active_b: 40.0
+    architecture: moe
+    context_window: 202752
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-5.1
+    params_active_source: https://huggingface.co/zai-org/GLM-5 - "744B parameters (40B active)"; this repo's
+      config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers,
+      hidden 6144) at the same ~753B measured total
+    commercial_use_verified: false
+
+  - name: GLM-4.7
+    hf_repo: zai-org/GLM-4.7
+    developer: zai-org
+    release_date: 2025-12-22
+    params_total_b: 358.3
+    params_active_b: 32.0
+    architecture: moe
+    context_window: 202752
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-4.7
+    params_active_source: https://huggingface.co/zai-org/GLM-4.5-Air-Base - "GLM-4.5 has **355** billion
+      total parameters with **32** billion active parameters"; this repo's config.json is identical to zai-org/GLM-4.5
+      (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within
+      1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.
+    commercial_use_verified: false
+
+  - name: DeepSeek-V3.2
+    hf_repo: deepseek-ai/DeepSeek-V3.2
+    developer: deepseek-ai
+    release_date: 2025-12-01
+    params_total_b: 685.4
+    params_active_b: 37.0
+    architecture: moe
+    context_window: 163840
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2
+    params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+      parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+      (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+      2% from the stated 671B'
+    commercial_use_verified: false
+
+  - name: GLM-4.6
+    hf_repo: zai-org/GLM-4.6
+    developer: zai-org
+    release_date: 2025-09-29
+    params_total_b: 356.8
+    params_active_b: 32.0
+    architecture: moe
+    context_window: 202752
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/zai-org/GLM-4.6
+    params_active_source: https://huggingface.co/zai-org/GLM-4.5-Air-Base - "GLM-4.5 has **355** billion
+      total parameters with **32** billion active parameters"; this repo's config.json is identical to zai-org/GLM-4.5
+      (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within
+      1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.
+    commercial_use_verified: false
+
+  - name: DeepSeek-V3.2-Exp
+    hf_repo: deepseek-ai/DeepSeek-V3.2-Exp
+    developer: deepseek-ai
+    release_date: 2025-09-29
+    params_total_b: 685.4
+    params_active_b: 37.0
+    architecture: moe
+    context_window: 163840
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp
+    params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+      parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+      (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+      2% from the stated 671B'
+    commercial_use_verified: false
+
+  - name: DeepSeek-V3.1-Terminus
+    hf_repo: deepseek-ai/DeepSeek-V3.1-Terminus
+    developer: deepseek-ai
+    release_date: 2025-09-22
+    params_total_b: 684.5
+    params_active_b: 37.0
+    architecture: moe
+    context_window: 163840
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Terminus
+    params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
+      parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
+      (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
+      2% from the stated 671B'
+    commercial_use_verified: false
+
+  - name: DeepSeek-V4.1-Flash
+    hf_repo: deepseek-ai/DeepSeek-V4.1-Flash
+    developer: deepseek-ai
+    release_date: 2026-09-10
+    params_total_b: 763.2
+    params_active_b: 16.0
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash
+    params_active_source: 'maintainer decision, not a published figure. https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash
+      states TWO activation figures for this one model - table "# Activated Params | 8B / 16B" and prose
+      "activate only **8B parameters per token during prefill** and **16B during decode**" - and params_active_b
+      holds one float. The maintainer chose the DECODE figure: decode dominates serving cost for a generative
+      model, and 16B is the larger number, so the table under-claims efficiency rather than over-claims
+      it. The vendor has not published a single combined figure.'
+    commercial_use_verified: false
+
+  - name: Unlimited-OCR
+    hf_repo: baidu/Unlimited-OCR
+    developer: baidu
+    release_date: 2026-06-19
+    params_total_b: 3.3
+    params_active_b: 0.5
+    architecture: moe
+    context_window: 32768
+    modality: multimodal
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/baidu/Unlimited-OCR
+    params_active_source: https://arxiv.org/abs/2606.23050 - "a Mixture-of-Experts (MoE) architecture that
+      enjoys 3B total and 500M activated parameters"; stated 3B is within 10% of this row's measured 3.3B
+    commercial_use_verified: false

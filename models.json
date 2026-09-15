@@ -1,9 +1,28 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-13",
-  "count": 57,
+  "generated": "2026-09-15",
+  "count": 66,
   "models": [
+    {
+      "name": "DeepSeek-V4.1-Flash",
+      "hf_repo": "deepseek-ai/DeepSeek-V4.1-Flash",
+      "developer": "deepseek-ai",
+      "release_date": "2026-09-10",
+      "params_total_b": 763.2,
+      "params_active_b": 16.0,
+      "params_active_source": "maintainer decision, not a published figure. https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash states TWO activation figures for this one model - table \"# Activated Params | 8B / 16B\" and prose \"activate only **8B parameters per token during prefill** and **16B during decode**\" - and params_active_b holds one float. The maintainer chose the DECODE figure: decode dominates serving cost for a generative model, and 16B is the larger number, so the table under-claims efficiency rather than over-claims it. The vendor has not published a single combined figure.",
+      "architecture": "moe",
+      "context_window": 1048576,
+      "modality": "multimodal",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
+      "arena_rank": null,
+      "aa_index": 40
+    },
     {
       "name": "GLM-5.3-Flash",
       "hf_repo": "zai-org/GLM-5.3-Flash",
@@ -39,7 +58,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-30b",
-      "arena_rank": 89,
+      "arena_rank": 88,
       "aa_index": null
     },
     {
@@ -161,6 +180,44 @@
       "aa_index": 26
     },
     {
+      "name": "Unlimited-OCR",
+      "hf_repo": "baidu/Unlimited-OCR",
+      "developer": "baidu",
+      "release_date": "2026-06-19",
+      "params_total_b": 3.3,
+      "params_active_b": 0.5,
+      "params_active_source": "https://arxiv.org/abs/2606.23050 - \"a Mixture-of-Experts (MoE) architecture that enjoys 3B total and 500M activated parameters\"; stated 3B is within 10% of this row's measured 3.3B",
+      "architecture": "moe",
+      "context_window": 32768,
+      "modality": "multimodal",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/baidu/Unlimited-OCR",
+      "arena_rank": null,
+      "aa_index": null
+    },
+    {
+      "name": "GLM-5.2",
+      "hf_repo": "zai-org/GLM-5.2",
+      "developer": "zai-org",
+      "release_date": "2026-06-16",
+      "params_total_b": 753.3,
+      "params_active_b": 40.0,
+      "params_active_source": "https://huggingface.co/zai-org/GLM-5 - \"744B parameters (40B active)\"; this repo's config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers, hidden 6144) at the same ~753B measured total",
+      "architecture": "moe",
+      "context_window": 1048576,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/zai-org/GLM-5.2",
+      "arena_rank": 4,
+      "aa_index": 34
+    },
+    {
       "name": "Kimi K3",
       "hf_repo": "moonshotai/Kimi-K3",
       "developer": "Moonshot AI",
@@ -176,7 +233,7 @@
       "license_notes": "Modified MIT; extra obligations for products above 100M users.",
       "weights_url": "https://huggingface.co/moonshotai/Kimi-K3",
       "notes": "Top open-weight model on both Agent Arena (#5) and AA Intelligence Index (57). Activates 16 of 896 experts.",
-      "arena_rank": 2,
+      "arena_rank": 1,
       "aa_index": 44
     },
     {
@@ -216,7 +273,7 @@
       "license_notes": "Community licence: non-commercial by default; commercial use has separate conditions.",
       "weights_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
       "notes": "Native multimodal, 1M context. Card: ~428B params, ~23B activated.",
-      "arena_rank": 16,
+      "arena_rank": 17,
       "aa_index": 30
     },
     {
@@ -394,6 +451,25 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.1-8b",
       "arena_rank": 111,
+      "aa_index": null
+    },
+    {
+      "name": "GLM-5.1",
+      "hf_repo": "zai-org/GLM-5.1",
+      "developer": "zai-org",
+      "release_date": "2026-04-03",
+      "params_total_b": 753.9,
+      "params_active_b": 40.0,
+      "params_active_source": "https://huggingface.co/zai-org/GLM-5 - \"744B parameters (40B active)\"; this repo's config.json is identical to GLM-5's (glm_moe_dsa, 256 routed experts, 8 per token, 1 shared, 78 layers, hidden 6144) at the same ~753B measured total",
+      "architecture": "moe",
+      "context_window": 202752,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/zai-org/GLM-5.1",
+      "arena_rank": 6,
       "aa_index": null
     },
     {
@@ -624,6 +700,25 @@
       "aa_index": null
     },
     {
+      "name": "GLM-4.7",
+      "hf_repo": "zai-org/GLM-4.7",
+      "developer": "zai-org",
+      "release_date": "2025-12-22",
+      "params_total_b": 358.3,
+      "params_active_b": 32.0,
+      "params_active_source": "https://huggingface.co/zai-org/GLM-4.5-Air-Base - \"GLM-4.5 has **355** billion total parameters with **32** billion active parameters\"; this repo's config.json is identical to zai-org/GLM-4.5 (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within 1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.",
+      "architecture": "moe",
+      "context_window": 202752,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/zai-org/GLM-4.7",
+      "arena_rank": 16,
+      "aa_index": null
+    },
+    {
       "name": "MiMo-V2-Flash",
       "hf_repo": "XiaomiMiMo/MiMo-V2-Flash",
       "developer": "XiaomiMiMo",
@@ -661,7 +756,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/allenai/Molmo2-8B",
-      "arena_rank": 95,
+      "arena_rank": 94,
       "aa_index": null
     },
     {
@@ -704,6 +799,25 @@
       "aa_index": null
     },
     {
+      "name": "DeepSeek-V3.2",
+      "hf_repo": "deepseek-ai/DeepSeek-V3.2",
+      "developer": "deepseek-ai",
+      "release_date": "2025-12-01",
+      "params_total_b": 685.4,
+      "params_active_b": 37.0,
+      "params_active_source": "https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: \"671B total parameters with 37B activated for each token\"; this repo's config.json is identical to deepseek-ai/DeepSeek-V3 (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total, 2% from the stated 671B",
+      "architecture": "moe",
+      "context_window": 163840,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
+      "arena_rank": 30,
+      "aa_index": null
+    },
+    {
       "name": "Olmo-3-32B-Think",
       "hf_repo": "allenai/Olmo-3-32B-Think",
       "developer": "allenai",
@@ -721,6 +835,63 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/allenai/Olmo-3-32B-Think",
       "arena_rank": 109,
+      "aa_index": null
+    },
+    {
+      "name": "DeepSeek-V3.2-Exp",
+      "hf_repo": "deepseek-ai/DeepSeek-V3.2-Exp",
+      "developer": "deepseek-ai",
+      "release_date": "2025-09-29",
+      "params_total_b": 685.4,
+      "params_active_b": 37.0,
+      "params_active_source": "https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: \"671B total parameters with 37B activated for each token\"; this repo's config.json is identical to deepseek-ai/DeepSeek-V3 (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total, 2% from the stated 671B",
+      "architecture": "moe",
+      "context_window": 163840,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp",
+      "arena_rank": 34,
+      "aa_index": null
+    },
+    {
+      "name": "GLM-4.6",
+      "hf_repo": "zai-org/GLM-4.6",
+      "developer": "zai-org",
+      "release_date": "2025-09-29",
+      "params_total_b": 356.8,
+      "params_active_b": 32.0,
+      "params_active_source": "https://huggingface.co/zai-org/GLM-4.5-Air-Base - \"GLM-4.5 has **355** billion total parameters with **32** billion active parameters\"; this repo's config.json is identical to zai-org/GLM-4.5 (160 routed experts, 8 per token, 1 shared, 92 layers, hidden 5120) and its measured total is within 1% of 355B. Z.ai publishes no separate activation figure for 4.6/4.7.",
+      "architecture": "moe",
+      "context_window": 202752,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/zai-org/GLM-4.6",
+      "arena_rank": 31,
+      "aa_index": null
+    },
+    {
+      "name": "DeepSeek-V3.1-Terminus",
+      "hf_repo": "deepseek-ai/DeepSeek-V3.1-Terminus",
+      "developer": "deepseek-ai",
+      "release_date": "2025-09-22",
+      "params_total_b": 684.5,
+      "params_active_b": 37.0,
+      "params_active_source": "https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: \"671B total parameters with 37B activated for each token\"; this repo's config.json is identical to deepseek-ai/DeepSeek-V3 (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total, 2% from the stated 671B",
+      "architecture": "moe",
+      "context_window": 163840,
+      "modality": "text",
+      "license": "mit",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Terminus",
+      "arena_rank": 43,
       "aa_index": null
     },
     {
@@ -806,7 +977,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking",
-      "arena_rank": 70,
+      "arena_rank": 69,
       "aa_index": null
     },
     {
@@ -827,7 +998,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/openai/gpt-oss-120b/blob/main/LICENSE — Apache-2.0 verbatim, no added use restrictions",
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/openai/gpt-oss-120b",
-      "arena_rank": 81,
+      "arena_rank": 80,
       "aa_index": 12
     },
     {
@@ -867,7 +1038,7 @@
       "license_notes": "700M-MAU gate.",
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
       "notes": "128-expert MoE.",
-      "arena_rank": 97,
+      "arena_rank": 96,
       "aa_index": 9
     },
     {
