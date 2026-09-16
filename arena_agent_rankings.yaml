@@ -261,7 +261,7 @@ arena_agent:
     Votes: 27,605
     Price $/M: $1 / $3.20
     Context: 204.8K
-  resolved_repo: zai-org/GLM-5
+  resolved_repo: zai-org/GLM-5-FP8
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1410,8 +1410,8 @@ arena_agent:
   - 1405 ±5
   - 126 157
   - 18,844
-  - $0.50 / $1.20
-  - 524.3K
+  - $0.45 / $1.20
+  - 1M
   by_header:
     Rank: '49'
     Overall Rank: '141'
@@ -1419,8 +1419,8 @@ arena_agent:
     Score: 1405 ±5
     Rank Spread: 126 157
     Votes: 18,844
-    Price $/M: $0.50 / $1.20
-    Context: 524.3K
+    Price $/M: $0.45 / $1.20
+    Context: 1M
   resolved_repo: thinkingmachines/Inkling-Small
   resolution_confidence: high
   open_weight: true
@@ -2106,7 +2106,7 @@ arena_agent:
   - 1364 ±4
   - 181 199
   - 34,030
-  - $0.55 / $2.20
+  - $0.40 / $2.20
   - 1M
   by_header:
     Rank: '73'
@@ -2115,7 +2115,7 @@ arena_agent:
     Score: 1364 ±4
     Rank Spread: 181 199
     Votes: 34,030
-    Price $/M: $0.55 / $2.20
+    Price $/M: $0.40 / $2.20
     Context: 1M
   resolved_repo: MiniMaxAI/MiniMax-M1-40k
   resolution_confidence: medium
@@ -2976,7 +2976,7 @@ arena_agent:
   - 1317 ±6
   - 233 269
   - 10,393
-  - $0.05 / $0.20
+  - $0.03 / $0.13
   - 131.1K
   by_header:
     Rank: '103'
@@ -2985,7 +2985,7 @@ arena_agent:
     Score: 1317 ±6
     Rank Spread: 233 269
     Votes: 10,393
-    Price $/M: $0.05 / $0.20
+    Price $/M: $0.03 / $0.13
     Context: 131.1K
   resolved_repo: openai/gpt-oss-20b
   resolution_confidence: high
@@ -3886,7 +3886,7 @@ arena_agent:
     Votes: 15,147
     Price $/M: $0.14 / $0.28
     Context: 128K
-  resolved_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+  resolved_repo: deepseek-ai/DeepSeek-Coder-V2-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false

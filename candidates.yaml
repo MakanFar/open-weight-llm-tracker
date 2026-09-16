@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-15'
+generated: '2026-09-16'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -812,34 +812,31 @@ models:
   - gated-repo-no-access
   - signal-too-stale
   gated_no_access: true
-- name: DeepSeek-Coder-V2-Instruct
-  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
+- name: DeepSeek-Coder-V2-Base
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Base
   developer: deepseek-ai
   release_date: 2024-06-14
   params_total_b: 235.7
-  params_active_b: 21.0
+  params_active_b: 235.7
   architecture: moe
   context_window: 163840
   modality: text
-  license: deepseek
-  commercial_use: true
-  license_notes: 'DEEPSEEK LICENSE AGREEMENT v1.0 (https://github.com/deepseek-ai/DeepSeek-Coder-V2/blob/main/LICENSE-MODEL):
-    "You may host for Third Party remote access purposes (e.g. software-as-a-service), reproduce and distribute
-    copies of the Model", subject to the Attachment A use-based restrictions, which are content limits,
-    not commercial ones. Same instrument as the allowlisted `deepseek` rows. The repo itself publishes
-    no LICENSE file and the card''s relative `LICENSE` link 404s.'
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
-  downloads: 7261
+  license: deepseek-license
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Base
+  downloads: 2610
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 134
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
+  - moe-active-params-unknown
+  - license-not-allowlisted
+  - derivative-or-base
   - signal-too-stale
-  arena_rank: 134
-  params_active_source: We release the DeepSeek-Coder-V2 with 16B and 236B parameters based on the DeepSeekMoE
-    framework, which has actived parameters of only 2.4B and 21B
 - name: Qwen2-72B-Instruct
   hf_repo: Qwen/Qwen2-72B-Instruct
   developer: Qwen

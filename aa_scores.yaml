@@ -194,6 +194,10 @@ scores:
     aa_model: Ling 3.0 Flash
     intelligence_index: 21
     variant: default
+  ling30flashfin:
+    aa_model: Ling-3.0-flash-Fin
+    intelligence_index: 23
+    variant: default
   ling30flashvl:
     aa_model: Ling-3.0-flash-VL
     intelligence_index: 25
@@ -286,6 +290,10 @@ scores:
     aa_model: Nemotron 3 Ultra
     intelligence_index: 23
     variant: default
+  northminicode:
+    aa_model: North Mini Code
+    intelligence_index: 10
+    variant: default
   quasar438b:
     aa_model: Quasar 438B (max)
     intelligence_index: 27
@@ -323,9 +331,9 @@ scores:
     intelligence_index: 40
     variant: default
   qwen38max:
-    aa_model: Qwen3.8 Max
-    intelligence_index: 40
-    variant: default
+    aa_model: Qwen3.8 Max (0902)
+    intelligence_index: 45
+    variant: 0902
   qwen3codernext:
     aa_model: Qwen3 Coder Next
     intelligence_index: 10
