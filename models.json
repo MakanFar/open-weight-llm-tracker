@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-16",
+  "generated": "2026-09-17",
   "count": 66,
   "models": [
     {
@@ -215,7 +215,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.2",
       "arena_rank": 4,
-      "aa_index": 34
+      "aa_index": null
     },
     {
       "name": "Kimi K3",
@@ -353,7 +353,7 @@
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro",
       "notes": "Card: 1.6T parameters, 49B activated.",
       "arena_rank": 10,
-      "aa_index": 31
+      "aa_index": 36
     },
     {
       "name": "DeepSeek-V4-Flash",
@@ -374,7 +374,7 @@
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash",
       "arena_rank": 22,
-      "aa_index": 35
+      "aa_index": null
     },
     {
       "name": "Qwen3.6-27B",
@@ -393,7 +393,7 @@
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.6-27B",
       "arena_rank": null,
-      "aa_index": 22
+      "aa_index": null
     },
     {
       "name": "Qwen3.6-35B-A3B",

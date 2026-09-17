@@ -18,10 +18,6 @@ scores:
     aa_model: Claude 4.5 Haiku
     intelligence_index: 18
     variant: default
-  claudefable5:
-    aa_model: Claude Fable 5 (with fallback)
-    intelligence_index: 50
-    variant: with fallback
   claudefable51:
     aa_model: Claude Fable 5.1 (max with fallback)
     intelligence_index: 53
@@ -42,17 +38,9 @@ scores:
     aa_model: DeepSeek V4.1 Flash (max)
     intelligence_index: 40
     variant: max
-  deepseekv4flash0731:
-    aa_model: DeepSeek V4 Flash 0731 (max)
-    intelligence_index: 35
-    variant: max
   deepseekv4flashvision:
     aa_model: DeepSeek V4 Flash Vision (max)
     intelligence_index: 35
-    variant: max
-  deepseekv4pro:
-    aa_model: DeepSeek V4 Pro (max)
-    intelligence_index: 31
     variant: max
   deepseekv4pro0813:
     aa_model: DeepSeek V4 Pro 0813 (max)
@@ -74,14 +62,6 @@ scores:
     aa_model: Gemini 3.5 Flash-Lite
     intelligence_index: 23
     variant: default
-  gemini36flash:
-    aa_model: Gemini 3.6 Flash
-    intelligence_index: 34
-    variant: default
-  gemini37flash:
-    aa_model: Gemini 3.7 Flash (high)
-    intelligence_index: 39
-    variant: high
   gemini38flash:
     aa_model: Gemini 3.8 Flash (high)
     intelligence_index: 41
@@ -90,10 +70,6 @@ scores:
     aa_model: Gemma 4 31B
     intelligence_index: 15
     variant: default
-  glm52:
-    aa_model: GLM-5.2 (max)
-    intelligence_index: 34
-    variant: max
   glm53:
     aa_model: GLM-5.3 (max)
     intelligence_index: 45
@@ -138,14 +114,6 @@ scores:
     aa_model: Granite 4.2 8B
     intelligence_index: 12
     variant: default
-  grok43:
-    aa_model: Grok 4.3 (Non-reasoning)
-    intelligence_index: 15
-    variant: non-reasoning
-  grok45:
-    aa_model: Grok 4.5 (high)
-    intelligence_index: 39
-    variant: high
   grok46:
     aa_model: Grok 4.6 (high)
     intelligence_index: 44
@@ -266,10 +234,6 @@ scores:
     aa_model: Muse Glimmer (high)
     intelligence_index: 18
     variant: high
-  musespark12:
-    aa_model: Muse Spark 1.2 (xhigh)
-    intelligence_index: 40
-    variant: xhigh
   musespark13:
     aa_model: Muse Spark 1.3 (max)
     intelligence_index: 48
@@ -306,10 +270,6 @@ scores:
     aa_model: Qwen3.5 397B A17B
     intelligence_index: 19
     variant: default
-  qwen3627b:
-    aa_model: Qwen3.6 27B
-    intelligence_index: 22
-    variant: default
   qwen3635ba3b:
     aa_model: Qwen3.6 35B A3B
     intelligence_index: 19
@@ -341,10 +301,6 @@ scores:
   ring261t:
     aa_model: Ring-2.6-1T
     intelligence_index: 17
-    variant: default
-  solarpro3:
-    aa_model: Solar Pro 3
-    intelligence_index: 8
     variant: default
   trinitylargethinking:
     aa_model: Trinity Large Thinking
