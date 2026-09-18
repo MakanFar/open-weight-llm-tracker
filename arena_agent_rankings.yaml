@@ -261,7 +261,7 @@ arena_agent:
     Votes: 27,605
     Price $/M: $1 / $3.20
     Context: 204.8K
-  resolved_repo: zai-org/GLM-5-FP8
+  resolved_repo: zai-org/GLM-5
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false

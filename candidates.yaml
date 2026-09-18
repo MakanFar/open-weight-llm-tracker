@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-16'
+generated: '2026-09-17'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -1403,30 +1403,6 @@ models:
   aa_index: 40
   needs_review:
   - license-not-allowlisted
-- name: DeepSeek-V4-Pro-0813
-  hf_repo: deepseek-ai/DeepSeek-V4-Pro-0813
-  developer: deepseek-ai
-  release_date: 2026-08-13
-  params_total_b: 1650.5
-  params_active_b: 49.0
-  architecture: moe
-  context_window: 1048576
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro-0813
-  downloads: 159392
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 36
-  needs_review:
-  - duplicates-tracked-row
-  params_active_source: 'https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-DSpark - the V4 series card:
-    "DeepSeek-V4-Pro with 1.6T parameters (49B activated)", table "# Total Params ... 1.6T | # Activated
-    Params ... 49B"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V4-Pro (384 routed
-    experts, 6 per token, 61 layers, hidden 7168) and 1.6T is within 4% of this row''s measured 1650.5B'
 - name: Qwen3.8-2.4T-A95B
   hf_repo: Qwen/Qwen3.8-2.4T-A95B
   developer: Qwen
