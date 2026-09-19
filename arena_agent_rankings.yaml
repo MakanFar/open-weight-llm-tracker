@@ -888,7 +888,7 @@ arena_agent:
   - 1425 ±4
   - 97 127
   - 35,061
-  - $0.43 / $1.75
+  - $0.50 / $2
   - 204.8K
   by_header:
     Rank: '31'
@@ -897,7 +897,7 @@ arena_agent:
     Score: 1425 ±4
     Rank Spread: 97 127
     Votes: 35,061
-    Price $/M: $0.43 / $1.75
+    Price $/M: $0.50 / $2
     Context: 204.8K
   resolved_repo: zai-org/GLM-4.6
   resolution_confidence: high
@@ -1131,7 +1131,7 @@ arena_agent:
     Votes: 14,607
     Price $/M: $1.23 / $4.94
     Context: N/A
-  resolved_repo: deepseek-ai/DeepSeek-V3.1
+  resolved_repo: deepseek-ai/DeepSeek-V3.1-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false

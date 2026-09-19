@@ -302,6 +302,10 @@ scores:
     aa_model: Ring-2.6-1T
     intelligence_index: 17
     variant: default
+  step5preview:
+    aa_model: Step 5 Preview
+    intelligence_index: 44
+    variant: default
   trinitylargethinking:
     aa_model: Trinity Large Thinking
     intelligence_index: 11
