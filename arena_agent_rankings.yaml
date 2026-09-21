@@ -308,7 +308,7 @@ arena_agent:
   - 1456 ±7
   - 45 77
   - 8,047
-  - $0.13 / $0.53
+  - $0.08 / $0.33
   - 262.1K
   by_header:
     Rank: '11'
@@ -317,7 +317,7 @@ arena_agent:
     Score: 1456 ±7
     Rank Spread: 45 77
     Votes: 8,047
-    Price $/M: $0.13 / $0.53
+    Price $/M: $0.08 / $0.33
     Context: 262.1K
   resolved_repo: tencent/Hy3
   resolution_confidence: high
@@ -512,7 +512,7 @@ arena_agent:
   - 70 103
   - 25,922
   - $1 / $4.05
-  - 524.3K
+  - 1M
   by_header:
     Rank: '18'
     Overall Rank: '85'
@@ -521,7 +521,7 @@ arena_agent:
     Rank Spread: 70 103
     Votes: 25,922
     Price $/M: $1 / $4.05
-    Context: 524.3K
+    Context: 1M
   resolved_repo: thinkingmachines/Inkling
   resolution_confidence: high
   open_weight: true
@@ -986,7 +986,7 @@ arena_agent:
     Votes: 11,760
     Price $/M: $0.27 / $0.41
     Context: 163.8K
-  resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp
+  resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1131,7 +1131,7 @@ arena_agent:
     Votes: 14,607
     Price $/M: $1.23 / $4.94
     Context: N/A
-  resolved_repo: deepseek-ai/DeepSeek-V3.1
+  resolved_repo: deepseek-ai/DeepSeek-V3.1-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1642,7 +1642,7 @@ arena_agent:
   - 1395 ±4
   - 143 169
   - 29,043
-  - $0.16 / $1.30
+  - $0.31 / $1.25
   - 262.1K
   by_header:
     Rank: '57'
@@ -1651,7 +1651,7 @@ arena_agent:
     Score: 1395 ±4
     Rank Spread: 143 169
     Votes: 29,043
-    Price $/M: $0.16 / $1.30
+    Price $/M: $0.31 / $1.25
     Context: 262.1K
   resolved_repo: Qwen/Qwen3.5-35B-A3B
   resolution_confidence: high
