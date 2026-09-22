@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-17'
+generated: '2026-09-21'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -137,6 +137,30 @@ models:
   - duplicates-tracked-row
   - signal-too-stale
   params_active_source: 235B in total and 22B activated
+- name: DeepSeek-V3.2-Exp-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.2-Exp-Base
+  developer: deepseek-ai
+  release_date: 2025-09-29
+  params_total_b: 685.4
+  params_active_b: 685.4
+  architecture: moe
+  context_window: 163840
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.2-Exp-Base
+  downloads: 673
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 34
+  needs_hf_repo: false
+  resolution_confidence: high
+  needs_review:
+  - moe-active-params-unknown
+  - derivative-or-base
+  - duplicates-tracked-row
 - name: DeepSeek-R1-0528
   hf_repo: deepseek-ai/DeepSeek-R1-0528
   developer: deepseek-ai
@@ -161,20 +185,20 @@ models:
   - duplicates-tracked-row
   - signal-too-stale
   params_active_source: 235B-A22B
-- name: DeepSeek-V3.1
-  hf_repo: deepseek-ai/DeepSeek-V3.1
+- name: DeepSeek-V3.1-Base
+  hf_repo: deepseek-ai/DeepSeek-V3.1-Base
   developer: deepseek-ai
-  release_date: 2025-08-21
+  release_date: 2025-08-19
   params_total_b: 684.5
-  params_active_b: 37.0
+  params_active_b: 684.5
   architecture: moe
   context_window: 163840
   modality: text
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1
-  downloads: 223192
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Base
+  downloads: 25403
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -182,11 +206,9 @@ models:
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
+  - moe-active-params-unknown
+  - derivative-or-base
   - signal-too-stale
-  params_active_source: 'https://arxiv.org/abs/2412.19437 - DeepSeek-V3 Technical Report: "671B total
-    parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
-    (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
-    2% from the stated 671B'
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
   developer: MiniMaxAI

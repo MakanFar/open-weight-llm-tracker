@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-17",
+  "generated": "2026-09-21",
   "count": 66,
   "models": [
     {
@@ -21,7 +21,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
       "arena_rank": null,
-      "aa_index": 40
+      "aa_index": 39
     },
     {
       "name": "GLM-5.3-Flash",
@@ -77,7 +77,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
       "arena_rank": 121,
-      "aa_index": 12
+      "aa_index": 11
     },
     {
       "name": "granite-4.2-3b",
@@ -136,7 +136,7 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/thinkingmachines/Inkling-Small",
       "arena_rank": 49,
-      "aa_index": 26
+      "aa_index": null
     },
     {
       "name": "Inkling",
@@ -158,7 +158,7 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/thinkingmachines/Inkling",
       "arena_rank": 18,
-      "aa_index": 26
+      "aa_index": 25
     },
     {
       "name": "Hy3",
@@ -177,7 +177,7 @@
       "weights_url": "https://huggingface.co/tencent/Hy3",
       "notes": "Card: 295B params, 21B active, 192 experts top-8. Plus 3.8B MTP layer.",
       "arena_rank": 11,
-      "aa_index": 26
+      "aa_index": 25
     },
     {
       "name": "Unlimited-OCR",
@@ -274,7 +274,7 @@
       "weights_url": "https://huggingface.co/MiniMaxAI/MiniMax-M3",
       "notes": "Native multimodal, 1M context. Card: ~428B params, ~23B activated.",
       "arena_rank": 17,
-      "aa_index": 30
+      "aa_index": 29
     },
     {
       "name": "gemma-4-12B-it",
@@ -334,7 +334,7 @@
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5",
       "arena_rank": 23,
-      "aa_index": 22
+      "aa_index": null
     },
     {
       "name": "DeepSeek-V4-Pro",
@@ -413,7 +413,7 @@
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.6-35B-A3B",
       "arena_rank": null,
-      "aa_index": 19
+      "aa_index": 18
     },
     {
       "name": "granite-4.1-30b",
@@ -490,7 +490,7 @@
       "weights_url": "https://huggingface.co/google/gemma-4-31B-it",
       "notes": "Only dense model in this batch.",
       "arena_rank": 13,
-      "aa_index": 15
+      "aa_index": null
     },
     {
       "name": "gemma-4-26B-A4B-it",
@@ -633,7 +633,7 @@
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-397B-A17B",
       "arena_rank": 15,
-      "aa_index": 19
+      "aa_index": 18
     },
     {
       "name": "GLM-5",
@@ -675,7 +675,7 @@
       "license_notes": "BLOCKED: the card's license_link points at a LICENSE file in this repo that does not exist (404). Sibling Qwen/Qwen3-Coder-480B-A35B-Instruct serves unmodified Apache-2.0, but that instrument does not name this release, and no LICENSE is published for Qwen3-Coder-Next itself.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-Coder-Next",
       "arena_rank": null,
-      "aa_index": 10
+      "aa_index": 9
     },
     {
       "name": "GLM-4.7-Flash",
@@ -1039,7 +1039,7 @@
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
       "notes": "128-expert MoE.",
       "arena_rank": 96,
-      "aa_index": 9
+      "aa_index": null
     },
     {
       "name": "Llama 4 Scout",
@@ -1059,7 +1059,7 @@
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
       "notes": "Headline 10M-token context window.",
       "arena_rank": 99,
-      "aa_index": 6
+      "aa_index": null
     },
     {
       "name": "Gemma 3 27B",

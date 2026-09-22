@@ -6,17 +6,13 @@
 # this tracker will never carry: the name->repo join is NOT done here, it
 # is done by aa_join at the point of use, against rows as they stand then.
 scores:
-  agnes25proalpha:
-    aa_model: Agnes 2.5 Pro Alpha
-    intelligence_index: 28
-    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
     variant: default
   claude45haiku:
     aa_model: Claude 4.5 Haiku
-    intelligence_index: 18
+    intelligence_index: 17
     variant: default
   claudefable51:
     aa_model: Claude Fable 5.1 (max with fallback)
@@ -32,11 +28,11 @@ scores:
     variant: max
   commanda:
     aa_model: Command A+
-    intelligence_index: 14
+    intelligence_index: 13
     variant: default
   deepseekv41flash:
     aa_model: DeepSeek V4.1 Flash (max)
-    intelligence_index: 40
+    intelligence_index: 39
     variant: max
   deepseekv4flashvision:
     aa_model: DeepSeek V4 Flash Vision (max)
@@ -60,16 +56,12 @@ scores:
     variant: default
   gemini35flashlite:
     aa_model: Gemini 3.5 Flash-Lite
-    intelligence_index: 23
+    intelligence_index: 22
     variant: default
   gemini38flash:
     aa_model: Gemini 3.8 Flash (high)
     intelligence_index: 41
     variant: high
-  gemma431b:
-    aa_model: Gemma 4 31B
-    intelligence_index: 15
-    variant: default
   glm53:
     aa_model: GLM-5.3 (max)
     intelligence_index: 45
@@ -80,11 +72,11 @@ scores:
     variant: default
   gpt55instant:
     aa_model: GPT-5.5 Instant (June 2026)
-    intelligence_index: 27
+    intelligence_index: 26
     variant: june 2026
   gpt56luna:
     aa_model: GPT-5.6 Luna (max)
-    intelligence_index: 38
+    intelligence_index: 37
     variant: max
   gpt56sol:
     aa_model: GPT-5.6 Sol (max)
@@ -112,23 +104,23 @@ scores:
     variant: default
   granite428b:
     aa_model: Granite 4.2 8B
-    intelligence_index: 12
+    intelligence_index: 11
     variant: default
   grok46:
     aa_model: Grok 4.6 (high)
     intelligence_index: 44
     variant: high
+  grok47:
+    aa_model: Grok 4.7 (xhigh)
+    intelligence_index: 46
+    variant: xhigh
   hy3:
     aa_model: Hy3
-    intelligence_index: 26
+    intelligence_index: 25
     variant: default
   inkling:
     aa_model: Inkling
-    intelligence_index: 26
-    variant: default
-  inklingsmall:
-    aa_model: Inkling Small
-    intelligence_index: 26
+    intelligence_index: 25
     variant: default
   k2horizon09b:
     aa_model: K2 Horizon 0.9B
@@ -148,7 +140,7 @@ scores:
     variant: default
   k2horizonmova36ba4b:
     aa_model: K2 Horizon MoVA 36B A4B
-    intelligence_index: 26
+    intelligence_index: 25
     variant: default
   kimik27code:
     aa_model: Kimi K2.7 Code
@@ -158,10 +150,6 @@ scores:
     aa_model: Kimi K3 (max)
     intelligence_index: 44
     variant: max
-  ling30flash:
-    aa_model: Ling 3.0 Flash
-    intelligence_index: 21
-    variant: default
   ling30flashfin:
     aa_model: Ling-3.0-flash-Fin
     intelligence_index: 23
@@ -170,29 +158,9 @@ scores:
     aa_model: Ling-3.0-flash-VL
     intelligence_index: 25
     variant: default
-  ling30tiny:
-    aa_model: Ling 3.0 Tiny
-    intelligence_index: 12
-    variant: default
-  llama4maverick:
-    aa_model: Llama 4 Maverick
-    intelligence_index: 9
-    variant: default
-  llama4scout:
-    aa_model: Llama 4 Scout
-    intelligence_index: 6
-    variant: default
   longcat20:
     aa_model: LongCat 2.0
-    intelligence_index: 20
-    variant: default
-  mercury2:
-    aa_model: Mercury 2
-    intelligence_index: 12
-    variant: default
-  mimov25:
-    aa_model: MiMo-V2.5
-    intelligence_index: 22
+    intelligence_index: 19
     variant: default
   mimov25pro:
     aa_model: MiMo-V2.5-Pro
@@ -200,11 +168,11 @@ scores:
     variant: default
   minicpm52b:
     aa_model: MiniCPM5-2B
-    intelligence_index: 13
+    intelligence_index: 12
     variant: default
   minimaxm3:
     aa_model: MiniMax-M3
-    intelligence_index: 30
+    intelligence_index: 29
     variant: default
   ministral314b:
     aa_model: Ministral 3 14B
@@ -220,11 +188,11 @@ scores:
     variant: default
   mistrallarge3:
     aa_model: Mistral Large 3
-    intelligence_index: 10
+    intelligence_index: 9
     variant: default
   mistralmedium35:
     aa_model: Mistral Medium 3.5
-    intelligence_index: 15
+    intelligence_index: 14
     variant: default
   mistralsmall4:
     aa_model: Mistral Small 4
@@ -232,7 +200,7 @@ scores:
     variant: default
   museglimmer:
     aa_model: Muse Glimmer (high)
-    intelligence_index: 18
+    intelligence_index: 17
     variant: high
   musespark13:
     aa_model: Muse Spark 1.3 (max)
@@ -240,7 +208,7 @@ scores:
     variant: max
   nemotron35lightning:
     aa_model: Nemotron 3.5 Lightning
-    intelligence_index: 14
+    intelligence_index: 13
     variant: default
   nemotron3nano:
     aa_model: Nemotron 3 Nano
@@ -248,7 +216,7 @@ scores:
     variant: default
   nemotron3super:
     aa_model: Nemotron 3 Super
-    intelligence_index: 14
+    intelligence_index: 13
     variant: default
   nemotron3ultra:
     aa_model: Nemotron 3 Ultra
@@ -268,15 +236,15 @@ scores:
     variant: default
   qwen35397ba17b:
     aa_model: Qwen3.5 397B A17B
-    intelligence_index: 19
+    intelligence_index: 18
     variant: default
   qwen3635ba3b:
     aa_model: Qwen3.6 35B A3B
-    intelligence_index: 19
+    intelligence_index: 18
     variant: default
   qwen37plus:
     aa_model: Qwen3.7 Plus
-    intelligence_index: 26
+    intelligence_index: 25
     variant: default
   qwen3824ta95b:
     aa_model: Qwen3.8 2.4T A95B
@@ -296,11 +264,15 @@ scores:
     variant: 0902
   qwen3codernext:
     aa_model: Qwen3 Coder Next
-    intelligence_index: 10
+    intelligence_index: 9
     variant: default
   ring261t:
     aa_model: Ring-2.6-1T
     intelligence_index: 17
+    variant: default
+  step5preview:
+    aa_model: Step 5 Preview
+    intelligence_index: 44
     variant: default
   trinitylargethinking:
     aa_model: Trinity Large Thinking
