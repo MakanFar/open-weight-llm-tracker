@@ -22,6 +22,10 @@ scores:
     aa_model: Claude Opus 5 (max)
     intelligence_index: 51
     variant: max
+  claudeopus55:
+    aa_model: Claude Opus 5.5 (max with fallback)
+    intelligence_index: 58
+    variant: max with fallback
   claudesonnet5:
     aa_model: Claude Sonnet 5 (max)
     intelligence_index: 38
@@ -165,6 +169,10 @@ scores:
   mimov25pro:
     aa_model: MiMo-V2.5-Pro
     intelligence_index: 26
+    variant: default
+  mimov26pro:
+    aa_model: MiMo-V2.6-Pro
+    intelligence_index: 46
     variant: default
   minicpm52b:
     aa_model: MiniCPM5-2B
