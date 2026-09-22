@@ -76,7 +76,7 @@ arena_agent:
   - 1475 ±7
   - 14 49
   - 10,038
-  - $0.07 / $0.25
+  - $0.06 / $0.20
   - 1M
   by_header:
     Rank: '3'
@@ -85,7 +85,7 @@ arena_agent:
     Score: 1475 ±7
     Rank Spread: 14 49
     Votes: 10,038
-    Price $/M: $0.07 / $0.25
+    Price $/M: $0.06 / $0.20
     Context: 1M
   resolved_repo: zai-org/GLM-5.3-Flash
   resolution_confidence: high
@@ -308,7 +308,7 @@ arena_agent:
   - 1456 ±7
   - 45 77
   - 8,047
-  - $0.08 / $0.33
+  - $0.13 / $0.53
   - 262.1K
   by_header:
     Rank: '11'
@@ -317,7 +317,7 @@ arena_agent:
     Score: 1456 ±7
     Rank Spread: 45 77
     Votes: 8,047
-    Price $/M: $0.08 / $0.33
+    Price $/M: $0.13 / $0.53
     Context: 262.1K
   resolved_repo: tencent/Hy3
   resolution_confidence: high
@@ -1711,7 +1711,7 @@ arena_agent:
     Votes: 46,116
     Price $/M: $0.10 / $0.30
     Context: 262.1K
-  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1798,7 +1798,7 @@ arena_agent:
     Votes: 10,739
     Price $/M: $0.10 / $0.30
     Context: 262.1K
-  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -2976,7 +2976,7 @@ arena_agent:
   - 1317 ±6
   - 233 269
   - 10,393
-  - $0.03 / $0.13
+  - $0.02 / $0.11
   - 131.1K
   by_header:
     Rank: '103'
@@ -2985,7 +2985,7 @@ arena_agent:
     Score: 1317 ±6
     Rank Spread: 233 269
     Votes: 10,393
-    Price $/M: $0.03 / $0.13
+    Price $/M: $0.02 / $0.11
     Context: 131.1K
   resolved_repo: openai/gpt-oss-20b
   resolution_confidence: high
