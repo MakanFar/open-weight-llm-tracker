@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-22'
+generated: '2026-09-23'
 models:
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
@@ -312,6 +312,30 @@ models:
     parameters with 37B activated for each token"; this repo''s config.json is identical to deepseek-ai/DeepSeek-V3
     (256 routed experts, 6144->7168 hidden, 8 per token, 1 shared, 61 layers) at the same measured total,
     2% from the stated 671B'
+- name: MiMo-V2-Flash-Base
+  hf_repo: XiaomiMiMo/MiMo-V2-Flash-Base
+  developer: XiaomiMiMo
+  release_date: 2025-12-16
+  params_total_b: 309.8
+  params_active_b: 15.0
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash-Base
+  downloads: 731
+  discovered_via:
+  - arena
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  arena_rank: 59
+  needs_hf_repo: false
+  resolution_confidence: high
+  params_active_source: 15B active param
+  needs_review:
+  - derivative-or-base
+  - duplicates-tracked-row
 - name: MiniMax-M2.5
   hf_repo: MiniMaxAI/MiniMax-M2.5
   developer: MiniMaxAI
@@ -361,30 +385,6 @@ models:
   needs_review:
   - signal-too-stale
   params_active_source: 480B in total and 35B activated
-- name: MiMo-V2-Flash-Base
-  hf_repo: XiaomiMiMo/MiMo-V2-Flash-Base
-  developer: XiaomiMiMo
-  release_date: 2025-12-16
-  params_total_b: 309.8
-  params_active_b: 15.0
-  architecture: moe
-  context_window: 262144
-  modality: text
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash-Base
-  downloads: 731
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 59
-  needs_hf_repo: false
-  resolution_confidence: high
-  params_active_source: 15B active param
-  needs_review:
-  - derivative-or-base
-  - duplicates-tracked-row
 - name: Qwen3-30B-A3B-Instruct-2507
   hf_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
   developer: Qwen
