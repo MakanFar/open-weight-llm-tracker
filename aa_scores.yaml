@@ -42,14 +42,6 @@ scores:
     aa_model: DeepSeek V4 Pro 0813 (max)
     intelligence_index: 36
     variant: max
-  devstral2:
-    aa_model: Devstral 2
-    intelligence_index: 9
-    variant: default
-  devstralsmall2:
-    aa_model: Devstral Small 2
-    intelligence_index: 8
-    variant: default
   gemini31propreview:
     aa_model: Gemini 3.1 Pro Preview
     intelligence_index: 30
@@ -161,6 +153,10 @@ scores:
   longcat20:
     aa_model: LongCat 2.0
     intelligence_index: 19
+    variant: default
+  mercury25:
+    aa_model: Mercury 2.5
+    intelligence_index: 12
     variant: default
   mimov25pro:
     aa_model: MiMo-V2.5-Pro
