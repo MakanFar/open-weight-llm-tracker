@@ -714,8 +714,8 @@ arena_agent:
   - 1430 ±3
   - 89 117
   - 61,088
-  - $1.15 / $8
-  - 262.1K
+  - $0.57 / $2.30
+  - 131.1K
   by_header:
     Rank: '25'
     Overall Rank: '102'
@@ -723,8 +723,8 @@ arena_agent:
     Score: 1430 ±3
     Rank Spread: 89 117
     Votes: 61,088
-    Price $/M: $1.15 / $8
-    Context: 262.1K
+    Price $/M: $0.57 / $2.30
+    Context: 131.1K
   resolved_repo: null
   resolution_confidence: null
   open_weight: false
@@ -1584,8 +1584,8 @@ arena_agent:
   - 1396 ±4
   - 141 169
   - 44,787
-  - $3 / $4.50
-  - 32.8K
+  - $0.20 / $0.60
+  - 131.1K
   by_header:
     Rank: '55'
     Overall Rank: '153'
@@ -1593,8 +1593,8 @@ arena_agent:
     Score: 1396 ±4
     Rank Spread: 141 169
     Votes: 44,787
-    Price $/M: $3 / $4.50
-    Context: 32.8K
+    Price $/M: $0.20 / $0.60
+    Context: 131.1K
   resolved_repo: deepseek-ai/DeepSeek-V3-0324
   resolution_confidence: high
   open_weight: true
@@ -2860,8 +2860,8 @@ arena_agent:
   - 1321 ±5
   - 231 260
   - 29,740
-  - $0.40 / $0.70
-  - 8.2K
+  - $0.05 / $0.10
+  - 16.4K
   by_header:
     Rank: '99'
     Overall Rank: '245'
@@ -2869,8 +2869,8 @@ arena_agent:
     Score: 1321 ±5
     Rank Spread: 231 260
     Votes: 29,740
-    Price $/M: $0.40 / $0.70
-    Context: 8.2K
+    Price $/M: $0.05 / $0.10
+    Context: 16.4K
   resolved_repo: meta-llama/Llama-4-Scout-17B-16E-Instruct
   resolution_confidence: high
   open_weight: true
@@ -3933,7 +3933,7 @@ arena_agent:
   - 1262 ±4
   - 296 307
   - 77,554
-  - $2.50 / $10
+  - $3 / $15
   - 128K
   by_header:
     Rank: '136'
@@ -3942,7 +3942,7 @@ arena_agent:
     Score: 1262 ±4
     Rank Spread: 296 307
     Votes: 77,554
-    Price $/M: $2.50 / $10
+    Price $/M: $3 / $15
     Context: 128K
   resolved_repo: null
   resolution_confidence: low

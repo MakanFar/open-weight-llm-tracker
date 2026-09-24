@@ -18,10 +18,6 @@ scores:
     aa_model: Claude Fable 5.1 (max with fallback)
     intelligence_index: 53
     variant: max with fallback
-  claudeopus5:
-    aa_model: Claude Opus 5 (max)
-    intelligence_index: 51
-    variant: max
   claudeopus55:
     aa_model: Claude Opus 5.5 (max with fallback)
     intelligence_index: 58
@@ -78,14 +74,6 @@ scores:
     aa_model: GPT-5.5 Instant (June 2026)
     intelligence_index: 26
     variant: june 2026
-  gpt56luna:
-    aa_model: GPT-5.6 Luna (max)
-    intelligence_index: 37
-    variant: max
-  gpt56sol:
-    aa_model: GPT-5.6 Sol (max)
-    intelligence_index: 47
-    variant: max
   gpt56terra:
     aa_model: GPT-5.6 Terra (max)
     intelligence_index: 42
@@ -93,6 +81,14 @@ scores:
   gpt6astra:
     aa_model: GPT-6 Astra (max)
     intelligence_index: 53
+    variant: max
+  gpt6luna:
+    aa_model: GPT-6 Luna (max)
+    intelligence_index: 37
+    variant: max
+  gpt6sol:
+    aa_model: GPT-6 Sol (max)
+    intelligence_index: 48
     variant: max
   gptoss120b:
     aa_model: gpt-oss-120b (high)
