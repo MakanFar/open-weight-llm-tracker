@@ -986,7 +986,7 @@ arena_agent:
     Votes: 11,760
     Price $/M: $0.27 / $0.41
     Context: 163.8K
-  resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp-Base
+  resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1526,7 +1526,7 @@ arena_agent:
   - 1399 ±5
   - 140 162
   - 22,529
-  - $0.09 / $1.10
+  - $0.10 / $1.10
   - 262.1K
   by_header:
     Rank: '53'
@@ -1535,7 +1535,7 @@ arena_agent:
     Score: 1399 ±5
     Rank Spread: 140 162
     Votes: 22,529
-    Price $/M: $0.09 / $1.10
+    Price $/M: $0.10 / $1.10
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-Next-80B-A3B-Instruct
   resolution_confidence: high
@@ -1845,7 +1845,7 @@ arena_agent:
   - 1382 ±5
   - 158 181
   - 23,222
-  - $0.05 / $0.19
+  - $0.10 / $0.30
   - 262.1K
   by_header:
     Rank: '64'
@@ -1854,7 +1854,7 @@ arena_agent:
     Score: 1382 ±5
     Rank Spread: 158 181
     Votes: 23,222
-    Price $/M: $0.05 / $0.19
+    Price $/M: $0.10 / $0.30
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
   resolution_confidence: high
