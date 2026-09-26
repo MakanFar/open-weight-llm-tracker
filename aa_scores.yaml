@@ -6,6 +6,10 @@
 # this tracker will never carry: the name->repo join is NOT done here, it
 # is done by aa_join at the point of use, against rows as they stand then.
 scores:
+  apodex11:
+    aa_model: Apodex 1.1
+    intelligence_index: 26
+    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
