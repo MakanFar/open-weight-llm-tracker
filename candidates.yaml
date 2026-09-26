@@ -28,8 +28,32 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-09-24'
+generated: '2026-09-26'
 models:
+- name: MiMo-V2.6-Pro-RL
+  hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
+  developer: XiaomiMiMo
+  release_date: 2026-09-21
+  params_total_b: 1024.2
+  params_active_b: 42.0
+  architecture: moe
+  context_window: 1048576
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Pro-RL
+  downloads: 74497
+  discovered_via:
+  - arena
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 42B activated param
+  arena_rank: 2
+  needs_hf_repo: true
+  resolution_confidence: medium
+  needs_review:
+  - inexact-repo-match
 - name: GLM-5.3
   hf_repo: zai-org/GLM-5.3
   developer: zai-org
@@ -50,7 +74,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 2
+  arena_rank: 3
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -81,12 +105,36 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 8
+  arena_rank: 10
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
+- name: MiMo-V2.6-Flash-RL
+  hf_repo: XiaomiMiMo/MiMo-V2.6-Flash-RL
+  developer: XiaomiMiMo
+  release_date: 2026-09-21
+  params_total_b: 310.8
+  params_active_b: 15.0
+  architecture: moe
+  context_window: 1048576
+  modality: text
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL
+  downloads: 23000
+  discovered_via:
+  - arena
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 15B activated param
+  arena_rank: 15
+  needs_hf_repo: true
+  resolution_confidence: medium
+  needs_review:
+  - inexact-repo-match
 - name: Mistral-Medium-3.5-128B
   hf_repo: mistralai/Mistral-Medium-3.5-128B
   developer: mistralai
@@ -108,7 +156,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 27
+  arena_rank: 29
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -130,7 +178,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 32
+  arena_rank: 36
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -154,7 +202,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 35
+  arena_rank: 38
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -178,7 +226,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 39
+  arena_rank: 42
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -207,7 +255,7 @@ models:
   - arena
   - org-sweep
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 42
+  arena_rank: 45
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -232,7 +280,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 47
+  arena_rank: 49
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -255,7 +303,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 52
+  arena_rank: 55
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -278,7 +326,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 55
+  arena_rank: 58
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -305,7 +353,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 59
+  arena_rank: 62
   needs_hf_repo: false
   resolution_confidence: high
   params_active_source: 15B active param
@@ -334,7 +382,7 @@ models:
   notes: Auto-discovered candidate; review before merging into models.yaml.
   needs_review:
   - license-not-allowlisted
-  arena_rank: 60
+  arena_rank: 63
   params_active_source: https://huggingface.co/MiniMaxAI/MiniMax-M2 - "230 billion total parameters with
     10 billion active parameters"; this repo's config.json is identical to M2's (256 experts, 8 per token,
     62 layers, hidden 3072, no shared expert) at the same 228.7B measured total
@@ -355,7 +403,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 61
+  arena_rank: 64
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -378,7 +426,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 64
+  arena_rank: 67
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -401,7 +449,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 65
+  arena_rank: 69
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -423,7 +471,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 68
+  arena_rank: 71
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -446,7 +494,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 73
+  arena_rank: 76
   needs_hf_repo: true
   resolution_confidence: medium
   needs_review:
@@ -470,7 +518,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 79
+  arena_rank: 82
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -493,7 +541,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 84
+  arena_rank: 86
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -520,7 +568,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 85
+  arena_rank: 89
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -543,7 +591,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 89
+  arena_rank: 91
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -567,7 +615,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 90
+  arena_rank: 93
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -589,7 +637,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 97
+  arena_rank: 99
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -612,7 +660,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 98
+  arena_rank: 100
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -641,7 +689,7 @@ models:
   aa_index: 9
   needs_review:
   - signal-too-stale
-  arena_rank: 103
+  arena_rank: 106
   params_active_source: 21B parameters with 3.6B active
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
@@ -660,7 +708,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 104
+  arena_rank: 107
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -684,7 +732,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 108
+  arena_rank: 111
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -710,7 +758,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 113
+  arena_rank: 116
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -734,7 +782,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 114
+  arena_rank: 117
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -757,7 +805,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 118
+  arena_rank: 120
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -781,7 +829,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 128
+  arena_rank: 131
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -805,7 +853,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 131
+  arena_rank: 134
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -827,7 +875,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 133
+  arena_rank: 136
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -851,7 +899,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 134
+  arena_rank: 137
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -879,7 +927,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 135
+  arena_rank: 138
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -902,7 +950,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 138
+  arena_rank: 141
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -927,7 +975,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 142
+  arena_rank: 145
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -953,7 +1001,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 143
+  arena_rank: 146
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -976,7 +1024,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 146
+  arena_rank: 149
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1000,7 +1048,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 152
+  arena_rank: 155
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1025,7 +1073,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 153
+  arena_rank: 156
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1048,7 +1096,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 155
+  arena_rank: 158
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1070,7 +1118,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 156
+  arena_rank: 159
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1098,7 +1146,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 158
+  arena_rank: 161
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1121,7 +1169,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 163
+  arena_rank: 166
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1143,7 +1191,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 166
+  arena_rank: 169
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1167,7 +1215,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 173
+  arena_rank: 175
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1189,7 +1237,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 176
+  arena_rank: 179
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1213,7 +1261,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 180
+  arena_rank: 183
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1235,7 +1283,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 185
+  arena_rank: 188
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1260,7 +1308,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 187
+  arena_rank: 190
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1283,7 +1331,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 192
+  arena_rank: 195
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1307,7 +1355,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 195
+  arena_rank: 198
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1329,7 +1377,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 196
+  arena_rank: 199
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1354,7 +1402,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 208
+  arena_rank: 211
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
@@ -1377,7 +1425,7 @@ models:
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 209
+  arena_rank: 212
   needs_hf_repo: false
   resolution_confidence: high
   needs_review:
