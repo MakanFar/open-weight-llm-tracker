@@ -6,6 +6,10 @@
 # this tracker will never carry: the name->repo join is NOT done here, it
 # is done by aa_join at the point of use, against rows as they stand then.
 scores:
+  apodex11:
+    aa_model: Apodex 1.1
+    intelligence_index: 26
+    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
@@ -26,6 +30,10 @@ scores:
     aa_model: Claude Sonnet 5 (max)
     intelligence_index: 38
     variant: max
+  claudesonnet55:
+    aa_model: Claude Sonnet 5.5 (max with fallback)
+    intelligence_index: 56
+    variant: max with fallback
   commanda:
     aa_model: Command A+
     intelligence_index: 13
@@ -161,6 +169,10 @@ scores:
   mimov25pro:
     aa_model: MiMo-V2.5-Pro
     intelligence_index: 26
+    variant: default
+  mimov26flash:
+    aa_model: MiMo-V2.6-Flash
+    intelligence_index: 38
     variant: default
   mimov26pro:
     aa_model: MiMo-V2.6-Pro
