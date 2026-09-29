@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-66-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--09--28-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--09--29-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -39,7 +39,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [diffusiongemma-26B-A4B-it](https://huggingface.co/google/diffusiongemma-26B-A4B-it) | google | 2026-06-09 | 25.8B (3.8B active) | 262K | multimodal | — | — | `apache-2.0` | Yes |
 | [MiniMax-M3](https://huggingface.co/MiniMaxAI/MiniMax-M3) | MiniMax | 2026-06-02 | 427B (23B active) | 1M | multimodal | 21 | 29 | `minimax-community` | Conditional |
 | [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes |
-| [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 7 | 26 | `mit` | Yes |
+| [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 7 | — | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 26 | — | `mit` | Yes |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 11 | 36 | `mit` | Yes |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 284B (13B active) | 1M | text | 25 | — | `mit` | Yes |
@@ -60,7 +60,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [Qwen3-Coder-Next](https://huggingface.co/Qwen/Qwen3-Coder-Next) | Qwen | 2026-01-30 | 79.7B (3B active) | 262K | text | — | 9 | `apache-2.0` | Yes |
 | [GLM-4.7-Flash](https://huggingface.co/zai-org/GLM-4.7-Flash) | zai-org | 2026-01-19 | 30B (3B active) | 202K | text | 75 | — | `mit` | Yes |
 | [GLM-4.7](https://huggingface.co/zai-org/GLM-4.7) | zai-org | 2025-12-22 | 358.3B (32B active) | 202K | text | 20 | — | `mit` | Yes? |
-| [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 62 | — | `mit` | Yes |
+| [MiMo-V2-Flash](https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash) | XiaomiMiMo | 2025-12-16 | 309.8B (15B active) | 262K | text | 65 | — | `mit` | Yes |
 | [Molmo2-8B](https://huggingface.co/allenai/Molmo2-8B) | allenai | 2025-12-14 | 8.7B | 36K | multimodal | 102 | — | `apache-2.0` | Yes |
 | [Olmo-3.1-32B-Instruct](https://huggingface.co/allenai/Olmo-3.1-32B-Instruct) | allenai | 2025-12-10 | 32.2B | 65K | text | 96 | — | `apache-2.0` | Yes |
 | [Olmo-3.1-32B-Think](https://huggingface.co/allenai/Olmo-3.1-32B-Think) | allenai | 2025-12-10 | 32.2B | 65K | text | 127 | — | `apache-2.0` | Yes |

@@ -888,7 +888,7 @@ arena_agent:
   - 1425 ±7
   - 99 137
   - 8,942
-  - $0.13 / $0.20
+  - $0.27 / $0.41
   - 163.8K
   by_header:
     Rank: '31'
@@ -897,7 +897,7 @@ arena_agent:
     Score: 1425 ±7
     Rank Spread: 99 137
     Votes: 8,942
-    Price $/M: $0.13 / $0.20
+    Price $/M: $0.27 / $0.41
     Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
@@ -1062,7 +1062,7 @@ arena_agent:
   - 1422 ±6
   - 105 143
   - 11,947
-  - $0.13 / $0.20
+  - $0.27 / $0.41
   - 163.8K
   by_header:
     Rank: '37'
@@ -1071,7 +1071,7 @@ arena_agent:
     Score: 1422 ±6
     Rank Spread: 105 143
     Votes: 11,947
-    Price $/M: $0.13 / $0.20
+    Price $/M: $0.27 / $0.41
     Context: 163.8K
   resolved_repo: deepseek-ai/DeepSeek-V3.2-Exp
   resolution_confidence: high
@@ -1178,7 +1178,7 @@ arena_agent:
   - 1417 ±10
   - 106 152
   - 3,351
-  - $0.27 / $1
+  - $0.30 / $1
   - 163.8K
   by_header:
     Rank: '41'
@@ -1187,7 +1187,7 @@ arena_agent:
     Score: 1417 ±10
     Rank Spread: 106 152
     Votes: 3,351
-    Price $/M: $0.27 / $1
+    Price $/M: $0.30 / $1
     Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
@@ -1323,7 +1323,7 @@ arena_agent:
   - 1415 ±10
   - 110 156
   - 3,600
-  - $0.27 / $1
+  - $0.30 / $1
   - 163.8K
   by_header:
     Rank: '46'
@@ -1332,7 +1332,7 @@ arena_agent:
     Score: 1415 ±10
     Rank Spread: 110 156
     Votes: 3,600
-    Price $/M: $0.27 / $1
+    Price $/M: $0.30 / $1
     Context: 163.8K
   resolved_repo: deepseek-ai/DeepSeek-V3.1-Terminus
   resolution_confidence: high
@@ -1798,7 +1798,7 @@ arena_agent:
     Votes: 48,020
     Price $/M: $0.10 / $0.30
     Context: 262.1K
-  resolved_repo: XiaomiMiMo/MiMo-V2-Flash-Base
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1885,7 +1885,7 @@ arena_agent:
     Votes: 11,118
     Price $/M: $0.10 / $0.30
     Context: 262.1K
-  resolved_repo: XiaomiMiMo/MiMo-V2-Flash-Base
+  resolved_repo: XiaomiMiMo/MiMo-V2-Flash
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -1932,7 +1932,7 @@ arena_agent:
   - 1383 ±5
   - 165 187
   - 23,179
-  - $0.10 / $0.30
+  - $0.05 / $0.19
   - 262.1K
   by_header:
     Rank: '67'
@@ -1941,7 +1941,7 @@ arena_agent:
     Score: 1383 ±5
     Rank Spread: 165 187
     Votes: 23,179
-    Price $/M: $0.10 / $0.30
+    Price $/M: $0.05 / $0.19
     Context: 262.1K
   resolved_repo: Qwen/Qwen3-30B-A3B-Instruct-2507
   resolution_confidence: high
@@ -2262,7 +2262,7 @@ arena_agent:
     Votes: 21,770
     Price $/M: $1.14 / $4.56
     Context: N/A
-  resolved_repo: deepseek-ai/DeepSeek-V3
+  resolved_repo: deepseek-ai/DeepSeek-V3-Base
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
