@@ -26,10 +26,6 @@ scores:
     aa_model: Claude Opus 5.5 (max with fallback)
     intelligence_index: 58
     variant: max with fallback
-  claudesonnet5:
-    aa_model: Claude Sonnet 5 (max)
-    intelligence_index: 38
-    variant: max
   claudesonnet55:
     aa_model: Claude Sonnet 5.5 (max with fallback)
     intelligence_index: 56
@@ -78,6 +74,10 @@ scores:
     aa_model: GPT-5.6 Terra (max)
     intelligence_index: 42
     variant: max
+  gpt61sol:
+    aa_model: GPT-6.1 Sol (max)
+    intelligence_index: 52
+    variant: max
   gpt6astra:
     aa_model: GPT-6 Astra (max)
     intelligence_index: 53
@@ -106,10 +106,6 @@ scores:
     aa_model: Granite 4.2 8B
     intelligence_index: 11
     variant: default
-  grok46:
-    aa_model: Grok 4.6 (high)
-    intelligence_index: 44
-    variant: high
   grok47:
     aa_model: Grok 4.7 (xhigh)
     intelligence_index: 46
@@ -150,6 +146,10 @@ scores:
     aa_model: Kimi K3 (max)
     intelligence_index: 44
     variant: max
+  ling30flash:
+    aa_model: Ling 3.0 Flash
+    intelligence_index: 20
+    variant: default
   ling30flashfin:
     aa_model: Ling-3.0-flash-Fin
     intelligence_index: 23
@@ -165,10 +165,6 @@ scores:
   mercury25:
     aa_model: Mercury 2.5
     intelligence_index: 12
-    variant: default
-  mimov25pro:
-    aa_model: MiMo-V2.5-Pro
-    intelligence_index: 26
     variant: default
   mimov26flash:
     aa_model: MiMo-V2.6-Flash
@@ -249,6 +245,10 @@ scores:
   qwen35397ba17b:
     aa_model: Qwen3.5 397B A17B
     intelligence_index: 18
+    variant: default
+  qwen359b:
+    aa_model: Qwen3.5 9B
+    intelligence_index: 11
     variant: default
   qwen3635ba3b:
     aa_model: Qwen3.6 35B A3B

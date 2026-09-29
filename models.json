@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-28",
+  "generated": "2026-09-29",
   "count": 66,
   "models": [
     {
@@ -313,7 +313,7 @@
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro",
       "notes": "Card: 1.02T total, 42B active. Hybrid attention.",
       "arena_rank": 7,
-      "aa_index": 26
+      "aa_index": null
     },
     {
       "name": "MiMo-V2.5",
@@ -736,7 +736,7 @@
       "license_text_published": false,
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2-Flash",
-      "arena_rank": 62,
+      "arena_rank": 65,
       "aa_index": null
     },
     {
