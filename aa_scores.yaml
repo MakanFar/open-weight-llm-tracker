@@ -58,6 +58,10 @@ scores:
     aa_model: Gemini 3.8 Flash (high)
     intelligence_index: 41
     variant: high
+  gemma431b:
+    aa_model: Gemma 4 31B
+    intelligence_index: 15
+    variant: default
   glm53:
     aa_model: GLM-5.3 (max)
     intelligence_index: 45
@@ -118,6 +122,14 @@ scores:
     aa_model: Inkling
     intelligence_index: 25
     variant: default
+  inklingsmall:
+    aa_model: Inkling Small
+    intelligence_index: 26
+    variant: default
+  jt41flash236ba21b:
+    aa_model: JT-4.1 Flash 236B A21B
+    intelligence_index: 34
+    variant: default
   k2horizon09b:
     aa_model: K2 Horizon 0.9B
     intelligence_index: 3
@@ -157,6 +169,10 @@ scores:
   ling30flashvl:
     aa_model: Ling-3.0-flash-VL
     intelligence_index: 25
+    variant: default
+  ling30tiny:
+    aa_model: Ling 3.0 Tiny
+    intelligence_index: 11
     variant: default
   longcat20:
     aa_model: LongCat 2.0
