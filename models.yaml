@@ -1149,3 +1149,18 @@ models:
     params_active_source: https://arxiv.org/abs/2606.23050 - "a Mixture-of-Experts (MoE) architecture that
       enjoys 3B total and 500M activated parameters"; stated 3B is within 10% of this row's measured 3.3B
     commercial_use_verified: false
+
+  - name: granite-4.1-3b
+    hf_repo: ibm-granite/granite-4.1-3b
+    developer: ibm-granite
+    release_date: 2026-04-06
+    params_total_b: 3.4
+    params_active_b: 3.4
+    architecture: dense
+    context_window: 131072
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/ibm-granite/granite-4.1-3b
+    commercial_use_verified: false

@@ -58,6 +58,10 @@ scores:
     aa_model: Gemini 3.8 Flash (high)
     intelligence_index: 41
     variant: high
+  gemini4argon:
+    aa_model: Gemini 4 Argon (high)
+    intelligence_index: 53
+    variant: high
   gemma431b:
     aa_model: Gemma 4 31B
     intelligence_index: 15
@@ -88,7 +92,7 @@ scores:
     variant: max
   gpt6luna:
     aa_model: GPT-6 Luna (max)
-    intelligence_index: 37
+    intelligence_index: 38
     variant: max
   gpt6sol:
     aa_model: GPT-6 Sol (max)
@@ -119,9 +123,9 @@ scores:
     intelligence_index: 25
     variant: default
   inkling:
-    aa_model: Inkling
+    aa_model: Inkling (xhigh)
     intelligence_index: 25
-    variant: default
+    variant: xhigh
   inklingsmall:
     aa_model: Inkling Small
     intelligence_index: 26
@@ -297,6 +301,10 @@ scores:
   ring261t:
     aa_model: Ring-2.6-1T
     intelligence_index: 17
+    variant: default
+  solarmini4:
+    aa_model: Solar Mini 4
+    intelligence_index: 24
     variant: default
   step5preview:
     aa_model: Step 5 Preview
