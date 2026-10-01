@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-29",
+  "generated": "2026-09-30",
   "count": 66,
   "models": [
     {
@@ -136,7 +136,7 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/thinkingmachines/Inkling-Small",
       "arena_rank": 52,
-      "aa_index": null
+      "aa_index": 26
     },
     {
       "name": "Inkling",
@@ -490,7 +490,7 @@
       "weights_url": "https://huggingface.co/google/gemma-4-31B-it",
       "notes": "Only dense model in this batch.",
       "arena_rank": 16,
-      "aa_index": null
+      "aa_index": 15
     },
     {
       "name": "gemma-4-26B-A4B-it",

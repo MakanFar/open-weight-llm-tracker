@@ -366,7 +366,7 @@ arena_agent:
   - 1457 ±7
   - 46 83
   - 9,839
-  - $0.08 / $0.33
+  - $0.13 / $0.53
   - 262.1K
   by_header:
     Rank: '13'
@@ -375,7 +375,7 @@ arena_agent:
     Score: 1457 ±7
     Rank Spread: 46 83
     Votes: 9,839
-    Price $/M: $0.08 / $0.33
+    Price $/M: $0.13 / $0.53
     Context: 262.1K
   resolved_repo: tencent/Hy3
   resolution_confidence: high
@@ -2262,7 +2262,7 @@ arena_agent:
     Votes: 21,770
     Price $/M: $1.14 / $4.56
     Context: N/A
-  resolved_repo: deepseek-ai/DeepSeek-V3-Base
+  resolved_repo: deepseek-ai/DeepSeek-V3
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
