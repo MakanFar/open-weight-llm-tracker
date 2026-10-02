@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-09-30",
-  "count": 66,
+  "generated": "2026-10-01",
+  "count": 67,
   "models": [
     {
       "name": "DeepSeek-V4.1-Flash",
@@ -20,7 +20,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
-      "arena_rank": 4,
+      "arena_rank": 6,
       "aa_index": 39
     },
     {
@@ -40,7 +40,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions",
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
-      "arena_rank": 6,
+      "arena_rank": 5,
       "aa_index": 42
     },
     {
@@ -94,7 +94,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-3b",
-      "arena_rank": 121,
+      "arena_rank": 123,
       "aa_index": 9
     },
     {
@@ -113,7 +113,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.8-27B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.8-27B",
-      "arena_rank": 23,
+      "arena_rank": 22,
       "aa_index": 34
     },
     {
@@ -214,7 +214,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.2",
-      "arena_rank": 5,
+      "arena_rank": 4,
       "aa_index": null
     },
     {
@@ -451,6 +451,24 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.1-8b",
       "arena_rank": 115,
+      "aa_index": null
+    },
+    {
+      "name": "granite-4.1-3b",
+      "hf_repo": "ibm-granite/granite-4.1-3b",
+      "developer": "ibm-granite",
+      "release_date": "2026-04-06",
+      "params_total_b": 3.4,
+      "params_active_b": 3.4,
+      "architecture": "dense",
+      "context_window": 131072,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/ibm-granite/granite-4.1-3b",
+      "arena_rank": null,
       "aa_index": null
     },
     {
@@ -814,7 +832,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
-      "arena_rank": 32,
+      "arena_rank": 33,
       "aa_index": null
     },
     {
@@ -913,7 +931,7 @@
       "license_text_published": false,
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Instruct",
-      "arena_rank": 47,
+      "arena_rank": 48,
       "aa_index": null
     },
     {
@@ -1295,7 +1313,7 @@
       "license_notes": "Gemma Terms of Use; permissive but with use restrictions.",
       "weights_url": "https://huggingface.co/google/gemma-2-27b-it",
       "notes": "",
-      "arena_rank": 122,
+      "arena_rank": 121,
       "aa_index": null
     },
     {
