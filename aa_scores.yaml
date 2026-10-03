@@ -94,10 +94,6 @@ scores:
     aa_model: GPT-6 Luna (max)
     intelligence_index: 38
     variant: max
-  gpt6sol:
-    aa_model: GPT-6 Sol (max)
-    intelligence_index: 48
-    variant: max
   gptoss120b:
     aa_model: gpt-oss-120b (high)
     intelligence_index: 12
