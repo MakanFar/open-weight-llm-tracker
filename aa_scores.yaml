@@ -10,6 +10,10 @@ scores:
     aa_model: Apodex 1.1
     intelligence_index: 26
     variant: default
+  axk2:
+    aa_model: A.X-K2
+    intelligence_index: 21
+    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
@@ -174,6 +178,10 @@ scores:
     aa_model: Ling 3.0 Tiny
     intelligence_index: 11
     variant: default
+  ling31flash:
+    aa_model: Ling 3.1 Flash
+    intelligence_index: 41
+    variant: default
   longcat20:
     aa_model: LongCat 2.0
     intelligence_index: 19
@@ -214,6 +222,10 @@ scores:
     aa_model: Mistral Large 3
     intelligence_index: 9
     variant: default
+  mistrallarge4preview:
+    aa_model: Mistral Large 4 Preview
+    intelligence_index: 38
+    variant: default
   mistralmedium35:
     aa_model: Mistral Medium 3.5
     intelligence_index: 14
@@ -237,6 +249,10 @@ scores:
   nemotron3nano:
     aa_model: Nemotron 3 Nano
     intelligence_index: 9
+    variant: default
+  nemotron3nano4b:
+    aa_model: Nemotron 3 Nano 4B
+    intelligence_index: 5
     variant: default
   nemotron3super:
     aa_model: Nemotron 3 Super
