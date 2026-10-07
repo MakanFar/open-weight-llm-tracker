@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-04'
+generated: '2026-10-07'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -111,10 +111,10 @@ models:
   needs_review:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
-- name: MiMo-V2.6-Flash-MOPD
-  hf_repo: XiaomiMiMo/MiMo-V2.6-Flash-MOPD
+- name: MiMo-V2.6-Flash-RL
+  hf_repo: XiaomiMiMo/MiMo-V2.6-Flash-RL
   developer: XiaomiMiMo
-  release_date: 2026-09-27
+  release_date: 2026-09-21
   params_total_b: 310.8
   params_active_b: 15.0
   architecture: moe
@@ -123,8 +123,8 @@ models:
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-MOPD
-  downloads: 5346
+  weights_url: https://huggingface.co/XiaomiMiMo/MiMo-V2.6-Flash-RL
+  downloads: 54604
   discovered_via:
   - arena
   - org-sweep
@@ -717,29 +717,6 @@ models:
     with 16B and 236B parameters ... which has actived parameters of only 2.4B and 21B"; this repo's config.json
     is identical (deepseek_v2, 160 routed experts, 6 per token, 2 shared, 60 layers) at the same 235.7B
     measured total
-- name: granite-4.1-8b-base
-  hf_repo: ibm-granite/granite-4.1-8b-base
-  developer: ibm-granite
-  release_date: 2026-04-06
-  params_total_b: 8.4
-  params_active_b: 8.4
-  architecture: dense
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/ibm-granite/granite-4.1-8b-base
-  downloads: 3886
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 115
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
-  - derivative-or-base
-  - duplicates-tracked-row
 - name: gemma-3-4b-it
   hf_repo: google/gemma-3-4b-it
   developer: google
@@ -1587,6 +1564,26 @@ models:
   - license-not-allowlisted
   params_active_source: Activated Parameters** | 32B
   aa_index: 26
+- name: NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
+  hf_repo: nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
+  developer: nvidia
+  release_date: 2026-06-03
+  params_total_b: 560.5
+  params_active_b: 55.0
+  architecture: moe
+  context_window: 262144
+  modality: text
+  license: openmdw-1-1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/nvidia/NVIDIA-Nemotron-3-Ultra-550B-A55B-BF16
+  downloads: 623598
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 55B active param
+  needs_review:
+  - license-not-allowlisted
 - name: gemma-4-31B
   hf_repo: google/gemma-4-31B
   developer: google
