@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-10-07",
+  "generated": "2026-10-09",
   "count": 67,
   "models": [
     {
@@ -20,7 +20,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
-      "arena_rank": 5,
+      "arena_rank": 6,
       "aa_index": 39
     },
     {
@@ -40,7 +40,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/zai-org/GLM-5.3-Flash/blob/main/LICENSE — mit verbatim, no added use restrictions",
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
-      "arena_rank": 6,
+      "arena_rank": 5,
       "aa_index": 42
     },
     {
@@ -59,7 +59,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-30b",
       "arena_rank": 92,
-      "aa_index": null
+      "aa_index": 13
     },
     {
       "name": "granite-4.2-8b",
@@ -76,7 +76,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
-      "arena_rank": 124,
+      "arena_rank": 121,
       "aa_index": 11
     },
     {
@@ -94,7 +94,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-3b",
-      "arena_rank": 121,
+      "arena_rank": 122,
       "aa_index": 9
     },
     {
@@ -176,7 +176,7 @@
       "license_notes": "Apache-2.0 per the repo tag.",
       "weights_url": "https://huggingface.co/tencent/Hy3",
       "notes": "Card: 295B params, 21B active, 192 experts top-8. Plus 3.8B MTP layer.",
-      "arena_rank": 13,
+      "arena_rank": 14,
       "aa_index": 25
     },
     {
@@ -487,7 +487,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.1",
-      "arena_rank": 8,
+      "arena_rank": 9,
       "aa_index": null
     },
     {
@@ -589,7 +589,7 @@
       "commercial_use_source": "LICENSE @ https://huggingface.co/Qwen/Qwen3.5-122B-A10B/blob/main/LICENSE — apache-2.0 verbatim, no added use restrictions",
       "license_notes": "apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/Qwen/Qwen3.5-122B-A10B",
-      "arena_rank": 43,
+      "arena_rank": 42,
       "aa_index": 16
     },
     {
@@ -813,7 +813,7 @@
       "license_text_published": false,
       "license_notes": "Repo serves no licence file. The card's licence section states 'This model is licensed under Apache 2.0', and https://allenai.org/responsible-use (fetched) contains no clause conditioning the licence grant - it governs Ai2 Tools under separate website terms. That is Tier-4 card evidence only; no Apache-2.0 instrument is published for these weights, so the row stays unverified.",
       "weights_url": "https://huggingface.co/allenai/Olmo-3.1-32B-Think",
-      "arena_rank": 127,
+      "arena_rank": 126,
       "aa_index": null
     },
     {
@@ -832,7 +832,7 @@
       "commercial_use_verified": false,
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V3.2",
-      "arena_rank": 33,
+      "arena_rank": 32,
       "aa_index": null
     },
     {
@@ -1215,7 +1215,7 @@
       "license_notes": "Qwen license (72B tier is not Apache-2.0; most smaller Qwen2.5 sizes are).",
       "weights_url": "https://huggingface.co/Qwen/Qwen2.5-72B-Instruct",
       "notes": "",
-      "arena_rank": 118,
+      "arena_rank": 117,
       "aa_index": null
     },
     {
@@ -1313,7 +1313,7 @@
       "license_notes": "Gemma Terms of Use; permissive but with use restrictions.",
       "weights_url": "https://huggingface.co/google/gemma-2-27b-it",
       "notes": "",
-      "arena_rank": 122,
+      "arena_rank": 123,
       "aa_index": null
     },
     {
