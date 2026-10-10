@@ -772,7 +772,7 @@ arena_agent:
   - 1430 ±7
   - 93 134
   - 8,378
-  - $0.45 / $2.25
+  - $0.50 / $2.50
   - 262.1K
   by_header:
     Rank: '27'
@@ -781,7 +781,7 @@ arena_agent:
     Score: 1430 ±7
     Rank Spread: 93 134
     Votes: 8,378
-    Price $/M: $0.45 / $2.25
+    Price $/M: $0.50 / $2.50
     Context: 262.1K
   resolved_repo: null
   resolution_confidence: null
@@ -917,7 +917,7 @@ arena_agent:
   - 1425 ±3
   - 109 138
   - 48,114
-  - $0.26 / $0.42
+  - $0.26 / $0.80
   - 163.8K
   by_header:
     Rank: '32'
@@ -926,7 +926,7 @@ arena_agent:
     Score: 1425 ±3
     Rank Spread: 109 138
     Votes: 48,114
-    Price $/M: $0.26 / $0.42
+    Price $/M: $0.26 / $0.80
     Context: 163.8K
   resolved_repo: deepseek-ai/DeepSeek-V3.2
   resolution_confidence: high
@@ -975,7 +975,7 @@ arena_agent:
   - 1424 ±4
   - 110 139
   - 35,828
-  - $0.43 / $1.75
+  - $0.50 / $2
   - 204.8K
   by_header:
     Rank: '34'
@@ -984,7 +984,7 @@ arena_agent:
     Score: 1424 ±4
     Rank Spread: 110 139
     Votes: 35,828
-    Price $/M: $0.43 / $1.75
+    Price $/M: $0.50 / $2
     Context: 204.8K
   resolved_repo: zai-org/GLM-4.6
   resolution_confidence: high
@@ -1004,7 +1004,7 @@ arena_agent:
   - 1423 ±4
   - 113 140
   - 42,076
-  - $0.26 / $0.42
+  - $0.26 / $0.80
   - 163.8K
   by_header:
     Rank: '35'
@@ -1013,7 +1013,7 @@ arena_agent:
     Score: 1423 ±4
     Rank Spread: 113 140
     Votes: 42,076
-    Price $/M: $0.26 / $0.42
+    Price $/M: $0.26 / $0.80
     Context: 163.8K
   resolved_repo: null
   resolution_confidence: null
@@ -1584,8 +1584,8 @@ arena_agent:
   - 1400 ±7
   - 146 177
   - 8,822
-  - $0.23 / $2.30
-  - 131.1K
+  - $0.45 / $3.50
+  - 128K
   by_header:
     Rank: '55'
     Overall Rank: '161'
@@ -1593,8 +1593,8 @@ arena_agent:
     Score: 1400 ±7
     Rank Spread: 146 177
     Votes: 8,822
-    Price $/M: $0.23 / $2.30
-    Context: 131.1K
+    Price $/M: $0.45 / $3.50
+    Context: 128K
   resolved_repo: Qwen/Qwen3-235B-A22B-Thinking-2507
   resolution_confidence: high
   open_weight: true
@@ -2059,7 +2059,7 @@ arena_agent:
     Votes: 30,658
     Price $/M: $0.13 / $0.85
     Context: 131.1K
-  resolved_repo: zai-org/GLM-4.5-Air-Base
+  resolved_repo: zai-org/GLM-4.5-Air
   resolution_confidence: high
   open_weight: true
   needs_hf_repo: false
@@ -2281,7 +2281,7 @@ arena_agent:
   - 199 229
   - 17,466
   - $0.10 / $0.30
-  - 32K
+  - 262.1K
   by_header:
     Rank: '79'
     Overall Rank: '208'
@@ -2290,7 +2290,7 @@ arena_agent:
     Rank Spread: 199 229
     Votes: 17,466
     Price $/M: $0.10 / $0.30
-    Context: 32K
+    Context: 262.1K
   resolved_repo: null
   resolution_confidence: low
   open_weight: false
@@ -2861,7 +2861,7 @@ arena_agent:
   - 235 263
   - 26,160
   - $0.12 / $0.50
-  - 131.1K
+  - 41K
   by_header:
     Rank: '99'
     Overall Rank: '248'
@@ -2870,7 +2870,7 @@ arena_agent:
     Rank Spread: 235 263
     Votes: 26,160
     Price $/M: $0.12 / $0.50
-    Context: 131.1K
+    Context: 41K
   resolved_repo: Qwen/Qwen3-30B-A3B
   resolution_confidence: high
   open_weight: true

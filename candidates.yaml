@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-09'
+generated: '2026-10-10'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -430,8 +430,8 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-- name: GLM-4.5-Air-Base
-  hf_repo: zai-org/GLM-4.5-Air-Base
+- name: GLM-4.5-Air
+  hf_repo: zai-org/GLM-4.5-Air
   developer: zai-org
   release_date: 2025-07-20
   params_total_b: 110.5
@@ -442,8 +442,8 @@ models:
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/zai-org/GLM-4.5-Air-Base
-  downloads: 6603
+  weights_url: https://huggingface.co/zai-org/GLM-4.5-Air
+  downloads: 547180
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -452,7 +452,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - derivative-or-base
   - signal-too-stale
 - name: MiniMax-M1-40k
   hf_repo: MiniMaxAI/MiniMax-M1-40k
@@ -646,28 +645,6 @@ models:
     with 16B and 236B parameters ... which has actived parameters of only 2.4B and 21B"; this repo's config.json
     is identical (deepseek_v2, 160 routed experts, 6 per token, 2 shared, 60 layers) at the same 235.7B
     measured total
-- name: gpt-oss-20b
-  hf_repo: openai/gpt-oss-20b
-  developer: openai
-  release_date: 2025-08-04
-  params_total_b: 20.9
-  params_active_b: 3.6
-  architecture: moe
-  context_window: 131072
-  modality: text
-  license: apache-2.0
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/openai/gpt-oss-20b
-  downloads: 8501701
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 9
-  needs_review:
-  - signal-too-stale
-  arena_rank: 107
-  params_active_source: 21B parameters with 3.6B active
 - name: gemma-3n-E4B-it
   hf_repo: google/gemma-3n-E4B-it
   developer: google
@@ -692,6 +669,28 @@ models:
   - gated-repo-no-access
   - signal-too-stale
   gated_no_access: true
+- name: gpt-oss-20b
+  hf_repo: openai/gpt-oss-20b
+  developer: openai
+  release_date: 2025-08-04
+  params_total_b: 20.9
+  params_active_b: 3.6
+  architecture: moe
+  context_window: 131072
+  modality: text
+  license: apache-2.0
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/openai/gpt-oss-20b
+  downloads: 8501701
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  aa_index: 9
+  needs_review:
+  - signal-too-stale
+  arena_rank: 107
+  params_active_source: 21B parameters with 3.6B active
 - name: DeepSeek-V2.5
   hf_repo: deepseek-ai/DeepSeek-V2.5
   developer: deepseek-ai
