@@ -18,14 +18,14 @@ scores:
     aa_model: Celeris-1
     intelligence_index: 6
     variant: default
-  claude45haiku:
-    aa_model: Claude 4.5 Haiku
-    intelligence_index: 17
-    variant: default
   claudefable51:
     aa_model: Claude Fable 5.1 (max with fallback)
     intelligence_index: 53
     variant: max with fallback
+  claudehaiku55:
+    aa_model: Claude Haiku 5.5 (max)
+    intelligence_index: 43
+    variant: max
   claudeopus55:
     aa_model: Claude Opus 5.5 (max with fallback)
     intelligence_index: 58
@@ -106,6 +106,10 @@ scores:
     aa_model: gpt-oss-20b (high)
     intelligence_index: 9
     variant: high
+  granite4230b:
+    aa_model: Granite 4.2 30B
+    intelligence_index: 13
+    variant: default
   granite423b:
     aa_model: Granite 4.2 3B
     intelligence_index: 9
@@ -162,10 +166,6 @@ scores:
     aa_model: Kimi K3 (max)
     intelligence_index: 44
     variant: max
-  ling30flash:
-    aa_model: Ling 3.0 Flash
-    intelligence_index: 20
-    variant: default
   ling30flashfin:
     aa_model: Ling-3.0-flash-Fin
     intelligence_index: 23
@@ -217,10 +217,6 @@ scores:
   ministral38b:
     aa_model: Ministral 3 8B
     intelligence_index: 5
-    variant: default
-  mistrallarge3:
-    aa_model: Mistral Large 3
-    intelligence_index: 9
     variant: default
   mistrallarge4preview:
     aa_model: Mistral Large 4 Preview
