@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-11'
+generated: '2026-10-12'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -209,10 +209,10 @@ models:
   - duplicates-tracked-row
   - signal-too-stale
   params_active_source: 235B-A22B
-- name: DeepSeek-V3.1-Base
-  hf_repo: deepseek-ai/DeepSeek-V3.1-Base
+- name: DeepSeek-V3.1
+  hf_repo: deepseek-ai/DeepSeek-V3.1
   developer: deepseek-ai
-  release_date: 2025-08-19
+  release_date: 2025-08-21
   params_total_b: 684.5
   params_active_b: 684.5
   architecture: moe
@@ -221,8 +221,8 @@ models:
   license: mit
   commercial_use: true
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1-Base
-  downloads: 25403
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V3.1
+  downloads: 358676
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -231,7 +231,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - derivative-or-base
   - signal-too-stale
 - name: MiniMax-M2.7
   hf_repo: MiniMaxAI/MiniMax-M2.7
@@ -858,8 +857,8 @@ models:
   - gated-repo-no-access
   - signal-too-stale
   gated_no_access: true
-- name: DeepSeek-Coder-V2-Base
-  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Base
+- name: DeepSeek-Coder-V2-Instruct
+  hf_repo: deepseek-ai/DeepSeek-Coder-V2-Instruct
   developer: deepseek-ai
   release_date: 2024-06-14
   params_total_b: 235.7
@@ -870,8 +869,8 @@ models:
   license: deepseek-license
   commercial_use: conditional
   license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Base
-  downloads: 2610
+  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-Coder-V2-Instruct
+  downloads: 7410
   discovered_via:
   - arena
   notes: Auto-discovered candidate; review before merging into models.yaml.
@@ -880,33 +879,6 @@ models:
   resolution_confidence: high
   needs_review:
   - moe-active-params-unknown
-  - license-not-allowlisted
-  - derivative-or-base
-  - signal-too-stale
-- name: Qwen2-72B-Instruct
-  hf_repo: Qwen/Qwen2-72B-Instruct
-  developer: Qwen
-  release_date: 2024-05-28
-  params_total_b: 72.7
-  params_active_b: 72.7
-  architecture: dense
-  context_window: 32768
-  modality: text
-  license: tongyi-qianwen
-  commercial_use: conditional
-  license_notes: 'Tongyi Qianwen LICENSE AGREEMENT (https://huggingface.co/Qwen/Qwen1.5-72B-Chat/blob/main/LICENSE):
-    "If you are commercially using the Materials, and your product or service has more than 100 million
-    monthly active users, You shall request a license from Us." String not in validate.LICENSES; distinct
-    instrument from the `qwen` licence (Qwen2.5 era) — allowlist decision pending.'
-  weights_url: https://huggingface.co/Qwen/Qwen2-72B-Instruct
-  downloads: 55859
-  discovered_via:
-  - arena
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  arena_rank: 138
-  needs_hf_repo: false
-  resolution_confidence: high
-  needs_review:
   - license-not-allowlisted
   - signal-too-stale
 - name: OLMo-2-0325-32B-Instruct
