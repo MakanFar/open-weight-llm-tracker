@@ -14,6 +14,10 @@ scores:
     aa_model: A.X-K2
     intelligence_index: 21
     variant: default
+  beam10:
+    aa_model: Beam 1.0
+    intelligence_index: 30
+    variant: default
   celeris1:
     aa_model: Celeris-1
     intelligence_index: 6
@@ -69,6 +73,10 @@ scores:
   gemma431b:
     aa_model: Gemma 4 31B
     intelligence_index: 15
+    variant: default
+  gemma4e4b:
+    aa_model: Gemma 4 E4B
+    intelligence_index: 9
     variant: default
   glm53:
     aa_model: GLM-5.3 (max)
@@ -182,6 +190,14 @@ scores:
     aa_model: Ling 3.1 Flash
     intelligence_index: 41
     variant: default
+  llama4maverick:
+    aa_model: Llama 4 Maverick
+    intelligence_index: 9
+    variant: default
+  llama4scout:
+    aa_model: Llama 4 Scout
+    intelligence_index: 6
+    variant: default
   longcat20:
     aa_model: LongCat 2.0
     intelligence_index: 19
@@ -238,6 +254,10 @@ scores:
     aa_model: Muse Spark 1.3 (max)
     intelligence_index: 48
     variant: max
+  musesparkopen:
+    aa_model: Muse Spark Open (xhigh)
+    intelligence_index: 39
+    variant: xhigh
   musewonder:
     aa_model: Muse Wonder (max)
     intelligence_index: 52
@@ -246,9 +266,17 @@ scores:
     aa_model: Muse Wonder Full (max)
     intelligence_index: 56
     variant: max
+  nemotron35bolt74ba9b:
+    aa_model: Nemotron 3.5 Bolt 74B-A9B
+    intelligence_index: 21
+    variant: default
   nemotron35lightning:
     aa_model: Nemotron 3.5 Lightning
     intelligence_index: 13
+    variant: default
+  nemotron35supervl:
+    aa_model: Nemotron 3.5 Super VL
+    intelligence_index: 26
     variant: default
   nemotron3nano:
     aa_model: Nemotron 3 Nano
@@ -257,10 +285,6 @@ scores:
   nemotron3nano4b:
     aa_model: Nemotron 3 Nano 4B
     intelligence_index: 5
-    variant: default
-  nemotron3super:
-    aa_model: Nemotron 3 Super
-    intelligence_index: 13
     variant: default
   nemotron3ultra:
     aa_model: Nemotron 3 Ultra
@@ -321,6 +345,10 @@ scores:
   solarmini4:
     aa_model: Solar Mini 4
     intelligence_index: 24
+    variant: default
+  solarpro4:
+    aa_model: Solar Pro 4
+    intelligence_index: 27
     variant: default
   step5preview:
     aa_model: Step 5 Preview

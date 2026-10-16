@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-10-12",
+  "generated": "2026-10-16",
   "count": 67,
   "models": [
     {
@@ -549,7 +549,7 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/google/gemma-4-E4B-it",
       "arena_rank": null,
-      "aa_index": null
+      "aa_index": 9
     },
     {
       "name": "gemma-4-E2B-it",
@@ -1057,7 +1057,7 @@
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct",
       "notes": "128-expert MoE.",
       "arena_rank": 98,
-      "aa_index": null
+      "aa_index": 9
     },
     {
       "name": "Llama 4 Scout",
@@ -1077,7 +1077,7 @@
       "weights_url": "https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct",
       "notes": "Headline 10M-token context window.",
       "arena_rank": 103,
-      "aa_index": null
+      "aa_index": 6
     },
     {
       "name": "Gemma 3 27B",
