@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-12'
+generated: '2026-10-16'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -1378,6 +1378,27 @@ models:
   resolution_confidence: high
   needs_review:
   - signal-too-stale
+- name: NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
+  hf_repo: nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
+  developer: nvidia
+  release_date: 2026-10-09
+  params_total_b: 74.9
+  params_active_b: 9.0
+  architecture: moe
+  context_window: 262144
+  modality: multimodal
+  license: openmdw-1-1
+  commercial_use: conditional
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
+  downloads: 538
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  params_active_source: 9B active
+  aa_index: 21
+  needs_review:
+  - license-not-allowlisted
 - name: DeepSeek-V4-Flash-Vision-Exp
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-Vision-Exp
   developer: deepseek-ai

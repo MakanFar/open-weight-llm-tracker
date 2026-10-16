@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-67-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--10--12-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--10--16-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -51,7 +51,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1) | zai-org | 2026-04-03 | 753.9B (40B active) | 202K | text | 9 | — | `mit` | Yes? |
 | [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 15 | 15 | `apache-2.0` | Yes |
 | [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 24 | — | `apache-2.0` | Yes |
-| [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes |
+| [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | 9 | `apache-2.0` | Yes |
 | [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes |
 | [Qwen3.5-122B-A10B](https://huggingface.co/Qwen/Qwen3.5-122B-A10B) | Qwen | 2026-02-24 | 122B (10B active) | 262K | multimodal | 42 | 16 | `apache-2.0` | Yes |
 | [Qwen3.5-35B-A3B](https://huggingface.co/Qwen/Qwen3.5-35B-A3B) | Qwen | 2026-02-24 | 35B (3B active) | 262K | multimodal | 60 | — | `apache-2.0` | Yes |
@@ -76,8 +76,8 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [Qwen3-Next-80B-A3B-Thinking](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking) | Qwen | 2025-09-09 | 80B (3B active) | 262K | text | 72 | — | `apache-2.0` | Yes |
 | [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 117B (5.1B active) | 131K | text | 83 | 12 | `apache-2.0` | Yes |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 70 | — | `apache-2.0` | Yes |
-| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 98 | — | `llama-4-community` | Conditional |
-| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 103 | — | `llama-4-community` | Conditional |
+| [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 98 | 9 | `llama-4-community` | Conditional |
+| [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 103 | 6 | `llama-4-community` | Conditional |
 | [Gemma 3 27B](https://huggingface.co/google/gemma-3-27b-it) | Google | 2025-03-12 | 27B | 128K | vision-language | 74 | — | `gemma` | Conditional |
 | [Mistral Small 3](https://huggingface.co/mistralai/Mistral-Small-24B-Instruct-2501) | Mistral AI | 2025-01-30 | 24B | 32K | text | 133 | — | `apache-2.0` | Yes |
 | [DeepSeek-R1](https://huggingface.co/deepseek-ai/DeepSeek-R1) | DeepSeek | 2025-01-20 | 671B (37B active) | 128K | text | 57 | — | `mit` | Yes |
