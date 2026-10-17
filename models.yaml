@@ -1164,3 +1164,19 @@ models:
     license_notes: AUTO-DISCOVERED — verify license terms.
     weights_url: https://huggingface.co/ibm-granite/granite-4.1-3b
     commercial_use_verified: false
+
+  - name: Laguna-XS.2
+    hf_repo: poolside/Laguna-XS.2
+    developer: poolside
+    release_date: 2026-04-23
+    params_total_b: 33.4
+    params_active_b: 3.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/poolside/Laguna-XS.2
+    params_active_source: 3B activated param
+    commercial_use_verified: false

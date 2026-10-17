@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-10-16",
-  "count": 67,
+  "generated": "2026-10-17",
+  "count": 68,
   "models": [
     {
       "name": "DeepSeek-V4.1-Flash",
@@ -334,6 +334,25 @@
       "license_notes": "MIT per the HF licence tag, accepted as governing the weights; the vendor's code repo is Apache-2.0. Permissive either way.",
       "weights_url": "https://huggingface.co/XiaomiMiMo/MiMo-V2.5",
       "arena_rank": 26,
+      "aa_index": null
+    },
+    {
+      "name": "Laguna-XS.2",
+      "hf_repo": "poolside/Laguna-XS.2",
+      "developer": "poolside",
+      "release_date": "2026-04-23",
+      "params_total_b": 33.4,
+      "params_active_b": 3.0,
+      "params_active_source": "3B activated param",
+      "architecture": "moe",
+      "context_window": 262144,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/poolside/Laguna-XS.2",
+      "arena_rank": null,
       "aa_index": null
     },
     {

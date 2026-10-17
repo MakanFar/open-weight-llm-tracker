@@ -1,12 +1,12 @@
 # Open-Weight & Open-Source LLM Tracker
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
-[![models](https://img.shields.io/badge/models-67-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--10--16-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![models](https://img.shields.io/badge/models-68-1f6feb)](models.yaml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--10--17-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
-**What it is** — a curated, machine-readable index of **67 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
+**What it is** — a curated, machine-readable index of **68 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
 
 **Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every day, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
 
@@ -41,6 +41,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [gemma-4-12B-it](https://huggingface.co/google/gemma-4-12B-it) | google | 2026-05-23 | 12B | 262K | multimodal | — | — | `apache-2.0` | Yes |
 | [MiMo-V2.5-Pro](https://huggingface.co/XiaomiMiMo/MiMo-V2.5-Pro) | Xiaomi | 2026-04-27 | 1023.2B (42B active) | 1M | text | 7 | — | `mit` | Yes |
 | [MiMo-V2.5](https://huggingface.co/XiaomiMiMo/MiMo-V2.5) | XiaomiMiMo | 2026-04-27 | 310.8B (15B active) | 1M | text | 26 | — | `mit` | Yes |
+| [Laguna-XS.2](https://huggingface.co/poolside/Laguna-XS.2) | poolside | 2026-04-23 | 33.4B (3B active) | 262K | text | — | — | `apache-2.0` | Yes? |
 | [DeepSeek-V4-Pro](https://huggingface.co/deepseek-ai/DeepSeek-V4-Pro) | DeepSeek | 2026-04-22 | 1598.8B (49B active) | 1M | text | 11 | 36 | `mit` | Yes |
 | [DeepSeek-V4-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash) | deepseek-ai | 2026-04-22 | 284B (13B active) | 1M | text | 25 | — | `mit` | Yes |
 | [Qwen3.6-27B](https://huggingface.co/Qwen/Qwen3.6-27B) | Qwen | 2026-04-21 | 27.8B | 262K | multimodal | — | — | `apache-2.0` | Yes |
