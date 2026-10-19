@@ -46,6 +46,10 @@ scores:
     aa_model: DeepSeek V4.1 Flash (max)
     intelligence_index: 39
     variant: max
+  deepseekv41flash1017:
+    aa_model: DeepSeek V4.1 Flash 1017 (max)
+    intelligence_index: 45
+    variant: max
   deepseekv4flashvision:
     aa_model: DeepSeek V4 Flash Vision (max)
     intelligence_index: 35
@@ -221,6 +225,10 @@ scores:
   minimaxm3:
     aa_model: MiniMax-M3
     intelligence_index: 29
+    variant: default
+  minimaxm31flash:
+    aa_model: MiniMax-M3.1-Flash
+    intelligence_index: 42
     variant: default
   ministral314b:
     aa_model: Ministral 3 14B
