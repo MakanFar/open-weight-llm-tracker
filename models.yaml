@@ -1180,3 +1180,19 @@ models:
     weights_url: https://huggingface.co/poolside/Laguna-XS.2
     params_active_source: 3B activated param
     commercial_use_verified: false
+
+  - name: Laguna-M.1
+    hf_repo: poolside/Laguna-M.1
+    developer: poolside
+    release_date: 2026-06-15
+    params_total_b: 225.8
+    params_active_b: 23.0
+    architecture: moe
+    context_window: 262144
+    modality: text
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/poolside/Laguna-M.1
+    params_active_source: 23B activated param
+    commercial_use_verified: false

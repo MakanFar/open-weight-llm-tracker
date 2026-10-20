@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-19'
+generated: '2026-10-20'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -1378,27 +1378,6 @@ models:
   resolution_confidence: high
   needs_review:
   - signal-too-stale
-- name: DeepSeek-V4.1-Flash-1017
-  hf_repo: deepseek-ai/DeepSeek-V4.1-Flash-1017
-  developer: deepseek-ai
-  release_date: 2026-10-17
-  params_total_b: 763.2
-  params_active_b: 763.2
-  architecture: moe
-  context_window: 1048576
-  modality: multimodal
-  license: mit
-  commercial_use: true
-  license_notes: AUTO-DISCOVERED — verify license terms.
-  weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash-1017
-  downloads: 17924
-  discovered_via:
-  - org-sweep
-  notes: Auto-discovered candidate; review before merging into models.yaml.
-  aa_index: 45
-  needs_review:
-  - moe-active-params-unknown
-  - duplicates-tracked-row
 - name: NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3.5-Bolt-74B-A9B-BF16
   developer: nvidia
@@ -1602,8 +1581,8 @@ models:
   hf_repo: google/gemma-4-31B
   developer: google
   release_date: 2026-03-12
-  params_total_b: 32.7
-  params_active_b: 32.7
+  params_total_b: 31.3
+  params_active_b: 31.3
   architecture: dense
   context_window: 262144
   modality: multimodal
