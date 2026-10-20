@@ -1,8 +1,8 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-10-19",
-  "count": 68,
+  "generated": "2026-10-20",
+  "count": 69,
   "models": [
     {
       "name": "DeepSeek-V4.1-Flash",
@@ -21,7 +21,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
       "arena_rank": 6,
-      "aa_index": 39
+      "aa_index": 45
     },
     {
       "name": "GLM-5.3-Flash",
@@ -215,6 +215,25 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.2",
       "arena_rank": 4,
+      "aa_index": null
+    },
+    {
+      "name": "Laguna-M.1",
+      "hf_repo": "poolside/Laguna-M.1",
+      "developer": "poolside",
+      "release_date": "2026-06-15",
+      "params_total_b": 225.8,
+      "params_active_b": 23.0,
+      "params_active_source": "23B activated param",
+      "architecture": "moe",
+      "context_window": 262144,
+      "modality": "text",
+      "license": "apache-2.0",
+      "commercial_use": true,
+      "commercial_use_verified": false,
+      "license_notes": "AUTO-DISCOVERED — verify license terms.",
+      "weights_url": "https://huggingface.co/poolside/Laguna-M.1",
+      "arena_rank": null,
       "aa_index": null
     },
     {
