@@ -1196,3 +1196,19 @@ models:
     weights_url: https://huggingface.co/poolside/Laguna-M.1
     params_active_source: 23B activated param
     commercial_use_verified: false
+
+  - name: MiniMax-M3.1-Flash
+    hf_repo: MiniMaxAI/MiniMax-M3.1-Flash
+    developer: MiniMaxAI
+    release_date: 2026-10-17
+    params_total_b: 220.5
+    params_active_b: 23.0
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: minimax-community
+    commercial_use: conditional
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash
+    params_active_source: 23B activated
+    commercial_use_verified: false

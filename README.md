@@ -1,12 +1,12 @@
 # Open-Weight & Open-Source LLM Tracker
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
-[![models](https://img.shields.io/badge/models-69-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--10--20-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![models](https://img.shields.io/badge/models-70-1f6feb)](models.yaml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--10--23-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
-**What it is** — a curated, machine-readable index of **69 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
+**What it is** — a curated, machine-readable index of **70 open-weight LLMs**: parameter count, context window, modality, licence, and an anchor benchmark. One row per model, newest first.
 
 **Why it's different** — a model is listed as open-weight only if a public weights repo actually resolves on Hugging Face. Never from the vendor's name, never from a leaderboard's licence label. New releases are found automatically every day, but each one arrives as a **pull request**: nothing reaches the table without a human merging it.
 
@@ -24,6 +24,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 <!-- MODELS_TABLE_START -->
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
+| [MiniMax-M3.1-Flash](https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash) | MiniMaxAI | 2026-10-17 | 220.5B (23B active) | 1M | multimodal | — | 43 | `minimax-community` | Conditional? |
 | [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash) | deepseek-ai | 2026-09-10 | 763.2B (16B active) | 1M | multimodal | 6 | 45 | `mit` | Yes? |
 | [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) | zai-org | 2026-08-25 | 321.3B (18B active) | 1M | text | 5 | 42 | `mit` | Yes |
 | [granite-4.2-30b](https://huggingface.co/ibm-granite/granite-4.2-30b) | ibm-granite | 2026-08-07 | 29.3B | 131K | text | 92 | 13 | `apache-2.0` | Yes? |
