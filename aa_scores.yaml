@@ -170,10 +170,10 @@ scores:
     aa_model: Kimi K2.7 Code
     intelligence_index: 26
     variant: default
-  kimik3:
-    aa_model: Kimi K3 (max)
-    intelligence_index: 44
-    variant: max
+  kimik31pro:
+    aa_model: Kimi K3.1 Pro
+    intelligence_index: 55
+    variant: default
   ling30flashfin:
     aa_model: Ling-3.0-flash-Fin
     intelligence_index: 23
