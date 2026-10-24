@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-10-20'
+generated: '2026-10-23'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -548,6 +548,7 @@ models:
   resolution_confidence: high
   needs_review:
   - license-not-allowlisted
+  - signal-too-stale
   params_active_source: 230 billion total parameters with 10 billion active parameters
 - name: gemma-3-12b-it
   hf_repo: google/gemma-3-12b-it

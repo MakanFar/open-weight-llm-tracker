@@ -190,6 +190,10 @@ scores:
     aa_model: Ling 3.1 Flash
     intelligence_index: 41
     variant: default
+  ling31flash1019:
+    aa_model: Ling 3.1 Flash 1019
+    intelligence_index: 44
+    variant: default
   llama4maverick:
     aa_model: Llama 4 Maverick
     intelligence_index: 9
@@ -254,10 +258,6 @@ scores:
     aa_model: Muse Glimmer (high)
     intelligence_index: 17
     variant: high
-  musespark13:
-    aa_model: Muse Spark 1.3 (max)
-    intelligence_index: 48
-    variant: max
   musesparkopen:
     aa_model: Muse Spark Open (xhigh)
     intelligence_index: 39
