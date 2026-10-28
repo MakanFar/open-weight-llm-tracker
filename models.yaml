@@ -1212,3 +1212,20 @@ models:
     weights_url: https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash
     params_active_source: 23B activated
     commercial_use_verified: false
+
+  - name: DeepSeek-V4-Flash-DSpark
+    hf_repo: deepseek-ai/DeepSeek-V4-Flash-DSpark
+    developer: deepseek-ai
+    release_date: 2026-06-27
+    params_total_b: 304.2
+    params_active_b: 13.0
+    architecture: moe
+    context_window: 1048576
+    modality: text
+    license: mit
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/deepseek-ai/DeepSeek-V4-Flash-DSpark
+    params_active_source: 284B parameters (13B activated
+    params_total_stated_b: 284.0
+    commercial_use_verified: false
