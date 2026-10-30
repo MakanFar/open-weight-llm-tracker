@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-10-28",
+  "generated": "2026-10-30",
   "count": 71,
   "models": [
     {
@@ -60,7 +60,7 @@
       "license_notes": "mit, unmodified.",
       "weights_url": "https://huggingface.co/zai-org/GLM-5.3-Flash",
       "arena_rank": 5,
-      "aa_index": null
+      "aa_index": 28
     },
     {
       "name": "granite-4.2-30b",
@@ -114,7 +114,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-3b",
       "arena_rank": 122,
-      "aa_index": null
+      "aa_index": 5
     },
     {
       "name": "Qwen3.8-27B",
