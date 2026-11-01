@@ -58,6 +58,10 @@ scores:
     aa_model: GLM-5.3 (max)
     intelligence_index: 32
     variant: max
+  glm53flash:
+    aa_model: GLM-5.3-Flash
+    intelligence_index: 28
+    variant: default
   gpt61sol:
     aa_model: GPT-6.1 Sol (max)
     intelligence_index: 55
@@ -74,6 +78,10 @@ scores:
     aa_model: GPT-6 Luna (max)
     intelligence_index: 28
     variant: max
+  granite423b:
+    aa_model: Granite 4.2 3B
+    intelligence_index: 5
+    variant: default
   grok47:
     aa_model: Grok 4.7 (high)
     intelligence_index: 35
@@ -114,9 +122,13 @@ scores:
     aa_model: MiniMax-M3.1-Flash
     intelligence_index: 29
     variant: default
-  mistrallarge4preview:
-    aa_model: Mistral Large 4 Preview
-    intelligence_index: 25
+  mistrallarge4:
+    aa_model: Mistral Large 4 (high)
+    intelligence_index: 26
+    variant: high
+  mistralsmall4:
+    aa_model: Mistral Small 4
+    intelligence_index: 4
     variant: default
   museglimmer:
     aa_model: Muse Glimmer (high)
@@ -134,6 +146,10 @@ scores:
     aa_model: Muse Wonder Full (max)
     intelligence_index: 50
     variant: max
+  nemotron35lightning:
+    aa_model: Nemotron 3.5 Lightning
+    intelligence_index: 6
+    variant: default
   nemotron35supervl:
     aa_model: Nemotron 3.5 Super VL
     intelligence_index: 14
