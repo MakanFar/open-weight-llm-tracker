@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-71-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--11--01-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--11--02-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -28,7 +28,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash) | deepseek-ai | 2026-09-10 | 763.2B (16B active) | 1M | multimodal | 6 | 32 | `mit` | Yes? |
 | [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) | zai-org | 2026-08-25 | 321.3B (18B active) | 1M | text | 5 | 28 | `mit` | Yes |
 | [granite-4.2-30b](https://huggingface.co/ibm-granite/granite-4.2-30b) | ibm-granite | 2026-08-07 | 29.3B | 131K | text | 92 | — | `apache-2.0` | Yes? |
-| [granite-4.2-8b](https://huggingface.co/ibm-granite/granite-4.2-8b) | ibm-granite | 2026-08-07 | 8.8B | 131K | text | 121 | — | `apache-2.0` | Yes? |
+| [granite-4.2-8b](https://huggingface.co/ibm-granite/granite-4.2-8b) | ibm-granite | 2026-08-07 | 8.8B | 131K | text | 121 | 5 | `apache-2.0` | Yes? |
 | [granite-4.2-3b](https://huggingface.co/ibm-granite/granite-4.2-3b) | ibm-granite | 2026-08-07 | 3.7B | 131K | text | 122 | 5 | `apache-2.0` | Yes? |
 | [Qwen3.8-27B](https://huggingface.co/Qwen/Qwen3.8-27B) | Qwen | 2026-08-05 | 27.8B | 262K | multimodal | 23 | 20 | `apache-2.0` | Yes |
 | [Inkling-Small](https://huggingface.co/thinkingmachines/Inkling-Small) | thinkingmachines | 2026-07-27 | 276B (12B active) | 1M | multimodal | 52 | 13 | `apache-2.0` | Yes |

@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-11-01",
+  "generated": "2026-11-02",
   "count": 71,
   "models": [
     {
@@ -96,7 +96,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/ibm-granite/granite-4.2-8b",
       "arena_rank": 121,
-      "aa_index": null
+      "aa_index": 5
     },
     {
       "name": "granite-4.2-3b",

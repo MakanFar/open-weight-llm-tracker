@@ -82,6 +82,10 @@ scores:
     aa_model: Granite 4.2 3B
     intelligence_index: 5
     variant: default
+  granite428b:
+    aa_model: Granite 4.2 8B
+    intelligence_index: 5
+    variant: default
   grok47:
     aa_model: Grok 4.7 (high)
     intelligence_index: 35
@@ -146,6 +150,10 @@ scores:
     aa_model: Muse Wonder Full (max)
     intelligence_index: 50
     variant: max
+  nanbeige4333b:
+    aa_model: Nanbeige4.3-33B
+    intelligence_index: 20
+    variant: default
   nemotron35lightning:
     aa_model: Nemotron 3.5 Lightning
     intelligence_index: 6
