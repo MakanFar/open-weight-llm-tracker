@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-11-02",
+  "generated": "2026-11-05",
   "count": 71,
   "models": [
     {
@@ -40,7 +40,7 @@
       "license_notes": "AUTO-DISCOVERED — verify license terms.",
       "weights_url": "https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash",
       "arena_rank": 6,
-      "aa_index": 32
+      "aa_index": 33
     },
     {
       "name": "GLM-5.3-Flash",
@@ -585,7 +585,7 @@
       "weights_url": "https://huggingface.co/google/gemma-4-31B-it",
       "notes": "Only dense model in this batch.",
       "arena_rank": 15,
-      "aa_index": null
+      "aa_index": 4
     },
     {
       "name": "gemma-4-26B-A4B-it",
