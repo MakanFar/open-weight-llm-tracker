@@ -11,28 +11,28 @@ scores:
     intelligence_index: 18
     variant: default
   claudefable51:
-    aa_model: Claude Fable 5.1 (xhigh with fallback)
+    aa_model: Claude Fable 5.1 (xhigh)
     intelligence_index: 50
-    variant: xhigh with fallback
+    variant: xhigh
   claudehaiku55:
     aa_model: Claude Haiku 5.5 (max)
     intelligence_index: 36
     variant: max
   claudeopus55:
-    aa_model: Claude Opus 5.5 (max with fallback)
-    intelligence_index: 58
-    variant: max with fallback
+    aa_model: Claude Opus 5.5 (max)
+    intelligence_index: 59
+    variant: max
   claudesonnet55:
-    aa_model: Claude Sonnet 5.5 (max with fallback)
-    intelligence_index: 54
-    variant: max with fallback
+    aa_model: Claude Sonnet 5.5 (max)
+    intelligence_index: 55
+    variant: max
   commanda:
     aa_model: Command A+
     intelligence_index: 6
     variant: default
   deepseekv41flash1017:
     aa_model: DeepSeek V4.1 Flash 1017 (max)
-    intelligence_index: 32
+    intelligence_index: 33
     variant: max
   deepseekv4pro0813:
     aa_model: DeepSeek V4 Pro 0813 (max)
@@ -52,8 +52,12 @@ scores:
     variant: high
   gemini4carbon:
     aa_model: Gemini 4 Carbon (high)
-    intelligence_index: 59
+    intelligence_index: 60
     variant: high
+  gemma431b:
+    aa_model: Gemma 4 31B
+    intelligence_index: 4
+    variant: default
   glm53:
     aa_model: GLM-5.3 (max)
     intelligence_index: 32
@@ -87,9 +91,9 @@ scores:
     intelligence_index: 5
     variant: default
   grok47:
-    aa_model: Grok 4.7 (high)
+    aa_model: Grok 4.7 (xhigh)
     intelligence_index: 35
-    variant: high
+    variant: xhigh
   inkling:
     aa_model: Inkling (xhigh)
     intelligence_index: 12
@@ -108,7 +112,7 @@ scores:
     variant: default
   ling31flash1019:
     aa_model: Ling 3.1 Flash 1019
-    intelligence_index: 29
+    intelligence_index: 30
     variant: default
   mimov26flash:
     aa_model: MiMo-V2.6-Flash
@@ -130,6 +134,10 @@ scores:
     aa_model: Mistral Large 4 (high)
     intelligence_index: 26
     variant: high
+  mistralmedium35:
+    aa_model: Mistral Medium 3.5
+    intelligence_index: 5
+    variant: default
   mistralsmall4:
     aa_model: Mistral Small 4
     intelligence_index: 4
@@ -144,7 +152,7 @@ scores:
     variant: xhigh
   musewonder:
     aa_model: Muse Wonder (max)
-    intelligence_index: 43
+    intelligence_index: 44
     variant: max
   musewonderfull:
     aa_model: Muse Wonder Full (max)
@@ -181,5 +189,9 @@ scores:
   step5preview:
     aa_model: Step 5 Preview
     intelligence_index: 29
+    variant: default
+  tencenthy4:
+    aa_model: Tencent Hy4
+    intelligence_index: 35
     variant: default
 source: https://artificialanalysis.ai/leaderboards/models?weights=open

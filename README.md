@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-71-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--11--02-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--11--05-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -25,7 +25,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | Model | Developer | Released | Params | Context | Modality | Arena | AA Index | License | Commercial |
 |---|---|---|---|---|---|---|---|---|---|
 | [MiniMax-M3.1-Flash](https://huggingface.co/MiniMaxAI/MiniMax-M3.1-Flash) | MiniMaxAI | 2026-10-17 | 220.5B (23B active) | 1M | multimodal | — | 29 | `minimax-community` | Conditional? |
-| [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash) | deepseek-ai | 2026-09-10 | 763.2B (16B active) | 1M | multimodal | 6 | 32 | `mit` | Yes? |
+| [DeepSeek-V4.1-Flash](https://huggingface.co/deepseek-ai/DeepSeek-V4.1-Flash) | deepseek-ai | 2026-09-10 | 763.2B (16B active) | 1M | multimodal | 6 | 33 | `mit` | Yes? |
 | [GLM-5.3-Flash](https://huggingface.co/zai-org/GLM-5.3-Flash) | zai-org | 2026-08-25 | 321.3B (18B active) | 1M | text | 5 | 28 | `mit` | Yes |
 | [granite-4.2-30b](https://huggingface.co/ibm-granite/granite-4.2-30b) | ibm-granite | 2026-08-07 | 29.3B | 131K | text | 92 | — | `apache-2.0` | Yes? |
 | [granite-4.2-8b](https://huggingface.co/ibm-granite/granite-4.2-8b) | ibm-granite | 2026-08-07 | 8.8B | 131K | text | 121 | 5 | `apache-2.0` | Yes? |
@@ -53,7 +53,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [granite-4.1-8b](https://huggingface.co/ibm-granite/granite-4.1-8b) | ibm-granite | 2026-04-06 | 8.8B | 131K | text | 115 | — | `apache-2.0` | Yes |
 | [granite-4.1-3b](https://huggingface.co/ibm-granite/granite-4.1-3b) | ibm-granite | 2026-04-06 | 3.4B | 131K | text | — | — | `apache-2.0` | Yes? |
 | [GLM-5.1](https://huggingface.co/zai-org/GLM-5.1) | zai-org | 2026-04-03 | 753.9B (40B active) | 202K | text | 9 | — | `mit` | Yes? |
-| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 15 | — | `apache-2.0` | Yes |
+| [Gemma 4 31B](https://huggingface.co/google/gemma-4-31B-it) | Google | 2026-03-11 | 31.3B | 262K | text | 15 | 4 | `apache-2.0` | Yes |
 | [gemma-4-26B-A4B-it](https://huggingface.co/google/gemma-4-26B-A4B-it) | google | 2026-03-11 | 25.8B (3.8B active) | 262K | multimodal | 24 | — | `apache-2.0` | Yes |
 | [gemma-4-E4B-it](https://huggingface.co/google/gemma-4-E4B-it) | google | 2026-03-02 | 8B | 131K | multimodal | — | — | `apache-2.0` | Yes |
 | [gemma-4-E2B-it](https://huggingface.co/google/gemma-4-E2B-it) | google | 2026-03-02 | 5.1B | 131K | multimodal | — | — | `apache-2.0` | Yes |
