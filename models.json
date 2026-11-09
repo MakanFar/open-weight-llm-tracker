@@ -1,7 +1,7 @@
 {
   "source": "https://github.com/MakanFar/open-weight-llm-tracker",
   "license": "CC-BY-4.0",
-  "generated": "2026-11-05",
+  "generated": "2026-11-09",
   "count": 71,
   "models": [
     {
@@ -1094,7 +1094,7 @@
       "license_notes": "Apache-2.0, unmodified.",
       "weights_url": "https://huggingface.co/openai/gpt-oss-120b",
       "arena_rank": 83,
-      "aa_index": null
+      "aa_index": 4
     },
     {
       "name": "Qwen3 235B-A22B",

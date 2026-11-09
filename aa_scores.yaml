@@ -6,14 +6,18 @@
 # this tracker will never carry: the name->repo join is NOT done here, it
 # is done by aa_join at the point of use, against rows as they stand then.
 scores:
+  agnes25protheta:
+    aa_model: Agnes 2.5 Pro Theta
+    intelligence_index: 24
+    variant: default
   beam10:
     aa_model: Beam 1.0
     intelligence_index: 18
     variant: default
-  claudefable51:
-    aa_model: Claude Fable 5.1 (xhigh)
-    intelligence_index: 50
-    variant: xhigh
+  claudefable52:
+    aa_model: Claude Fable 5.2 (max)
+    intelligence_index: 65
+    variant: max
   claudehaiku55:
     aa_model: Claude Haiku 5.5 (max)
     intelligence_index: 36
@@ -82,6 +86,10 @@ scores:
     aa_model: GPT-6 Luna (max)
     intelligence_index: 28
     variant: max
+  gptoss120b:
+    aa_model: gpt-oss-120b (high)
+    intelligence_index: 4
+    variant: high
   granite423b:
     aa_model: Granite 4.2 3B
     intelligence_index: 5
@@ -98,6 +106,10 @@ scores:
     aa_model: Inkling (xhigh)
     intelligence_index: 12
     variant: xhigh
+  inkling2small:
+    aa_model: Inkling 2 Small
+    intelligence_index: 31
+    variant: default
   inklingsmall:
     aa_model: Inkling Small
     intelligence_index: 13
@@ -105,6 +117,10 @@ scores:
   k2horizon375ba23b:
     aa_model: K2 Horizon 375B A23B
     intelligence_index: 18
+    variant: default
+  kexaone20:
+    aa_model: K-EXAONE 2.0
+    intelligence_index: 8
     variant: default
   kimik31pro:
     aa_model: Kimi K3.1 Pro
@@ -142,6 +158,10 @@ scores:
     aa_model: Mistral Small 4
     intelligence_index: 4
     variant: default
+  museember:
+    aa_model: Muse Ember (max)
+    intelligence_index: 36
+    variant: max
   museglimmer:
     aa_model: Muse Glimmer (high)
     intelligence_index: 6
@@ -177,6 +197,10 @@ scores:
   nemotron3ultra:
     aa_model: Nemotron 3 Ultra
     intelligence_index: 12
+    variant: default
+  northminicode:
+    aa_model: North Mini Code
+    intelligence_index: 3
     variant: default
   qwen3827b:
     aa_model: Qwen3.8 27B (xhigh)

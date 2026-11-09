@@ -2,7 +2,7 @@
 
 [![validate](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml/badge.svg)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/validate.yml)
 [![models](https://img.shields.io/badge/models-71-1f6feb)](models.yaml)
-[![index updated](https://img.shields.io/badge/index%20updated-2026--11--05-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
+[![index updated](https://img.shields.io/badge/index%20updated-2026--11--09-1f6feb)](https://github.com/MakanFar/open-weight-llm-tracker/actions/workflows/discover.yml)
 [![code: MIT](https://img.shields.io/badge/code-MIT-3fb950)](LICENSE)
 [![data: CC BY 4.0](https://img.shields.io/badge/data-CC--BY--4.0-3fb950)](LICENSE-DATA)
 
@@ -78,7 +78,7 @@ curl -sL https://raw.githubusercontent.com/MakanFar/open-weight-llm-tracker/main
 | [Qwen3-VL-235B-A22B-Thinking](https://huggingface.co/Qwen/Qwen3-VL-235B-A22B-Thinking) | Qwen | 2025-09-22 | 235B (22B active) | 262K | multimodal | 59 | — | `apache-2.0` | Yes |
 | [Qwen3-Next-80B-A3B-Instruct](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Instruct) | Qwen | 2025-09-09 | 80B (3B active) | 262K | text | 56 | — | `apache-2.0` | Yes |
 | [Qwen3-Next-80B-A3B-Thinking](https://huggingface.co/Qwen/Qwen3-Next-80B-A3B-Thinking) | Qwen | 2025-09-09 | 80B (3B active) | 262K | text | 72 | — | `apache-2.0` | Yes |
-| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 117B (5.1B active) | 131K | text | 83 | — | `apache-2.0` | Yes |
+| [gpt-oss-120b](https://huggingface.co/openai/gpt-oss-120b) | openai | 2025-08-04 | 117B (5.1B active) | 131K | text | 83 | 4 | `apache-2.0` | Yes |
 | [Qwen3 235B-A22B](https://huggingface.co/Qwen/Qwen3-235B-A22B) | Alibaba | 2025-04-28 | 235B (22B active) | 131K | text | 70 | — | `apache-2.0` | Yes |
 | [Llama 4 Maverick](https://huggingface.co/meta-llama/Llama-4-Maverick-17B-128E-Instruct) | Meta | 2025-04-05 | 400B (17B active) | 1M | multimodal | 98 | — | `llama-4-community` | Conditional |
 | [Llama 4 Scout](https://huggingface.co/meta-llama/Llama-4-Scout-17B-16E-Instruct) | Meta | 2025-04-05 | 109B (17B active) | 10M | multimodal | 103 | — | `llama-4-community` | Conditional |
