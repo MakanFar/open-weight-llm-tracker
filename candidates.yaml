@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-11-09'
+generated: '2026-11-11'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -1400,6 +1400,25 @@ models:
   aa_index: 46
   needs_review:
   - license-not-allowlisted
+- name: Unlimited-OCR-2
+  hf_repo: baidu/Unlimited-OCR-2
+  developer: baidu
+  release_date: 2026-10-26
+  params_total_b: 3.3
+  params_active_b: 3.3
+  architecture: moe
+  context_window: 131072
+  modality: multimodal
+  license: mit
+  commercial_use: true
+  license_notes: AUTO-DISCOVERED — verify license terms.
+  weights_url: https://huggingface.co/baidu/Unlimited-OCR-2
+  downloads: 503648
+  discovered_via:
+  - org-sweep
+  notes: Auto-discovered candidate; review before merging into models.yaml.
+  needs_review:
+  - moe-active-params-unknown
 - name: DeepSeek-V4-Flash-Vision-Exp
   hf_repo: deepseek-ai/DeepSeek-V4-Flash-Vision-Exp
   developer: deepseek-ai
