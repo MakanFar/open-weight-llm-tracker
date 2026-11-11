@@ -10,6 +10,10 @@ scores:
     aa_model: Agnes 2.5 Pro Theta
     intelligence_index: 24
     variant: default
+  apodex11:
+    aa_model: Apodex 1.1
+    intelligence_index: 14
+    variant: default
   beam10:
     aa_model: Beam 1.0
     intelligence_index: 18
@@ -210,6 +214,10 @@ scores:
     aa_model: Qwen3.8 Max (0902)
     intelligence_index: 34
     variant: 0902
+  solarpro4:
+    aa_model: Solar Pro 4
+    intelligence_index: 14
+    variant: default
   step5preview:
     aa_model: Step 5 Preview
     intelligence_index: 29
