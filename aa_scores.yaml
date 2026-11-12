@@ -62,6 +62,10 @@ scores:
     aa_model: Gemini 4 Carbon (high)
     intelligence_index: 60
     variant: high
+  gemini4hydrogen:
+    aa_model: Gemini 4 Hydrogen (xhigh)
+    intelligence_index: 54
+    variant: xhigh
   gemma431b:
     aa_model: Gemma 4 31B
     intelligence_index: 4
@@ -117,6 +121,10 @@ scores:
   inklingsmall:
     aa_model: Inkling Small
     intelligence_index: 13
+    variant: default
+  jt41flash236ba21b:
+    aa_model: JT-4.1 Flash 236B A21B
+    intelligence_index: 19
     variant: default
   k2horizon375ba23b:
     aa_model: K2 Horizon 375B A23B
@@ -210,6 +218,10 @@ scores:
     aa_model: Qwen3.8 27B (xhigh)
     intelligence_index: 20
     variant: xhigh
+  qwen38flashnext:
+    aa_model: Qwen3.8-Flash-Next
+    intelligence_index: 29
+    variant: default
   qwen38max:
     aa_model: Qwen3.8 Max (0902)
     intelligence_index: 34
