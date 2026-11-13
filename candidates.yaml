@@ -28,7 +28,7 @@
 # signal-too-weak means nothing about the row reaches the promotion bar.
 # signal-too-stale means it does, but the release is old enough that a
 # human should confirm it is still worth carrying.
-generated: '2026-11-11'
+generated: '2026-11-12'
 models:
 - name: MiMo-V2.6-Pro-RL
   hf_repo: XiaomiMiMo/MiMo-V2.6-Pro-RL
@@ -1461,6 +1461,7 @@ models:
   params_active_source: 6B activated
   needs_review:
   - license-not-allowlisted
+  aa_index: 29
 - name: NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16
   hf_repo: nvidia/NVIDIA-Nemotron-3.5-Lightning-30B-A3B-BF16
   developer: nvidia
