@@ -1229,3 +1229,20 @@ models:
     params_active_source: 284B parameters (13B activated
     params_total_stated_b: 284.0
     commercial_use_verified: false
+
+  - name: Inkling-2-Small
+    hf_repo: thinkingmachines/Inkling-2-Small
+    developer: thinkingmachines
+    release_date: 2026-11-04
+    params_total_b: 594.1
+    params_active_b: 17.0
+    architecture: moe
+    context_window: 1048576
+    modality: multimodal
+    license: apache-2.0
+    commercial_use: true
+    license_notes: AUTO-DISCOVERED — verify license terms.
+    weights_url: https://huggingface.co/thinkingmachines/Inkling-2-Small
+    params_active_source: 594B total, 17B active
+    params_total_stated_b: 594.0
+    commercial_use_verified: false
